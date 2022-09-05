@@ -8,9 +8,97 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   </head>
 
   <body>
-    <%= yield %>
+    <div class="wrapper">
+      <nav id="sidebar" class="sidebar js-sidebar">
+        <div class="sidebar-content js-simplebar">
+          <a class="sidebar-brand" href="index.html">
+            <span class="sidebar-brand-text align-middle">
+              MPelicans
+            </span>
+          </a>
+
+          <div class="sidebar-user">
+            <div class="d-flex justify-content-center">
+              <div class="flex-shrink-0">
+                <%= image_tag "avatars/avatar.jpg", class: "avatar img-fluid rounded me-1", alt: "Christina Mason" %>
+              </div>
+              <div class="flex-grow-1 ps-2">
+                <a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                  Charles Hall
+                </a>
+                <div class="dropdown-menu dropdown-menu-start">
+                  <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Log out</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ul class="sidebar-nav">
+            <li class="sidebar-header">
+              Pages
+            </li>
+
+            <li class="sidebar-item active">
+              <a data-bs-target="#pages" data-bs-toggle="collapse" class="sidebar-link">
+                <i class="align-middle" data-feather="layout"></i> <span class="align-middle">Pages</span>
+              </a>
+              <ul id="pages" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+                <li class="sidebar-item active"><a class="sidebar-link" href="pages-blank.html">Blank Page</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="main">
+        <nav class="navbar navbar-expand navbar-light navbar-bg">
+          <a class="sidebar-toggle js-sidebar-toggle">
+            <i class="hamburger align-self-center"></i>
+          </a>
+        </nav>
+
+        <main class="content">
+        	<div class="container-fluid p-0">
+            <%= yield %>
+          </div>
+        </main>
+
+        <footer class="footer">
+          <div class="container-fluid">
+            <div class="row text-muted">
+              <div class="col-6 text-start">
+                <p class="mb-0">
+                  VLZ DevOps &copy; 2022
+                </p>
+              </div>
+              <div class="col-6 text-end">
+                <ul class="list-inline">
+                  <li class="list-inline-item">
+                    <a class="text-muted" href="#">Support</a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a class="text-muted" href="#">Help Center</a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a class="text-muted" href="#">Privacy</a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a class="text-muted" href="#">Terms</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
   </body>
 </html>
