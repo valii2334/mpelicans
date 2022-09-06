@@ -1,0 +1,15 @@
+<h1 class="h3 mb-3">My Journeys</h1>
+
+<div class="row">
+	<div class="col-12">
+		<div class="card">
+			<div class="card-body">
+				<% if @journeys.empty? %>
+					You have no journeys yet.
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%= link_to "Start a new journey", new_journey_path, class: 'btn btn-primary' %>

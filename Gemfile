@@ -21,7 +21,13 @@ gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[ mingw mswin x64_mingw jruby ]
 
 group :development, :test do
+  gem 'database_cleaner',  '~> 1.7.0'
+  gem 'factory_bot_rails', '~> 5.1.1'
+  gem 'ffaker',            '~> 2.15.0'
   gem 'pry'
+  gem 'rspec-rails',       '~> 5.0.0'
+  gem 'shoulda-matchers',  '~> 4.1'
+  gem 'simplecov'
 end
 
 group :development do
