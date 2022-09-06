@@ -26,35 +26,41 @@
           <div class="sidebar-user">
             <div class="d-flex justify-content-center">
               <div class="flex-shrink-0">
-                <%= image_tag "avatars/avatar.jpg", class: "avatar img-fluid rounded me-1", alt: "Christina Mason" %>
+                <%= image_tag "avatars/avatar.png", class: "avatar img-fluid rounded me-1", alt: "Christina Mason" %>
               </div>
-              <div class="flex-grow-1 ps-2">
-                <a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                  Charles Hall
-                </a>
-                <div class="dropdown-menu dropdown-menu-start">
-                  <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Log out</a>
+              <% if current_user %>
+                <div class="flex-grow-1 ps-2">
+                  <a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                    <%= current_user.email.truncate(20) %>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-start">
+                    <% if false %>
+                      <%= link_to "Profile", edit_user_password_path, class: 'dropdown-item' %>
+                      <div class="dropdown-divider"></div>
+                    <% end %>
+                    <%= link_to "Log out", destroy_user_session_path, class: 'dropdown-item' %>
+                  </div>
                 </div>
-              </div>
+              <% end %>
             </div>
           </div>
 
-          <ul class="sidebar-nav">
-            <li class="sidebar-header">
-              Pages
-            </li>
+          <% if current_user %>
+            <ul class="sidebar-nav">
+              <li class="sidebar-header">
+                Pages
+              </li>
 
-            <li class="sidebar-item active">
-              <a data-bs-target="#pages" data-bs-toggle="collapse" class="sidebar-link">
-                <i class="align-middle" data-feather="layout"></i> <span class="align-middle">Pages</span>
-              </a>
-              <ul id="pages" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
-                <li class="sidebar-item active"><a class="sidebar-link" href="pages-blank.html">Blank Page</a></li>
-              </ul>
-            </li>
-          </ul>
+              <li class="sidebar-item active">
+                <a data-bs-target="#pages" data-bs-toggle="collapse" class="sidebar-link">
+                  <i class="align-middle" data-feather="layout"></i> <span class="align-middle">My Trips</span>
+                </a>
+                <ul id="pages" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+                  <li class="sidebar-item active"><a class="sidebar-link" href="pages-blank.html">Start a new journey</a></li>
+                </ul>
+              </li>
+            </ul>
+          <% end %>
         </div>
       </nav>
 
