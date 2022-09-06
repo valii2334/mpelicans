@@ -6,6 +6,25 @@
 			<div class="card-body">
 				<% if @journeys.empty? %>
 					You have no journeys yet.
+				<% else %>
+					<% @journeys.find_in_batches(batch_size: 3) do |group| %>
+						<div class="row">
+							<% group.each do |journey| %>
+								<div class="col-lg-4 col-md-6 col-sm-12">
+									<div class="card" style="width: 100%;">
+										<%= image_tag journey.image, class: 'card-img-top' %>
+										<div class="card-body">
+											<p class="card-text">
+												<b>
+													<%= journey.title %>
+												</b>
+											</p>
+										</div>
+									</div>
+								</div>
+							<% end %>
+						</div>
+					<% end %>
 				<% end %>
 			</div>
 		</div>

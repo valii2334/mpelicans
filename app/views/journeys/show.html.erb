@@ -5,9 +5,10 @@
 <div class="row">
 	<div class="col-12">
 		<div class="card">
+      <div class="card-header">
+        Map
+      </div>
 			<div class="card-body">
-        <%= @journey.description %>
-
         <iframe
           width="100%"
           height="450"
@@ -18,6 +19,20 @@
           src="https://www.google.com/maps/embed/v1/directions?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>
           &origin=<%= @journey.start_plus_code %>">
 				</iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+	<div class="col-12">
+		<div class="card">
+      <div class="card-header">
+        This is how we started our journey
+      </div>
+			<div class="card-body">
+        <%= image_tag @journey.image, class: 'card-img-top' %>
+        <%= @journey.description %>
       </div>
     </div>
   </div>
