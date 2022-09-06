@@ -41,6 +41,10 @@
                     <%= link_to "Log out", destroy_user_session_path, class: 'dropdown-item' %>
                   </div>
                 </div>
+              <% else %>
+                <div class="flex-grow-1 ps-2" style="color: white;">
+                  Migrating Pelican
+                </div>
               <% end %>
             </div>
           </div>
