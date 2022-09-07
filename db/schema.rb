@@ -42,6 +42,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_07_134551) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "journey_stops", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.string "plus_code"
+    t.integer "journey_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "journeys", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -51,15 +60,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_07_134551) do
     t.boolean "accepts_recommendations", default: false
     t.integer "user_id"
     t.string "access_code"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "stops", force: :cascade do |t|
-    t.string "title"
-    t.string "description"
-    t.string "plus_code"
-    t.integer "journey_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

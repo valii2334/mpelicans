@@ -8,5 +8,8 @@ class Ability
 
     can :create, Journey
     can :manage, Journey, user: user
+
+    can :create, JourneyStop
+    can :manage, JourneyStop, journey: { user: user }
   end
 end

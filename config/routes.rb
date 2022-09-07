@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :journeys
+  resources :journeys, only: [:index, :new, :show, :create]
+  resources :journey_stops, only: [:new, :create]
 
   get '/watch_journeys/:access_code', to: 'watch_journeys#show', as: :watch_journeys
 

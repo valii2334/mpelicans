@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Stop, type: :model do
-  let(:stop) { build(:stop) }
-  subject { stop }
+RSpec.describe JourneyStop, type: :model do
+  let(:journey_stop) { build(:journey_stop) }
+  subject { journey_stop }
 
   ##################################
   # Attribute existence

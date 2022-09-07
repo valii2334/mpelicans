@@ -12,17 +12,8 @@ class JourneysController < ApplicationController
     @journey = Journey.new
   end
 
-  def edit
-    @journey = Journey.find(params[:id])
-  end
-
   def show
     @journey = Journey.find(params[:id])
-  end
-
-  def update
-    @journey = Journey.find(params[:id])
-    @journey.update!(journey_params)
   end
 
   def create

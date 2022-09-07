@@ -30,7 +30,7 @@ RSpec.describe Journey, type: :model do
   ##################################
 
   it { should belong_to(:user) }
-  it { should have_many(:stops) }
+  it { should have_many(:journey_stops) }
 
   ##################################
   # Callbacks
@@ -42,6 +42,50 @@ RSpec.describe Journey, type: :model do
       journey = Journey.create(title: 'Journey', description: 'First Journey', start_plus_code: '123456', user: user)
 
       expect(journey.access_code).to_not be_nil
+    end
+  end
+
+  ##################################
+  # Methods
+  ##################################
+
+  context '#map_url' do
+    context 'journey has no stops' do
+      it 'returns map url without destination or waypoints' do
+        start_plus_code = 'STARTPLUSCODE'
+        journey = create(:journey, start_plus_code: start_plus_code)
+
+        expected_map_url = "https://www.google.com/maps/embed/v1/place?key=#{ENV['GOOGLE_MAPS_API_KEY']}&q=#{start_plus_code}"
+        expect(journey.map_url).to eq(expected_map_url)
+      end
+    end
+
+    context 'journey has one stop' do
+      it 'returns map url with origin and destination' do
+        start_plus_code = 'STARTPLUSCODE'
+        journey = create(:journey, start_plus_code: start_plus_code)
+        plus_code = 'PLUSCODE'
+        journey_stop = create(:journey_stop, journey: journey, plus_code: plus_code)
+
+        expected_map_url = "https://www.google.com/maps/embed/v1/directions?key=#{ENV['GOOGLE_MAPS_API_KEY']}&origin=#{start_plus_code}&destination=#{plus_code}"
+        expect(journey.map_url).to eq(expected_map_url)
+      end
+    end
+
+    context 'journey has at least two stops' do
+      it 'returns map url with origin, destination and waypoints' do
+        start_plus_code = 'STARTPLUSCODE'
+        journey = create(:journey, start_plus_code: start_plus_code)
+        plus_code = 'PLUSCODE'
+        journey_stop = create(:journey_stop, journey: journey, plus_code: plus_code)
+        second_plus_code = 'PLUSCODESECOND'
+        second_journey_stop = create(:journey_stop, journey: journey, plus_code: second_plus_code)
+        third_plus_code = 'PLUSCODETHIRD'
+        third_journey_stop = create(:journey_stop, journey: journey, plus_code: third_plus_code)
+
+        expected_map_url = "https://www.google.com/maps/embed/v1/directions?key=#{ENV['GOOGLE_MAPS_API_KEY']}&origin=#{start_plus_code}&destination=#{third_plus_code}&waypoints=#{plus_code}|#{second_plus_code}"
+        expect(journey.map_url).to eq(expected_map_url)
+      end
     end
   end
 end

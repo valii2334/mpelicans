@@ -2,20 +2,18 @@
   <%= @journey.title %>
 </h1>
 
-<% if @journey.protected_journey? %>
-  <div class="row">
-  	<div class="col-12">
-  		<div class="card">
-        <div class="card-header">
-          Private Link
-        </div>
-  			<div class="card-body">
-          <%= watch_journeys_url(access_code: @journey.access_code) %>
-        </div>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        Journey Description
+      </div>
+      <div class="card-body">
+        <%= @journey.description %>
       </div>
     </div>
   </div>
-<% end %>
+</div>
 
 <div class="row">
 	<div class="col-12">
@@ -71,3 +69,62 @@
     </div>
   </div>
 </div>
+
+<% @journey.journey_stops.each do |journey_stop| %>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <%= journey_stop.title %>
+          <br>
+          <%= journey_stop.description %>
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <div class="row row-cols-2">
+              <% journey_stop.images.each_with_index do |image, index| %>
+                <div class="col">
+                  <button class="image-button" type="button" data-bs-toggle="modal" data-bs-target="#JourneyStop<%= image.hash %>">
+                    <%= image_tag image, class: 'd-block w-100' %>
+                  </button>
+
+                  <div class="modal fade" id="JourneyStop<%= image.hash %>" tabindex="-1" aria-labelledby="JourneyStop<%= image.hash %>Label" aria-hidden="true">
+                    <div class="modal-dialog" style="max-width: 100%;">
+                      <div class="modal-content">
+                        <div class="modal-body">
+                          <%= image_tag image, style: "width: 100%; height: auto;" %>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% if @journey.protected_journey? %>
+  <div class="row">
+  	<div class="col-12">
+  		<div class="card">
+        <div class="card-header">
+          Private Link
+        </div>
+  			<div class="card-body">
+          <%= watch_journeys_url(access_code: @journey.access_code) %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% if current_user %>
+  <%= link_to 'Make a Stop', new_journey_stop_path(journey_id: @journey.id), class: 'btn btn-primary' %>
+<% end %>
