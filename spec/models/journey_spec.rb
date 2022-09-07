@@ -30,4 +30,17 @@ RSpec.describe Journey, type: :model do
   ##################################
 
   it { should belong_to(:user) }
+
+  ##################################
+  # Callbacks
+  ##################################
+
+  context '#add_access_code' do
+    it 'adds an access code' do
+      user = create(:user)
+      journey = Journey.create(title: 'Journey', description: 'First Journey', start_plus_code: '123456', user: user)
+
+      expect(journey.access_code).to_not be_nil
+    end
+  end
 end
