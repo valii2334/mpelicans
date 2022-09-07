@@ -16,7 +16,9 @@
           </div>
 
           <div class="mb-3">
-            <%= f.label :start_plus_code, class: 'form-label' %>
+						<label>
+							Start plus code. <a href="https://maps.google.com/pluscodes/" target="_blank">What is Plus code?</a>
+						</label>
             <%= f.text_field :start_plus_code, required: true, class: 'form-control' %>
           </div>
 
@@ -38,16 +40,13 @@
                 Protected - we will generate a link to share your journey
               </label>
             </div>
-
-            <div class="form-check">
-              <label>
-                <%= f.radio_button :access_type, 'public_journey', class: 'form-check-input' %>
-                Public - anyone can see your journey
-              </label>
-            </div>
           </div>
 
           <div class="mb-3">
+						<label>
+							Add the first picture of your journey.
+						</label>
+						<br>
             <%= f.file_field :image %>
           </div>
 
