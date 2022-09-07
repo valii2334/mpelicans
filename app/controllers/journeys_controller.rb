@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 class JourneysController < ApplicationController
   before_action :authenticate_user!
+  load_and_authorize_resource
 
   def index
     @journeys = current_user.journeys

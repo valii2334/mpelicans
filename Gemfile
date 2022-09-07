@@ -7,6 +7,7 @@ gem 'rails', '~> 7.0.3', '>= 7.0.3.1'
 
 gem 'aws-sdk-s3', require: false
 gem 'bootsnap', require: false
+gem 'cancancan'
 gem 'cssbundling-rails'
 gem 'devise'
 gem 'jbuilder'
