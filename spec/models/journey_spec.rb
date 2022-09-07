@@ -30,6 +30,7 @@ RSpec.describe Journey, type: :model do
   ##################################
 
   it { should belong_to(:user) }
+  it { should have_many(:stops) }
 
   ##################################
   # Callbacks

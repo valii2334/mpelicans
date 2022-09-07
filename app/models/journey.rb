@@ -2,6 +2,7 @@ class Journey < ApplicationRecord
   has_one_attached :image
 
   belongs_to :user
+  has_many :stops
 
   enum status:      [:not_started, :in_progress, :finished]
   enum access_type: [:private_journey, :protected_journey]
