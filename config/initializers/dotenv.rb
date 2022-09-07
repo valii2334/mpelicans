@@ -1,1 +1,3 @@
-require 'dotenv/load'
+unless Rails.env.production?
+  require 'dotenv/load'
+end
