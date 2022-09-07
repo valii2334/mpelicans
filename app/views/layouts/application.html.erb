@@ -15,73 +15,78 @@
 
   <body>
     <div class="wrapper">
-      <nav id="sidebar" class="sidebar js-sidebar">
-        <div class="sidebar-content js-simplebar">
-          <a class="sidebar-brand" href="<%= root_path %>">
-            <span class="sidebar-brand-text align-middle">
-              MPelicans
-            </span>
-          </a>
+      <% if current_user %>
+        <nav id="sidebar" class="sidebar js-sidebar">
+          <div class="sidebar-content js-simplebar">
+            <a class="sidebar-brand" href="<%= root_path %>">
+              <span class="sidebar-brand-text align-middle">
+                MPelicans
+              </span>
+            </a>
 
-          <div class="sidebar-user">
-            <div class="d-flex justify-content-center">
-              <div class="flex-shrink-0">
-                <%= image_tag "avatars/avatar.png", class: "avatar img-fluid rounded me-1", alt: "Christina Mason" %>
-              </div>
-              <% if current_user %>
-                <div class="flex-grow-1 ps-2">
-                  <a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                    <%= current_user.email.truncate(20) %>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-start">
-                    <% if false %>
-                      <%= link_to "Profile", edit_user_password_path, class: 'dropdown-item' %>
-                      <div class="dropdown-divider"></div>
-                    <% end %>
-                    <%= link_to "Log out", destroy_user_session_path, class: 'dropdown-item' %>
+            <div class="sidebar-user">
+              <div class="d-flex justify-content-center">
+                <div class="flex-shrink-0">
+                  <%= image_tag "avatars/avatar.png", class: "avatar img-fluid rounded me-1", alt: "Christina Mason" %>
+                </div>
+                <% if current_user %>
+                  <div class="flex-grow-1 ps-2">
+                    <a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                      <%= current_user.email.truncate(20) %>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-start">
+                      <% if false %>
+                        <%= link_to "Profile", edit_user_password_path, class: 'dropdown-item' %>
+                        <div class="dropdown-divider"></div>
+                      <% end %>
+                      <%= link_to "Log out", destroy_user_session_path, class: 'dropdown-item' %>
+                    </div>
                   </div>
-                </div>
-              <% else %>
-                <div class="flex-grow-1 ps-2" style="color: white;">
-                  Migrating Pelican
-                </div>
-              <% end %>
+                <% else %>
+                  <div class="flex-grow-1 ps-2" style="color: white;">
+                    Migrating Pelican
+                  </div>
+                <% end %>
+              </div>
             </div>
-          </div>
 
-          <% if current_user %>
-            <ul class="sidebar-nav">
-              <li class="sidebar-header">
-                Pages
-              </li>
+            <% if current_user %>
+              <ul class="sidebar-nav">
+                <li class="sidebar-header">
+                  Pages
+                </li>
 
-              <li class="sidebar-item active">
-                <a data-bs-target="#pages" data-bs-toggle="collapse" class="sidebar-link">
-                  <i class="align-middle" data-feather="layout"></i> <span class="align-middle">My Journeys</span>
-                </a>
-                <ul id="pages" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
-                  <% current_user.journeys.each do |journey| %>
-                    <li class="sidebar-item <%= active_journey?(journey) =%>">
-                      <%= link_to journey.title, journey_path(journey), class: 'sidebar-link' %>
+                <li class="sidebar-item active">
+                  <a data-bs-target="#pages" data-bs-toggle="collapse" class="sidebar-link">
+                    <i class="align-middle" data-feather="layout"></i> <span class="align-middle">My Journeys</span>
+                  </a>
+                  <ul id="pages" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+                    <% current_user.journeys.each do |journey| %>
+                      <li class="sidebar-item <%= active_journey?(journey) =%>">
+                        <%= link_to journey.title, journey_path(journey), class: 'sidebar-link' %>
+                      </li>
+                    <% end %>
+
+                    <li class="sidebar-item <%= active_new_journey? %>">
+                      <%= link_to "Start a new journey", new_journey_path, class: 'sidebar-link' %>
                     </li>
-                  <% end %>
-
-                  <li class="sidebar-item <%= active_new_journey? %>">
-                    <%= link_to "Start a new journey", new_journey_path, class: 'sidebar-link' %>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          <% end %>
-        </div>
-      </nav>
+                  </ul>
+                </li>
+              </ul>
+            <% end %>
+          </div>
+        </nav>
+      <% end %>
 
       <div class="main">
-        <nav class="navbar navbar-expand navbar-light navbar-bg">
-          <a class="sidebar-toggle js-sidebar-toggle">
-            <i class="hamburger align-self-center"></i>
-          </a>
-        </nav>
+
+        <% if current_user %>
+          <nav class="navbar navbar-expand navbar-light navbar-bg">
+            <a class="sidebar-toggle js-sidebar-toggle">
+              <i class="hamburger align-self-center"></i>
+            </a>
+          </nav>
+        <% end %>
 
         <main class="content">
         	<div class="container-fluid p-0">
@@ -89,33 +94,35 @@
           </div>
         </main>
 
-        <footer class="footer">
-          <div class="container-fluid">
-            <div class="row text-muted">
-              <div class="col-6 text-start">
-                <p class="mb-0">
-                  VLZ DevOps &copy; 2022
-                </p>
-              </div>
-              <div class="col-6 text-end">
-                <ul class="list-inline">
-                  <li class="list-inline-item">
-                    <a class="text-muted" href="#">Support</a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a class="text-muted" href="#">Help Center</a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a class="text-muted" href="#">Privacy</a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a class="text-muted" href="#">Terms</a>
-                  </li>
-                </ul>
+        <% if current_user %>
+          <footer class="footer">
+            <div class="container-fluid">
+              <div class="row text-muted">
+                <div class="col-6 text-start">
+                  <p class="mb-0">
+                    VLZ DevOps &copy; 2022
+                  </p>
+                </div>
+                <div class="col-6 text-end">
+                  <ul class="list-inline">
+                    <li class="list-inline-item">
+                      <a class="text-muted" href="#">Support</a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a class="text-muted" href="#">Help Center</a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a class="text-muted" href="#">Privacy</a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a class="text-muted" href="#">Terms</a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
-        </footer>
+          </footer>
+        <% end %>
       </div>
     </div>
   </body>
