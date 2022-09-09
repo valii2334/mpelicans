@@ -83,7 +83,7 @@
         </div>
         <div class="card-body">
           <div class="container">
-            <div class="row row-cols-2">
+            <div class="row row-cols-4">
               <% journey_stop.images.each_with_index do |image, index| %>
                 <div class="col">
                   <button class="image-button" type="button" data-bs-toggle="modal" data-bs-target="#JourneyStop<%= image.hash %>">
@@ -91,10 +91,10 @@
                   </button>
 
                   <div class="modal fade" id="JourneyStop<%= image.hash %>" tabindex="-1" aria-labelledby="JourneyStop<%= image.hash %>Label" aria-hidden="true">
-                    <div class="modal-dialog" style="max-width: 100%;">
+                    <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-body">
-                          <%= image_tag image, style: "width: 100%; height: auto;" %>
+                          <%= image_tag image, style: "width: 100%; max-width: 700px;" %>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
