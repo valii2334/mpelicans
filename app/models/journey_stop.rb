@@ -15,7 +15,7 @@ class JourneyStop < ApplicationRecord
 
   def images_are_present
     unless images.present?
-      errors.add :images, :invalid, message: 'are missing'
+      errors.add :images, :invalid, message: "can't be blank"
     end
   end
 end

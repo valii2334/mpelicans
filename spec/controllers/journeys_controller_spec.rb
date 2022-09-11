@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe JourneysController, type: :controller do
+  render_views
+
   let(:user) { create(:user) }
   let(:journey) { create(:journey, user: user) }
   let(:second_journey) { create(:journey, user: create(:user)) }
@@ -54,15 +56,7 @@ RSpec.describe JourneysController, type: :controller do
           }
         end
 
-        it 'renders new' do
-          expect(subject).to render_template(:new)
-        end
-
-        it 'does not create a journey' do
-          expect do
-            subject
-          end.to change { Journey.count }.by(0)
-        end
+        include_examples 'missing parameter', Journey, 'Title'
       end
 
       context 'missing description' do
@@ -74,15 +68,7 @@ RSpec.describe JourneysController, type: :controller do
           }
         end
 
-        it 'renders new' do
-          expect(subject).to render_template(:new)
-        end
-
-        it 'does not create a journey' do
-          expect do
-            subject
-          end.to change { Journey.count }.by(0)
-        end
+        include_examples 'missing parameter', Journey, 'Description'
       end
 
       context 'missing start_plus_code' do
@@ -94,15 +80,7 @@ RSpec.describe JourneysController, type: :controller do
           }
         end
 
-        it 'renders new' do
-          expect(subject).to render_template(:new)
-        end
-
-        it 'does not create a journey' do
-          expect do
-            subject
-          end.to change { Journey.count }.by(0)
-        end
+        include_examples 'missing parameter', Journey, 'Start plus code'
       end
 
       context 'missing image' do
@@ -114,15 +92,7 @@ RSpec.describe JourneysController, type: :controller do
           }
         end
 
-        it 'renders new' do
-          expect(subject).to render_template(:new)
-        end
-
-        it 'does not create a journey' do
-          expect do
-            subject
-          end.to change { Journey.count }.by(0)
-        end
+        include_examples 'missing parameter', Journey, 'Image'
       end
     end
 

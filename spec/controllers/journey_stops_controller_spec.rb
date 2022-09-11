@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe JourneyStopsController, type: :controller do
+  render_views
+
   let(:user) { create(:user) }
   let(:journey) { create(:journey, user: user) }
   let(:second_journey) { create(:journey, user: create(:user)) }
@@ -51,15 +53,7 @@ RSpec.describe JourneyStopsController, type: :controller do
           }
         end
 
-        it 'renders new' do
-          expect(subject).to render_template(:new)
-        end
-
-        it 'does not create a journey stop' do
-          expect do
-            subject
-          end.to change { JourneyStop.count }.by(0)
-        end
+        include_examples 'missing parameter', JourneyStop, 'Title'
       end
 
       context 'missing description' do
@@ -72,15 +66,7 @@ RSpec.describe JourneyStopsController, type: :controller do
           }
         end
 
-        it 'renders new' do
-          expect(subject).to render_template(:new)
-        end
-
-        it 'does not create a journey stop' do
-          expect do
-            subject
-          end.to change { JourneyStop.count }.by(0)
-        end
+        include_examples 'missing parameter', JourneyStop, 'Description'
       end
 
       context 'missing plus_code' do
@@ -93,15 +79,7 @@ RSpec.describe JourneyStopsController, type: :controller do
           }
         end
 
-        it 'renders new' do
-          expect(subject).to render_template(:new)
-        end
-
-        it 'does not create a journey stop' do
-          expect do
-            subject
-          end.to change { JourneyStop.count }.by(0)
-        end
+        include_examples 'missing parameter', JourneyStop, 'Plus code'
       end
 
       context 'missing images' do
@@ -114,15 +92,7 @@ RSpec.describe JourneyStopsController, type: :controller do
           }
         end
 
-        it 'renders new' do
-          expect(subject).to render_template(:new)
-        end
-
-        it 'does not create a journey' do
-          expect do
-            subject
-          end.to change { JourneyStop.count }.by(0)
-        end
+        include_examples 'missing parameter', JourneyStop, 'Images'
       end
     end
 
