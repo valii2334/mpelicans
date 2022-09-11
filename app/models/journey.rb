@@ -24,7 +24,7 @@ class Journey < ApplicationRecord
 
   def image_is_present
     unless image.present?
-      errors.add :image, :invalid, message: 'image is missing'
+      errors.add :image, :invalid, message: 'is missing'
     end
   end
 
