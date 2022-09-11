@@ -28,6 +28,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 5.1.1'
   gem 'ffaker',            '~> 2.15.0'
   gem 'pry'
+  gem 'rails-controller-testing'
   gem 'rspec-rails',       '~> 5.0.0'
   gem 'shoulda-matchers',  '~> 4.1'
   gem 'simplecov'

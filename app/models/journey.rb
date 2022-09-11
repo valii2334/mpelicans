@@ -9,6 +9,8 @@ class Journey < ApplicationRecord
 
   validates :title, :description, :start_plus_code, presence: true
 
+  validate :image_is_present
+
   before_create :add_access_code
 
   def map_url
@@ -19,6 +21,12 @@ class Journey < ApplicationRecord
   end
 
   private
+
+  def image_is_present
+    unless image.present?
+      errors.add :image, :invalid, message: 'image is missing'
+    end
+  end
 
   def origin
     CGI.escape(start_plus_code)

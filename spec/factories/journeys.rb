@@ -9,6 +9,7 @@ FactoryBot.define do
     access_type             { :private_journey }
     accepts_recommendations { false }
     access_code             { nil }
+    image                   { Rack::Test::UploadedFile.new('spec/fixtures/files/lasvegas.jpg', 'image/jpeg') }
 
     user
   end
