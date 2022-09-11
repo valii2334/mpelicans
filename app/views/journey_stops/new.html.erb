@@ -19,17 +19,17 @@
 
           <div class="mb-3">
 						<label>
-							Current location plus code. <a href="https://maps.google.com/pluscodes/" target="_blank">What is Plus code?</a>
+							Current locations plus code. <a href="https://maps.google.com/pluscodes/" target="_blank">What is a plus code?</a>
 						</label>
             <%= f.text_field :plus_code, required: true, class: 'form-control' %>
           </div>
 
           <div class="mb-3">
 						<label>
-							Pictures
+							Add pictures from the stop you made
 						</label>
 						<br>
-            <%= f.file_field :images, multiple: true, direct_upload: true %>
+            <%= f.file_field :images, multiple: true, direct_upload: true, required: true %>
           </div>
 
           <div class="actions">

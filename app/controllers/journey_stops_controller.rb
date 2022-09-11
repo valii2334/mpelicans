@@ -9,9 +9,13 @@ class JourneyStopsController < ApplicationController
   end
 
   def create
-    @journey_stop = JourneyStop.create(journey_stop_params)
+    @journey_stop = JourneyStop.new(journey_stop_params)
 
-    redirect_to journey_path(@journey_stop.journey)
+    if @journey_stop.save
+      redirect_to journey_path(@journey_stop.journey)
+    else
+      render action: 'new'
+    end
   end
 
   private

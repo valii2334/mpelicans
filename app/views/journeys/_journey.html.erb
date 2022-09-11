@@ -127,6 +127,6 @@
   </div>
 <% end %>
 
-<% if current_user %>
+<% if current_user && can?(:edit, @journey) %>
   <%= link_to 'Make a Stop', new_journey_stop_path(journey_id: @journey.id), class: 'btn btn-primary' %>
 <% end %>

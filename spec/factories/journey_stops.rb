@@ -3,7 +3,8 @@ FactoryBot.define do
     title       { FFaker::Name.name }
     description { FFaker::Lorem.paragraph }
     plus_code   { FFaker::Random.rand }
-    
+    images      { [ Rack::Test::UploadedFile.new('spec/fixtures/files/lasvegas.jpg', 'image/jpeg') ] }
+
     journey
   end
 end
