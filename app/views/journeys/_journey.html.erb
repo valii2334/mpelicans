@@ -84,10 +84,10 @@
         <div class="card-body">
           <div class="container">
             <div class="row row-cols-4">
-              <% journey_stop.images.each_with_index do |image, index| %>
+              <% journey_stop.images.with_all_variant_records.each_with_index do |image, index| %>
                 <div class="col">
                   <button class="image-button" type="button" data-bs-toggle="modal" data-bs-target="#JourneyStop<%= image.hash %>">
-                    <%= image_tag image, class: 'd-block w-100' %>
+                    <%= image_tag image.representation(resize_to_limit: [400, 400]).processed.url, class: 'd-block w-100' %>
                   </button>
 
                   <div class="modal fade" id="JourneyStop<%= image.hash %>" tabindex="-1" aria-labelledby="JourneyStop<%= image.hash %>Label" aria-hidden="true">
