@@ -9,6 +9,7 @@ class Ability
     can :create, Journey
     can :manage, Journey, user: user
 
+    can :new, JourneyStop
     can :manage, JourneyStop, journey: { user: user }
   end
 end
