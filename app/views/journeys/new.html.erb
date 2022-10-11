@@ -56,8 +56,8 @@
             <%= f.file_field :image, required: true %>
           </div>
 
-          <div class="actions">
-            <%= f.submit "Create", class: 'btn btn-primary' %>
+					<div class="actions">
+            <%= f.submit "Create", class: 'btn btn-primary', data: { disable_with: 'Creating...' } %>
           </div>
         <% end %>
 			</div>
