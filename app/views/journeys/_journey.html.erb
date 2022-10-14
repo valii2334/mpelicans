@@ -5,11 +5,13 @@
 <div class="row">
   <div class="col-12">
     <div class="card">
-      <div class="card-header">
-        Journey Description
-      </div>
       <div class="card-body">
-        <%= @journey.description %>
+        <div class="card-title">
+          Journey Description
+        </div>
+        <div class="card-text">
+          <%= @journey.description %>
+        </div>
       </div>
     </div>
   </div>
@@ -18,10 +20,10 @@
 <div class="row">
 	<div class="col-12">
 		<div class="card">
-      <div class="card-header">
-        Journey Map
-      </div>
 			<div class="card-body">
+        <div class="card-title">
+          Journey Map
+        </div>
         <iframe
           width="100%"
           height="450"
@@ -39,22 +41,22 @@
 <div class="row">
 	<div class="col-12">
 		<div class="card">
-      <div class="card-header">
-        First Picture
-      </div>
 			<div class="card-body">
+        <div class="card-title">
+          First Picture
+        </div>
         <div class="row">
           <div class="col-lg-3 col-md-1 col-sm-0"></div>
           <div class="col-lg-6 col-md-10 col-sm-12">
             <button class="image-button" type="button" data-bs-toggle="modal" data-bs-target="#firstPictureModal">
-              <%= image_tag @journey.image, class: 'd-block w-100' %>
+              <%= image_tag @journey.image.variant(:max).processed.url, class: 'd-block w-100' %>
             </button>
 
             <div class="modal fade" id="firstPictureModal" tabindex="-1" aria-labelledby="firstPictureModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
+              <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content align-items-center align-middle">
                   <div class="modal-body">
-                    <%= image_tag @journey.image, style: "width: 100%; max-width: 700px;" %>
+                    <%= image_tag @journey.image.variant(:max).processed.url, class: 'img-fluid' %>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -74,27 +76,27 @@
   <div class="row">
     <div class="col-12">
       <div class="card">
-        <div class="card-header">
-          <%= journey_stop.title %>
-          <br>
-          <a href="<%= journey_stop.location_link %>" target="_blank">View Location</a>
-          <br>
-          <%= journey_stop.description %>
-        </div>
         <div class="card-body">
+          <div class="card-title">
+            <%= journey_stop.title %> - <a href="<%= journey_stop.location_link %>" target="_blank">View Stop Location</a>
+          </div>
+          <div class="card-subtitle">
+            <%= journey_stop.description %>
+          </div>
+          <br>
           <div class="container">
             <div class="row row-cols-4">
               <% journey_stop.images.with_all_variant_records.each_with_index do |image, index| %>
                 <div class="col">
                   <button class="image-button" type="button" data-bs-toggle="modal" data-bs-target="#JourneyStop<%= image.hash %>">
-                    <%= image_tag image.representation(resize_to_limit: [400, 400]).processed.url, class: 'd-block w-100' %>
+                    <%= image_tag image.variant(:thumb).processed.url, class: 'd-block w-100' %>
                   </button>
 
                   <div class="modal fade" id="JourneyStop<%= image.hash %>" tabindex="-1" aria-labelledby="JourneyStop<%= image.hash %>Label" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
+                    <div class="modal-dialog modal-fullscreen">
+                      <div class="modal-content align-items-center align-middle">
                         <div class="modal-body">
-                          <%= image_tag image, style: "width: 100%; max-width: 700px;" %>
+                          <%= image_tag image.variant(:max).processed.url, class: 'img-fluid' %>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -116,11 +118,13 @@
   <div class="row">
   	<div class="col-12">
   		<div class="card">
-        <div class="card-header">
-          Private Link
-        </div>
   			<div class="card-body">
-          <%= watch_journeys_url(access_code: @journey.access_code) %>
+          <div class="card-title">
+            Private Link
+          </div>
+          <div class="card-text">
+            <%= watch_journeys_url(access_code: @journey.access_code) %>
+          </div>
         </div>
       </div>
     </div>

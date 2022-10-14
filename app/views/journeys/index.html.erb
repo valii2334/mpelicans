@@ -7,18 +7,16 @@
 				<% if @journeys.empty? %>
 					You have no journeys yet.
 				<% else %>
-					<% @journeys.find_in_batches(batch_size: 3) do |group| %>
+					<% @journeys.find_in_batches(batch_size: 4) do |group| %>
 						<div class="row">
 							<% group.each do |journey| %>
-								<div class="col-lg-4 col-md-6 col-sm-12">
-									<div class="card" style="width: 100%;">
-										<%= image_tag journey.image, class: 'card-img-top' %>
+								<div class="col-lg-3 col-md-6 col-sm-12">
+									<div class="card" style="height: 100%;">
+										<%= image_tag journey.image.variant(:thumb), class: 'card-img-top' %>
 										<div class="card-body">
-											<p class="card-text">
-												<b>
-													<%= link_to journey.title, journey_path(journey) %>
-												</b>
-											</p>
+											<h5 class="card-title"><%= journey.title %></h5>
+											<p class="card-text"><%= journey.description %></p>
+											<%= link_to 'View Journey', journey_path(journey), class: 'btn btn-sm btn-primary' %>
 										</div>
 									</div>
 								</div>
@@ -31,4 +29,4 @@
 	</div>
 </div>
 
-<%= link_to "Start a new journey", new_journey_path, class: 'btn btn-primary' %>
+<%= link_to "Start a New Journey", new_journey_path, class: 'btn btn-primary' %>
