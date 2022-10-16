@@ -49,14 +49,16 @@
           <div class="col-lg-3 col-md-1 col-sm-0"></div>
           <div class="col-lg-6 col-md-10 col-sm-12">
             <button class="image-button" type="button" data-bs-toggle="modal" data-bs-target="#firstPictureModal">
-              <%= image_tag @journey.image.variant(:max).processed.url, class: 'd-block w-100' %>
+              <%= image_tag url_for(@journey.image.variant(:max)), class: 'd-block w-100' %>
             </button>
 
             <div class="modal fade" id="firstPictureModal" tabindex="-1" aria-labelledby="firstPictureModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-fullscreen">
-                <div class="modal-content align-items-center align-middle">
+                <div class="modal-content align-items-center">
                   <div class="modal-body">
-                    <%= image_tag @journey.image.variant(:max).processed.url, class: 'img-fluid' %>
+                    <div class="">
+                      <%= image_tag url_for(@journey.image.variant(:max)), class: 'img-fluid' %>
+                    </div>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -89,14 +91,14 @@
               <% journey_stop.images.with_all_variant_records.each_with_index do |image, index| %>
                 <div class="col">
                   <button class="image-button" type="button" data-bs-toggle="modal" data-bs-target="#JourneyStop<%= image.hash %>">
-                    <%= image_tag image.variant(:thumb).processed.url, class: 'd-block w-100' %>
+                    <%= image_tag url_for(image.variant(:thumb)), class: 'd-block w-100' %>
                   </button>
 
                   <div class="modal fade" id="JourneyStop<%= image.hash %>" tabindex="-1" aria-labelledby="JourneyStop<%= image.hash %>Label" aria-hidden="true">
                     <div class="modal-dialog modal-fullscreen">
                       <div class="modal-content align-items-center align-middle">
                         <div class="modal-body">
-                          <%= image_tag image.variant(:max).processed.url, class: 'img-fluid' %>
+                          <%= image_tag url_for(image.variant(:max)), class: 'img-fluid' %>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -132,5 +134,5 @@
 <% end %>
 
 <% if current_user && can?(:edit, @journey) %>
-  <%= link_to 'Make a Stop', new_journey_stop_path(journey_id: @journey.id), class: 'btn btn-primary' %>
+  <%= link_to 'Make a Stop', new_journey_journey_stop_path(journey_id: @journey.id), class: 'btn btn-primary' %>
 <% end %>

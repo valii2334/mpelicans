@@ -6,7 +6,7 @@ RSpec.describe JourneyStopsController, type: :controller do
   render_views
 
   let(:user) { create(:user) }
-  let(:journey) { create(:journey, user: user) }
+  let(:journey) { create(:journey, user:) }
   let(:second_journey) { create(:journey, user: create(:user)) }
 
   before do
@@ -20,6 +20,7 @@ RSpec.describe JourneyStopsController, type: :controller do
 
     subject do
       post :create, params: {
+        journey_id: journey.id,
         journey_stop: journey_stop_params
       }
     end
@@ -30,7 +31,7 @@ RSpec.describe JourneyStopsController, type: :controller do
           title: FFaker::Name.name,
           description: FFaker::Lorem.paragraph,
           plus_code: FFaker::Random.rand,
-          images: [ fixture_file_upload('lasvegas.jpg', 'image/jpeg') ],
+          images: [fixture_file_upload('lasvegas.jpg', 'image/jpeg')],
           journey_id: second_journey.id
         }
       end
@@ -48,7 +49,7 @@ RSpec.describe JourneyStopsController, type: :controller do
           {
             description: FFaker::Lorem.paragraph,
             plus_code: FFaker::Random.rand,
-            images: [ fixture_file_upload('lasvegas.jpg', 'image/jpeg') ],
+            images: [fixture_file_upload('lasvegas.jpg', 'image/jpeg')],
             journey_id: journey.id
           }
         end
@@ -61,7 +62,7 @@ RSpec.describe JourneyStopsController, type: :controller do
           {
             title: FFaker::Name.name,
             plus_code: FFaker::Random.rand,
-            images: [ fixture_file_upload('lasvegas.jpg', 'image/jpeg') ],
+            images: [fixture_file_upload('lasvegas.jpg', 'image/jpeg')],
             journey_id: journey.id
           }
         end
@@ -74,7 +75,7 @@ RSpec.describe JourneyStopsController, type: :controller do
           {
             title: FFaker::Name.name,
             description: FFaker::Lorem.paragraph,
-            images: [ fixture_file_upload('lasvegas.jpg', 'image/jpeg') ],
+            images: [fixture_file_upload('lasvegas.jpg', 'image/jpeg')],
             journey_id: journey.id
           }
         end
@@ -102,7 +103,7 @@ RSpec.describe JourneyStopsController, type: :controller do
           title: FFaker::Name.name,
           description: FFaker::Lorem.paragraph,
           plus_code: FFaker::Random.rand,
-          images: [ fixture_file_upload('lasvegas.jpg', 'image/jpeg') ],
+          images: [fixture_file_upload('lasvegas.jpg', 'image/jpeg')],
           journey_id: journey.id
         }
       end
@@ -112,6 +113,24 @@ RSpec.describe JourneyStopsController, type: :controller do
           subject
         end.to change { JourneyStop.count }.by(1)
       end
+    end
+  end
+
+  context '#new' do
+    before do
+      sign_in user
+    end
+
+    subject do
+      get :new, params: {
+        journey_id: journey.id
+      }
+    end
+
+    it 'renders new' do
+      subject
+
+      expect(response.status).to eq(200)
     end
   end
 end

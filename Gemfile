@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -10,17 +12,18 @@ gem 'bootsnap', require: false
 gem 'cancancan'
 gem 'cssbundling-rails'
 gem 'devise'
+gem 'image_processing', '>= 1.2'
 gem 'jbuilder'
 gem 'jsbundling-rails'
-gem 'image_processing', '>= 1.2'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'redis', '~> 4.0'
-gem 'sentry-ruby'
+gem 'rubocop-rails', require: false
 gem 'sentry-rails'
+gem 'sentry-ruby'
 gem 'sprockets-rails'
 gem 'stimulus-rails'
-gem 'tzinfo-data', platforms: %i[ mingw mswin x64_mingw jruby ]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
   gem 'database_cleaner',  '~> 1.7.0'

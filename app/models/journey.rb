@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Journey Model
 class Journey < ApplicationRecord
   has_one_attached :image do |attachable|
     attachable.variant :thumb, resize_to_limit: [400, 400]
@@ -7,8 +10,8 @@ class Journey < ApplicationRecord
   belongs_to :user
   has_many :journey_stops, dependent: :destroy
 
-  enum status:      [:not_started, :in_progress, :finished]
-  enum access_type: [:private_journey, :protected_journey]
+  enum status:      { not_started: 0, in_progress: 1, finished: 2 }
+  enum access_type: { private_journey: 0, protected_journey: 1 }
 
   validates :title, :description, :start_plus_code, presence: true
 
@@ -17,18 +20,24 @@ class Journey < ApplicationRecord
   before_create :add_access_code
 
   def map_url
-    return "https://www.google.com/maps/embed/v1/place?key=#{ENV['GOOGLE_MAPS_API_KEY']}&q=#{origin}" if journey_stops.count.zero?
-    return "https://www.google.com/maps/embed/v1/directions?key=#{ENV['GOOGLE_MAPS_API_KEY']}&origin=#{origin}&destination=#{destination}" if journey_stops.count <= 1
+    if journey_stops.count.zero?
+      return 'https://www.google.com/maps/embed/v1/place' \
+             "?key=#{ENV.fetch('GOOGLE_MAPS_API_KEY', nil)}&q=#{origin}"
+    end
 
-    "https://www.google.com/maps/embed/v1/directions?key=#{ENV['GOOGLE_MAPS_API_KEY']}&origin=#{origin}&destination=#{destination}&waypoints=#{waypoints}"
+    if journey_stops.count <= 1
+      return 'https://www.google.com/maps/embed/v1/directions' \
+             "?key=#{ENV.fetch('GOOGLE_MAPS_API_KEY', nil)}&origin=#{origin}&destination=#{destination}"
+    end
+
+    'https://www.google.com/maps/embed/v1/directions' \
+      "?key=#{ENV.fetch('GOOGLE_MAPS_API_KEY', nil)}&origin=#{origin}&destination=#{destination}&waypoints=#{waypoints}"
   end
 
   private
 
   def image_is_present
-    unless image.present?
-      errors.add :image, :invalid, message: "can't be blank"
-    end
+    errors.add :image, :invalid, message: "can't be blank" if image.blank?
   end
 
   def origin

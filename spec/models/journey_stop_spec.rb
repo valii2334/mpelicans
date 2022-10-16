@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe JourneyStop, type: :model do
@@ -26,4 +28,16 @@ RSpec.describe JourneyStop, type: :model do
   ##################################
 
   it { should belong_to(:journey) }
+
+  ##################################
+  # Methods
+  ##################################
+
+  describe '#location_link' do
+    let(:journey_stop) { build(:journey_stop) }
+
+    it 'returns location_link' do
+      expect(journey_stop.location_link).to eq("https://www.plus.codes/#{journey_stop.plus_code}")
+    end
+  end
 end

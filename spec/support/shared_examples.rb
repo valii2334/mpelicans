@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'set'
 
 RSpec.shared_examples 'missing parameter' do |model, attribute|
@@ -12,6 +14,6 @@ RSpec.shared_examples 'missing parameter' do |model, attribute|
   end
 
   it "does include missing attribute message #{attribute}" do
-    expect(CGI::unescapeHTML(subject.body)).to include("#{attribute} can't be blank")
+    expect(CGI.unescapeHTML(subject.body)).to include("#{attribute} can't be blank")
   end
 end

@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+# CRUD For Journey Stop
 class JourneyStopsController < ApplicationController
   before_action :authenticate_user!
+  before_action :load_journey, only: %i[new create]
   load_and_authorize_resource
 
   def new
@@ -19,6 +21,10 @@ class JourneyStopsController < ApplicationController
   end
 
   private
+
+  def load_journey
+    @journey = Journey.find(params[:journey_id])
+  end
 
   def journey_stop_params
     params.require(:journey_stop).permit(

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# JourneyStop Model
 class JourneyStop < ApplicationRecord
   belongs_to :journey
 
@@ -10,6 +13,8 @@ class JourneyStop < ApplicationRecord
 
   validate :images_are_present
 
+  default_scope { order(created_at: :asc) }
+
   def location_link
     "https://www.plus.codes/#{plus_code}"
   end
@@ -17,8 +22,6 @@ class JourneyStop < ApplicationRecord
   private
 
   def images_are_present
-    unless images.present?
-      errors.add :images, :invalid, message: "can't be blank"
-    end
+    errors.add :images, :invalid, message: "can't be blank" if images.blank?
   end
 end

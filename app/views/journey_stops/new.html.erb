@@ -4,7 +4,7 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-body">
-        <%= form_for @journey_stop do |f| %>
+        <%= form_for [@journey, @journey_stop] do |f| %>
           <%= f.hidden_field :journey_id, value: params[:journey_id] %>
 					<div class="mb-3" style="color: red;">
 						<% @journey_stop.errors.full_messages.each do |message| %>

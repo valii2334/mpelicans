@@ -1,0 +1,19 @@
+require: rubocop-rails
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'bin/**/*'
+    - 'config/**/*'
+    - 'converage/**/*'
+    - 'db/**/*'
+    - 'log/**/*'
+    - 'public/**/*'
+    - 'storage/**/*'
+    - 'tmp/**/*'
+    # Created by devise
+    - 'app/controllers/users/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'

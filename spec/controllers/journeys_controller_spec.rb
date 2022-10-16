@@ -6,7 +6,7 @@ RSpec.describe JourneysController, type: :controller do
   render_views
 
   let(:user) { create(:user) }
-  let(:journey) { create(:journey, user: user) }
+  let(:journey) { create(:journey, user:) }
   let(:second_journey) { create(:journey, user: create(:user)) }
 
   before do
@@ -111,6 +111,38 @@ RSpec.describe JourneysController, type: :controller do
           subject
         end.to change { Journey.count }.by(1)
       end
+    end
+  end
+
+  context '#new' do
+    before do
+      sign_in user
+    end
+
+    subject do
+      get :new
+    end
+
+    it 'renders new' do
+      subject
+
+      expect(response.status).to eq(200)
+    end
+  end
+
+  context '#index' do
+    before do
+      sign_in user
+    end
+
+    subject do
+      get :index
+    end
+
+    it 'renders new' do
+      subject
+
+      expect(response.status).to eq(200)
     end
   end
 end
