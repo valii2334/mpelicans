@@ -26,6 +26,7 @@ gem 'stimulus-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
+  gem 'cypress-on-rails',  '~> 1.0'
   gem 'database_cleaner',  '~> 1.7.0'
   gem 'dotenv-rails',      '~>2.7.6', require: 'dotenv/rails-now'
   gem 'factory_bot_rails', '~> 5.1.1'

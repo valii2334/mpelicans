@@ -6,6 +6,8 @@ AllCops:
     - 'bin/**/*'
     - 'config/**/*'
     - 'converage/**/*'
+    - 'cypress/support/**/*'
+    - 'cypress/e2e/**/*'
     - 'db/**/*'
     - 'log/**/*'
     - 'public/**/*'

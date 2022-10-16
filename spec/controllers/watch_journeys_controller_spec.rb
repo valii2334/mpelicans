@@ -6,7 +6,7 @@ RSpec.describe WatchJourneysController, type: :controller do
   render_views
 
   let(:user) { create(:user) }
-  let(:journey) { create(:journey, user:, access_type: access_type) }
+  let(:journey) { create(:journey, user:, access_type:) }
 
   before do
     user.confirm
@@ -19,7 +19,7 @@ RSpec.describe WatchJourneysController, type: :controller do
 
     subject do
       get :show, params: {
-        access_code: access_code
+        access_code:
       }
     end
 
