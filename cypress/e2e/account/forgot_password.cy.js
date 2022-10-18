@@ -1,0 +1,41 @@
+describe('User can create an account', function() {
+  beforeEach(() => {
+    cy.app('clean')
+  })
+
+  it('can reset password', function() {
+    cy.appFactories([
+      ['create', 'user']
+    ])
+    cy.appEval("User.last.confirm")
+
+    cy.visit('/')
+
+    // We should see the Sign up button
+    cy.get('a').contains('Forgot your password?').click();
+
+
+    cy.appEval("User.last.email").then(($userEmail) => {
+      // Fill informations
+      cy.get('#user_email').fill($userEmail);
+
+      // Click on Send me reset password instructions
+      cy.get('input').contains('Send me reset password instructions').click();
+
+      // Click on confirmation link in the email
+      cy.appEval("ActionMailer::Base.deliveries.last.body.raw_source.lines[4].split('\"')[1]").then(($resetPasswordLink) => {
+        cy.visit($resetPasswordLink);
+
+        // Add new password
+        cy.get('#user_password').fill('password');
+        cy.get('#user_password_confirmation').fill('password');
+
+        // We should see the Sign up button
+        cy.get('input').contains('Change my password').click();
+
+        // We are on the index page
+        cy.get('h1').contains('My Journeys');
+      })
+    })
+  })
+})

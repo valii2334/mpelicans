@@ -16,4 +16,5 @@ if defined?(VCR)
   WebMock.disable! if defined?(WebMock)
 end
 
+ActionMailer::Base.deliveries.clear
 Rails.logger.info 'APPCLEANED' # used by log_fail.rb
