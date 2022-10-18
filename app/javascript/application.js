@@ -1,9 +1,9 @@
 // Entry point for the build script in your package.json
-import "./controllers"
-import * as bootstrap from "bootstrap"
+import "./controllers";
+import * as bootstrap from "bootstrap";
 
-import "./src/jquery"
-import "./src/jquery-ui"
+import "./src/jquery";
+import "./src/jquery-ui";
 
 // AdminKit (required)
 import "./modules/bootstrap";
