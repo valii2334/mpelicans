@@ -1,4 +1,4 @@
-describe('User can create an account', function() {
+describe('User can reset password', function() {
   beforeEach(() => {
     cy.app('clean')
   })
@@ -11,9 +11,8 @@ describe('User can create an account', function() {
 
     cy.visit('/')
 
-    // We should see the Sign up button
+    // We should see the Forgot your password? button
     cy.get('a').contains('Forgot your password?').click();
-
 
     cy.appEval("User.last.email").then(($userEmail) => {
       // Fill informations
