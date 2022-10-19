@@ -75,15 +75,17 @@
   </div>
 </div>
 
-<% @journey.journey_stops.each do |journey_stop| %>
+<% @journey.journey_stops.each_with_index do |journey_stop, index| %>
+  <% index_class = "journey-stop-#{index}" %>
+
   <div class="row">
     <div class="col-12">
       <div class="card">
         <div class="card-body">
-          <div class="card-title">
-            <%= journey_stop.title %> - <a href="<%= journey_stop.location_link %>" target="_blank">View Stop Location</a>
+          <div class="card-title title <%= index_class %>">
+            <%= journey_stop.title %> - <a href="<%= journey_stop.location_link %>" target="_blank" class="location <%= index_class %>">View Stop Location</a>
           </div>
-          <div class="card-subtitle">
+          <div class="card-subtitle description <%= index_class %>">
             <%= journey_stop.description %>
           </div>
           <br>
@@ -92,7 +94,7 @@
               <% journey_stop.images.with_all_variant_records.each_with_index do |image, index| %>
                 <div class="col">
                   <button class="image-button" type="button" data-bs-toggle="modal" data-bs-target="#JourneyStop<%= image.hash %>">
-                    <%= image_tag url_for(image.variant(:thumb)), class: 'd-block w-100' %>
+                    <%= image_tag url_for(image.variant(:thumb)), class: "d-block w-100 image #{index_class}" %>
                   </button>
 
                   <div class="modal fade" id="JourneyStop<%= image.hash %>" tabindex="-1" aria-labelledby="JourneyStop<%= image.hash %>Label" aria-hidden="true">
