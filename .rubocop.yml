@@ -19,3 +19,7 @@ AllCops:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+
+Lint/Debugger:
+  Exclude:
+    - 'cypress/app_commands/pry.rb'
