@@ -3,7 +3,7 @@ describe('User can create journey', function() {
     cy.app('clean')
   })
 
-  it('can reset password', function() {
+  it('creates a journey stop', function() {
     cy.appFactories([
       ['create', 'user', { password: 'password' }]
     ])

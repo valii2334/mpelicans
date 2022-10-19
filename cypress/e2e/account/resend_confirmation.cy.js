@@ -1,9 +1,9 @@
-describe('User can resend confirmation instructions', function() {
+describe('User receive another confirmation link', function() {
   beforeEach(() => {
     cy.app('clean')
   })
 
-  it('can reset password', function() {
+  it('resends confirmation link', function() {
     cy.appFactories([
       ['create', 'user', { password: 'password' }]
     ]);

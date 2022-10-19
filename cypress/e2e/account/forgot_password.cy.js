@@ -3,7 +3,7 @@ describe('User can reset password', function() {
     cy.app('clean')
   })
 
-  it('can reset password', function() {
+  it('resets password', function() {
     cy.appFactories([
       ['create', 'user']
     ])

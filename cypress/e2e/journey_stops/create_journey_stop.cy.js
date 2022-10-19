@@ -1,9 +1,9 @@
-describe('User can create journey', function() {
+describe('User can create journey stop', function() {
   beforeEach(() => {
     cy.app('clean')
   })
 
-  it('can reset password', function() {
+  it('creates a journey', function() {
     // Create user
     cy.appFactories([
       ['create', 'user', { password: 'password' }]
