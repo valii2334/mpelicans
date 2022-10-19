@@ -6,9 +6,9 @@ describe('User can resend confirmation instructions', function() {
   it('can reset password', function() {
     cy.appFactories([
       ['create', 'user', { password: 'password' }]
-    ])
+    ]);
 
-    cy.visit('/')
+    cy.visit('/');
 
     // We should see the Sign up button
     cy.get('a').contains("Didn't receive confirmation instructions?").click();

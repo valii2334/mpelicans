@@ -7,9 +7,9 @@ describe('User can reset password', function() {
     cy.appFactories([
       ['create', 'user']
     ])
-    cy.appEval("User.last.confirm")
+    cy.appEval("User.last.confirm");
 
-    cy.visit('/')
+    cy.visit('/');
 
     // We should see the Forgot your password? button
     cy.get('a').contains('Forgot your password?').click();
