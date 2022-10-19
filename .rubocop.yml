@@ -13,6 +13,7 @@ AllCops:
     - 'public/**/*'
     - 'storage/**/*'
     - 'tmp/**/*'
+    - 'vendor/**/*'
     # Created by devise
     - 'app/controllers/users/**/*'
 
