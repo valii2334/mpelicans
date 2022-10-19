@@ -324,6 +324,7 @@ DEPENDENCIES
   rails-controller-testing
   redis (~> 4.0)
   rspec-rails (~> 5.0.0)
+  rubocop
   rubocop-rails
   sentry-rails
   sentry-ruby

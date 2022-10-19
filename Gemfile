@@ -35,8 +35,9 @@ group :development, :test do
   gem 'ffaker',            '~> 2.15.0'
   gem 'pry'
   gem 'rails-controller-testing'
-  gem 'rspec-rails',       '~> 5.0.0'
-  gem 'shoulda-matchers',  '~> 4.1'
+  gem 'rspec-rails', '~> 5.0.0'
+  gem 'rubocop'
+  gem 'shoulda-matchers', '~> 4.1'
   gem 'simplecov'
 end
 
