@@ -31,6 +31,7 @@
           loading="lazy"
           allowfullscreen
           referrerpolicy="no-referrer-when-downgrade"
+          id="map-display"
           src="<%= @journey.map_url %>">
 				</iframe>
       </div>
@@ -49,7 +50,7 @@
           <div class="col-lg-3 col-md-1 col-sm-0"></div>
           <div class="col-lg-6 col-md-10 col-sm-12">
             <button class="image-button" type="button" data-bs-toggle="modal" data-bs-target="#firstPictureModal">
-              <%= image_tag url_for(@journey.image.variant(:max)), class: 'd-block w-100' %>
+              <%= image_tag url_for(@journey.image.variant(:max)), id: 'first-picture', class: 'd-block w-100' %>
             </button>
 
             <div class="modal fade" id="firstPictureModal" tabindex="-1" aria-labelledby="firstPictureModalLabel" aria-hidden="true">
