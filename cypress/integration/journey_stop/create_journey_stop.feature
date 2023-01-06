@@ -16,3 +16,10 @@ Feature: Create Journey Stop
 
   Scenario: If a users enters correct journey stop information then we can create a journey stop
     Given I click on link "Make a Stop"
+    And I fill in journey stop information with
+      | title               | description               | plus_code           | journey_stop_image |
+      | My first stop title | My first stop description | QJ24+HG Cluj-Napoca | madrid.jpg         |
+    When I click on input "Create"
+    Then journey stop information should be
+      | title               | description               | plus_code           | journey_stop_image |
+      | My first stop title | My first stop description | QJ24+HG Cluj-Napoca | madrid.jpg         |
