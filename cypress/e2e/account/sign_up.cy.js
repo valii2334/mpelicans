@@ -13,9 +13,9 @@ describe('User can create an account', function() {
     cy.get('a').contains('Sign up').click();
 
     // Fill informations
-    cy.get('#user_email').fill('valentin@gmail.com');
-    cy.get('#user_password').fill('password');
-    cy.get('#user_password_confirmation').fill('password');
+    cy.get('#user_email').fill(Cypress.env('userEmail'));
+    cy.get('#user_password').fill(Cypress.env('userPassword'));
+    cy.get('#user_password_confirmation').fill(Cypress.env('userPassword'));
 
     // Click on Sign up
     cy.get('input').contains('Sign up').click();
@@ -33,8 +33,8 @@ describe('User can create an account', function() {
         cy.visit('http://localhost:3000/users/confirmation?confirmation_token=' + $confirmationToken);
 
         // Fill informations
-        cy.get('#user_email').fill('valentin@gmail.com');
-        cy.get('#user_password').fill('password');
+        cy.get('#user_email').fill(Cypress.env('userEmail'));
+        cy.get('#user_password').fill(Cypress.env('userPassword'));
 
         // Log in
         cy.get('input').contains('Log in').click();
