@@ -135,7 +135,7 @@ RSpec.describe JourneyStopsController, type: :controller do
   end
 
   context '#destroy' do
-    let(:journey_stop) { create(:journey_stop, journey: journey) }
+    let(:journey_stop) { create(:journey_stop, journey:) }
     let(:second_journey_stop) { create(:journey_stop, journey: second_journey) }
 
     it 'redirected if not signed in' do
