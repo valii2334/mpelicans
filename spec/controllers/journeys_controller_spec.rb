@@ -145,4 +145,28 @@ RSpec.describe JourneysController, type: :controller do
       expect(response.status).to eq(200)
     end
   end
+
+  context '#destroy' do
+    it 'redirected if not signed in' do
+      delete :destroy, params: { id: journey.id }
+      expect(response.status).to eq(302)
+    end
+
+    it 'raises an error if others user journey' do
+      sign_in user
+
+      expect do
+        delete :destroy, params: { id: second_journey.id }
+      end.to raise_error(CanCan::AccessDenied)
+    end
+
+    it 'can destroy own journey' do
+      sign_in user
+
+      delete :destroy, params: { id: journey.id }
+
+      expect(response.status).to redirect_to(root_path)
+      expect(Journey.find_by(id: journey.id)).to be_nil
+    end
+  end
 end
