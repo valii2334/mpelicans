@@ -54,6 +54,6 @@ class Journey < ApplicationRecord
   end
 
   def add_access_code
-    self.access_code = SecureRandom.hex(5)
+    self.access_code = SecureRandom.uuid
   end
 end
