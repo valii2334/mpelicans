@@ -4,6 +4,7 @@ import * as bootstrap from "bootstrap";
 
 import "./src/jquery";
 import "./src/jquery-ui";
+import "./src/jquery-ujs";
 
 // AdminKit (required)
 import "./modules/bootstrap";

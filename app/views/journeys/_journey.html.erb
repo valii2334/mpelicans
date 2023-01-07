@@ -97,6 +97,12 @@
                     <%= image_tag url_for(image.variant(:thumb)), class: "d-block w-100 image #{index_class}" %>
                   </button>
 
+                  <% if false %>
+                    <% if current_user && can?(:destroy, journey_stop) %>
+                      <%= link_to 'Delete Stop', journey_path(@journey), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+                    <% end %>
+                  <% end %>
+                  
                   <div class="modal fade" id="JourneyStop<%= image.hash %>" tabindex="-1" aria-labelledby="JourneyStop<%= image.hash %>Label" aria-hidden="true">
                     <div class="modal-dialog modal-fullscreen">
                       <div class="modal-content align-items-center align-middle">
@@ -137,5 +143,9 @@
 <% end %>
 
 <% if current_user && can?(:edit, @journey) %>
-  <%= link_to 'Make a Stop', new_journey_journey_stop_path(journey_id: @journey.id), class: 'btn btn-primary' %>
+  <%= link_to 'Make a Stop', new_journey_journey_stop_path(@journey), class: 'btn btn-primary' %>
+<% end %>
+
+<% if current_user && can?(:destroy, @journey) %>
+  <%= link_to 'Delete Journey', journey_path(@journey), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
 <% end %>

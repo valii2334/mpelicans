@@ -46,3 +46,7 @@ Then(/^I enter my email and password/, () => {
   cy.get('#user_email').fill(Cypress.env('userEmail'));
   cy.get('#user_password').fill(Cypress.env('userPassword'));
 });
+
+Then(/^I should see "([^"]*)" in the page/, (text) => {
+  cy.contains(text);
+});
