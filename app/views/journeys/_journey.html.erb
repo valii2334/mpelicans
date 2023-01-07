@@ -129,15 +129,15 @@
   </div>
 <% end %>
 
-<div class="row">
-	<div class="col-12">
-		<div class="card">
-			<div class="card-body">
-        <div class="card-title">
-          Share Link
-        </div>
-        <div class="card-text">
-          <% if current_user && can?(:edit, @journey) %>
+<% if current_user && can?(:edit, @journey) %>
+  <div class="row">
+  	<div class="col-12">
+  		<div class="card">
+  			<div class="card-body">
+          <div class="card-title">
+            Share Link
+          </div>
+          <div class="card-text">
             <% if @journey.private_journey? %>
               To see the link and to make your journey protected click on the button below.
               <br>
@@ -149,12 +149,12 @@
               <br>
               <%= link_to 'Make your journey private', journey_path(@journey, journey: { access_type: :private_journey }), method: :put, confirm: 'Are you sure?', class: 'btn btn-sm btn-primary' %>
             <% end %>
-          <% end %>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>
 
 <% if current_user && can?(:edit, @journey) %>
   <%= link_to 'Make a Stop', new_journey_journey_stop_path(@journey), class: 'btn btn-primary' %>
