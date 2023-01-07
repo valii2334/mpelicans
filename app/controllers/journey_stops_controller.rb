@@ -20,6 +20,14 @@ class JourneyStopsController < ApplicationController
     end
   end
 
+  def destroy
+    journey_stop = JourneyStop.find(params[:id])
+    journey = journey_stop.journey
+    journey_stop.destroy
+
+    redirect_to journey_path(journey)
+  end
+
   private
 
   def load_journey

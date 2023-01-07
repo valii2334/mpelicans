@@ -28,12 +28,12 @@ class JourneysController < ApplicationController
   end
 
   def destroy
-    @journey = Journey.find(params[:id])
+    journey = Journey.find(params[:id])
 
-    if @journey.destroy
+    if journey.destroy
       redirect_to root_path
     else
-      redirect_to journey_path(@journey)
+      redirect_to journey_path(journey)
     end
   end
 

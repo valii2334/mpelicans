@@ -133,4 +133,39 @@ RSpec.describe JourneyStopsController, type: :controller do
       expect(response.status).to eq(200)
     end
   end
+
+  context '#destroy' do
+    let(:journey_stop) { create(:journey_stop, journey: journey) }
+    let(:second_journey_stop) { create(:journey_stop, journey: second_journey) }
+
+    it 'redirected if not signed in' do
+      delete :destroy, params: { journey_id: journey.id, id: journey_stop.id }
+      expect(response.status).to eq(302)
+    end
+
+    it 'raises an error if other users journey' do
+      sign_in user
+
+      expect do
+        delete :destroy, params: { journey_id: second_journey.id, id: second_journey_stop.id }
+      end.to raise_error(CanCan::AccessDenied)
+    end
+
+    it 'raises an error if own journey but other users journey stop' do
+      sign_in user
+
+      expect do
+        delete :destroy, params: { journey_id: journey.id, id: second_journey_stop.id }
+      end.to raise_error(CanCan::AccessDenied)
+    end
+
+    it 'can destroy own journey stop' do
+      sign_in user
+
+      delete :destroy, params: { journey_id: journey.id, id: journey_stop.id }
+
+      expect(response.status).to redirect_to(journey_path(journey))
+      expect(JourneyStop.find_by(id: journey_stop.id)).to be_nil
+    end
+  end
 end
