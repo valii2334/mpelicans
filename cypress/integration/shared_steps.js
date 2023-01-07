@@ -27,3 +27,11 @@ When(/^I click on input "([^"]*)"/, (textLink) => {
 Given(/^I fill input "([^"]*)" with user email/, (inputName) => {
   cy.get(inputName).fill(Cypress.env('userEmail'));
 });
+
+Given(/^I go to home page/, () => {
+  cy.visit('/');
+});
+
+Then(/^I should be on the home page/, () => {
+  cy.get('h1').contains('My Journeys');
+});
