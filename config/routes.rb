@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :journeys, only: [:index, :new, :show, :create, :destroy] do
+  resources :journeys, only: [:index, :new, :update, :show, :create, :destroy] do
     resources :journey_stops, only: [:new, :create, :destroy]
   end
 

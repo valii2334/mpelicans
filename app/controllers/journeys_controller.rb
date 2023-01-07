@@ -27,6 +27,13 @@ class JourneysController < ApplicationController
     end
   end
 
+  def update
+    journey = Journey.find(params[:id])
+    journey.update(journey_update_params)
+
+    redirect_to journey_path(journey)
+  end
+
   def destroy
     journey = Journey.find(params[:id])
 
@@ -38,6 +45,12 @@ class JourneysController < ApplicationController
   end
 
   private
+
+  def journey_update_params
+    params.require(:journey).permit(
+      :access_type
+    )
+  end
 
   def journey_params
     params.require(:journey).permit(

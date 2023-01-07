@@ -169,4 +169,28 @@ RSpec.describe JourneysController, type: :controller do
       expect(Journey.find_by(id: journey.id)).to be_nil
     end
   end
+
+  context '#update' do
+    it 'redirected if not signed in' do
+      put :update, params: { id: journey.id, access_type: :protected_journey }
+      expect(response.status).to eq(302)
+    end
+
+    it 'raises an error if others user journey' do
+      sign_in user
+
+      expect do
+        put :update, params: { id: second_journey.id, access_type: :protected_journey }
+      end.to raise_error(CanCan::AccessDenied)
+    end
+
+    it 'can update own journey' do
+      sign_in user
+
+      put :update, params: { id: journey.id, journey: { access_type: :protected_journey } }
+
+      expect(response.status).to redirect_to(journey_path(journey))
+      expect(journey.reload.access_type).to eq('protected_journey')
+    end
+  end
 end
