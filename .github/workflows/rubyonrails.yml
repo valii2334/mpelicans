@@ -42,6 +42,10 @@ jobs:
       # Add or replace test runners here
       - name: Run tests
         run: bin/rake
+      # Run Cypress tests
+      - name: Run cypress tests
+        run: RAILS_ENV=test bundle exec rails s &
+        yarn cypress run
 
   lint:
     runs-on: ubuntu-latest
