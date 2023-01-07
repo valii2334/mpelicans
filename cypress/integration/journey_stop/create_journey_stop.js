@@ -1,5 +1,6 @@
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
+import '../shared_steps';
 import '../journey/create_journey';
 
 Given(/^I fill in journey stop information with/, (datatable) => {
