@@ -1,10 +1,10 @@
-describe('User can create an account', function() {
+describe('User can create an account', function () {
   beforeEach(() => {
-    cy.app('clean')
-  })
+    cy.app('clean');
+  });
 
-  it('creates an account', function() {
-    cy.visit('/')
+  it('creates an account', function () {
+    cy.visit('/');
 
     // We should be on Log in page
     cy.contains('Log in');
@@ -41,7 +41,7 @@ describe('User can create an account', function() {
 
         // We are on the index page
         cy.get('h1').contains('My Journeys');
-      })
-    })
-  })
-})
+      });
+    });
+  });
+});

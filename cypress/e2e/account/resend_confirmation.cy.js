@@ -1,9 +1,9 @@
-describe('User receive another confirmation link', function() {
+describe('User receive another confirmation link', function () {
   beforeEach(() => {
-    cy.app('clean')
-  })
+    cy.app('clean');
+  });
 
-  it('resends confirmation link', function() {
+  it('resends confirmation link', function () {
     cy.appScenario('create_unconfirmed_user');
 
     cy.visit('/');
@@ -17,7 +17,7 @@ describe('User receive another confirmation link', function() {
     // Click on Resend confirmation instructions
     cy.get('input').contains('Resend confirmation instructions').click();
 
-    cy.appEval("ActionMailer::Base.deliveries.count").then(($emailCount) => {
+    cy.appEval('ActionMailer::Base.deliveries.count').then(($emailCount) => {
       expect($emailCount).to.eq(2);
     });
 
@@ -35,6 +35,6 @@ describe('User receive another confirmation link', function() {
 
       // We are on the index page
       cy.get('h1').contains('My Journeys');
-    })
-  })
-})
+    });
+  });
+});

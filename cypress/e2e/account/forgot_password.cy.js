@@ -1,9 +1,9 @@
-describe('User can reset password', function() {
+describe('User can reset password', function () {
   beforeEach(() => {
-    cy.app('clean')
-  })
+    cy.app('clean');
+  });
 
-  it('resets password', function() {
+  it('resets password', function () {
     cy.appScenario('create_user');
 
     cy.visit('/');
@@ -30,6 +30,6 @@ describe('User can reset password', function() {
 
       // We are on the index page
       cy.get('h1').contains('My Journeys');
-    })
-  })
-})
+    });
+  });
+});
