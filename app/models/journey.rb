@@ -9,6 +9,7 @@ class Journey < ApplicationRecord
 
   belongs_to :user
   has_many :journey_stops, dependent: :destroy
+  has_many :paid_journeys, dependent: :destroy
 
   enum status:      { not_started: 0, in_progress: 1, finished: 2 }
   enum access_type: { private_journey: 0, protected_journey: 1 }

@@ -8,6 +8,7 @@ class Ability
     user ||= User.new
 
     can :create, Journey
+    can :show, Journey, access_type: [:protected_journey]
     can :manage, Journey, user: user
 
     can :new, JourneyStop

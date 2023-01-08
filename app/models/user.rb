@@ -8,6 +8,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :journeys, dependent: :destroy
+  has_many :paid_journeys, dependent: :destroy
 
   validates :username, presence: true
   validates :username, uniqueness: true
@@ -16,6 +17,8 @@ class User < ApplicationRecord
   private
 
   def username_validator
+    return if username.blank?
+
     errors.add :base, :invalid, message: 'Username can not contain white spaces' if username.include?(' ')
   end
 end

@@ -5,7 +5,8 @@ Rails.application.routes.draw do
     resources :journey_stops, only: [:new, :create, :destroy]
   end
 
-  get '/watch_journeys/:access_code', to: 'watch_journeys#show', as: :watch_journeys
+  resources :pelicans,       only: [:show], param: :username
+  resources :watch_journeys, only: [:show], param: :access_code
 
   root "journeys#index"
 end

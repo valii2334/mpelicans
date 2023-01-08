@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_08_094241) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_08_114001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,6 +60,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_08_094241) do
     t.boolean "accepts_recommendations", default: false
     t.integer "user_id"
     t.string "access_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "paid_journeys", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "journey_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -14,17 +14,27 @@ RSpec.describe JourneysController, type: :controller do
   end
 
   context '#show' do
-    it 'redirected if not signed in' do
-      get :show, params: { id: journey.id }
-      expect(response.status).to eq(302)
-    end
+    context 'other users journey' do
+      context 'private_journey' do
+        it 'raises an error if others user journey' do
+          sign_in user
 
-    it 'raises an error if others user journey' do
-      sign_in user
+          expect do
+            get :show, params: { id: second_journey.id }
+          end.to raise_error(CanCan::AccessDenied)
+        end
+      end
 
-      expect do
-        get :show, params: { id: second_journey.id }
-      end.to raise_error(CanCan::AccessDenied)
+      context 'protected_journey' do
+        before do
+          second_journey.update(access_type: :protected_journey)
+        end
+
+        it 'can view journey' do
+          get :show, params: { id: second_journey.id }
+          expect(response.status).to eq(200)
+        end
+      end
     end
 
     it 'can view own journey' do

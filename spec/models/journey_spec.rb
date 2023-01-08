@@ -32,7 +32,8 @@ RSpec.describe Journey, type: :model do
   ##################################
 
   it { should belong_to(:user) }
-  it { should have_many(:journey_stops) }
+  it { should have_many(:journey_stops).dependent(:destroy) }
+  it { should have_many(:paid_journeys).dependent(:destroy) }
 
   ##################################
   # Callbacks

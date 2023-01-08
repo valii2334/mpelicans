@@ -144,7 +144,7 @@
               <br>
               <%= link_to 'Make your journey protected', journey_path(@journey, journey: { access_type: :protected_journey }), method: :put, confirm: 'Are you sure?', class: 'btn btn-sm btn-primary' %>
             <% else %>
-              <%= watch_journeys_url(access_code: @journey.access_code) %>
+              <%= watch_journey_url(access_code: @journey.access_code) %>
               <br>
               <br>
               <%= link_to 'Make your journey private', journey_path(@journey, journey: { access_type: :private_journey }), method: :put, confirm: 'Are you sure?', class: 'btn btn-sm btn-primary' %>

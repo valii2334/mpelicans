@@ -18,4 +18,4 @@ Feature: Destroy Journey
     Given I go to home page
     And I click on link "Going to Munchen"
     When I click on link "Delete Journey"
-    Then I should see "You have no journeys yet." in the page
+    Then I should see "There are no journeys yet." in the page
