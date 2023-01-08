@@ -16,6 +16,7 @@ AllCops:
     - 'vendor/**/*'
     # Created by devise
     - 'app/controllers/users/**/*'
+    - 'app/models/ability.rb'
 
 Metrics/BlockLength:
   Exclude:

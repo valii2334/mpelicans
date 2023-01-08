@@ -63,12 +63,12 @@ RSpec.describe JourneysController, type: :controller do
 
         context 'I purchased this journey' do
           before do
-            create(:paid_journey, user: user, journey: second_journey)
+            create(:paid_journey, user:, journey: second_journey)
           end
 
           it 'can view journey' do
             sign_in user
-            
+
             get :show, params: { id: second_journey.id }
             expect(response.status).to eq(200)
           end

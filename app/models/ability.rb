@@ -18,7 +18,7 @@ class Ability
     # If a journey is monetized but we haven't bought it yet we can buy it
     can :buy, Journey do |journey|
       journey.monetized_journey? &&
-        !PaidJourney.find_by(user_id: user.id, journey_id: journey.id).present?
+        PaidJourney.find_by(user_id: user.id, journey_id: journey.id).blank?
     end
     can :manage, Journey, user: user
 
