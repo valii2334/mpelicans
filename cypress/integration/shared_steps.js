@@ -50,3 +50,7 @@ Then(/^I enter my email and password/, () => {
 Then(/^I should see "([^"]*)" in the page/, (text) => {
   cy.contains(text);
 });
+
+Then(/^I should not see "([^"]*)" in the page/, (text) => {
+  cy.contains(text).should('not.exist');
+});

@@ -8,7 +8,11 @@ class Ability
     user ||= User.new
 
     can :create, Journey
-    can :show, Journey, access_type: %i[public_journey monetized_journey]
+
+    can :show, Journey, access_type: %i[public_journey]
+    can :show, Journey do |journey|
+      PaidJourney.find_by(user_id: user.id, journey_id: journey.id).present?
+    end
     can :manage, Journey, user: user
 
     can :new, JourneyStop

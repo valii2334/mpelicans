@@ -16,9 +16,21 @@ RSpec.describe JourneysController, type: :controller do
   context '#show' do
     context 'other users journey' do
       context 'private_journey' do
-        it 'raises an error if others user journey' do
+        it 'raises an error if private journey' do
           sign_in user
 
+          expect do
+            get :show, params: { id: second_journey.id }
+          end.to raise_error(CanCan::AccessDenied)
+        end
+      end
+
+      context 'protected_journey' do
+        before do
+          second_journey.update(access_type: :protected_journey)
+        end
+
+        it 'raises an error if protected journey' do
           expect do
             get :show, params: { id: second_journey.id }
           end.to raise_error(CanCan::AccessDenied)
@@ -33,6 +45,33 @@ RSpec.describe JourneysController, type: :controller do
         it 'can view journey' do
           get :show, params: { id: second_journey.id }
           expect(response.status).to eq(200)
+        end
+      end
+
+      context 'monetized_journey' do
+        before do
+          second_journey.update(access_type: :monetized_journey)
+        end
+
+        context 'not paid' do
+          it 'raises an error if protected journey' do
+            expect do
+              get :show, params: { id: second_journey.id }
+            end.to raise_error(CanCan::AccessDenied)
+          end
+        end
+
+        context 'I purchased this journey' do
+          before do
+            create(:paid_journey, user: user, journey: second_journey)
+          end
+
+          it 'can view journey' do
+            sign_in user
+            
+            get :show, params: { id: second_journey.id }
+            expect(response.status).to eq(200)
+          end
         end
       end
     end
