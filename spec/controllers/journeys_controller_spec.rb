@@ -25,9 +25,9 @@ RSpec.describe JourneysController, type: :controller do
         end
       end
 
-      context 'protected_journey' do
+      context 'public_journey' do
         before do
-          second_journey.update(access_type: :protected_journey)
+          second_journey.update(access_type: :public_journey)
         end
 
         it 'can view journey' do

@@ -22,34 +22,56 @@
           </div>
 
           <div class="mb-3">
-						<label>
+						<label class="form-label">
 							What is your journeys start plus code? <a href="https://maps.google.com/pluscodes/" target="_blank">What is a plus code?</a>
 						</label>
             <%= f.text_field :start_plus_code, required: true, class: 'form-control' %>
           </div>
 
           <div class="mb-3">
-            <label>
-              Access Type
+            <label class="form-label">
+              Access Type. This can be changed later.
             </label>
 
             <div class="form-check">
               <label>
                 <%= f.radio_button :access_type, 'private_journey', checked: true, class: 'form-check-input' %>
-                Private - only you can view your journey
+                Private
+								<br>
+								<em>only you can view this journey</em>
               </label>
             </div>
 
             <div class="form-check">
               <label>
                 <%= f.radio_button :access_type, 'protected_journey', class: 'form-check-input' %>
-                Protected - we will generate a link to share your journey
+                Protected
+								<br>
+								<em>we will generate a private link to share this journey</em>
               </label>
             </div>
+
+						<div class="form-check">
+							<label>
+								<%= f.radio_button :access_type, 'public_journey', class: 'form-check-input' %>
+								Public
+								<br>
+								<em>anyone can see this journey</em>
+							</label>
+						</div>
+
+						<div class="form-check">
+							<label>
+								<%= f.radio_button :access_type, 'monetized_journey', class: 'form-check-input' %>
+								Monetized
+								<br>
+								<em>people will be required to pay <b>$2.00</b> in order to see this journey</em>
+							</label>
+						</div>
           </div>
 
           <div class="mb-3">
-						<label>
+						<label class="form-label">
 							Add the first picture of your journey
 						</label>
 						<br>
