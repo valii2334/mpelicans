@@ -52,6 +52,7 @@ module.exports = defineConfig({
   },
   env: {
     userEmail: 'example@email.com',
-    userPassword: 'password'
+    userPassword: 'password',
+    userUsername: 'MP01'
   }
 })

@@ -7,4 +7,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :journeys, dependent: :destroy
+
+  validates :username, presence: true
+  validates :username, uniqueness: true
 end

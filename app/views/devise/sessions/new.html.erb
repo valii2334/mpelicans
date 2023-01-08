@@ -21,12 +21,12 @@
 
                 <div class="mb-3">
                   <%= f.label :email, class: 'form-label' %><br />
-                  <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control form-control-lg' %>
+                  <%= f.email_field :email, required: true, autofocus: true, autocomplete: "email", class: 'form-control form-control-lg' %>
                 </div>
 
                 <div class="mb-3">
                   <%= f.label :password, class: 'form-label' %><br />
-                  <%= f.password_field :password, autocomplete: "current-password", class: 'form-control form-control-lg' %>
+                  <%= f.password_field :password, required: true, autocomplete: "current-password", class: 'form-control form-control-lg' %>
                 </div>
 
                 <% if devise_mapping.rememberable? %>

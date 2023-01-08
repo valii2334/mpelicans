@@ -21,20 +21,25 @@
 
                 <div class="mb-3">
                   <%= f.label :email, class: 'form-label' %><br />
-                  <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control form-control-lg' %>
+                  <%= f.email_field :email, required: true, autofocus: true, autocomplete: "email", class: 'form-control form-control-lg' %>
                 </div>
+
+								<div class="mb-3">
+									<%= f.label :username, class: 'form-label' %><br />
+									<%= f.text_field :username, required: true, autocomplete: "username", class: 'form-control form-control-lg' %>
+								</div>
 
                 <div class="mb-3">
                   <%= f.label :password, class: 'form-label' %>
                   <% if @minimum_password_length %>
                   <em>(<%= @minimum_password_length %> characters minimum)</em>
                   <% end %><br />
-                  <%= f.password_field :password, autocomplete: "new-password", class: 'form-control form-control-lg' %>
+                  <%= f.password_field :password, required: true, autocomplete: "new-password", class: 'form-control form-control-lg' %>
                 </div>
 
                 <div class="mb-3">
                   <%= f.label :password_confirmation, class: 'form-label' %><br />
-                  <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control form-control-lg' %>
+                  <%= f.password_field :password_confirmation, required: true, autocomplete: "new-password", class: 'form-control form-control-lg' %>
                 </div>
 
                 <div class="text-center mt-3">
