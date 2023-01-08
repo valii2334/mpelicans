@@ -25,7 +25,9 @@
                 </div>
 
 								<div class="mb-3">
-									<%= f.label :username, class: 'form-label' %><br />
+									<%= f.label :username, class: 'form-label' %>
+									<em>can not contain white spaces</em>
+									<br />
 									<%= f.text_field :username, required: true, autocomplete: "username", class: 'form-control form-control-lg' %>
 								</div>
 
