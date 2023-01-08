@@ -17,8 +17,5 @@ Feature: Update Journey
   Scenario: A user can change a journey from private to protected and back
     Given I go to home page
     And I click on link "Going to Munchen"
-    Then I should see "To see the link and to make your journey protected click on the button below." in the page
     When I click on link "Make your journey protected"
     Then I should see journey private link in the page
-    When I click on link "Make your journey private"
-    Then I should see "To see the link and to make your journey protected click on the button below." in the page

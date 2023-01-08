@@ -137,6 +137,13 @@
           <div class="card-title">
             Privacy
           </div>
+
+          <% if @journey.protected_journey? %>
+            <a href="<%= watch_journey_url(access_code: @journey.access_code) %>" class="private_link">Private link to share</a>
+            <br>
+            <br>
+          <% end %>
+
           <div class="card-text">
             <% journey_privacy_buttons(@journey).each do |button| %>
               <%= button %>
