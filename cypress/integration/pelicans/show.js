@@ -2,12 +2,10 @@ import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
 import '../shared_steps';
 
-Given(/^I have multiple journeys/, (datatable) => {
+Given(/^a random user with "([^"]*)" username has multiple journeys/, (username, datatable) => {
   const journeys = datatable.hashes();
 
-  journeys.forEach(journey => {
-    cy.appScenario('create_journey', { title: journey.title, access_type: journey.access_type })
-  })
+  cy.appScenario('random_user_with_journeys', { username: username, journeys: journeys })
 });
 
 Given(/^I visit last users show page/, () => {

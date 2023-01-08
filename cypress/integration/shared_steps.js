@@ -54,3 +54,7 @@ Then(/^I should see "([^"]*)" in the page/, (text) => {
 Then(/^I should not see "([^"]*)" in the page/, (text) => {
   cy.contains(text).should('not.exist');
 });
+
+When(/^I visit "([^"]*)"/, (route) => {
+  cy.visit(route);
+});

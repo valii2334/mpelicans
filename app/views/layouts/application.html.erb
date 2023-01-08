@@ -57,10 +57,28 @@
                 </li>
 
                 <li class="sidebar-item active">
-                  <a data-bs-target="#pages" data-bs-toggle="collapse" class="sidebar-link">
+                  <a data-bs-target="#journeys" data-bs-toggle="collapse" class="sidebar-link">
                     <i class="align-middle" data-feather="layout"></i> <span class="align-middle">My Journeys</span>
                   </a>
-                  <ul id="pages" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+                  <ul id="journeys" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+                    <% current_user.journeys.each do |journey| %>
+                      <li class="sidebar-item <%= active_journey?(journey) =%>">
+                        <%= link_to journey.title, journey_path(journey), class: 'sidebar-link' %>
+                      </li>
+                    <% end %>
+
+                    <li class="sidebar-item <%= active_new_journey? %>">
+                      <%= link_to "Start a New Journey", new_journey_path, class: 'sidebar-link' %>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="sidebar-item active">
+                  <a data-bs-target="#following" data-bs-toggle="collapse" class="sidebar-link">
+                    <i class="align-middle" data-feather="layout"></i> <span class="align-middle">Following</span>
+                  </a>
+
+                  <ul id="following" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
                     <% current_user.journeys.each do |journey| %>
                       <li class="sidebar-item <%= active_journey?(journey) =%>">
                         <%= link_to journey.title, journey_path(journey), class: 'sidebar-link' %>
