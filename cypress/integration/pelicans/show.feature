@@ -25,9 +25,23 @@ Feature: View travelers
 
   Scenario: As an unregistered user I can not view a monetized journey before paying
     Given a random user with "MP02" username has multiple journeys
-      | title     | access_type       |
+      | title     | access_type          |
       | Journey 1 | monetized_journey    |
     When I visit "pelicans/MP02"
     Then I should see "Journey 1" in the page
     And I should not see "View Journey" in the page
     And I should see "Buy Journey" in the page
+    When I click on link "Buy Journey"
+    Then I should see "Sign in to your account to continue" in the page
+
+  Scenario: As a registered user I can buy another users monetized journey
+    Given I am a confirmed user
+    And I log in
+    And a random user with "MP02" username has multiple journeys
+      | title     | access_type          |
+      | Journey 1 | monetized_journey    |
+    When I visit "pelicans/MP02"
+    Then I should see "Journey 1" in the page
+    And I should see "Buy Journey" in the page
+    When I click on link "Buy Journey"
+    Then I should see "Journey 1" details
