@@ -27,6 +27,12 @@ RSpec.describe User, type: :model do
   it { should have_many(:paid_journeys).dependent(:destroy) }
   it { should have_many(:journeys).dependent(:destroy) }
 
+  it { should have_many(:followed_users).with_foreign_key(:follower_id).class_name('Relationship') }
+  it { should have_many(:followees).through(:followed_users).dependent(:delete_all) }
+
+  it { should have_many(:following_users).with_foreign_key(:followee_id).class_name('Relationship') }
+  it { should have_many(:followers).through(:following_users).dependent(:delete_all) }
+
   ##################################
   # Callbacks
   ##################################
