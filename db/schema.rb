@@ -55,7 +55,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_09_151745) do
     t.string "title", null: false
     t.text "description", null: false
     t.string "start_plus_code", null: false
-    t.integer "status", default: 0, null: false
     t.integer "access_type", default: 0, null: false
     t.boolean "accepts_recommendations", default: false, null: false
     t.integer "user_id", null: false

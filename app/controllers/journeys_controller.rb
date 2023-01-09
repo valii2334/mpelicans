@@ -59,7 +59,6 @@ class JourneysController < ApplicationController
       :description,
       :image,
       :start_plus_code,
-      :status,
       :title
     )
   end

@@ -13,7 +13,6 @@ RSpec.describe Journey, type: :model do
   it { should have_attribute :title }
   it { should have_attribute :description }
   it { should have_attribute :start_plus_code }
-  it { should have_attribute :status }
   it { should have_attribute :access_type }
   it { should have_attribute :accepts_recommendations }
   it { should have_attribute :user_id }
