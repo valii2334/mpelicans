@@ -23,9 +23,9 @@ RSpec.describe Journey, type: :model do
   # Validations
   ##################################
 
-  it { should validate_presence_of :title }
   it { should validate_presence_of :description }
   it { should validate_presence_of :start_plus_code }
+  it { should validate_presence_of :title }
 
   ##################################
   # Associations

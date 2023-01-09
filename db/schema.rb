@@ -43,30 +43,30 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_08_114001) do
   end
 
   create_table "journey_stops", force: :cascade do |t|
-    t.string "title"
-    t.string "description"
-    t.string "plus_code"
-    t.integer "journey_id"
+    t.string "title", null: false
+    t.string "description", null: false
+    t.string "plus_code", null: false
+    t.integer "journey_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "journeys", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.string "start_plus_code"
-    t.integer "status", default: 0
-    t.integer "access_type", default: 0
-    t.boolean "accepts_recommendations", default: false
-    t.integer "user_id"
-    t.string "access_code"
+    t.string "title", null: false
+    t.text "description", null: false
+    t.string "start_plus_code", null: false
+    t.integer "status", default: 0, null: false
+    t.integer "access_type", default: 0, null: false
+    t.boolean "accepts_recommendations", default: false, null: false
+    t.integer "user_id", null: false
+    t.string "access_code", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "paid_journeys", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "journey_id"
+    t.integer "user_id", null: false
+    t.integer "journey_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

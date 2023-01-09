@@ -9,7 +9,7 @@ class JourneyStop < ApplicationRecord
     attachable.variant :max,   resize_to_limit: [1024, 1024]
   end
 
-  validates :title, :description, :plus_code, presence: true
+  validates :description, :title, :plus_code, presence: true
 
   validate :images_are_present
 

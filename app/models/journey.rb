@@ -19,11 +19,15 @@ class Journey < ApplicationRecord
     monetized_journey: 3
   }
 
-  validates :title, :description, :start_plus_code, presence: true
+  validates :access_code,
+            :description,
+            :start_plus_code,
+            :title,
+            presence: true
 
   validate :image_is_present
 
-  before_create :add_access_code
+  before_validation :add_access_code
 
   def map_url
     if journey_stops.count.zero?
@@ -60,6 +64,8 @@ class Journey < ApplicationRecord
   end
 
   def add_access_code
+    return if access_code
+
     self.access_code = SecureRandom.uuid
   end
 end
