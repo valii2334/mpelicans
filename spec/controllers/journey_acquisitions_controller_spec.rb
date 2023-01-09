@@ -21,7 +21,7 @@ RSpec.describe JourneyAcquisitionsController, type: :controller do
 
   context '#create' do
     subject do
-      post :create, params: params
+      post :create, params:
     end
 
     context 'not signed in' do
