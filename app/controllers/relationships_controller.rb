@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Relationship controller
-class RelationshipController < ApplicationController
+class RelationshipsController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource
 
