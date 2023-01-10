@@ -17,7 +17,7 @@
                         <% if can?(:show, journey) %>
     											<%= link_to 'View Journey', journey_path(journey), class: 'btn btn-sm btn-primary' %>
                         <% elsif can?(:buy, journey) %>
-                          <%= link_to 'Buy Journey', journey_acquisitions_path(journey_id: journey.id), method: :post, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-primary' %>
+                          <%= link_to 'Buy Journey', create_checkout_session_payments_path(journey_id: journey.id), method: :post, class: 'btn btn-sm btn-primary' %>
                         <% end %>
 										</div>
 									</div>

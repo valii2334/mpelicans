@@ -20,3 +20,7 @@ Then(/^I should see "([^"]*)" details/, (journeyTitle) => {
     cy.get('#journey-description').contains($journeyAttributes.description);
   });
 });
+
+Given(/^I stub stripe stripe to return a "([^"]*)" for first "([^"]*)" and journey "([^"]*)"/, (stripeResponse, userName, journeyTitle) => {
+  cy.appScenario('stub_stripe', { stripe_response: stripeResponse, user_name: userName, journey_title: journeyTitle })
+});

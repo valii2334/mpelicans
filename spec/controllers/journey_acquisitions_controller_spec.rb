@@ -6,7 +6,6 @@ RSpec.describe JourneyAcquisitionsController, type: :controller do
   render_views
 
   let(:user) { create(:user) }
-  let(:journey) { create(:journey, user:) }
   let(:second_user) { create(:user) }
   let(:second_journey) { create(:journey, user: second_user) }
   let(:params) do
@@ -15,13 +14,22 @@ RSpec.describe JourneyAcquisitionsController, type: :controller do
     }
   end
 
-  before do
-    user.confirm
+  let(:metadata) do
+    double('Metadata', journey_id: second_journey.id, user_id: user.id)
   end
 
-  context '#create' do
+  let(:stripe_checkout_session) do
+    double('Stripe::CheckoutSession', metadata: metadata)
+  end
+
+  before do
+    user.confirm
+    allow(Stripe::Checkout::Session).to receive(:retrieve).and_return(stripe_checkout_session)
+  end
+
+  context '#checkout_session_redirect' do
     subject do
-      post :create, params:
+      get :checkout_session_redirect, params:
     end
 
     context 'not signed in' do
@@ -73,26 +81,6 @@ RSpec.describe JourneyAcquisitionsController, type: :controller do
             expect do
               subject
             end.to raise_error(CanCan::AccessDenied)
-          end
-        end
-      end
-
-      context 'invalid parameters' do
-        context 'missing journey_id' do
-          let(:params) do
-            {
-              user_id: user.id,
-              journey_id: nil
-            }
-          end
-
-          it 'raises an error' do
-            expect do
-              subject
-            end.to raise_error(
-              ActionController::ParameterMissing,
-              'param is missing or the value is empty: journey_id'
-            )
           end
         end
       end

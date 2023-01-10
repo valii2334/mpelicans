@@ -24,5 +24,8 @@ class Ability
 
     can :new, JourneyStop
     can :manage, JourneyStop, journey: { user: }
+
+    can :create, Relationship
+    can :destroy, Relationship, followee_id: user.id
   end
 end

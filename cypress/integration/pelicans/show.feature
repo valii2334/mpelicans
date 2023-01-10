@@ -43,5 +43,19 @@ Feature: View travelers
     When I visit "pelicans/MP02"
     Then I should see "Journey 1" in the page
     And I should see "Buy Journey" in the page
+    Given I stub stripe stripe to return a "success" for first "MP01" and journey "Journey 1"
     When I click on link "Buy Journey"
     Then I should see "Journey 1" details
+
+  Scenario: As a registered user I can not buy another users monetized journey if my card is declined
+    Given I am a confirmed user
+    And I log in
+    And a random user with "MP02" username has multiple journeys
+      | title     | access_type          |
+      | Journey 1 | monetized_journey    |
+    When I visit "pelicans/MP02"
+    Then I should see "Journey 1" in the page
+    And I should see "Buy Journey" in the page
+    Given I stub stripe stripe to return a "error" for first "MP01" and journey "Journey 1"
+    When I click on link "Buy Journey"
+    Then I should be on the home page

@@ -7,12 +7,4 @@ if defined?(CypressOnRails)
     #  c.use_vcr_middleware = !Rails.env.production?
     c.logger = Rails.logger
   end
-
-  # # if you compile your asssets on CI
-  # if ENV['CYPRESS'].present? && ENV['CI'].present?
-  #  Rails.application.configure do
-  #    config.assets.compile = false
-  #    config.assets.unknown_asset_fallback = false
-  #  end
-  # end
 end
