@@ -19,7 +19,7 @@ RSpec.describe JourneyAcquisitionsController, type: :controller do
   end
 
   let(:stripe_checkout_session) do
-    double('Stripe::CheckoutSession', metadata: metadata)
+    double('Stripe::CheckoutSession', metadata:)
   end
 
   before do
