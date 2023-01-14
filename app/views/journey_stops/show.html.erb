@@ -20,21 +20,20 @@
   </div>
 </div>
 
+<div class="mb-3">
+  <h1 class="h3 d-inline align-middle"><%= @journey_stop.description %></h1>
+</div>
+
 <div class="row">
-  <div class="col-12 col-md-6 col-lg-3">
-    <div class="card">
-      <%= image_tag @journey_stop.images.first.variant(:max), class: 'card-img-top' %>
-      <div class="card-body">
-        <div class="card-title">
-          Description
-        </div>
-        <div class="card-text">
-          <%= @journey_stop.description %>
-        </div>
+  <% @journey_stop.images.each do |image| %>
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="card">
+        <%= image_tag image.variant(:max), class: 'card-img' %>
       </div>
     </div>
-  </div>
+  <% end %>
 </div>
+
 <% if current_user && can?(:destroy, @journey_stop) %>
   <%= link_to 'Delete Stop', journey_journey_stop_path(@journey_stop.journey, @journey_stop), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger float-end mt-n1' %>
 <% end %>
