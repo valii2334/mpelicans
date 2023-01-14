@@ -3,7 +3,6 @@
 # CRUD For Journey
 class JourneysController < ApplicationController
   before_action :authenticate_user!, except: [:show]
-  load_and_authorize_resource
 
   def index
     @journeys = current_user.journeys
@@ -15,10 +14,14 @@ class JourneysController < ApplicationController
 
   def show
     @journey = Journey.find(params[:id])
+
+    authorize_journey(:show)
   end
 
   def create
     @journey = Journey.new(journey_params)
+
+    authorize_journey(:create)
 
     if @journey.save
       redirect_to journey_path(@journey)
@@ -28,19 +31,24 @@ class JourneysController < ApplicationController
   end
 
   def update
-    journey = Journey.find(params[:id])
-    journey.update(journey_update_params)
+    @journey = Journey.find(params[:id])
 
-    redirect_to journey_path(journey)
+    authorize_journey(:update)
+
+    @journey.update(journey_update_params)
+
+    redirect_to journey_path(@journey)
   end
 
   def destroy
-    journey = Journey.find(params[:id])
+    @journey = Journey.find(params[:id])
 
-    if journey.destroy
+    authorize_journey(:destroy)
+
+    if @journey.destroy
       redirect_to root_path
     else
-      redirect_to journey_path(journey)
+      redirect_to journey_path(@journey)
     end
   end
 
@@ -62,5 +70,9 @@ class JourneysController < ApplicationController
       :title,
       :user_id
     )
+  end
+
+  def authorize_journey(method)
+    authorize! method, @journey
   end
 end

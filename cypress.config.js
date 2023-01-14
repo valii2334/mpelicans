@@ -48,6 +48,7 @@ module.exports = defineConfig({
     defaultCommandTimeout: 10000,
     supportFile: "cypress/support/index.js",
     specPattern: "cypress/integration/**/*.feature",
+    video: false,
     setupNodeEvents
   },
   env: {

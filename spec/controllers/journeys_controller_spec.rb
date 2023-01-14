@@ -7,7 +7,8 @@ RSpec.describe JourneysController, type: :controller do
 
   let(:user) { create(:user) }
   let(:journey) { create(:journey, user:) }
-  let(:second_journey) { create(:journey, user: create(:user)) }
+  let(:second_user) { create(:user) }
+  let(:second_journey) { create(:journey, user: second_user) }
 
   before do
     user.confirm
@@ -95,75 +96,99 @@ RSpec.describe JourneysController, type: :controller do
       }
     end
 
-    context 'invalid parameters' do
-      context 'missing title' do
-        let(:journey_params) do
-          {
-            description: FFaker::Lorem.paragraph,
-            image: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
-            start_plus_code: FFaker::Random.rand,
-            user_id: user.id
-          }
+    context 'authorization' do
+      context 'for other user' do
+        context 'valid parameters' do
+          let(:journey_params) do
+            {
+              description: FFaker::Lorem.paragraph,
+              image: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
+              start_plus_code: FFaker::Random.rand,
+              title: FFaker::Name.name,
+              user_id: second_user.id
+            }
+          end
+
+          it 'creates journey' do
+            expect do
+              subject
+            end.to raise_error(CanCan::AccessDenied)
+          end
+        end
+      end
+
+      context 'for current user' do
+        context 'invalid parameters' do
+          context 'missing title' do
+            let(:journey_params) do
+              {
+                description: FFaker::Lorem.paragraph,
+                image: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
+                start_plus_code: FFaker::Random.rand,
+                user_id: user.id
+              }
+            end
+
+            include_examples 'missing parameter', Journey, 'Title'
+          end
+
+          context 'missing description' do
+            let(:journey_params) do
+              {
+                image: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
+                start_plus_code: FFaker::Random.rand,
+                title: FFaker::Name.name,
+                user_id: user.id
+              }
+            end
+
+            include_examples 'missing parameter', Journey, 'Description'
+          end
+
+          context 'missing start_plus_code' do
+            let(:journey_params) do
+              {
+                description: FFaker::Lorem.paragraph,
+                image: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
+                title: FFaker::Name.name,
+                user_id: user.id
+              }
+            end
+
+            include_examples 'missing parameter', Journey, 'Start plus code'
+          end
+
+          context 'missing image' do
+            let(:journey_params) do
+              {
+                description: FFaker::Lorem.paragraph,
+                start_plus_code: FFaker::Random.rand,
+                title: FFaker::Name.name,
+                user_id: user.id
+              }
+            end
+
+            include_examples 'missing parameter', Journey, 'Image'
+          end
         end
 
-        include_examples 'missing parameter', Journey, 'Title'
-      end
+        context 'valid parameters' do
+          let(:journey_params) do
+            {
+              description: FFaker::Lorem.paragraph,
+              image: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
+              start_plus_code: FFaker::Random.rand,
+              title: FFaker::Name.name,
+              user_id: user.id
+            }
+          end
 
-      context 'missing description' do
-        let(:journey_params) do
-          {
-            image: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
-            start_plus_code: FFaker::Random.rand,
-            title: FFaker::Name.name,
-            user_id: user.id
-          }
+          it 'creates journey' do
+            expect do
+              subject
+            end.to change { Journey.count }.by(1)
+          end
         end
-
-        include_examples 'missing parameter', Journey, 'Description'
-      end
-
-      context 'missing start_plus_code' do
-        let(:journey_params) do
-          {
-            description: FFaker::Lorem.paragraph,
-            image: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
-            title: FFaker::Name.name,
-            user_id: user.id
-          }
-        end
-
-        include_examples 'missing parameter', Journey, 'Start plus code'
-      end
-
-      context 'missing image' do
-        let(:journey_params) do
-          {
-            description: FFaker::Lorem.paragraph,
-            start_plus_code: FFaker::Random.rand,
-            title: FFaker::Name.name,
-            user_id: user.id
-          }
-        end
-
-        include_examples 'missing parameter', Journey, 'Image'
-      end
-    end
-
-    context 'valid parameters' do
-      let(:journey_params) do
-        {
-          description: FFaker::Lorem.paragraph,
-          image: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
-          start_plus_code: FFaker::Random.rand,
-          title: FFaker::Name.name,
-          user_id: user.id
-        }
-      end
-
-      it 'creates journey' do
-        expect do
-          subject
-        end.to change { Journey.count }.by(1)
       end
     end
   end
