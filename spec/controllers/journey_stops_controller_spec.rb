@@ -213,7 +213,21 @@ RSpec.describe JourneyStopsController, type: :controller do
         context 'protected journey' do
           let(:access_type) { :protected_journey }
 
-          it_behaves_like 'can not view journey stop'
+          context 'without access_code' do
+            it_behaves_like 'can not view journey stop'
+          end
+
+          context 'with access_code' do
+            subject do
+              get :show, params: {
+                access_code: second_journey.access_code,
+                journey_id:,
+                id:
+              }
+            end
+
+            it_behaves_like 'can view journey stop'
+          end
         end
 
         context 'monetized journey' do

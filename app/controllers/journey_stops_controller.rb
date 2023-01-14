@@ -34,6 +34,8 @@ class JourneyStopsController < ApplicationController
   def show
     @journey_stop = JourneyStop.find(params[:id])
 
+    return if params[:access_code] && params[:access_code] == @journey_stop.journey.access_code
+
     authorize_journey_stop(:show)
   end
 
