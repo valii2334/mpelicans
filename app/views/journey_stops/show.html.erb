@@ -25,10 +25,10 @@
 </div>
 
 <div class="row">
-  <% @journey_stop.images.each do |image| %>
+  <% @journey_stop.images.each_with_index do |image, index| %>
     <div class="col-12 col-md-6 col-lg-3">
       <div class="card">
-        <%= image_tag image.variant(:max), class: 'card-img' %>
+        <%= image_tag image.variant(:max), class: "card-img journey-stop-image-#{index}"  %>
       </div>
     </div>
   <% end %>

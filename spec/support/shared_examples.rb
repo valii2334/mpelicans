@@ -17,3 +17,19 @@ RSpec.shared_examples 'missing parameter' do |model, attribute|
     expect(CGI.unescapeHTML(subject.body)).to include("#{attribute} can't be blank")
   end
 end
+
+RSpec.shared_examples 'can view journey stop' do
+  it 'status code 200' do
+    subject
+
+    expect(response.status).to eq(200)
+  end
+end
+
+RSpec.shared_examples 'can not view journey stop' do
+  it 'raises an error' do
+    expect do
+      subject
+    end.to raise_error(CanCan::AccessDenied)
+  end
+end

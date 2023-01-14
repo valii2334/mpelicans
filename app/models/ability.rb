@@ -5,6 +5,7 @@ class Ability
   include CanCan::Ability
 
   # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def initialize(user)
     user ||= User.new
 
@@ -21,6 +22,10 @@ class Ability
 
     # Journey Stop abilities
     can :new, JourneyStop
+    can :show, JourneyStop do |journey_stop|
+      journey_stop.journey.public_journey? ||
+        bought_journey?(user:, journey: journey_stop.journey)
+    end
     can :manage, JourneyStop, journey: { user: }
 
     # TODO: NOT YET IMPLEMENTED
@@ -28,6 +33,7 @@ class Ability
     can :destroy, Relationship, followee_id: user.id
   end
   # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize
 
   def bought_journey?(user:, journey:)
     journey.monetized_journey? &&

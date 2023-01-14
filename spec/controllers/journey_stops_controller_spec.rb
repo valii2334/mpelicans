@@ -168,4 +168,99 @@ RSpec.describe JourneyStopsController, type: :controller do
       expect(JourneyStop.find_by(id: journey_stop.id)).to be_nil
     end
   end
+
+  context '#show' do
+    let(:journey_stop) { create(:journey_stop, journey:) }
+
+    let(:second_journey) { create(:journey, access_type:, user: create(:user)) }
+    let(:second_journey_stop) { create(:journey_stop, journey: second_journey) }
+
+    subject do
+      get :show, params: {
+        journey_id:,
+        id:
+      }
+    end
+
+    context 'signed in' do
+      before do
+        sign_in user
+      end
+
+      context 'own journey stop' do
+        let(:journey_id) { journey.id }
+        let(:id) { journey_stop.id }
+
+        it_behaves_like 'can view journey stop'
+      end
+
+      context 'other users journeys' do
+        let(:journey_id) { second_journey.id }
+        let(:id) { second_journey_stop.id }
+
+        context 'private journey' do
+          let(:access_type) { :private_journey }
+
+          it_behaves_like 'can not view journey stop'
+        end
+
+        context 'public journey' do
+          let(:access_type) { :public_journey }
+
+          it_behaves_like 'can view journey stop'
+        end
+
+        context 'protected journey' do
+          let(:access_type) { :protected_journey }
+
+          it_behaves_like 'can not view journey stop'
+        end
+
+        context 'monetized journey' do
+          let(:access_type) { :monetized_journey }
+
+          context 'not bought journey' do
+            it_behaves_like 'can not view journey stop'
+          end
+
+          context 'bought journey' do
+            before do
+              create(:paid_journey, user:, journey: second_journey)
+            end
+
+            it_behaves_like 'can view journey stop'
+          end
+        end
+      end
+    end
+
+    context 'not signed in' do
+      let(:journey_id) { second_journey.id }
+      let(:id) { second_journey_stop.id }
+
+      context 'private journey' do
+        let(:access_type) { :private_journey }
+
+        it_behaves_like 'can not view journey stop'
+      end
+
+      context 'public journey' do
+        let(:access_type) { :public_journey }
+
+        it_behaves_like 'can view journey stop'
+      end
+
+      context 'protected journey' do
+        let(:access_type) { :protected_journey }
+
+        it_behaves_like 'can not view journey stop'
+      end
+
+      context 'monetized journey' do
+        let(:access_type) { :monetized_journey }
+
+        it_behaves_like 'can not view journey stop'
+      end
+    end
+  end
 end

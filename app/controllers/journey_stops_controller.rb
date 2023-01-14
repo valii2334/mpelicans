@@ -2,7 +2,7 @@
 
 # CRUD For Journey Stop
 class JourneyStopsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:show]
 
   def new
     @journey_stop = JourneyStop.new(journey_id: params[:journey_id])
