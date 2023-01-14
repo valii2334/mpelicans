@@ -1,9 +1,8 @@
-<% if current_user && can?(:edit, @journey) %>
-  <%= link_to '+ New Stop', new_journey_journey_stop_path(@journey), class: 'btn btn-primary  float-end mt-n1' %>
-<% end %>
-
 <div class="mb-3">
   <h1 class="h3 d-inline align-middle" id="journey-title"><%= @journey.title %></h1>
+  <% if current_user && can?(:edit, @journey) %>
+    <%= link_to '+ New Stop', new_journey_journey_stop_path(@journey), class: 'btn btn-primary  float-end mt-n1' %>
+  <% end %>
 </div>
 
 <div class="row">

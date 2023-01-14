@@ -15,8 +15,8 @@ module ApplicationHelper
     'active'
   end
 
-  def active_new_journey?
-    return 'active' if action_controller?('journeys', 'new')
+  def active_action_controller?(controller:, action:)
+    return 'active' if action_controller?(controller, action)
   end
 
   private
