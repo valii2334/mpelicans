@@ -28,6 +28,10 @@ class JourneyStopsController < ApplicationController
     redirect_to journey_path(journey)
   end
 
+  def show
+    @journey_stop = JourneyStop.find(params[:id])
+  end
+
   private
 
   def load_journey

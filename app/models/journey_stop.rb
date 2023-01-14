@@ -5,8 +5,7 @@ class JourneyStop < ApplicationRecord
   belongs_to :journey
 
   has_many_attached :images do |attachable|
-    attachable.variant :thumb, resize_to_limit: [400, 400]
-    attachable.variant :max,   resize_to_limit: [1024, 1024]
+    attachable.variant :max, resize_to_limit: [1024, 1024]
   end
 
   validates :description, :title, :plus_code, presence: true
@@ -17,6 +16,11 @@ class JourneyStop < ApplicationRecord
 
   def location_link
     "https://www.plus.codes/#{plus_code}"
+  end
+
+  def map_url
+    'https://www.google.com/maps/embed/v1/place' \
+      "?key=#{ENV.fetch('GOOGLE_MAPS_API_KEY', nil)}&q=#{plus_code}"
   end
 
   private

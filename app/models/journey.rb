@@ -3,8 +3,7 @@
 # Journey Model
 class Journey < ApplicationRecord
   has_one_attached :image do |attachable|
-    attachable.variant :thumb, resize_to_limit: [400, 400]
-    attachable.variant :max,   resize_to_limit: [1024, 1024]
+    attachable.variant :max, resize_to_limit: [1024, 1024]
   end
 
   belongs_to :user

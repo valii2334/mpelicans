@@ -12,7 +12,7 @@ Given(/^I fill in journey stop information with/, (datatable) => {
   cy.get('#journey_stop_images').selectFile('./cypress/support/' + table[0].journey_stop_image);
 });
 
-Then(/^journey stop information should be/, (datatable) => {
+Then(/^journey stop card should contain/, (datatable) => {
   const table = datatable.hashes();
 
   cy.get('.title.journey-stop-0').contains(table[0].title);

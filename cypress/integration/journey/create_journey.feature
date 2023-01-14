@@ -4,7 +4,7 @@ Feature: Create Journey
   Background:
     Given I am a confirmed user
     And I log in
-    And I click on link "Start a New Journey"
+    And I click on link "+ New Journey"
 
   Scenario: If a users enters correct journey information then we can create a journey
     Given I fill in journey information with

@@ -1,32 +1,22 @@
 <div class="row">
-	<div class="col-12">
-		<div class="card">
-			<div class="card-body">
-				<% if @journeys.empty? %>
-					There are no journeys yet.
-				<% else %>
-					<% @journeys.find_in_batches(batch_size: 4) do |group| %>
-						<div class="row">
-							<% group.each do |journey| %>
-								<div class="col-lg-3 col-md-6 col-sm-12">
-									<div class="card" style="height: 100%;">
-										<%= image_tag journey.image.variant(:thumb), class: 'card-img-top' %>
-										<div class="card-body">
-											<h5 class="card-title"><%= journey.title %></h5>
-											<p class="card-text"><%= journey.description %></p>
-                        <% if can?(:show, journey) %>
-    											<%= link_to 'View Journey', journey_path(journey), class: 'btn btn-sm btn-primary' %>
-                        <% elsif can?(:buy, journey) %>
-                          <%= link_to 'Buy Journey', create_checkout_session_payments_path(journey_id: journey.id), method: :post, class: 'btn btn-sm btn-primary' %>
-                        <% end %>
-										</div>
-									</div>
-								</div>
-							<% end %>
+	<% if @journeys.empty? %>
+		There are no journeys yet.
+	<% else %>
+		<% @journeys.each do |journey| %>
+				<div class="col-12 col-md-6 col-lg-3">
+					<div class="card">
+						<%= image_tag journey.image.variant(:max), class: 'card-img-top' %>
+						<div class="card-body">
+							<h5 class="card-title"><%= journey.title %></h5>
+							<p class="card-text"><%= journey.description %></p>
+                <% if can?(:show, journey) %>
+									<%= link_to 'View Journey', journey_path(journey), class: 'btn btn-sm btn-primary' %>
+                <% elsif can?(:buy, journey) %>
+                  <%= link_to 'Buy Journey', create_checkout_session_payments_path(journey_id: journey.id), method: :post, class: 'btn btn-sm btn-primary' %>
+                <% end %>
 						</div>
-					<% end %>
-				<% end %>
-			</div>
-		</div>
-	</div>
+					</div>
+				</div>
+		<% end %>
+	<% end %>
 </div>

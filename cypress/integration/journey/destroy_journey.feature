@@ -4,7 +4,7 @@ Feature: Destroy Journey
   Background:
     Given I am a confirmed user
     And I log in
-    And I click on link "Start a New Journey"
+    And I click on link "+ New Journey"
     Given I fill in journey information with
       | title            | description              | start_plus_code     | journey_image |
       | Going to Munchen | My first trip to Germany | QJ24+HG Cluj-Napoca | madrid.jpg    |
