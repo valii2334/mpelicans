@@ -5,6 +5,7 @@
 		<div class="card">
 			<div class="card-body">
         <%= form_for @journey do |f| %>
+					<%= f.hidden_field :user_id, value: current_user.id %>
 					<div class="mb-3" style="color: red;">
 						<% @journey.errors.full_messages.each do |message| %>
 							<li><%= message %></li>

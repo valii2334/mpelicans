@@ -18,7 +18,7 @@ class JourneysController < ApplicationController
   end
 
   def create
-    @journey = Journey.new(journey_params.merge(user_id: current_user.id))
+    @journey = Journey.new(journey_params)
 
     if @journey.save
       redirect_to journey_path(@journey)
@@ -59,7 +59,8 @@ class JourneysController < ApplicationController
       :description,
       :image,
       :start_plus_code,
-      :title
+      :title,
+      :user_id
     )
   end
 end

@@ -8,7 +8,8 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    can :create, Journey
+    # Journey abilities
+    can :new, Journey
     can :show, Journey do |journey|
       journey.public_journey? ||
         bought_journey?(user:, journey:)
@@ -18,7 +19,7 @@ class Ability
     end
     can :manage, Journey, user: user
 
-    # TODO: NOT YET TESTED
+    # Journey Stop abilities
     can :new, JourneyStop
     can :manage, JourneyStop, journey: { user: }
 

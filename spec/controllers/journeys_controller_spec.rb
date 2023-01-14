@@ -61,7 +61,7 @@ RSpec.describe JourneysController, type: :controller do
           end
         end
 
-        context 'I purchased this journey' do
+        context 'purchased this journey' do
           before do
             create(:paid_journey, user:, journey: second_journey)
           end
@@ -100,8 +100,9 @@ RSpec.describe JourneysController, type: :controller do
         let(:journey_params) do
           {
             description: FFaker::Lorem.paragraph,
+            image: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
             start_plus_code: FFaker::Random.rand,
-            image: fixture_file_upload('lasvegas.jpg', 'image/jpeg')
+            user_id: user.id
           }
         end
 
@@ -111,9 +112,10 @@ RSpec.describe JourneysController, type: :controller do
       context 'missing description' do
         let(:journey_params) do
           {
-            title: FFaker::Name.name,
+            image: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
             start_plus_code: FFaker::Random.rand,
-            image: fixture_file_upload('lasvegas.jpg', 'image/jpeg')
+            title: FFaker::Name.name,
+            user_id: user.id
           }
         end
 
@@ -123,9 +125,10 @@ RSpec.describe JourneysController, type: :controller do
       context 'missing start_plus_code' do
         let(:journey_params) do
           {
-            title: FFaker::Name.name,
             description: FFaker::Lorem.paragraph,
-            image: fixture_file_upload('lasvegas.jpg', 'image/jpeg')
+            image: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
+            title: FFaker::Name.name,
+            user_id: user.id
           }
         end
 
@@ -135,9 +138,10 @@ RSpec.describe JourneysController, type: :controller do
       context 'missing image' do
         let(:journey_params) do
           {
-            title: FFaker::Name.name,
             description: FFaker::Lorem.paragraph,
-            start_plus_code: FFaker::Random.rand
+            start_plus_code: FFaker::Random.rand,
+            title: FFaker::Name.name,
+            user_id: user.id
           }
         end
 
@@ -148,10 +152,11 @@ RSpec.describe JourneysController, type: :controller do
     context 'valid parameters' do
       let(:journey_params) do
         {
-          title: FFaker::Name.name,
           description: FFaker::Lorem.paragraph,
+          image: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
           start_plus_code: FFaker::Random.rand,
-          image: fixture_file_upload('lasvegas.jpg', 'image/jpeg')
+          title: FFaker::Name.name,
+          user_id: user.id
         }
       end
 
