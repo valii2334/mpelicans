@@ -28,18 +28,7 @@ class Journey < ApplicationRecord
   before_validation :add_access_code
 
   def map_url
-    if journey_stops.count.zero?
-      return 'https://www.google.com/maps/embed/v1/place' \
-             "?key=#{ENV.fetch('GOOGLE_MAPS_API_KEY', nil)}&q=#{origin}"
-    end
-
-    if journey_stops.count <= 1
-      return 'https://www.google.com/maps/embed/v1/directions' \
-             "?key=#{ENV.fetch('GOOGLE_MAPS_API_KEY', nil)}&origin=#{origin}&destination=#{destination}"
-    end
-
-    'https://www.google.com/maps/embed/v1/directions' \
-      "?key=#{ENV.fetch('GOOGLE_MAPS_API_KEY', nil)}&origin=#{origin}&destination=#{destination}&waypoints=#{waypoints}"
+    MapUrl.new(origin:, destination:, waypoints:).map_url
   end
 
   private
@@ -49,16 +38,19 @@ class Journey < ApplicationRecord
   end
 
   def origin
-    CGI.escape(start_plus_code)
+    start_plus_code
   end
 
   def destination
-    CGI.escape(journey_stops.last.plus_code)
+    return nil if journey_stops.empty?
+
+    journey_stops.last.plus_code
   end
 
   def waypoints
-    plus_codes = journey_stops.pluck(:plus_code)[0...-1].map { |plus_code| CGI.escape(plus_code) }
-    plus_codes.join('|')
+    return [] if journey_stops.count < 2
+
+    journey_stops.pluck(:plus_code)[0...-1]
   end
 
   def add_access_code

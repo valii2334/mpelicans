@@ -19,8 +19,7 @@ class JourneyStop < ApplicationRecord
   end
 
   def map_url
-    'https://www.google.com/maps/embed/v1/place' \
-      "?key=#{ENV.fetch('GOOGLE_MAPS_API_KEY', nil)}&q=#{plus_code}"
+    MapUrl.new(origin: plus_code).map_url
   end
 
   private

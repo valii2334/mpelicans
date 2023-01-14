@@ -50,49 +50,68 @@ RSpec.describe Journey, type: :model do
   # Methods
   ##################################
 
-  context '#map_url' do
-    context 'journey has no stops' do
-      it 'returns map url without destination or waypoints' do
-        start_plus_code = 'STARTPLUSCODE'
-        journey = create(:journey, start_plus_code:)
+  context '#origin' do
+    it 'returns origin' do
+      expect(subject.send(:origin)).to eq(subject.start_plus_code)
+    end
+  end
 
-        expected_map_url = 'https://www.google.com/maps/embed/v1/place' \
-                           "?key=#{ENV.fetch('GOOGLE_MAPS_API_KEY', nil)}&q=#{start_plus_code}"
-        expect(journey.map_url).to eq(expected_map_url)
+  context '#destination' do
+    context 'journey has no journey stops' do
+      before do
+        allow(subject).to receive(:journey_stops).and_return([])
+      end
+
+      it 'returns nil' do
+        expect(subject.send(:destination)).to eq(nil)
       end
     end
 
-    context 'journey has one stop' do
-      it 'returns map url with origin and destination' do
-        start_plus_code = 'STARTPLUSCODE'
-        journey = create(:journey, start_plus_code:)
-        plus_code = 'PLUSCODE'
-        create(:journey_stop, journey:, plus_code:)
+    context 'journey has multiple journey stops' do
+      before do
+        allow(subject).to receive(:journey_stops).and_return(
+          [
+            double('JourneyStop1', plus_code: 'PlusCode1'),
+            double('JourneyStop2', plus_code: 'PlusCode2')
+          ]
+        )
+      end
 
-        expected_map_url = 'https://www.google.com/maps/embed/v1/directions' \
-                           "?key=#{ENV.fetch('GOOGLE_MAPS_API_KEY',
-                                             nil)}&origin=#{start_plus_code}&destination=#{plus_code}"
-        expect(journey.map_url).to eq(expected_map_url)
+      it 'returns last journey stops plus code' do
+        expect(subject.send(:destination)).to eq('PlusCode2')
+      end
+    end
+  end
+
+  context '#waypoints' do
+    context 'journey has no journey stops' do
+      before do
+        allow(subject).to receive(:journey_stops).and_return([])
+      end
+
+      it 'returns []' do
+        expect(subject.send(:waypoints)).to eq([])
       end
     end
 
-    context 'journey has at least two stops' do
-      it 'returns map url with origin, destination and waypoints' do
-        start_plus_code = 'STARTPLUSCODE'
-        journey = create(:journey, start_plus_code:)
-        plus_code = 'PLUSCODE'
-        create(:journey_stop, journey:, plus_code:)
-        second_plus_code = 'PLUSCODESECOND'
-        create(:journey_stop, journey:, plus_code: second_plus_code)
-        third_plus_code = 'PLUSCODETHIRD'
-        create(:journey_stop, journey:, plus_code: third_plus_code)
+    context 'journey has multiple journey stops' do
+      let(:journey_stop1) { double('JourneyStop1') }
+      let(:journey_stop2) { double('JourneyStop2') }
 
-        expected_map_url = 'https://www.google.com/maps/embed/v1/directions' \
-                           "?key=#{ENV.fetch('GOOGLE_MAPS_API_KEY', nil)}" \
-                           "&origin=#{start_plus_code}" \
-                           "&destination=#{third_plus_code}" \
-                           "&waypoints=#{plus_code}|#{second_plus_code}"
-        expect(journey.map_url).to eq(expected_map_url)
+      before do
+        allow(journey_stop1).to receive(:[]).with(:plus_code).and_return('PlusCode1')
+        allow(journey_stop2).to receive(:[]).with(:plus_code).and_return('PlusCode2')
+
+        allow(subject).to receive(:journey_stops).and_return(
+          [
+            journey_stop1,
+            journey_stop2
+          ]
+        )
+      end
+
+      it 'returns last journey stops plus code' do
+        expect(subject.send(:waypoints)).to eq(['PlusCode1'])
       end
     end
   end
