@@ -90,17 +90,12 @@
           </div>
           <br>
           <div class="container">
-            <% if current_user && can?(:view, journey_stop) %>
-              <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop), class: 'btn btn-sm btn-primary' %>
-            <% elsif params[:access_code] == @journey.access_code %>
-              <%= link_to 'View Stop',
-                          journey_journey_stop_path(
-                            @journey,
-                            journey_stop,
-                            access_code: params[:access_code]
-                          ),
-                          class: 'btn btn-sm btn-primary'
-              %>
+            <% if can?(:show, journey_stop) %>
+              <% if params[:access_code] %>
+                <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop, access_code: params[:access_code]), class: 'btn btn-sm btn-primary' %>
+              <% else %>
+                <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop), class: 'btn btn-sm btn-primary' %>
+              <% end %>
             <% end %>
           </div>
         </div>

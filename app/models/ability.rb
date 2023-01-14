@@ -6,7 +6,7 @@ class Ability
 
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
-  def initialize(user)
+  def initialize(user, params)
     user ||= User.new
 
     # Journey abilities
@@ -24,6 +24,7 @@ class Ability
     can :new, JourneyStop
     can :show, JourneyStop do |journey_stop|
       journey_stop.journey.public_journey? ||
+        journey_stop.journey.access_code == params[:access_code] ||
         bought_journey?(user:, journey: journey_stop.journey)
     end
     can :manage, JourneyStop, journey: { user: }
