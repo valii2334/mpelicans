@@ -13,6 +13,7 @@ class Ability
     can :new, Journey
     can :show, Journey do |journey|
       journey.public_journey? ||
+        journey.access_code == params[:access_code] ||
         bought_journey?(user:, journey:)
     end
     can :buy, Journey do |journey|

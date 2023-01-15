@@ -29,21 +29,13 @@ RSpec.describe WatchJourneysController, type: :controller do
       context 'access_type is private_journey' do
         let(:access_type) { :private_journey }
 
-        it 'raises an error' do
-          expect do
-            subject
-          end.to raise_error(ActionController::RoutingError)
-        end
+        it_behaves_like 'can not view page'
       end
 
       context 'access_type is protected_journey' do
         let(:access_type) { :protected_journey }
 
-        it 'renders journey' do
-          subject
-
-          expect(response.status).to eq(200)
-        end
+        it_behaves_like 'can view page'
       end
     end
 
@@ -53,21 +45,13 @@ RSpec.describe WatchJourneysController, type: :controller do
       context 'invalid access_code' do
         let(:access_code) { SecureRandom.uuid }
 
-        it 'raises an error' do
-          expect do
-            subject
-          end.to raise_error(ActionController::RoutingError)
-        end
+        it_behaves_like 'can not view page'
       end
 
       context 'valid access_code' do
         let(:access_code) { journey.access_code }
 
-        it 'renders journey' do
-          subject
-
-          expect(response.status).to eq(200)
-        end
+        it_behaves_like 'can view page'
       end
     end
   end

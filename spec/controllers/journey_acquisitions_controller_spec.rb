@@ -77,11 +77,7 @@ RSpec.describe JourneyAcquisitionsController, type: :controller do
             second_journey.update(access_type: :private_journey)
           end
 
-          it 'raises an error' do
-            expect do
-              subject
-            end.to raise_error(CanCan::AccessDenied)
-          end
+          it_behaves_like 'can not view page'
         end
       end
     end

@@ -33,7 +33,7 @@ Given(/^I go to home page/, () => {
 });
 
 Then(/^I should be on the home page/, () => {
-  cy.get('h1').contains('My Journeys');
+  cy.get('h1').contains('Journeys');
 });
 
 Then(/^I click on confirmation link/, () => {

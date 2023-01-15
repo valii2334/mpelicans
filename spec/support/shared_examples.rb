@@ -18,7 +18,7 @@ RSpec.shared_examples 'missing parameter' do |model, attribute|
   end
 end
 
-RSpec.shared_examples 'can view journey stop' do
+RSpec.shared_examples 'can view page' do
   it 'status code 200' do
     subject
 
@@ -26,7 +26,7 @@ RSpec.shared_examples 'can view journey stop' do
   end
 end
 
-RSpec.shared_examples 'can not view journey stop' do
+RSpec.shared_examples 'can not view page' do
   it 'raises an error' do
     expect do
       subject

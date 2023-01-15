@@ -191,7 +191,7 @@ RSpec.describe JourneyStopsController, type: :controller do
         let(:journey_id) { journey.id }
         let(:id) { journey_stop.id }
 
-        it_behaves_like 'can view journey stop'
+        it_behaves_like 'can view page'
       end
 
       context 'other users journeys' do
@@ -201,20 +201,20 @@ RSpec.describe JourneyStopsController, type: :controller do
         context 'private journey' do
           let(:access_type) { :private_journey }
 
-          it_behaves_like 'can not view journey stop'
+          it_behaves_like 'can not view page'
         end
 
         context 'public journey' do
           let(:access_type) { :public_journey }
 
-          it_behaves_like 'can view journey stop'
+          it_behaves_like 'can view page'
         end
 
         context 'protected journey' do
           let(:access_type) { :protected_journey }
 
           context 'without access_code' do
-            it_behaves_like 'can not view journey stop'
+            it_behaves_like 'can not view page'
           end
 
           context 'with access_code' do
@@ -226,7 +226,7 @@ RSpec.describe JourneyStopsController, type: :controller do
               }
             end
 
-            it_behaves_like 'can view journey stop'
+            it_behaves_like 'can view page'
           end
         end
 
@@ -234,7 +234,7 @@ RSpec.describe JourneyStopsController, type: :controller do
           let(:access_type) { :monetized_journey }
 
           context 'not bought journey' do
-            it_behaves_like 'can not view journey stop'
+            it_behaves_like 'can not view page'
           end
 
           context 'bought journey' do
@@ -242,7 +242,7 @@ RSpec.describe JourneyStopsController, type: :controller do
               create(:paid_journey, user:, journey: second_journey)
             end
 
-            it_behaves_like 'can view journey stop'
+            it_behaves_like 'can view page'
           end
         end
       end
@@ -255,25 +255,25 @@ RSpec.describe JourneyStopsController, type: :controller do
       context 'private journey' do
         let(:access_type) { :private_journey }
 
-        it_behaves_like 'can not view journey stop'
+        it_behaves_like 'can not view page'
       end
 
       context 'public journey' do
         let(:access_type) { :public_journey }
 
-        it_behaves_like 'can view journey stop'
+        it_behaves_like 'can view page'
       end
 
       context 'protected journey' do
         let(:access_type) { :protected_journey }
 
-        it_behaves_like 'can not view journey stop'
+        it_behaves_like 'can not view page'
       end
 
       context 'monetized journey' do
         let(:access_type) { :monetized_journey }
 
-        it_behaves_like 'can not view journey stop'
+        it_behaves_like 'can not view page'
       end
     end
   end

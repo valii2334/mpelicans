@@ -15,15 +15,19 @@ RSpec.describe JourneysController, type: :controller do
   end
 
   context '#show' do
-    context 'other users journey' do
-      context 'private_journey' do
-        it 'raises an error if private journey' do
-          sign_in user
+    subject do
+      get :show, params: { id: journey_id }
+    end
 
-          expect do
-            get :show, params: { id: second_journey.id }
-          end.to raise_error(CanCan::AccessDenied)
-        end
+    context 'other users journey' do
+      let(:journey_id) { second_journey.id }
+
+      before do
+        sign_in user
+      end
+
+      context 'private_journey' do
+        it_behaves_like 'can not view page'
       end
 
       context 'protected_journey' do
@@ -31,11 +35,7 @@ RSpec.describe JourneysController, type: :controller do
           second_journey.update(access_type: :protected_journey)
         end
 
-        it 'raises an error if protected journey' do
-          expect do
-            get :show, params: { id: second_journey.id }
-          end.to raise_error(CanCan::AccessDenied)
-        end
+        it_behaves_like 'can not view page'
       end
 
       context 'public_journey' do
@@ -43,10 +43,7 @@ RSpec.describe JourneysController, type: :controller do
           second_journey.update(access_type: :public_journey)
         end
 
-        it 'can view journey' do
-          get :show, params: { id: second_journey.id }
-          expect(response.status).to eq(200)
-        end
+        it_behaves_like 'can view page'
       end
 
       context 'monetized_journey' do
@@ -55,11 +52,7 @@ RSpec.describe JourneysController, type: :controller do
         end
 
         context 'not paid' do
-          it 'raises an error if protected journey' do
-            expect do
-              get :show, params: { id: second_journey.id }
-            end.to raise_error(CanCan::AccessDenied)
-          end
+          it_behaves_like 'can not view page'
         end
 
         context 'purchased this journey' do
@@ -67,21 +60,19 @@ RSpec.describe JourneysController, type: :controller do
             create(:paid_journey, user:, journey: second_journey)
           end
 
-          it 'can view journey' do
-            sign_in user
-
-            get :show, params: { id: second_journey.id }
-            expect(response.status).to eq(200)
-          end
+          it_behaves_like 'can view page'
         end
       end
     end
 
-    it 'can view own journey' do
-      sign_in user
+    context 'own journey' do
+      let(:journey_id) { journey.id }
 
-      get :show, params: { id: journey.id }
-      expect(response.status).to eq(200)
+      before do
+        sign_in user
+      end
+
+      it_behaves_like 'can view page'
     end
   end
 
@@ -109,11 +100,7 @@ RSpec.describe JourneysController, type: :controller do
             }
           end
 
-          it 'creates journey' do
-            expect do
-              subject
-            end.to raise_error(CanCan::AccessDenied)
-          end
+          it_behaves_like 'can not view page'
         end
       end
 
@@ -202,11 +189,7 @@ RSpec.describe JourneysController, type: :controller do
       get :new
     end
 
-    it 'renders new' do
-      subject
-
-      expect(response.status).to eq(200)
-    end
+    it_behaves_like 'can view page'
   end
 
   context '#index' do
@@ -218,58 +201,96 @@ RSpec.describe JourneysController, type: :controller do
       get :index
     end
 
-    it 'renders new' do
-      subject
-
-      expect(response.status).to eq(200)
-    end
+    it_behaves_like 'can view page'
   end
 
   context '#destroy' do
-    it 'redirected if not signed in' do
-      delete :destroy, params: { id: journey.id }
-      expect(response.status).to eq(302)
+    subject do
+      delete :destroy, params: { id: journey_id }
     end
 
-    it 'raises an error if others user journey' do
-      sign_in user
+    context 'not signed in' do
+      let(:journey_id) { journey.id }
 
-      expect do
-        delete :destroy, params: { id: second_journey.id }
-      end.to raise_error(CanCan::AccessDenied)
+      it 'redirected if not signed in' do
+        subject
+
+        expect(response.status).to eq(302)
+      end
     end
 
-    it 'can destroy own journey' do
-      sign_in user
+    context 'signed in' do
+      before do
+        sign_in user
+      end
 
-      delete :destroy, params: { id: journey.id }
+      context 'raises an error if others user journey' do
+        let(:journey_id) { second_journey.id }
 
-      expect(response.status).to redirect_to(root_path)
-      expect(Journey.find_by(id: journey.id)).to be_nil
+        it_behaves_like 'can not view page'
+      end
+
+      context 'can destroy own journey' do
+        let(:journey_id) { journey.id }
+
+        it 'redirects to journey' do
+          subject
+
+          expect(response.status).to redirect_to(root_path)
+        end
+
+        it 'destroys journey' do
+          subject
+
+          expect(Journey.find_by(id: journey.id)).to be_nil
+        end
+      end
     end
   end
 
   context '#update' do
-    it 'redirected if not signed in' do
-      put :update, params: { id: journey.id, access_type: :protected_journey }
-      expect(response.status).to eq(302)
+    let(:access_type) { :protected_journey }
+
+    subject do
+      put :update, params: { id: journey_id, journey: { access_type: } }
     end
 
-    it 'raises an error if others user journey' do
-      sign_in user
+    context 'not signed in' do
+      let(:journey_id) { journey.id }
 
-      expect do
-        put :update, params: { id: second_journey.id, access_type: :protected_journey }
-      end.to raise_error(CanCan::AccessDenied)
+      it 'redirected if not signed in' do
+        subject
+
+        expect(response.status).to eq(302)
+      end
     end
 
-    it 'can update own journey' do
-      sign_in user
+    context 'signed in' do
+      before do
+        sign_in user
+      end
 
-      put :update, params: { id: journey.id, journey: { access_type: :protected_journey } }
+      context 'own journey' do
+        let(:journey_id) { journey.id }
 
-      expect(response.status).to redirect_to(journey_path(journey))
-      expect(journey.reload.access_type).to eq('protected_journey')
+        it 'redirects to journey' do
+          subject
+
+          expect(response.status).to redirect_to(journey_path(journey))
+        end
+
+        it 'updates journey' do
+          subject
+
+          expect(journey.reload.access_type).to eq('protected_journey')
+        end
+      end
+
+      context 'other users journey' do
+        let(:journey_id) { second_journey.id }
+
+        it_behaves_like 'can not view page'
+      end
     end
   end
 end
