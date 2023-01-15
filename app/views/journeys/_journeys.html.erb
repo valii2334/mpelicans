@@ -1,10 +1,10 @@
 <div class="row">
-	<% if @journeys.empty? %>
+	<% if journeys.empty? %>
 		<div class="mb-3">
 			<h1 class="h4 d-inline align-middle">There are no journeys yet.</h1>
 		</div>
 	<% else %>
-		<% @journeys.each do |journey| %>
+		<% journeys.each do |journey| %>
 				<div class="col-12 col-md-6 col-lg-3">
 					<div class="card">
 						<%= image_tag journey.image.variant(:max), class: 'card-img-top' %>

@@ -6,6 +6,7 @@ class JourneysController < ApplicationController
 
   def index
     @journeys = current_user.journeys
+    @bought_journeys = current_user.bought_journeys
   end
 
   def new

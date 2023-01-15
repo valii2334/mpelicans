@@ -14,4 +14,4 @@ Feature: Create Journey
     Then journey information should be
       | title            | description              | start_plus_code       | journey_image |
       | Going to Munchen | My first trip to Germany | QJ24%2BHG+Cluj-Napoca | madrid.jpg    |
-    And link "Going to Munchen" is active in the sidebar
+    And link "All Journeys" is active in the sidebar

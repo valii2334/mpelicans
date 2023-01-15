@@ -61,15 +61,9 @@
                     <i class="align-middle" data-feather="layout"></i> <span class="align-middle">Journeys</span>
                   </a>
                   <ul id="journeys" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
-                    <li class="sidebar-item <%= active_controller_action?(controller: 'journeys', action: 'index') %>">
+                    <li class="sidebar-item <%= active_controller_action?(controller: 'journeys', action: 'index') %> <%= active_controller_action?(controller: 'journeys', action: 'show') %>">
                       <%= link_to 'All Journeys', journeys_path, class: 'sidebar-link' %>
                     </li>
-
-                    <% current_user.journeys.each do |journey| %>
-                      <li class="sidebar-item <%= active_journey?(journey:) =%>">
-                        <%= link_to journey.title, journey_path(journey), class: 'sidebar-link' %>
-                      </li>
-                    <% end %>
 
                     <li class="sidebar-item <%= active_controller_action?(controller: 'journeys', action: 'new') %>">
                       <%= link_to "+ New Journey", new_journey_path, class: 'sidebar-link' %>

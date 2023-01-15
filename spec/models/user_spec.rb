@@ -24,7 +24,8 @@ RSpec.describe User, type: :model do
   # Associations
   ##################################
 
-  it { should have_many(:paid_journeys).dependent(:destroy) }
+  it { should have_many(:paid_journeys).class_name('PaidJourney').dependent(:destroy).inverse_of(:user) }
+  it { should have_many(:bought_journeys).through(:paid_journeys).source(:journey) }
   it { should have_many(:journeys).dependent(:destroy) }
 
   it {

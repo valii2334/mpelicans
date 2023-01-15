@@ -6,7 +6,15 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :journeys, dependent: :destroy
-  has_many :paid_journeys, dependent: :destroy
+
+  has_many :paid_journeys,
+           class_name: 'PaidJourney',
+           dependent: :destroy,
+           inverse_of: :user
+
+  has_many :bought_journeys,
+           through: :paid_journeys,
+           source: :journey
 
   has_many :followed_users,
            foreign_key: :follower_id,
