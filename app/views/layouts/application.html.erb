@@ -27,7 +27,7 @@
             <div class="sidebar-user">
               <div class="d-flex justify-content-center">
                 <div class="flex-shrink-0">
-                  <%= image_tag "avatars/avatar.png", class: "avatar img-fluid rounded me-1", alt: "Christina Mason" %>
+                  <%= image_tag "avatars/avatar.png", class: "avatar img-fluid rounded me-1" %>
                 </div>
                 <% if current_user %>
                   <div class="flex-grow-1 ps-2">
@@ -77,12 +77,12 @@
                   </ul>
                 </li>
 
-                <li class="sidebar-item <%= controller?(controller: 'pelicans') ? 'active' : '' %>">
+                <li class="sidebar-item <%= active_controller?(controller: 'pelicans') %>">
                   <a data-bs-target="#pelicans" data-bs-toggle="collapse" class="sidebar-link">
                     <i class="align-middle" data-feather="layout"></i> <span class="align-middle">Pelicans</span>
                   </a>
                   <ul id="pelicans" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
-                    <li class="sidebar-item <%= active_controller_action?(controller: 'pelicans', action: 'index') %>">
+                    <li class="sidebar-item <%= active_controller?(controller: 'pelicans') %>">
                       <%= link_to "Search", pelicans_path, class: 'sidebar-link' %>
                     </li>
                   </ul>

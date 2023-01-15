@@ -1,6 +1,8 @@
 <div class="row">
 	<% if @journeys.empty? %>
-		There are no journeys yet.
+		<div class="mb-3">
+			<h1 class="h4 d-inline align-middle">There are no journeys yet.</h1>
+		</div>
 	<% else %>
 		<% @journeys.each do |journey| %>
 				<div class="col-12 col-md-6 col-lg-3">

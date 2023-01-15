@@ -1,0 +1,46 @@
+<div class="mb-3">
+  <h1 class="h3 d-inline align-middle">Pelicans</h1>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+    	<div class="card-body">
+    		<div class="row">
+    			<div class="w-100"></div>
+    			<div class="col-md">
+    				<div class="mb-0">
+              <%= form_for :pelicans, html: { method: :get } do |f| %>
+                <div class="input-group">
+                  <%= f.text_field :query_string, required: true, class: 'form-control', placeholder: 'Search...' %>
+                  <%= f.submit 'Search', class: 'btn btn-secondary' %>
+                </div>
+              <% end %>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+	<% if @users.empty? %>
+    <div class="mb-3">
+      <h1 class="h4 d-inline align-middle">No pelicans yet.</h1>
+    </div>
+	<% else %>
+		<% @users.each do |user| %>
+				<div class="col-12 col-md-6 col-lg-3">
+					<div class="card">
+            <%= image_tag "avatars/avatar.png", class: "card-img-top" %>
+						<div class="card-body">
+							<h5 class="card-title pelican-name"><%= user.username %></h5>
+							<p class="card-text"></p>
+								<%= link_to 'View Pelican', pelican_path(user.username), class: 'btn btn-sm btn-primary pelican-path' %>
+						</div>
+					</div>
+				</div>
+		<% end %>
+	<% end %>
+</div>

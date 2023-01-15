@@ -2,7 +2,15 @@
 
 # User controller
 class PelicansController < ApplicationController
-  def index; end
+  include ActiveRecord::Sanitization
+
+  def index
+    @users = if params[:pelicans] && params[:pelicans][:query_string]
+               User.where('username ILIKE ?', "%#{params[:pelicans][:query_string]}%")
+             else
+               []
+             end
+  end
 
   def show
     @user = User.find_by!(username: params[:username])
