@@ -10,26 +10,28 @@ class PaymentsController < ApplicationController
 
     authorize! :buy, journey
 
-    session = Stripe::Checkout::Session.create({
-                                                 line_items: [{
-                                                   price_data: {
-                                                     currency: 'usd',
-                                                     product_data: {
-                                                       name: product_name(journey)
-                                                     },
-                                                     unit_amount: 200
-                                                   },
-                                                   quantity: 1
-                                                 }],
-                                                 customer_email: current_user.email,
-                                                 mode: 'payment',
-                                                 success_url: "#{success_url}?session_id={CHECKOUT_SESSION_ID}",
-                                                 cancel_url: root_url,
-                                                 metadata: {
-                                                   user_id: current_user.id,
-                                                   journey_id: journey.id
-                                                 }
-                                               })
+    session = Stripe::Checkout::Session.create(
+      {
+        line_items: [{
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: product_name(journey)
+            },
+            unit_amount: 200
+          },
+          quantity: 1
+        }],
+        customer_email: current_user.email,
+        mode: 'payment',
+        success_url: "#{success_url}?session_id={CHECKOUT_SESSION_ID}",
+        cancel_url: root_url,
+        metadata: {
+          user_id: current_user.id,
+          journey_id: journey.id
+        }
+      }
+    )
 
     redirect_to session.url, allow_other_host: true
   end
@@ -42,6 +44,6 @@ class PaymentsController < ApplicationController
   end
 
   def product_name(journey)
-    "MPelicans journey: #{journey.title}"
+    "Buying Journey #{journey.title} from Migrating Pelicans"
   end
 end
