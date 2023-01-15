@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :journeys,             only: [:index, :new, :update, :show, :create, :destroy] do
     resources :journey_stops, only: [:new, :show, :create, :destroy]
   end
-  resources :pelicans,             only: [:show], param: :username
+  resources :pelicans,             only: [:index, :show], param: :username
   resources :relationships,        only: [:create, :destroy]
   resources :payments,             only: [] do
     collection do

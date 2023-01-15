@@ -40,7 +40,7 @@
           <% end %>
 
           <div class="card-text">
-            <% journey_privacy_buttons(@journey).each do |button| %>
+            <% journey_privacy_buttons(journey: @journey).each do |button| %>
               <%= button %>
             <% end %>
           </div>
