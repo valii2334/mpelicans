@@ -14,8 +14,10 @@
                 <% if can?(:show, journey) %>
 									<%= link_to 'View Journey', journey_path(journey), class: 'btn btn-sm btn-primary' %>
                 <% elsif can?(:buy, journey) %>
-                  <%= link_to 'Buy Journey', create_checkout_session_payments_path(journey_id: journey.id), method: :post, class: 'btn btn-sm btn-primary' %>
-                <% end %>
+                  <%= link_to create_checkout_session_payments_path(journey_id: journey.id), method: :post, class: 'btn btn-sm btn-primary' do %>
+										<i class="align-middle" data-feather="lock"></i> <span class="align-middle">Buy Journey</span>
+									<% end %>
+								<% end %>
 						</div>
 					</div>
 				</div>
