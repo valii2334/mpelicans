@@ -17,6 +17,6 @@ Rails.application.routes.draw do
     end
   end
   resources :watch_journeys,       only: [:show], param: :access_code
-
+  resources :users,                only: [:edit]
   root "journeys#index"
 end

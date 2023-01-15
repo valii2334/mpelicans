@@ -57,7 +57,7 @@
                 </li>
 
                 <li class="sidebar-item <%= (controller?(controller: 'journeys') || controller?(controller: 'journey_stops')) ? 'active' : '' %>">
-                  <a data-bs-target="#journeys" data-bs-toggle="collapse" class="sidebar-link">
+                  <a data-bs-target="#journeys" data-bs-toggle="" class="sidebar-link">
                     <i class="align-middle" data-feather="layout"></i> <span class="align-middle">Journeys</span>
                   </a>
                   <ul id="journeys" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
@@ -72,14 +72,20 @@
                 </li>
 
                 <li class="sidebar-item <%= active_controller?(controller: 'pelicans') %>">
-                  <a data-bs-target="#pelicans" data-bs-toggle="collapse" class="sidebar-link">
-                    <i class="align-middle" data-feather="layout"></i> <span class="align-middle">Pelicans</span>
+                  <a data-bs-target="#pelicans" data-bs-toggle="" class="sidebar-link">
+                    <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Pelicans</span>
                   </a>
                   <ul id="pelicans" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
                     <li class="sidebar-item <%= active_controller?(controller: 'pelicans') %>">
                       <%= link_to "Search", pelicans_path, class: 'sidebar-link' %>
                     </li>
                   </ul>
+                </li>
+
+                <li class="sidebar-item <%= active_controller?(controller: 'users') %>">
+                  <%= link_to edit_user_path(current_user), class: 'sidebar-link' do %>
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+                  <% end %>
                 </li>
               </ul>
             <% end %>
