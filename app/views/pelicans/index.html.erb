@@ -41,7 +41,8 @@
 						<div class="card-body">
 							<h5 class="card-title pelican-name"><%= user.username %></h5>
 							<p class="card-text"></p>
-								<%= link_to 'View Pelican', pelican_path(user.username), class: 'btn btn-sm btn-primary pelican-path' %>
+							<%= link_to 'View Pelican', pelican_path(user.username), class: 'btn btn-sm btn-primary pelican-path' %>
+              <%= render partial: 'follow_unfollow', locals: { followee: current_user, follower: user } %>
 						</div>
 					</div>
 				</div>

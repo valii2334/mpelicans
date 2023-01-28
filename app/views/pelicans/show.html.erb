@@ -1,2 +1,7 @@
 <h1 class="h3 mb-3">You are viewing <%= @user.username %> journeys</h1>
+<div class="row">
+  <div class="mb-3">
+    <%= render partial: 'follow_unfollow', locals: { followee: current_user, follower: @user } %>
+  </div>
+</div>
 <%= render partial: 'journeys/journeys', locals: { journeys: @journeys } %>

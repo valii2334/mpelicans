@@ -30,8 +30,10 @@ class Ability
     end
     can :manage, JourneyStop, journey: { user: }
 
-    # TODO: NOT YET IMPLEMENTED
-    can :create, Relationship
+    can :create, Relationship do |_, followee, follower|
+      !same_user?(follower:, followee:) &&
+        Relationship.find_by(followee_id: followee.id, follower_id: follower.id).nil?
+    end
     can :destroy, Relationship, followee_id: user.id
   end
   # rubocop:enable Metrics/MethodLength
@@ -45,5 +47,9 @@ class Ability
   def boughtable_journey?(user:, journey:)
     journey.monetized_journey? &&
       PaidJourney.find_by(user_id: user.id, journey_id: journey.id).blank?
+  end
+
+  def same_user?(follower:, followee:)
+    follower == followee
   end
 end
