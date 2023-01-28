@@ -2,7 +2,7 @@
 
 # User controller
 class PelicansController < ApplicationController
-  before_action :authenticate_user!, only: [:edit, :update]
+  before_action :authenticate_user!, only: %i[edit update]
 
   include ActiveRecord::Sanitization
 

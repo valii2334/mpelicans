@@ -30,8 +30,8 @@ RSpec.describe PelicansController, type: :controller do
         username: user.username,
         user: {
           biography: new_biography,
-          image:     new_image,
-          username:  new_username
+          image: new_image,
+          username: new_username
         }
       }
 

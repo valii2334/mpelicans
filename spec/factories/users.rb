@@ -6,8 +6,10 @@ FactoryBot.define do
     password { FFaker::Name.name }
     username { FFaker::Internet.user_name }
 
+    # rubocop:disable Style/SymbolProc
     after(:create) do |user|
       user.confirm
     end
+    # rubocop:enable Style/SymbolProc
   end
 end
