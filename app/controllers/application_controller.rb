@@ -9,11 +9,11 @@ class ApplicationController < ActionController::Base
   end
 
   def success_message(message:)
-    flash_message(message: message, message_type: 'success')
+    flash_message(message:, message_type: 'success')
   end
 
   def alert_message(message: 'There was a problem while processing your request.')
-    flash_message(message: message, message_type: 'danger')
+    flash_message(message:, message_type: 'danger')
   end
 
   private
