@@ -28,12 +28,20 @@ class PelicansController < ApplicationController
 
     reset_password
 
+    if current_user.errors.blank?
+      success_message(message: 'Your user was updated')
+    else
+      alert_message
+    end
+
     redirect_to edit_pelican_path(current_user.username)
   end
 
   private
 
   def reset_password
+    return if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
+
     current_user.reset_password(
       params[:user][:password],
       params[:user][:password_confirmation]
@@ -44,9 +52,7 @@ class PelicansController < ApplicationController
     params.require(:user).permit(
       :biography,
       :image,
-      :username,
-      :password,
-      :password_confirmation
+      :username
     )
   end
 end

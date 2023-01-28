@@ -25,8 +25,12 @@ class JourneysController < ApplicationController
     authorize_journey(:create)
 
     if @journey.save
+      success_message(message: 'Your journey was created.')
+
       redirect_to journey_path(@journey)
     else
+      alert_message
+
       render action: 'new'
     end
   end
@@ -36,7 +40,11 @@ class JourneysController < ApplicationController
 
     authorize_journey(:update)
 
-    @journey.update(journey_update_params)
+    if @journey.update(journey_update_params)
+      success_message(message: 'Your journey was updated.')
+    else
+      alert_message
+    end
 
     redirect_to journey_path(@journey)
   end
@@ -47,8 +55,12 @@ class JourneysController < ApplicationController
     authorize_journey(:destroy)
 
     if @journey.destroy
+      success_message(message: 'Your journey was deleted.')
+
       redirect_to root_path
     else
+      alert_message
+
       redirect_to journey_path(@journey)
     end
   end

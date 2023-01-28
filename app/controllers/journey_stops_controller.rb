@@ -14,8 +14,12 @@ class JourneyStopsController < ApplicationController
     authorize_journey_stop(:create)
 
     if @journey_stop.save
-      redirect_to journey_path(@journey_stop.journey)
+      success_message(message: 'Your journey stop was created.')
+
+      redirect_to journey_journey_stop_path(@journey_stop.journey, @journey_stop)
     else
+      alert_message
+
       render action: 'new'
     end
   end
@@ -26,7 +30,12 @@ class JourneyStopsController < ApplicationController
     authorize_journey_stop(:destroy)
 
     journey = @journey_stop.journey
-    @journey_stop.destroy
+
+    if @journey_stop.destroy
+      success_message(message: 'Your journey stop was deleted.')
+    else
+      alert_message
+    end
 
     redirect_to journey_path(journey)
   end

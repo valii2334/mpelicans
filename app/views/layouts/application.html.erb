@@ -40,10 +40,6 @@
                     </a>
                     <div class="sidebar-user-subtitle">Journeys: <%= current_user.journeys.count %></div>
                     <div class="dropdown-menu dropdown-menu-start">
-                      <% if false %>
-                        <%= link_to "Profile", edit_user_password_path, class: 'dropdown-item' %>
-                        <div class="dropdown-divider"></div>
-                      <% end %>
                       <%= link_to "Log out", destroy_user_session_path, class: 'dropdown-item' %>
                     </div>
                   </div>
@@ -62,9 +58,10 @@
                 </li>
 
                 <li class="sidebar-item <%= (controller?(controller: 'journeys') || controller?(controller: 'journey_stops')) ? 'active' : '' %>">
-                  <a data-bs-target="#journeys" data-bs-toggle="" class="sidebar-link">
+                  <%= link_to journeys_path, class: 'sidebar-link', data: { "bs-target" => '#journeys' } do %>
                     <i class="align-middle" data-feather="layout"></i> <span class="align-middle">Journeys</span>
-                  </a>
+                  <% end %>
+
                   <ul id="journeys" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
                     <li class="sidebar-item <%= active_controller_action?(controller: 'journeys', action: 'index') %> <%= active_controller_action?(controller: 'journeys', action: 'show') %>">
                       <%= link_to 'All Journeys', journeys_path, class: 'sidebar-link' %>
@@ -77,9 +74,10 @@
                 </li>
 
                 <li class="sidebar-item <%= active_controller_action?(controller: 'pelicans', action: 'index') %> <%= active_controller_action?(controller: 'pelicans', action: 'show') %>">
-                  <a data-bs-target="#pelicans" data-bs-toggle="" class="sidebar-link">
+                  <%= link_to pelicans_path, class: 'sidebar-link', data: { "bs-target" => '#pelicans' } do %>
                     <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Pelicans</span>
-                  </a>
+                  <% end %>
+
                   <ul id="pelicans" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
                     <li class="sidebar-item <%= active_controller_action?(controller: 'pelicans', action: 'index') %>">
                       <%= link_to "Search", pelicans_path, class: 'sidebar-link' %>
@@ -99,7 +97,6 @@
       <% end %>
 
       <div class="main">
-
         <% if current_user %>
           <nav class="navbar navbar-expand navbar-light navbar-bg">
             <a class="sidebar-toggle js-sidebar-toggle">
@@ -110,6 +107,16 @@
 
         <main class="content">
         	<div class="container-fluid p-0">
+
+            <% if flash[:message] %>
+              <div class="alert alert-<%= flash[:message_type] || 'secondary' %> alert-dismissible" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div class="alert-message">
+                  <%= flash[:message] %>
+                </div>
+              </div>
+            <% end %>
+
             <%= yield %>
           </div>
         </main>
