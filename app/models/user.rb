@@ -5,6 +5,10 @@ class User < ApplicationRecord
   devise :confirmable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_one_attached :image do |attachable|
+    attachable.variant :max, resize_to_limit: [1024, 1024]
+  end
+
   has_many :journeys, dependent: :destroy
 
   has_many :paid_journeys,

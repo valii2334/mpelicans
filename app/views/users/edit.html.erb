@@ -1,0 +1,83 @@
+<div class="mb-3">
+  <h1 class="h3 d-inline align-middle">Profile</h1>
+</div>
+
+<div class="row">
+  <div class="col-md-3 col-xl-2">
+    <div class="card">
+    	<div class="card-header">
+    		<h5 class="card-title mb-0">Profile Settings</h5>
+    	</div>
+
+    	<div class="list-group list-group-flush" role="tablist">
+    		<a class="list-group-item list-group-item-action active" data-bs-toggle="list" href="#account" role="tab" aria-selected="true">
+    			Account
+    		</a>
+    		<a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#password" role="tab" aria-selected="false" tabindex="-1">
+    			Password
+    		</a>
+    	</div>
+    </div>
+  </div>
+
+  <div class="col-md-9 col-xl-10">
+  	<div class="tab-content">
+  		<div class="tab-pane fade show active" id="account" role="tabpanel">
+  			<div class="card">
+  				<div class="card-header">
+  					<h5 class="card-title mb-0">Public info</h5>
+  				</div>
+  				<div class="card-body">
+            <%= form_for @user do |f| %>
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="mb-3">
+                    <%= f.label :username, class: 'form-label' %><br />
+                    <%= f.text_field :username, required: true, autofocus: true, autocomplete: "username", value: current_user.username, class: 'form-control' %>
+                  </div>
+                  <div class="mb-3">
+                    <%= f.label :biography, class: 'form-label' %><br />
+                    <%= f.text_area :biography, value: @user.biography, class: 'form-control' %>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="text-center">
+                    <% if @user.image.attached? %>
+                      <%= image_tag @user.image.variant(:max), class: "rounded-circle img-responsive mt-2", width: '128', height: '128'  %>
+                    <% else %>
+                      <%= image_tag "avatars/avatar.png", class: "rounded-circle img-responsive mt-2", width: '128', height: '128' %>
+                    <% end %>
+                    <div class="mt-2">
+                      <%= f.file_field :image, required: true %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <%= f.submit "Save changes", class: "btn btn-primary" %>
+            <% end %>
+  				</div>
+  			</div>
+  		</div>
+
+  		<div class="tab-pane fade" id="password" role="tabpanel">
+  			<div class="card">
+  				<div class="card-body">
+  					<h5 class="card-title">Password</h5>
+
+  					<%= form_for @user do |f| %>
+  						<div class="mb-3">
+  							<%= f.label :password, class: 'form-label' %><br />
+                <%= f.password_field :password, class: 'form-control' %>
+  						</div>
+  						<div class="mb-3">
+  							<%= f.label :password_confirmation, class: 'form-label' %><br />
+  							<%= f.password_field :password_confirmation, class: 'form-control' %>
+  						</div>
+    					<%= f.submit "Save changes", class: "btn btn-primary" %>
+  					<% end %>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+  </div>
+</div>
