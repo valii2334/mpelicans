@@ -23,7 +23,6 @@ RSpec.describe JourneyAcquisitionsController, type: :controller do
   end
 
   before do
-    user.confirm
     allow(Stripe::Checkout::Session).to receive(:retrieve).and_return(stripe_checkout_session)
   end
 

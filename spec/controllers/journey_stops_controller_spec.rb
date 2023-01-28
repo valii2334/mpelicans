@@ -9,10 +9,6 @@ RSpec.describe JourneyStopsController, type: :controller do
   let(:journey) { create(:journey, user:) }
   let(:second_journey) { create(:journey, user: create(:user)) }
 
-  before do
-    user.confirm
-  end
-
   context '#create' do
     before do
       sign_in user

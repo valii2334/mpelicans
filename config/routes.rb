@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :journeys,             only: [:index, :new, :update, :show, :create, :destroy] do
     resources :journey_stops, only: [:new, :show, :create, :destroy]
   end
-  resources :pelicans,             only: [:index, :show], param: :username
+  resources :pelicans,             only: [:index, :show, :edit, :update], param: :username
   resources :relationships,        only: [:create, :destroy]
   resources :payments,             only: [] do
     collection do
@@ -17,6 +17,5 @@ Rails.application.routes.draw do
     end
   end
   resources :watch_journeys,       only: [:show], param: :access_code
-  resources :users,                only: [:edit, :update]
   root "journeys#index"
 end

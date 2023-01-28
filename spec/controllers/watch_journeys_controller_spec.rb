@@ -8,10 +8,6 @@ RSpec.describe WatchJourneysController, type: :controller do
   let(:user) { create(:user) }
   let(:journey) { create(:journey, user:, access_type:) }
 
-  before do
-    user.confirm
-  end
-
   context '#show' do
     before do
       sign_in user

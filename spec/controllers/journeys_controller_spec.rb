@@ -10,10 +10,6 @@ RSpec.describe JourneysController, type: :controller do
   let(:second_user) { create(:user) }
   let(:second_journey) { create(:journey, user: second_user) }
 
-  before do
-    user.confirm
-  end
-
   context '#show' do
     subject do
       get :show, params: { id: journey_id }

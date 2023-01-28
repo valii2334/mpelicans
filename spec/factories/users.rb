@@ -5,5 +5,9 @@ FactoryBot.define do
     email    { FFaker::Internet.email }
     password { FFaker::Name.name }
     username { FFaker::Internet.user_name }
+
+    after(:create) do |user|
+      user.confirm
+    end
   end
 end
