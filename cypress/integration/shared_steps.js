@@ -36,6 +36,10 @@ Then(/^I should be on the home page/, () => {
   cy.get('h1').contains('Journeys');
 });
 
+Then(/^I should be on the profile page/, () => {
+  cy.get('h1').contains('Profile');
+});
+
 Then(/^I click on confirmation link/, () => {
   cy.appEval("ActionMailer::Base.deliveries.last.body.raw_source.lines[4].split('\"')[1]").then(($confirmationLink) => {
     cy.visit($confirmationLink);
