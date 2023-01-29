@@ -18,9 +18,9 @@ Feature: Destroy Journey Stop
       | title               | description               | plus_code           | journey_stop_image |
       | My first stop title | My first stop description | QJ24+HG Cluj-Napoca | madrid.jpg         |
     When I click on input "Create"
-    Then journey stop card should contain
-      | title               | description               | plus_code           | journey_stop_image |
-      | My first stop title | My first stop description | QJ24+HG Cluj-Napoca | madrid.jpg         |
+    Then journey stop information should be
+      | title               | description               | plus_code             | journey_stop_image |
+      | My first stop title | My first stop description | QJ24%2BHG+Cluj-Napoca | madrid.jpg         |
 
   Scenario: If a users enters correct journey stop information then we can create a journey stop
     Given I go to home page

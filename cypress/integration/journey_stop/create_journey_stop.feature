@@ -20,6 +20,10 @@ Feature: Create Journey Stop
       | title               | description               | plus_code           | journey_stop_image |
       | My first stop title | My first stop description | QJ24+HG Cluj-Napoca | madrid.jpg         |
     When I click on input "Create"
+    Then journey stop information should be
+      | title               | description               | plus_code             | journey_stop_image |
+      | My first stop title | My first stop description | QJ24%2BHG+Cluj-Napoca | madrid.jpg         |
+    When I click on link "View Journey"
     Then journey stop card should contain
       | title               | description               | plus_code           | journey_stop_image |
       | My first stop title | My first stop description | QJ24+HG Cluj-Napoca | madrid.jpg         |

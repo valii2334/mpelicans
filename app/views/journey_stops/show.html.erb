@@ -1,5 +1,5 @@
 <div class="mb-3">
-  <h1 class="h3 d-inline align-middle"><%= @journey_stop.title %></h1>
+  <h1 class="h3 d-inline align-middle" id="journey-stop-title"><%= @journey_stop.title %></h1>
   <%= link_to 'View Journey', journey_path(@journey_stop.journey), class: 'btn btn-primary float-end mt-n1' %>
 </div>
 
@@ -14,6 +14,7 @@
           loading="lazy"
           allowfullscreen
           referrerpolicy="no-referrer-when-downgrade"
+          id="journey-stop-map-display"
           src="<%= @journey_stop.map_url %>">
 				</iframe>
       </div>
@@ -22,14 +23,14 @@
 </div>
 
 <div class="mb-3">
-  <p class="h3 d-inline align-middle"><%= @journey_stop.description %></p>
+  <p class="h3 d-inline align-middle" id="journey-stop-description"><%= @journey_stop.description %></p>
 </div>
 
 <div class="row">
   <% @journey_stop.images.each_with_index do |image, index| %>
     <div class="col-12 col-md-6 col-lg-3">
       <div class="card">
-        <%= image_tag image.variant(:max), class: "card-img journey-stop-image-#{index}"  %>
+        <%= image_tag image.variant(:max), class: "card-img", id: "journey-stop-image-#{index}"  %>
       </div>
     </div>
   <% end %>
