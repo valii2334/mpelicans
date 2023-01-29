@@ -15,7 +15,7 @@ RSpec.describe RelationshipsController, type: :controller do
 
   context '#create' do
     subject do
-      post :create, params: { follower_id: follower_id }
+      post :create, params: { follower_id: }
     end
 
     context 'I try to follow me' do
