@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_15_164344) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_29_122502) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,6 +59,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_15_164344) do
     t.boolean "accepts_recommendations", default: false, null: false
     t.integer "user_id", null: false
     t.string "access_code", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "sendee_id", null: false
+    t.integer "sender_id", null: false
+    t.integer "notification_type", default: 0, null: false
+    t.integer "journey_id"
+    t.integer "journey_stop_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
