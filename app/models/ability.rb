@@ -31,8 +31,7 @@ class Ability
     can :manage, JourneyStop, journey: { user: }
 
     can :create, Relationship do |_, followee, follower|
-      !same_user?(follower:, followee:) &&
-        Relationship.find_by(followee_id: followee.id, follower_id: follower.id).nil?
+      !same_user?(followee:, follower:) && !follows?(followee:, follower:)
     end
     can :destroy, Relationship, followee_id: user.id
   end
@@ -49,7 +48,11 @@ class Ability
       PaidJourney.find_by(user_id: user.id, journey_id: journey.id).blank?
   end
 
-  def same_user?(follower:, followee:)
+  def same_user?(followee:, follower:)
     follower == followee
+  end
+
+  def follows?(followee:, follower:)
+    Relationship.find_by(followee_id: followee.id, follower_id: follower.id)
   end
 end
