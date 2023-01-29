@@ -62,3 +62,7 @@ Then(/^I should not see "([^"]*)" in the page/, (text) => {
 When(/^I visit "([^"]*)"/, (route) => {
   cy.visit(route);
 });
+
+Then(/^I should be on "([^"]*)" profile page/, (username) => {
+  cy.get('#pelican-name').contains(username);
+});
