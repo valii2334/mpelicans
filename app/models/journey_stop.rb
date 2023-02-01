@@ -2,6 +2,8 @@
 
 # JourneyStop Model
 class JourneyStop < ApplicationRecord
+  MAXIMUM_NUMBER_OF_IMAGES = 5
+
   belongs_to :journey
 
   has_many_attached :images do |attachable|
@@ -11,6 +13,7 @@ class JourneyStop < ApplicationRecord
   validates :description, :title, :plus_code, presence: true
 
   validate :images_are_present
+  validate :maximum_number_of_images
 
   default_scope { order(created_at: :asc) }
 
@@ -26,5 +29,11 @@ class JourneyStop < ApplicationRecord
 
   def images_are_present
     errors.add :images, :invalid, message: "can't be blank" if images.blank?
+  end
+
+  def maximum_number_of_images
+    return if images.count < MAXIMUM_NUMBER_OF_IMAGES
+
+    errors.add :images, :invalid, message: "can't post more than #{MAXIMUM_NUMBER_OF_IMAGES} images"
   end
 end

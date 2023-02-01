@@ -39,6 +39,10 @@
           <div class="mb-3">
 						<label class="form-label">
 							Add pictures from the stop you made
+              <br>
+              <strong>
+                Maximum <%= JourneyStop::MAXIMUM_NUMBER_OF_IMAGES %> images.
+              </strong>
 						</label>
 						<br>
             <%= f.file_field :images, multiple: true, required: true, accept: 'image/png,image/jpg,image/jpeg' %>

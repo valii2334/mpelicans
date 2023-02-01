@@ -9,7 +9,13 @@ Given(/^I fill in journey stop information with/, (datatable) => {
   cy.get('#journey_stop_title').fill(table[0].title);
   cy.get('#journey_stop_description').fill(table[0].description);
   cy.get('#journey_stop_plus_code').fill(table[0].plus_code);
-  cy.get('#journey_stop_images').selectFile('./cypress/support/' + table[0].journey_stop_image);
+
+  const imagesArray       = table[0].journey_stop_images.split(',');
+  const imagesPathsArrays = [];
+
+  imagesArray.forEach(element => imagesPathsArrays.push('./cypress/support/' + element));
+
+  cy.get('#journey_stop_images').selectFile(imagesPathsArrays);
 });
 
 Then(/^journey stop information should be/, (datatable) => {
@@ -23,7 +29,7 @@ Then(/^journey stop information should be/, (datatable) => {
 
 Then(/^journey stop card should contain/, (datatable) => {
   const table = datatable.hashes();
-  
+
   cy.get('.title.journey-stop-0').contains(table[0].title);
   cy.get('.description.journey-stop-0').contains(table[0].description);
   cy.get('.location.journey-stop-0').should('have.attr', 'href').should('include', table[0].plus_code);

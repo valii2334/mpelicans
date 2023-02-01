@@ -91,6 +91,37 @@ RSpec.describe JourneyStopsController, type: :controller do
 
         include_examples 'missing parameter', JourneyStop, 'Images'
       end
+
+      context 'more images than MAXIMUM_NUMBER_OF_IMAGES' do
+        let(:journey_stop_params) do
+          {
+            title: FFaker::Name.name,
+            description: FFaker::Lorem.paragraph,
+            plus_code: FFaker::Random.rand,
+            images: [
+              fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
+              fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
+              fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
+              fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
+              fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
+              fixture_file_upload('lasvegas.jpg', 'image/jpeg')
+            ],
+            journey_id: journey.id
+          }
+        end
+
+        it 'does not create a JourneyStop' do
+          expect do
+            subject
+          end.to change { JourneyStop.count }.by(0)
+        end
+
+        it 'includes error message' do
+          expect(CGI.unescapeHTML(subject.body)).to include(
+            "can't post more than #{JourneyStop::MAXIMUM_NUMBER_OF_IMAGES} images"
+          )
+        end
+      end
     end
 
     context 'valid parameters' do

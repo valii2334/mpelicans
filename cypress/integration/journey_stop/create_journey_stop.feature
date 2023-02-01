@@ -17,8 +17,8 @@ Feature: Create Journey Stop
 
   Scenario: If a users enters correct journey stop information then we can create a journey stop
     Given I fill in journey stop information with
-      | title               | description               | plus_code           | journey_stop_image |
-      | My first stop title | My first stop description | QJ24+HG Cluj-Napoca | madrid.jpg         |
+      | title               | description               | plus_code           | journey_stop_images |
+      | My first stop title | My first stop description | QJ24+HG Cluj-Napoca | madrid.jpg          |
     When I click on input "Create"
     Then journey stop information should be
       | title               | description               | plus_code             | journey_stop_image |
@@ -27,3 +27,10 @@ Feature: Create Journey Stop
     Then journey stop card should contain
       | title               | description               | plus_code           | journey_stop_image |
       | My first stop title | My first stop description | QJ24+HG Cluj-Napoca | madrid.jpg         |
+
+  Scenario: A user can not submit a journey stop with more than 5 images
+    Given I fill in journey stop information with
+      | title               | description               | plus_code           | journey_stop_images                                                    |
+      | My first stop title | My first stop description | QJ24+HG Cluj-Napoca | madrid.jpg,madrid1.png,madrid2.png,madrid3.png,madrid4.png,madrid5.png |
+    When I click on input "Create"
+    Then I should see "can't post more than 5 images" in the page
