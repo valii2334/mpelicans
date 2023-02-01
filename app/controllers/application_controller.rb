@@ -4,6 +4,10 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  before_action do
+    ActiveStorage::Current.url_options = { host: 'localhost:3000' } if Rails.env.test?
+  end
+
   def current_ability
     @current_ability ||= Ability.new(current_user, params)
   end

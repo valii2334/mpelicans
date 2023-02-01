@@ -41,7 +41,7 @@
 							Add pictures from the stop you made
 						</label>
 						<br>
-            <%= f.file_field :images, multiple: true, direct_upload: true, required: true %>
+            <%= f.file_field :images, multiple: true, required: true, accept: 'image/png,image/jpg,image/jpeg' %>
           </div>
 
           <div class="actions">

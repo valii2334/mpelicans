@@ -28,10 +28,10 @@
 
 <div class="row">
   <% @journey_stop.images.each_with_index do |image, index| %>
-    <div class="col-12 col-md-6 col-lg-3">
-      <div class="card">
-        <%= image_tag image.variant(:max), class: "card-img", id: "journey-stop-image-#{index}"  %>
-      </div>
+    <div class="col-sm-3" >
+      <a href="<%= image.url %>" data-toggle="lightbox" data-gallery="example-gallery">
+        <img src="<%= image.url %>" class="img-thumbnail rounded me-2 mb-2">
+      </a>
     </div>
   <% end %>
 </div>

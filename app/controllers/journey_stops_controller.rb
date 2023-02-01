@@ -9,6 +9,8 @@ class JourneyStopsController < ApplicationController
   end
 
   def create
+    process_images
+
     @journey_stop = JourneyStop.new(journey_stop_params)
 
     authorize_journey_stop(:create)
@@ -60,5 +62,15 @@ class JourneyStopsController < ApplicationController
 
   def authorize_journey_stop(method)
     authorize! method, @journey_stop
+  end
+
+  def process_images
+    return if (journey_stop_params[:images] || []).empty?
+
+    journey_stop_params[:images].each do |image|
+      next unless image.try(:path)
+
+      image.tempfile = ImageProcessing::MiniMagick.source(image.path).resize_to_limit!(1024, 1024)
+    end
   end
 end

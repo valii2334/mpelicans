@@ -5,7 +5,7 @@ class JourneyStop < ApplicationRecord
   belongs_to :journey
 
   has_many_attached :images do |attachable|
-    attachable.variant :max, resize_to_limit: [1024, 1024]
+    attachable.variant :max, resize_to_limit: [400, 400]
   end
 
   validates :description, :title, :plus_code, presence: true
