@@ -25,6 +25,7 @@ class JourneysController < ApplicationController
     authorize_journey(:create)
 
     if @journey.save
+      notify_users
       success_message(message: 'Your journey was created.')
 
       redirect_to journey_path(@journey)
@@ -66,6 +67,10 @@ class JourneysController < ApplicationController
   end
 
   private
+
+  def notify_users
+    Notifier.new(journey_id: @journey.id, notification_type: :new_journey, sender_id: @journey.user_id).notify
+  end
 
   def journey_update_params
     params.require(:journey).permit(

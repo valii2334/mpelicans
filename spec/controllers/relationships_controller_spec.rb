@@ -15,11 +15,11 @@ RSpec.describe RelationshipsController, type: :controller do
 
   context '#create' do
     subject do
-      post :create, params: { follower_id: }
+      post :create, params: { followee_id: }
     end
 
     context 'I try to follow me' do
-      let(:follower_id) { user.id }
+      let(:followee_id) { user.id }
 
       it 'should raise an error' do
         expect do
@@ -29,7 +29,7 @@ RSpec.describe RelationshipsController, type: :controller do
     end
 
     context 'I try follow a user which I am not following yet' do
-      let(:follower_id) { second_user.id }
+      let(:followee_id) { second_user.id }
 
       it 'should create a new relationship object' do
         expect do
@@ -39,7 +39,7 @@ RSpec.describe RelationshipsController, type: :controller do
     end
 
     context 'I try to follow a user which I am already following' do
-      let(:follower_id) { second_user.id }
+      let(:followee_id) { second_user.id }
 
       before do
         create(:relationship, followee: user, follower: second_user)
@@ -70,8 +70,8 @@ RSpec.describe RelationshipsController, type: :controller do
     end
 
     context 'my relationship' do
-      context 'I am the followee' do
-        let(:relationship) { create(:relationship, followee: user, follower: second_user) }
+      context 'I am the follower' do
+        let(:relationship) { create(:relationship, follower: user, followee: second_user) }
         let!(:relationship_id) { relationship.id }
 
         it 'should destroy the relationship' do
@@ -81,8 +81,8 @@ RSpec.describe RelationshipsController, type: :controller do
         end
       end
 
-      context 'I am the follower' do
-        let(:relationship) { create(:relationship, followee: second_user, follower: user) }
+      context 'I am the followee' do
+        let(:relationship) { create(:relationship, follower: second_user, followee: user) }
         let!(:relationship_id) { relationship.id }
 
         it 'can not destroy it' do

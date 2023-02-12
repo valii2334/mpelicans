@@ -63,6 +63,19 @@ RSpec.describe JourneyAcquisitionsController, type: :controller do
               end.to change { PaidJourney.count }.by(1)
             end
 
+            it 'creates a Notification', aggregate: :failures do
+              expect do
+                subject
+              end.to change { Notification.count }.by(1)
+
+              notification = Notification.last
+
+              expect(notification.sender).to eq(user)
+              expect(notification.receiver).to eq(second_journey.user)
+              expect(notification.journey).to eq(second_journey)
+              expect(notification).to be_bought_journey
+            end
+
             it 'redirects to journey path' do
               subject
 

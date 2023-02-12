@@ -33,7 +33,7 @@ class Ability
     can :create, Relationship do |_, followee, follower|
       !same_user?(followee:, follower:) && !follows?(followee:, follower:)
     end
-    can :destroy, Relationship, followee_id: user.id
+    can :destroy, Relationship, follower_id: user.id
   end
   # rubocop:enable Metrics/MethodLength
   # rubocop:enable Metrics/AbcSize
@@ -52,7 +52,7 @@ class Ability
     follower == followee
   end
 
-  def follows?(followee:, follower:)
-    Relationship.find_by(followee_id: followee.id, follower_id: follower.id)
+  def follows?(follower:, followee:)
+    Relationship.find_by(follower_id: follower.id, followee_id: followee.id)
   end
 end

@@ -46,6 +46,14 @@ RSpec.describe User, type: :model do
   }
   it { should have_many(:followers).through(:following_users) }
 
+  it {
+    should have_many(:received_notifications)
+      .with_foreign_key(:receiver_id)
+      .class_name('Notification')
+      .dependent(:destroy)
+      .inverse_of(:receiver)
+  }
+
   ##################################
   # Methods
   ##################################

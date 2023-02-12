@@ -1,10 +1,10 @@
-<% if followee %>
-  <% if can?(:create, Relationship.new, followee, follower) %>
-    <%= link_to 'Follow', relationships_path(follower_id: follower.id), method: :post, class: 'btn btn-sm btn-primary pelican-path' %>
+<% if follower %>
+  <% if can?(:create, Relationship.new, follower, followee) %>
+    <%= link_to 'Follow', relationships_path(followee_id: followee.id), method: :post, class: 'btn btn-sm btn-primary pelican-path' %>
   <% end %>
 
-  <% relationship =  Relationship.find_by(followee_id: followee.id, follower_id: follower.id) %>
-  <% if can?(:destroy, relationship, followee, follower) %>
+  <% relationship =  Relationship.find_by(follower_id: follower.id, followee_id: followee.id) %>
+  <% if can?(:destroy, relationship, follower, followee) %>
     <%= link_to 'Unfollow', relationship_path(id: relationship.id), method: :delete, class: 'btn btn-sm btn-primary pelican-path' %>
   <% end %>
 <% end %>

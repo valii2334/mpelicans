@@ -2,8 +2,10 @@
 
 FactoryBot.define do
   factory :notification do
-    sendee            { create(:user) }
     sender            { create(:user) }
+    receiver          { create(:user) }
     notification_type { :bought_journey }
+
+    journey
   end
 end

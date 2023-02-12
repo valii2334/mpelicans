@@ -5,15 +5,15 @@ class RelationshipsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    follower = User.find(params[:follower_id])
+    followee = User.find(params[:followee_id])
 
-    authorize! :create, Relationship.new, current_user, follower
+    authorize! :create, Relationship.new, current_user, followee
 
-    Relationship.find_or_create_by!(followee_id: current_user.id, follower_id: params[:follower_id])
+    Relationship.find_or_create_by!(follower_id: current_user.id, followee_id: params[:followee_id])
 
-    success_message(message: "You are now following #{follower.username} across the world!")
+    success_message(message: "You are now following #{followee.username} across the world!")
 
-    redirect_to pelican_path(follower.username)
+    redirect_to pelican_path(followee.username)
   end
 
   def destroy
