@@ -42,7 +42,6 @@ class User < ApplicationRecord
            dependent: :destroy,
            inverse_of: :receiver
 
-
   validates :username, presence: true
   validates :username, uniqueness: true
   validate :username_validator

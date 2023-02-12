@@ -24,8 +24,9 @@ class Notifier
   private
 
   def receivers
-    return [@journey.user]  if bought_journey?
-    return sender.followers if new_journey?
+    return [@journey.user]                                  if bought_journey?
+    return sender.followers                                 if new_journey?
+    return (sender.followers + @journey.paying_users).uniq  if new_journey_stop?
 
     []
   end
@@ -36,5 +37,9 @@ class Notifier
 
   def new_journey?
     @notification_type == :new_journey
+  end
+
+  def new_journey_stop?
+    @notification_type == :new_journey_stop
   end
 end

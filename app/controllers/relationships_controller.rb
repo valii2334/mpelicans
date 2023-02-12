@@ -18,12 +18,12 @@ class RelationshipsController < ApplicationController
 
   def destroy
     relationship = Relationship.find(params[:id])
-    follower = relationship.follower
+    followee = relationship.followee
 
     authorize! :destroy, relationship
 
     if relationship.destroy
-      success_message(message: "You are no longer following #{follower.username}.")
+      success_message(message: "You are no longer following #{followee.username}.")
     else
       alert_message
     end

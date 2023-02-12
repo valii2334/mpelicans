@@ -17,16 +17,18 @@ class Notification < ApplicationRecord
   validates :journey_stop, presence: true, if: -> { new_journey_stop? }
 
   def notification_text
-    return "#{sender.username} just bought #{journey.title}." if bought_journey?
+    return "#{sender.username} just bought #{journey.title}."            if bought_journey?
     return "#{sender.username} created a new journey: #{journey.title}." if new_journey?
+    return "#{sender.username} added a new stop to #{journey.title}."    if new_journey_stop?
 
-    "#{sender.username} added a new stop to #{journey.title}."
+    raise StandardError, 'Notification next not implemented for this notification type'
   end
 
   def notification_link
-    return pelican_url(username: sender.username) if bought_journey?
-    return journey_url(id: journey.id)            if new_journey?
+    return pelican_url(username: sender.username)        if bought_journey?
+    return journey_url(id: journey.id)                   if new_journey?
+    return journey_journey_stop_url(id: journey_stop.id) if new_journey_stop?
 
-    journey_journey_stop_url(id: journey_stop.id)
+    raise StandardError, 'Notification link not implemented for this notification type'
   end
 end
