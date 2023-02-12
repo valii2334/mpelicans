@@ -17,11 +17,11 @@ class PelicansController < ApplicationController
   def show
     @user = User.find_by!(username: params[:username])
 
-    if @user == current_user
-      @journeys = @user.journeys
-    else
-      @journeys = @user.journeys.where(access_type: %i[public_journey monetized_journey])
-    end
+    @journeys = if @user == current_user
+                  @user.journeys
+                else
+                  @user.public_viewable_journeys
+                end
   end
 
   def edit

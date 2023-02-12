@@ -47,6 +47,22 @@ RSpec.describe User, type: :model do
   it { should have_many(:followers).through(:following_users) }
 
   ##################################
+  # Methods
+  ##################################
+
+  context '#public_viewable_journeys' do
+    let(:user) { create(:user) }
+    let!(:public_journey)    { create(:journey, access_type: :public_journey, user:) }
+    let!(:private_journey)   { create(:journey, access_type: :private_journey, user:) }
+    let!(:monetized_journey) { create(:journey, access_type: :monetized_journey, user:) }
+    let!(:protected_journey) { create(:journey, access_type: :protected_journey, user:) }
+
+    it 'returns only public and monetized journeys' do
+      expect(user.public_viewable_journeys).to match_array([public_journey, monetized_journey])
+    end
+  end
+
+  ##################################
   # Callbacks
   ##################################
 

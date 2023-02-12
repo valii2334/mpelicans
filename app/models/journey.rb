@@ -27,6 +27,8 @@ class Journey < ApplicationRecord
 
   before_validation :add_access_code
 
+  scope :public_viewable_journeys, -> { where(access_type: %i[public_journey monetized_journey]) }
+
   def map_url
     MapUrl.new(origin:, destination:, waypoints:).map_url
   end

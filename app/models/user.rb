@@ -40,6 +40,8 @@ class User < ApplicationRecord
   validates :username, uniqueness: true
   validate :username_validator
 
+  delegate :public_viewable_journeys, to: :journeys
+
   private
 
   def username_validator
