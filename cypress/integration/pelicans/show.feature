@@ -32,7 +32,7 @@ Feature: View travelers
     And I should not see "View Journey" in the page
     And I should see "Buy Journey" in the page
     When I click on link "Buy Journey"
-    Then I should see "Sign in to your account to continue" in the page
+    Then I should see "Sign up to support your favorite travelers" in the page
 
   Scenario: As a registered user I can buy another users monetized journey
     Given I am a confirmed user
@@ -48,7 +48,7 @@ Feature: View travelers
     Then I should see "Journey 1" details
     When I click on link "All Journeys"
     Then I should see "Journey 1" in the page
-    
+
   Scenario: As a registered user I can not buy another users monetized journey if my card is declined
     Given I am a confirmed user
     And I log in

@@ -15,8 +15,8 @@ Feature: Destroy Journey Stop
     And link "All Journeys" is active in the sidebar
     And I click on link "+ New Stop"
     Given I fill in journey stop information with
-      | title               | description               | plus_code           | journey_stop_image |
-      | My first stop title | My first stop description | QJ24+HG Cluj-Napoca | madrid.jpg         |
+      | title               | description               | plus_code           | journey_stop_images |
+      | My first stop title | My first stop description | QJ24+HG Cluj-Napoca | madrid.jpg          |
     When I click on input "Create"
     Then journey stop information should be
       | title               | description               | plus_code             | journey_stop_image |

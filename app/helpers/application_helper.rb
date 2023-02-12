@@ -78,6 +78,6 @@ module ApplicationHelper
   end
 
   def content_style
-    return "padding-top: 10px;" if params[:controller].include?('devise')
+    return 'padding-top: 10px;' if params[:controller].include?('devise')
   end
 end
