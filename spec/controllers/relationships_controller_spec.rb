@@ -42,7 +42,7 @@ RSpec.describe RelationshipsController, type: :controller do
       let(:followee_id) { second_user.id }
 
       before do
-        create(:relationship, followee: user, follower: second_user)
+        create(:relationship, follower: user, followee: second_user)
       end
 
       it 'should raise an error' do
