@@ -171,6 +171,22 @@ RSpec.describe JourneysController, type: :controller do
               subject
             end.to change { Journey.count }.by(1)
           end
+
+          let(:notifier) { double('Notifier') }
+
+          before do
+            allow(notifier).to receive(:notify).and_return(nil)
+          end
+
+          it 'notifies users' do
+            expect(Notifier).to receive(:new).with({
+                                                     journey_id: instance_of(Integer),
+                                                     notification_type: :new_journey,
+                                                     sender_id: user.id
+                                                   }).and_return(notifier)
+
+            subject
+          end
         end
       end
     end

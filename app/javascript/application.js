@@ -16,6 +16,6 @@ import "./modules/feather";
 $(document).ready(function () {
   $('form').submit(function(){
     $(this).find(':submit').attr('disabled','disabled');
-    $(this).find(':submit').val('Submitting...');
+    $(this).find(':submit').val('Please wait ...');
   });
 });

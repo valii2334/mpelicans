@@ -53,8 +53,11 @@ RSpec.describe JourneyAcquisitionsController, type: :controller do
       context 'valid parameters' do
         context 'journey is monetized' do
           context 'other users journey' do
+            let(:notifier) { double('Notifier') }
+
             before do
               second_journey.update(access_type: :monetized_journey)
+              allow(notifier).to receive(:notify).and_return(nil)
             end
 
             it 'creates a PaidJourney' do
@@ -63,17 +66,14 @@ RSpec.describe JourneyAcquisitionsController, type: :controller do
               end.to change { PaidJourney.count }.by(1)
             end
 
-            it 'creates a Notification', aggregate: :failures do
-              expect do
-                subject
-              end.to change { Notification.count }.by(1)
+            it 'notifies users' do
+              expect(Notifier).to receive(:new).with({
+                                                       journey_id: second_journey.id,
+                                                       notification_type: :bought_journey,
+                                                       sender_id: user.id
+                                                     }).and_return(notifier)
 
-              notification = Notification.last
-
-              expect(notification.sender).to eq(user)
-              expect(notification.receiver).to eq(second_journey.user)
-              expect(notification.journey).to eq(second_journey)
-              expect(notification).to be_bought_journey
+              subject
             end
 
             it 'redirects to journey path' do
