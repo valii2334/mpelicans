@@ -28,7 +28,7 @@ class Notifier
     return sender.followers                                 if new_journey?
     return (sender.followers + @journey.paying_users).uniq  if new_journey_stop?
 
-    []
+    raise StandardError, 'Notifier not implemented for this notification type'
   end
 
   def bought_journey?

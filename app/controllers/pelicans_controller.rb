@@ -8,7 +8,9 @@ class PelicansController < ApplicationController
 
   def index
     @users = if params[:pelicans] && params[:pelicans][:query_string]
-               User.where('username ILIKE ?', "%#{params[:pelicans][:query_string]}%")
+               User
+                 .where('username ILIKE ?', "%#{params[:pelicans][:query_string]}%")
+                 .where.not(id: [current_user.try(:id)])
              else
                []
              end
