@@ -11,7 +11,7 @@ class JourneyAcquisitionsController < ApplicationController
     authorize! :buy, Journey.find(journey_id)
 
     PaidJourney.find_or_create_by(user_id:, journey_id:)
-    Notifier.new(journey_id:, notification_type:, sender_id: user_id).notify
+    notify_users(journey_id:, sender_id: user_id)
 
     redirect_to journey_path(id: journey_id)
   end
@@ -26,5 +26,9 @@ class JourneyAcquisitionsController < ApplicationController
 
   def notification_type
     :bought_journey
+  end
+
+  def notify_users(journey_id:, sender_id:)
+    Notifier.new(journey_id:, notification_type:, sender_id:).notify
   end
 end

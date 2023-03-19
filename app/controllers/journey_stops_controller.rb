@@ -3,19 +3,19 @@
 # CRUD For Journey Stop
 class JourneyStopsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
+  before_action :process_images, only: [:create]
 
   def new
     @journey_stop = JourneyStop.new(journey_id: params[:journey_id])
   end
 
   def create
-    process_images
-
     @journey_stop = JourneyStop.new(journey_stop_params)
 
     authorize_journey_stop(:create)
 
     if @journey_stop.save
+      notify_users(journey: @journey_stop.journey)
       success_message(message: 'Your journey stop was created.')
 
       redirect_to journey_journey_stop_path(@journey_stop.journey, @journey_stop)
@@ -72,5 +72,13 @@ class JourneyStopsController < ApplicationController
 
       image.tempfile = ImageProcessing::MiniMagick.source(image.path).resize_to_limit!(1024, 1024)
     end
+  end
+
+  def notify_users(journey:)
+    Notifier.new(
+      journey_id: journey.id,
+      notification_type: :new_journey_stop,
+      sender_id: journey.user_id
+    ).notify
   end
 end
