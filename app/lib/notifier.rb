@@ -13,10 +13,7 @@ class Notifier
   def notify
     receivers.each do |receiver|
       Notification.find_or_create_by(
-        journey_id: @journey.id,
-        sender_id: @sender.id,
-        receiver_id: receiver.id,
-        notification_type: @notification_type
+        notification_attributes(receiver:)
       )
     end
   end
@@ -24,22 +21,35 @@ class Notifier
   private
 
   def receivers
-    return [@journey.user]                                  if bought_journey?
-    return sender.followers                                 if new_journey?
-    return (sender.followers + @journey.paying_users).uniq  if new_journey_stop?
+    return [journey.user]                                  if bought_journey?
+    return sender.followers                                if new_journey?
+    return (sender.followers + journey.paying_users).uniq  if new_journey_stop?
 
     raise StandardError, 'Notifier not implemented for this notification type'
   end
 
   def bought_journey?
-    @notification_type == :bought_journey
+    notification_type == :bought_journey
   end
 
   def new_journey?
-    @notification_type == :new_journey
+    notification_type == :new_journey
   end
 
   def new_journey_stop?
-    @notification_type == :new_journey_stop
+    notification_type == :new_journey_stop
+  end
+
+  def notification_attributes(receiver:)
+    attributes = {
+      journey_id: journey.id,
+      sender_id: sender.id,
+      receiver_id: receiver.id,
+      notification_type:
+    }
+
+    attributes[:journey_stop_id] = journey.journey_stops.last.id if new_journey_stop?
+
+    attributes
   end
 end
