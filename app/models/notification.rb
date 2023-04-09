@@ -2,6 +2,8 @@
 
 # Notification class
 class Notification < ApplicationRecord
+  include Rails.application.routes.url_helpers
+
   belongs_to :sender,   class_name: 'User'
   belongs_to :receiver, class_name: 'User'
 
@@ -25,10 +27,18 @@ class Notification < ApplicationRecord
   end
 
   def notification_link
-    return pelican_url(username: sender.username)        if bought_journey?
-    return journey_url(id: journey.id)                   if new_journey?
-    return journey_journey_stop_url(id: journey_stop.id) if new_journey_stop?
+    return pelican_path(username: sender.username)                                             if bought_journey?
+    return journey_path(id: journey.id)                                                        if new_journey?
+    return journey_journey_stop_path(journey_id: journey_stop.journey.id, id: journey_stop.id) if new_journey_stop?
 
     raise StandardError, 'Notification link not implemented for this notification type'
+  end
+
+  def notification_title
+    return 'Someone bought your journey!' if bought_journey?
+    return 'New journey created!'         if new_journey?
+    return 'New journey stop added!'      if new_journey_stop?
+
+    raise StandardError, 'Notification title not implemented for this notification type'
   end
 end
