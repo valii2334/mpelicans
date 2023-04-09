@@ -156,8 +156,11 @@ RSpec.describe JourneysController, type: :controller do
         end
 
         context 'valid parameters' do
+          let(:access_type) { :public_journey }
+
           let(:journey_params) do
             {
+              access_type:,
               description: FFaker::Lorem.paragraph,
               image: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
               start_plus_code: FFaker::Random.rand,
@@ -178,14 +181,29 @@ RSpec.describe JourneysController, type: :controller do
             allow(notifier).to receive(:notify).and_return(nil)
           end
 
-          it 'notifies users' do
-            expect(Notifier).to receive(:new).with({
-                                                     journey_id: instance_of(Integer),
-                                                     notification_type: :new_journey,
-                                                     sender_id: user.id
-                                                   }).and_return(notifier)
+          context 'protected, private journey' do
+            %i[protected_journey private_journey].each do |access_type|
+              let(:access_type) { access_type }
 
-            subject
+              it 'does not notify users' do
+                subject
+              end
+            end
+          end
+
+          context 'public, monetized journey' do
+            %i[public_journey monetized_journey].each do |access_type|
+              let(:access_type) { access_type }
+
+              it 'does notify users' do
+                expect(Notifier).to receive(:new).with({
+                                                         journey_id: instance_of(Integer),
+                                                         notification_type: :new_journey,
+                                                         sender_id: user.id
+                                                       }).and_return(notifier)
+                subject
+              end
+            end
           end
         end
       end

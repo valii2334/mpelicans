@@ -13,6 +13,7 @@ RSpec.describe Notification, type: :model do
   ##################################
 
   it { should have_attribute :sender_id }
+  it { should have_attribute :read }
   it { should have_attribute :receiver_id }
   it { should have_attribute :notification_type }
   it { should have_attribute :journey_id }

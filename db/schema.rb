@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_12_165620) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_09_172609) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,6 +71,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_12_165620) do
     t.datetime "updated_at", null: false
     t.integer "sender_id", null: false
     t.integer "receiver_id", null: false
+    t.boolean "read", default: false, null: false
   end
 
   create_table "paid_journeys", force: :cascade do |t|

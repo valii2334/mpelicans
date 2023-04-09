@@ -69,6 +69,8 @@ class JourneysController < ApplicationController
   private
 
   def notify_users
+    return if @journey.protected_journey? || @journey.private_journey?
+
     Notifier.new(journey_id: @journey.id, notification_type: :new_journey, sender_id: @journey.user_id).notify
   end
 

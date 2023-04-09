@@ -18,6 +18,8 @@ class Notification < ApplicationRecord
 
   validates :journey_stop, presence: true, if: -> { new_journey_stop? }
 
+  default_scope { where(read: false) }
+
   def notification_text
     return "#{sender.username} just bought #{journey.title}."            if bought_journey?
     return "#{sender.username} created a new journey: #{journey.title}." if new_journey?
