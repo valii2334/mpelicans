@@ -32,6 +32,6 @@ class JourneyStopImageProcessor
   end
 
   def remove_image(image_path:)
-    system("rm #{image_path}")
+    FileUtils.safe_unlink image_path
   end
 end
