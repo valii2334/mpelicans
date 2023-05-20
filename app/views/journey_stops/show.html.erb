@@ -27,12 +27,22 @@
 </div>
 
 <div class="row">
-  <% @journey_stop.images.each_with_index do |image, index| %>
-    <div class="col-sm-3" >
-      <a href="<%= image.url %>" data-toggle="lightbox" data-gallery="example-gallery">
-        <img src="<%= image.url %>" class="img-thumbnail rounded me-2 mb-2" id="journey-stop-image-<%= index %>">
-      </a>
-    </div>
+  <% if @journey_stop.waiting? %>
+    <p class="h3 d-inline align-middle" id="journey-stop-image-processing-status">
+      Please wait. Images have been scheduled for processing.
+    </p>
+  <% elsif @journey_stop.processing? %>
+    <p class="h3 d-inline align-middle" id="journey-stop-image-processing-status">
+      Please wait. Images are being processed.
+    </p>
+  <% else %>
+    <% @journey_stop.images.each_with_index do |image, index| %>
+      <div class="col-sm-3" >
+        <a href="<%= image.url %>" data-toggle="lightbox" data-gallery="example-gallery">
+          <img src="<%= image.url %>" class="img-thumbnail rounded me-2 mb-2" id="journey-stop-image-<%= index %>">
+        </a>
+      </div>
+    <% end %>
   <% end %>
 </div>
 

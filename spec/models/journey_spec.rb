@@ -18,6 +18,14 @@ RSpec.describe Journey, type: :model do
   it { should have_attribute :user_id }
   it { should have_attribute :access_code }
 
+  # ENUMS
+
+  it do
+    should define_enum_for(:access_type).with_values(
+      %i[private_journey protected_journey public_journey monetized_journey]
+    )
+  end
+
   ##################################
   # Validations
   ##################################

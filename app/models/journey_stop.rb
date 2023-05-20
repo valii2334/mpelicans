@@ -3,6 +3,8 @@
 # JourneyStop Model
 class JourneyStop < ApplicationRecord
   MAXIMUM_NUMBER_OF_IMAGES = 5
+  MAX_IMAGE_WIDTH = 1024
+  MAX_IMAGE_HEIGHT = 1024
 
   belongs_to :journey
 
@@ -17,6 +19,12 @@ class JourneyStop < ApplicationRecord
 
   default_scope { order(created_at: :asc) }
 
+  enum image_processing_status: {
+    waiting: 0,
+    processing: 1,
+    processed: 2
+  }
+
   def location_link
     "https://www.plus.codes/#{plus_code}"
   end
@@ -28,11 +36,11 @@ class JourneyStop < ApplicationRecord
   private
 
   def images_are_present
-    errors.add :images, :invalid, message: "can't be blank" if images.blank?
+    errors.add :images, :invalid, message: "can't be blank" if passed_images_count.zero?
   end
 
   def maximum_number_of_images
-    return if images.count < MAXIMUM_NUMBER_OF_IMAGES
+    return if passed_images_count <= MAXIMUM_NUMBER_OF_IMAGES
 
     errors.add :images, :invalid, message: "can't post more than #{MAXIMUM_NUMBER_OF_IMAGES} images"
   end

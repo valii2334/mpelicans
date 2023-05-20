@@ -3,7 +3,6 @@
 # CRUD For Journey Stop
 class JourneyStopsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
-  before_action :process_images, only: [:create]
 
   def new
     @journey_stop = JourneyStop.new(journey_id: params[:journey_id])
@@ -15,8 +14,7 @@ class JourneyStopsController < ApplicationController
     authorize_journey_stop(:create)
 
     if @journey_stop.save
-      notify_users(journey: @journey_stop.journey)
-      success_message(message: 'Your journey stop was created.')
+      post_create_actions
 
       redirect_to journey_journey_stop_path(@journey_stop.journey, @journey_stop)
     else
@@ -50,13 +48,22 @@ class JourneyStopsController < ApplicationController
 
   private
 
+  def post_create_actions
+    enqueue_process_images_job
+    notify_users(journey: @journey_stop.journey)
+    success_message(message: 'Your journey stop was created.')
+  end
+
   def journey_stop_params
-    params.require(:journey_stop).permit(
+    parameters = params.require(:journey_stop).permit(
       :description,
       :journey_id,
       :plus_code,
-      :title,
-      images: []
+      :title
+    )
+    parameters.merge(
+      image_processing_status: :waiting,
+      passed_images_count: passed_images.size
     )
   end
 
@@ -64,13 +71,27 @@ class JourneyStopsController < ApplicationController
     authorize! method, @journey_stop
   end
 
-  def process_images
-    return if (journey_stop_params[:images] || []).empty?
+  def enqueue_process_images_job
+    if Rails.env.test?
+      JourneyStopImageProcessor.new(journey_stop_id: @journey_stop.id, images_paths: image_paths).run
+    else
+      JourneyStopJobs::ProcessImages.perform_async(@journey_stop.id, image_paths)
+    end
+  end
 
-    journey_stop_params[:images].each do |image|
-      next unless image.try(:path)
+  def image_paths
+    passed_images.map { |image| save_image_to_file(image:) }
+  end
 
-      image.tempfile = ImageProcessing::MiniMagick.source(image.path).resize_to_limit!(1024, 1024)
+  def save_image_to_file(image:)
+    file_path = "/tmp/#{File.basename(image.tempfile)}"
+    File.binwrite(file_path, image.tempfile.read)
+    file_path
+  end
+
+  def passed_images
+    (params[:journey_stop][:images] || []).select do |image|
+      image.is_a?(ActionDispatch::Http::UploadedFile)
     end
   end
 

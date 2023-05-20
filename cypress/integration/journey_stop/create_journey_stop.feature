@@ -22,11 +22,11 @@ Feature: Create Journey Stop
     When I click on input "Create"
     Then journey stop information should be
       | title               | description               | plus_code             | journey_stop_image |
-      | My first stop title | My first stop description | QJ24%2BHG+Cluj-Napoca | madrid.jpg         |
+      | My first stop title | My first stop description | QJ24%2BHG+Cluj-Napoca | .jpg               |
     When I click on link "View Journey"
     Then journey stop card should contain
       | title               | description               | plus_code           | journey_stop_image |
-      | My first stop title | My first stop description | QJ24+HG Cluj-Napoca | madrid.jpg         |
+      | My first stop title | My first stop description | QJ24+HG Cluj-Napoca | .jpg         |
 
   Scenario: A user can not submit a journey stop with more than 5 images
     Given I fill in journey stop information with
