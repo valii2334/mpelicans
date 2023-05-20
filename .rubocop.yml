@@ -25,6 +25,10 @@ Metrics/BlockLength:
 Style/Documentation:
   Exclude:
     - '**/*'
+  
+Style/GlobalVars:
+  Exclude:
+    - '**/*'
 
 Lint/Debugger:
   Exclude:
