@@ -11,6 +11,8 @@ class Notifier
   end
 
   def notify
+    return unless should_notify?
+
     receivers.each do |receiver|
       Notification.find_or_create_by(
         notification_attributes(receiver:)
@@ -19,6 +21,10 @@ class Notifier
   end
 
   private
+
+  def should_notify?
+    journey.public_journey?
+  end
 
   def receivers
     return [journey.user]                                  if bought_journey?
