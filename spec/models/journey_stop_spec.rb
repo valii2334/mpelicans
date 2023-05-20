@@ -12,9 +12,18 @@ RSpec.describe JourneyStop, type: :model do
 
   it { should have_attribute :title }
   it { should have_attribute :description }
+  it { should have_attribute :image_processing_status }
   it { should have_attribute :passed_images }
   it { should have_attribute :plus_code }
   it { should have_attribute :journey_id }
+
+  # ENUMS
+
+  it do
+    should define_enum_for(:image_processing_status).with_values(
+      %i[waiting processing processed]
+    )
+  end
 
   ##################################
   # Validations

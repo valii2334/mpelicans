@@ -17,6 +17,12 @@ class JourneyStop < ApplicationRecord
 
   default_scope { order(created_at: :asc) }
 
+  enum image_processing_status: {
+    waiting: 0,
+    processing: 1,
+    processed: 2
+  }
+
   def location_link
     "https://www.plus.codes/#{plus_code}"
   end

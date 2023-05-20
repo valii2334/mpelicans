@@ -19,6 +19,8 @@ RSpec.describe Notification, type: :model do
   it { should have_attribute :journey_id }
   it { should have_attribute :journey_stop_id }
 
+  # ENUMS
+
   it {
     should define_enum_for(:notification_type).with_values(
       %i[bought_journey new_journey new_journey_stop]
