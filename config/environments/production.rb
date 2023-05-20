@@ -64,13 +64,14 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
   config.action_mailer.default_url_options = { host: 'www.mpelicans.com' }
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :mailjet
   config.action_mailer.smtp_settings = {
-    address:              'smtp.sendgrid.net',
+    address:              'in-v3.mailjet.com',
     port:                 587,
     domain:               'mpelicans.com',
-    user_name:            ENV['SENDGRID_USERNAME'],
-    password:             ENV['SENDGRID_API_KEY'],
+    api_key:              ENV['MAILJET_API_KEY'],
+    secret_key:           ENV['MAILJET_SECRET_KEY'],
+    version:              'v3.1',
     authentication:       'plain',
     enable_starttls_auto: true
   }
