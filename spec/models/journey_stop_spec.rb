@@ -42,6 +42,12 @@ RSpec.describe JourneyStop, type: :model do
         { images: ["can't post more than #{JourneyStop::MAXIMUM_NUMBER_OF_IMAGES} images"] }
       )
     end
+
+    it 'is valid if passed_images_count is l or e than MAXIMUM_NUMBER_OF_IMAGES' do
+      subject.passed_images_count = JourneyStop::MAXIMUM_NUMBER_OF_IMAGES
+
+      expect(subject).to be_valid
+    end
   end
 
   describe '#images_are_present' do

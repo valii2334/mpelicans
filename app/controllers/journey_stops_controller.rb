@@ -54,10 +54,6 @@ class JourneyStopsController < ApplicationController
     success_message(message: 'Your journey stop was created.')
   end
 
-  def passed_images_count
-    (params[:journey_stop][:images] || []).size
-  end
-
   def journey_stop_params
     parameters = params.require(:journey_stop).permit(
       :description,
@@ -65,7 +61,7 @@ class JourneyStopsController < ApplicationController
       :plus_code,
       :title
     )
-    parameters.merge(passed_images_count:)
+    parameters.merge(passed_images_count: passed_images.size)
   end
 
   def authorize_journey_stop(method)
@@ -81,21 +77,19 @@ class JourneyStopsController < ApplicationController
   end
 
   def image_paths
-    image_paths = []
-
-    params[:journey_stop][:images].each do |image|
-      next unless image.is_a?(ActionDispatch::Http::UploadedFile)
-
-      image_paths << save_image_to_file(image:)
-    end
-
-    image_paths
+    passed_images.map { |image| save_image_to_file(image:) }
   end
 
   def save_image_to_file(image:)
     file_path = "/tmp/#{File.basename(image.tempfile)}"
     File.binwrite(file_path, image.tempfile.read)
     file_path
+  end
+
+  def passed_images
+    (params[:journey_stop][:images] || []).select do |image|
+      image.is_a?(ActionDispatch::Http::UploadedFile)
+    end
   end
 
   def notify_users(journey:)

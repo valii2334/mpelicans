@@ -38,7 +38,7 @@ class JourneyStop < ApplicationRecord
   end
 
   def maximum_number_of_images
-    return if passed_images_count < MAXIMUM_NUMBER_OF_IMAGES
+    return if passed_images_count <= MAXIMUM_NUMBER_OF_IMAGES
 
     errors.add :images, :invalid, message: "can't post more than #{MAXIMUM_NUMBER_OF_IMAGES} images"
   end
