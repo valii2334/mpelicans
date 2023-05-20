@@ -84,3 +84,4 @@ production:
   database: mpelicans_production
   username: mpelicans
   password: <%= ENV["MPELICANS_DATABASE_PASSWORD"] %>
+  pool: 20
