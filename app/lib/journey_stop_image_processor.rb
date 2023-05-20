@@ -9,6 +9,8 @@ class JourneyStopImageProcessor
   end
 
   def run
+    journey_stop.processing!
+
     images_paths.each do |image_path|
       attach_image_to_journey_stop_images(
         image: resize_image(image_path:),
@@ -16,6 +18,8 @@ class JourneyStopImageProcessor
       )
       remove_image(image_path:)
     end
+
+    journey_stop.processed!
   end
 
   private

@@ -27,5 +27,8 @@ RSpec.describe JourneyStopImageProcessor do
 
     # It deletes the file
     expect { File.open(images_paths[0]) }.to raise_error(Errno::ENOENT)
+
+    # Set image processing status as processed
+    expect(journey_stop.processed?).to be_truthy
   end
 end

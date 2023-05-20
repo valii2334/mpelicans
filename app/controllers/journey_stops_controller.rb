@@ -61,7 +61,10 @@ class JourneyStopsController < ApplicationController
       :plus_code,
       :title
     )
-    parameters.merge(passed_images_count: passed_images.size)
+    parameters.merge(
+      image_processing_status: :waiting,
+      passed_images_count: passed_images.size
+    )
   end
 
   def authorize_journey_stop(method)
