@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_20_092214) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_20_114617) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,8 +49,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_20_092214) do
     t.integer "journey_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "passed_images", default: false, null: false
     t.integer "image_processing_status"
+    t.integer "passed_images_count"
   end
 
   create_table "journeys", force: :cascade do |t|

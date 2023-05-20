@@ -34,11 +34,11 @@ class JourneyStop < ApplicationRecord
   private
 
   def images_are_present
-    errors.add :images, :invalid, message: "can't be blank" unless passed_images || images.any?
+    errors.add :images, :invalid, message: "can't be blank" if passed_images_count.zero?
   end
 
   def maximum_number_of_images
-    return if images.count < MAXIMUM_NUMBER_OF_IMAGES
+    return if passed_images_count < MAXIMUM_NUMBER_OF_IMAGES
 
     errors.add :images, :invalid, message: "can't post more than #{MAXIMUM_NUMBER_OF_IMAGES} images"
   end

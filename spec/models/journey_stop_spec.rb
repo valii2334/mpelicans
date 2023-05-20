@@ -13,7 +13,7 @@ RSpec.describe JourneyStop, type: :model do
   it { should have_attribute :title }
   it { should have_attribute :description }
   it { should have_attribute :image_processing_status }
-  it { should have_attribute :passed_images }
+  it { should have_attribute :passed_images_count }
   it { should have_attribute :plus_code }
   it { should have_attribute :journey_id }
 
@@ -34,10 +34,8 @@ RSpec.describe JourneyStop, type: :model do
   it { should validate_presence_of :plus_code }
 
   describe '#maximum_number_of_images' do
-    it 'is not valid if number of images is gt MAXIMUM_NUMBER_OF_IMAGES' do
-      0.upto(JourneyStop::MAXIMUM_NUMBER_OF_IMAGES - 1).each do |_|
-        subject.images << Rack::Test::UploadedFile.new('spec/fixtures/files/lasvegas.jpg', 'image/jpeg')
-      end
+    it 'is not valid if passed_images_count is gt than MAXIMUM_NUMBER_OF_IMAGES' do
+      subject.passed_images_count = JourneyStop::MAXIMUM_NUMBER_OF_IMAGES + 1
 
       expect(subject).to_not be_valid
       expect(subject.errors.messages).to eq(
@@ -47,14 +45,26 @@ RSpec.describe JourneyStop, type: :model do
   end
 
   describe '#images_are_present' do
-    context 'passed_images is true' do
+    context 'passed_images_count is gt than 0' do
       before do
-        subject.images = []
-        subject.passed_images = true
+        subject.passed_images_count = 1
       end
 
       it 'is valid' do
         expect(subject).to be_valid
+      end
+    end
+
+    context 'passed_images_count is 0' do
+      before do
+        subject.passed_images_count = 0
+      end
+
+      it 'it is not valid', :aggregate_failures do
+        expect(subject).to_not be_valid
+        expect(subject.errors.messages).to eq(
+          { images: ["can't be blank"] }
+        )
       end
     end
   end

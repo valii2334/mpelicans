@@ -3,7 +3,6 @@
 # CRUD For Journey Stop
 class JourneyStopsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
-  before_action :process_images, only: [:create]
 
   def new
     @journey_stop = JourneyStop.new(journey_id: params[:journey_id])
@@ -50,12 +49,13 @@ class JourneyStopsController < ApplicationController
   private
 
   def post_create_actions
+    enqueue_process_images_job
     notify_users(journey: @journey_stop.journey)
     success_message(message: 'Your journey stop was created.')
   end
 
-  def user_passed_images?
-    (params[:journey_stop][:images] || []).any?
+  def passed_images_count
+    (params[:journey_stop][:images] || []).size
   end
 
   def journey_stop_params
@@ -63,24 +63,39 @@ class JourneyStopsController < ApplicationController
       :description,
       :journey_id,
       :plus_code,
-      :title,
-      images: []
+      :title
     )
-    parameters.merge(passed_images: user_passed_images?)
+    parameters.merge(passed_images_count:)
   end
 
   def authorize_journey_stop(method)
     authorize! method, @journey_stop
   end
 
-  def process_images
-    return if (journey_stop_params[:images] || []).empty?
-
-    journey_stop_params[:images].each do |image|
-      next unless image.try(:path)
-
-      image.tempfile = ImageProcessing::MiniMagick.source(image.path).resize_to_limit!(1024, 1024)
+  def enqueue_process_images_job
+    if Rails.env.test?
+      JourneyStopImageProcessor.new(journey_stop_id: @journey_stop.id, images_paths: image_paths).run
+    else
+      JourneyStopJobs::ProcessImages.perform_async(@journey_stop.id, image_paths)
     end
+  end
+
+  def image_paths
+    image_paths = []
+
+    params[:journey_stop][:images].each do |image|
+      next unless image.is_a?(ActionDispatch::Http::UploadedFile)
+
+      image_paths << save_image_to_file(image:)
+    end
+
+    image_paths
+  end
+
+  def save_image_to_file(image:)
+    file_path = "/tmp/#{File.basename(image.tempfile)}"
+    File.binwrite(file_path, image.tempfile.read)
+    file_path
   end
 
   def notify_users(journey:)

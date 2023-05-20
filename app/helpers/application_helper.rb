@@ -2,20 +2,6 @@
 
 # Methods used by views, global
 module ApplicationHelper
-  def active_journey?(journey:)
-    return 'active' if controller_action?(controller: 'journeys',
-                                          action: 'show') && on_this_journey_page?(journey:)
-
-    unless (
-      controller_action?(controller: 'journey_stops', action: 'new') ||
-      controller_action?(controller: 'journey_stops', action: 'show')
-    ) && journey_stop_belongs_to_journey?(journey:)
-      return
-    end
-
-    'active'
-  end
-
   def active_controller_action?(controller:, action:)
     return 'active' if controller_action?(controller:, action:)
   end
