@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_09_172609) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_20_083413) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,6 +49,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_172609) do
     t.integer "journey_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "passed_images", default: false, null: false
   end
 
   create_table "journeys", force: :cascade do |t|

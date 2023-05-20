@@ -15,8 +15,7 @@ class JourneyStopsController < ApplicationController
     authorize_journey_stop(:create)
 
     if @journey_stop.save
-      notify_users(journey: @journey_stop.journey)
-      success_message(message: 'Your journey stop was created.')
+      post_create_actions
 
       redirect_to journey_journey_stop_path(@journey_stop.journey, @journey_stop)
     else
@@ -50,14 +49,24 @@ class JourneyStopsController < ApplicationController
 
   private
 
+  def post_create_actions
+    notify_users(journey: @journey_stop.journey)
+    success_message(message: 'Your journey stop was created.')
+  end
+
+  def user_passed_images?
+    (params[:journey_stop][:images] || []).any?
+  end
+
   def journey_stop_params
-    params.require(:journey_stop).permit(
+    parameters = params.require(:journey_stop).permit(
       :description,
       :journey_id,
       :plus_code,
       :title,
       images: []
     )
+    parameters.merge(passed_images: user_passed_images?)
   end
 
   def authorize_journey_stop(method)
