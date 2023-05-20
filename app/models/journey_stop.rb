@@ -3,6 +3,8 @@
 # JourneyStop Model
 class JourneyStop < ApplicationRecord
   MAXIMUM_NUMBER_OF_IMAGES = 5
+  MAX_IMAGE_WIDTH = 1024
+  MAX_IMAGE_HEIGHT = 1024
 
   belongs_to :journey
 

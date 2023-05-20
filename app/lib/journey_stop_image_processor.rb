@@ -21,7 +21,10 @@ class JourneyStopImageProcessor
   private
 
   def resize_image(image_path:)
-    ImageProcessing::MiniMagick.source(image_path).resize_to_limit!(1024, 1024)
+    ImageProcessing::MiniMagick.source(image_path).resize_to_limit!(
+      JourneyStop::MAX_IMAGE_WIDTH,
+      JourneyStop::MAX_IMAGE_HEIGHT
+    )
   end
 
   def attach_image_to_journey_stop_images(journey_stop:, image:)
