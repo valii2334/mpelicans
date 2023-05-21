@@ -56,7 +56,7 @@ Rails.application.configure do
   config.log_tags = [ :request_id ]
 
   # Use a different cache store in production.
-  config.cache_store = :redis_store, {
+  config.cache_store = :redis_cache_store, {
     url: ENV['REDIS_TLS_URL'],
     ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE }
   }
