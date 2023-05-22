@@ -10,7 +10,7 @@ RSpec.describe Storage do
   let(:body) { double('body') }
 
   before do
-    allow(Aws::S3::Client).to receive(:new).and_return(aws_client)
+    allow(Storage).to receive(:client).and_return(aws_client)
     allow(ENV).to receive(:fetch).with('S3_BUCKET', nil).and_return(s3_bucket_name)
   end
 

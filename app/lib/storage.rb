@@ -2,7 +2,7 @@
 
 class Storage
   def self.upload(key:, body:)
-    Aws::S3::Client.new.put_object(
+    Storage.client.put_object(
       {
         bucket: ENV.fetch('S3_BUCKET', nil),
         acl: 'private',
@@ -13,7 +13,7 @@ class Storage
   end
 
   def self.download(key:)
-    Aws::S3::Client.new.get_object(
+    Storage.client.get_object(
       {
         bucket: ENV.fetch('S3_BUCKET', nil),
         key:
@@ -22,10 +22,22 @@ class Storage
   end
 
   def self.delete(key:)
-    Aws::S3::Client.new.delete_object(
+    Storage.client.delete_object(
       {
         bucket: ENV.fetch('S3_BUCKET', nil),
         key:
+      }
+    )
+  end
+
+  def self.client
+    Aws::S3::Client.new(
+      {
+        region: ENV.fetch('S3_REGION', nil),
+        credentials: Aws::Credentials.new(
+          ENV.fetch('S3_ACCESS_KEY_ID', nil),
+          ENV.fetch('S3_SECRET_ACCESS_KEY', nil)
+        )
       }
     )
   end
