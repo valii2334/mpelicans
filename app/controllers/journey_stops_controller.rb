@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'async'
+require 'async/barrier'
+
 # CRUD For Journey Stop
 class JourneyStopsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
@@ -72,6 +75,8 @@ class JourneyStopsController < ApplicationController
   end
 
   def enqueue_process_images_job
+    upload_images
+
     if Rails.env.test?
       JourneyStopImageProcessor.new(journey_stop_id: @journey_stop.id, images_paths: image_paths).run
     else
@@ -79,14 +84,20 @@ class JourneyStopsController < ApplicationController
     end
   end
 
-  def image_paths
-    passed_images.map { |image| save_image_to_file(image:) }
+  def upload_images
+    barrier = Async::Barrier.new
+
+    Async do
+      passed_images.each do |passed_image|
+        barrier.async { upload_image(image: passed_image) }
+      end
+
+      barrier.wait
+    end
   end
 
-  def save_image_to_file(image:)
-    file_path = "/tmp/#{File.basename(image.tempfile)}"
-    File.binwrite(file_path, image.tempfile.read)
-    file_path
+  def image_paths
+    passed_images.map { |image| image_key(image:) }
   end
 
   def passed_images
@@ -101,5 +112,16 @@ class JourneyStopsController < ApplicationController
       notification_type: :new_journey_stop,
       sender_id: journey.user_id
     ).notify
+  end
+
+  def upload_image(image:)
+    Storage.upload(
+      key: image_key(image:),
+      body: image.tempfile.read
+    )
+  end
+
+  def image_key(image:)
+    File.basename(image.tempfile)
   end
 end

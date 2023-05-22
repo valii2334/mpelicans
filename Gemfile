@@ -7,7 +7,8 @@ ruby '3.1.0'
 
 gem 'rails', '~> 7.0.4.3'
 
-gem 'aws-sdk-s3', require: false
+gem 'async'
+gem 'aws-sdk-s3'
 gem 'bootsnap', require: false
 gem 'cancancan'
 gem 'cssbundling-rails'

@@ -25,10 +25,17 @@ class JourneyStopImageProcessor
   private
 
   def resize_image(image_path:)
-    ImageProcessing::MiniMagick.source(image_path).resize_to_limit!(
-      JourneyStop::MAX_IMAGE_WIDTH,
-      JourneyStop::MAX_IMAGE_HEIGHT
+    File.binwrite(
+      image_path,
+      Storage.download(key: image_path).body.read
     )
+
+    ImageProcessing::MiniMagick
+      .source(image_path)
+      .resize_to_limit!(
+        JourneyStop::MAX_IMAGE_WIDTH,
+        JourneyStop::MAX_IMAGE_HEIGHT
+      )
   end
 
   def attach_image_to_journey_stop_images(journey_stop:, image:)
@@ -39,6 +46,7 @@ class JourneyStopImageProcessor
   end
 
   def remove_image(image_path:)
+    Storage.delete(key: image_path)
     FileUtils.safe_unlink image_path
   end
 end

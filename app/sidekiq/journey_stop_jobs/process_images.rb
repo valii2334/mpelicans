@@ -4,6 +4,8 @@ module JourneyStopJobs
   class ProcessImages
     include Sidekiq::Job
 
+    sidekiq_options retry: false
+
     def perform(*args)
       JourneyStopImageProcessor.new(
         journey_stop_id: args[0],

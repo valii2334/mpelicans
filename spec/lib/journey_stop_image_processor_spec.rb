@@ -4,7 +4,8 @@ require 'rails_helper'
 
 RSpec.describe JourneyStopImageProcessor do
   let(:journey_stop) { create(:journey_stop) }
-  let(:images_paths) { ['spec/fixtures/files/madrid_cp.jpg'] }
+  let(:image_path)   { "spec/fixtures/files/#{SecureRandom.uuid}.jpg" }
+  let(:images_paths) { [image_path] }
 
   subject do
     described_class.new(journey_stop_id: journey_stop.id, images_paths:).run
@@ -13,8 +14,10 @@ RSpec.describe JourneyStopImageProcessor do
   before do
     system(
       "cp #{Rails.root.join('spec/fixtures/files/madrid.jpg')} " \
-      "#{Rails.root.join('spec/fixtures/files/madrid_cp.jpg')}"
+      "#{image_path}"
     )
+
+    Storage.upload(key: image_path, body: File.open(image_path))
   end
 
   it 'resizes and attaches image', :aggregate_failures do
