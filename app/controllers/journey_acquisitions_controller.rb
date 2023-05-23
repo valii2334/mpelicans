@@ -5,13 +5,12 @@ class JourneyAcquisitionsController < ApplicationController
   before_action :authenticate_user!
 
   def checkout_session_redirect
-    journey_id = stripe_checkout_session.metadata.journey_id
-    user_id = stripe_checkout_session.metadata.user_id
-
     authorize! :buy, Journey.find(journey_id)
 
-    PaidJourney.find_or_create_by(user_id:, journey_id:)
-    notify_users(journey_id:, sender_id: user_id)
+    if user_paid?
+      PaidJourney.create(user_id:, journey_id:)
+      notify_users(journey_id:, sender_id: user_id)
+    end
 
     redirect_to journey_path(id: journey_id)
   end
@@ -24,11 +23,23 @@ class JourneyAcquisitionsController < ApplicationController
     )
   end
 
+  def journey_id
+    stripe_checkout_session.metadata.journey_id
+  end
+
+  def user_id
+    stripe_checkout_session.metadata.user_id
+  end
+
+  def user_paid?
+    stripe_checkout_session.payment_status == 'paid'
+  end
+
   def notification_type
-    :bought_journey
+    'bought_journey'
   end
 
   def notify_users(journey_id:, sender_id:)
-    Notifier.new(journey_id:, notification_type:, sender_id:).notify
+    NotifierJob.perform_async(journey_id, notification_type, sender_id)
   end
 end

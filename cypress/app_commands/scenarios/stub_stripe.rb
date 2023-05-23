@@ -31,7 +31,8 @@ if command_options['stripe_response'] == 'success'
         'Metadata',
         user_id: user.id,
         journey_id: journey.id
-      )
+      ),
+      payment_status: 'paid'
     )
   )
 else

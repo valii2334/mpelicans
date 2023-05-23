@@ -13,13 +13,14 @@ RSpec.describe JourneyAcquisitionsController, type: :controller do
       journey_id: second_journey.id
     }
   end
+  let(:payment_status) { 'paid' }
 
   let(:metadata) do
     double('Metadata', journey_id: second_journey.id, user_id: user.id)
   end
 
   let(:stripe_checkout_session) do
-    double('Stripe::CheckoutSession', metadata:)
+    double('Stripe::CheckoutSession', metadata:, payment_status:)
   end
 
   before do
@@ -60,26 +61,60 @@ RSpec.describe JourneyAcquisitionsController, type: :controller do
               allow(notifier).to receive(:notify).and_return(nil)
             end
 
-            it 'creates a PaidJourney' do
-              expect do
+            context 'payment_status is paid' do
+              let(:payment_status) { 'paid' }
+
+              it 'creates a PaidJourney' do
+                expect do
+                  subject
+                end.to change { PaidJourney.count }.by(1)
+              end
+
+              it 'notifies users' do
+                expect(Notifier).to receive(:new).with(
+                  {
+                    journey_id: second_journey.id,
+                    notification_type: :bought_journey,
+                    sender_id: user.id
+                  }
+                ).and_return(notifier)
+
                 subject
-              end.to change { PaidJourney.count }.by(1)
+              end
+
+              it 'redirects to journey path' do
+                subject
+
+                expect(response.status).to redirect_to(journey_path(second_journey))
+              end
             end
 
-            it 'notifies users' do
-              expect(Notifier).to receive(:new).with({
-                                                       journey_id: second_journey.id,
-                                                       notification_type: :bought_journey,
-                                                       sender_id: user.id
-                                                     }).and_return(notifier)
+            context 'payment_status is unpaid' do
+              let(:payment_status) { 'unpaid' }
 
-              subject
-            end
+              it 'does not create a PaidJourney' do
+                expect do
+                  subject
+                end.to change { PaidJourney.count }.by(0)
+              end
 
-            it 'redirects to journey path' do
-              subject
+              it 'does not notify users' do
+                expect(Notifier).to_not receive(:new).with(
+                  {
+                    journey_id: second_journey.id,
+                    notification_type: :bought_journey,
+                    sender_id: user.id
+                  }
+                )
 
-              expect(response.status).to redirect_to(journey_path(second_journey))
+                subject
+              end
+
+              it 'redirects to journey path' do
+                subject
+
+                expect(response.status).to redirect_to(journey_path(second_journey))
+              end
             end
           end
         end

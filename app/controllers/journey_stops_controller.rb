@@ -77,10 +77,6 @@ class JourneyStopsController < ApplicationController
   end
 
   def notify_users(journey:)
-    Notifier.new(
-      journey_id: journey.id,
-      notification_type: :new_journey_stop,
-      sender_id: journey.user_id
-    ).notify
+    NotifierJob.perform_async(journey.id, 'new_journey_stop', journey.user_id)
   end
 end
