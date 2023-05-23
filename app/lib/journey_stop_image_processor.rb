@@ -13,10 +13,7 @@ class JourneyStopImageProcessor
     journey_stop.uploaded_images.each do |uploaded_image|
       image_path = uploaded_image.s3_key
 
-      attach_image_to_journey_stop_images(
-        image: resize_image(image_path:),
-        journey_stop:
-      )
+      attach_image_to_journey_stop_images(image: resize_image(image_path:), journey_stop:)
       remove_image(image_path:)
     end
 
