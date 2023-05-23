@@ -8,8 +8,8 @@ class JourneyStopImageProcessor
   end
 
   def run
-    journey_stop.images.destroy_all
     journey_stop.processing!
+    journey_stop.images.destroy_all
     journey_stop.uploaded_images.each do |uploaded_image|
       image_path = uploaded_image.s3_key
 
