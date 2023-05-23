@@ -80,6 +80,7 @@ RSpec.describe JourneyStop, type: :model do
   ##################################
 
   it { should belong_to(:journey) }
+  it { should have_many(:uploaded_images) }
 
   ##################################
   # Methods
