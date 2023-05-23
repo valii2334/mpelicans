@@ -23,7 +23,7 @@ class Notifier
   private
 
   def should_notify?
-    journey.public_journey?
+    journey.public_journey? || journey.monetized_journey?
   end
 
   def receivers
