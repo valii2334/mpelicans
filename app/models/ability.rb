@@ -13,7 +13,7 @@ class Ability
     can :new, Journey
     can :show, Journey do |journey|
       journey.public_journey? ||
-        journey.access_code == params[:access_code] ||
+        can_view_protected_journey?(journey:, params:) ||
         bought_journey?(user:, journey:)
     end
     can :buy, Journey do |journey|
@@ -25,7 +25,7 @@ class Ability
     can :new, JourneyStop
     can :show, JourneyStop do |journey_stop|
       journey_stop.journey.public_journey? ||
-        journey_stop.journey.access_code == params[:access_code] ||
+        can_view_protected_journey?(journey: journey_stop.journey, params:) ||
         bought_journey?(user:, journey: journey_stop.journey)
     end
     can :manage, JourneyStop, journey: { user: }
@@ -54,5 +54,9 @@ class Ability
 
   def follows?(follower:, followee:)
     Relationship.find_by(follower_id: follower.id, followee_id: followee.id)
+  end
+
+  def can_view_protected_journey?(journey:, params:)
+    journey.protected_journey? && journey.access_code == params[:access_code]
   end
 end
