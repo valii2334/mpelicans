@@ -3,19 +3,17 @@
 class JourneyStopImageProcessor
   attr_accessor :journey_stop, :images_paths
 
-  def initialize(journey_stop_id:, images_paths:)
+  def initialize(journey_stop_id:)
     @journey_stop = JourneyStop.find(journey_stop_id)
-    @images_paths = images_paths
   end
 
   def run
     journey_stop.processing!
+    journey_stop.images.destroy_all
+    journey_stop.uploaded_images.each do |uploaded_image|
+      image_path = uploaded_image.s3_key
 
-    images_paths.each do |image_path|
-      attach_image_to_journey_stop_images(
-        image: resize_image(image_path:),
-        journey_stop:
-      )
+      attach_image_to_journey_stop_images(image: resize_image(image_path:), journey_stop:)
       remove_image(image_path:)
     end
 
@@ -46,7 +44,6 @@ class JourneyStopImageProcessor
   end
 
   def remove_image(image_path:)
-    Storage.delete(key: image_path)
     FileUtils.safe_unlink image_path
   end
 end

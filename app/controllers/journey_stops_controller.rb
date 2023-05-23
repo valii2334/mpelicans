@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'async'
-require 'async/barrier'
-
 # CRUD For Journey Stop
 class JourneyStopsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
@@ -66,7 +63,7 @@ class JourneyStopsController < ApplicationController
     )
     parameters.merge(
       image_processing_status: :waiting,
-      passed_images_count: passed_images.size
+      passed_images_count: (params[:journey_stop][:images] || []).size
     )
   end
 
@@ -75,34 +72,12 @@ class JourneyStopsController < ApplicationController
   end
 
   def enqueue_process_images_job
-    upload_images
+    ImageUploader.new(journey_stop_id: @journey_stop.id, uploaded_files: params[:journey_stop][:images]).run
 
     if Rails.env.test?
-      JourneyStopImageProcessor.new(journey_stop_id: @journey_stop.id, images_paths: image_paths).run
+      JourneyStopImageProcessor.new(journey_stop_id: @journey_stop.id).run
     else
-      JourneyStopJobs::ProcessImages.perform_async(@journey_stop.id, image_paths)
-    end
-  end
-
-  def upload_images
-    barrier = Async::Barrier.new
-
-    Async do
-      passed_images.each do |passed_image|
-        barrier.async { upload_image(image: passed_image) }
-      end
-
-      barrier.wait
-    end
-  end
-
-  def image_paths
-    passed_images.map { |image| image_key(image:) }
-  end
-
-  def passed_images
-    (params[:journey_stop][:images] || []).select do |image|
-      image.is_a?(ActionDispatch::Http::UploadedFile)
+      JourneyStopJobs::ProcessImages.perform_async(@journey_stop.id)
     end
   end
 
@@ -112,16 +87,5 @@ class JourneyStopsController < ApplicationController
       notification_type: :new_journey_stop,
       sender_id: journey.user_id
     ).notify
-  end
-
-  def upload_image(image:)
-    Storage.upload(
-      key: image_key(image:),
-      body: image.tempfile.read
-    )
-  end
-
-  def image_key(image:)
-    File.basename(image.tempfile)
   end
 end

@@ -34,5 +34,6 @@ module Mpelicans
     # Don't generate system test files.
     config.generators.system_tests = nil
     config.active_storage.variant_processor = :mini_magick
+    config.active_storage.multiple_file_field_include_hidden = false
   end
 end
