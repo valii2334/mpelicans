@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_22_145333) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_23_083750) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,6 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_22_145333) do
     t.datetime "updated_at", null: false
     t.integer "image_processing_status"
     t.integer "passed_images_count"
+    t.index ["journey_id"], name: "index_journey_stops_on_journey_id"
   end
 
   create_table "journeys", force: :cascade do |t|
@@ -63,6 +64,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_22_145333) do
     t.string "access_code", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_journeys_on_user_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -74,6 +76,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_22_145333) do
     t.integer "sender_id", null: false
     t.integer "receiver_id", null: false
     t.boolean "read", default: false, null: false
+    t.index ["journey_id"], name: "index_notifications_on_journey_id"
+    t.index ["journey_stop_id"], name: "index_notifications_on_journey_stop_id"
+    t.index ["receiver_id"], name: "index_notifications_on_receiver_id"
+    t.index ["sender_id"], name: "index_notifications_on_sender_id"
   end
 
   create_table "paid_journeys", force: :cascade do |t|
@@ -81,6 +87,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_22_145333) do
     t.integer "journey_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["journey_id"], name: "index_paid_journeys_on_journey_id"
+    t.index ["user_id"], name: "index_paid_journeys_on_user_id"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -88,6 +96,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_22_145333) do
     t.integer "followee_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["followee_id"], name: "index_relationships_on_followee_id"
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
   create_table "uploaded_images", force: :cascade do |t|
