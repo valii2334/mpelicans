@@ -29,6 +29,10 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 require 'simplecov'
 SimpleCov.start
 
+require 'sidekiq/testing'
+Sidekiq::Testing.fake!
+Sidekiq::Testing.inline!
+
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => e

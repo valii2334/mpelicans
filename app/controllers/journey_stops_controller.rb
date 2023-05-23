@@ -73,12 +73,7 @@ class JourneyStopsController < ApplicationController
 
   def enqueue_process_images_job
     ImageUploader.new(journey_stop_id: @journey_stop.id, uploaded_files: params[:journey_stop][:images]).run
-
-    if Rails.env.test?
-      JourneyStopImageProcessor.new(journey_stop_id: @journey_stop.id).run
-    else
-      JourneyStopJobs::ProcessImages.perform_async(@journey_stop.id)
-    end
+    JourneyStopJobs::ProcessImages.perform_async(@journey_stop.id)
   end
 
   def notify_users(journey:)
