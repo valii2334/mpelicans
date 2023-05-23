@@ -1,4 +1,8 @@
 if defined?(CypressOnRails)
+  require 'sidekiq/testing'
+  Sidekiq::Testing.fake!
+  Sidekiq::Testing.inline!
+
   CypressOnRails.configure do |c|
     c.cypress_folder = File.expand_path("#{__dir__}/../../cypress")
     # WARNING!! CypressOnRails can execute arbitrary ruby code
