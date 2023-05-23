@@ -12,7 +12,7 @@ RSpec.describe JourneysController, type: :controller do
 
   context '#show' do
     subject do
-      get :show, params: { id: journey_id }
+      get :show, params: { id: journey_id, access_code: second_journey.access_code }
     end
 
     context 'other users journey' do
@@ -31,7 +31,17 @@ RSpec.describe JourneysController, type: :controller do
           second_journey.update(access_type: :protected_journey)
         end
 
-        it_behaves_like 'can not view page'
+        context 'params contain access_code' do
+          it_behaves_like 'can view page'
+        end
+
+        context 'params does not contain access_code' do
+          subject do
+            get :show, params: { id: journey_id }
+          end
+
+          it_behaves_like 'can not view page'
+        end
       end
 
       context 'public_journey' do

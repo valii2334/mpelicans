@@ -215,13 +215,14 @@ RSpec.describe JourneyStopsController, type: :controller do
   end
 
   context '#show' do
+    let(:access_code) { second_journey.access_code }
     let(:journey_stop) { create(:journey_stop, journey:) }
-
     let(:second_journey) { create(:journey, access_type:, user: create(:user)) }
     let(:second_journey_stop) { create(:journey_stop, journey: second_journey) }
 
     subject do
       get :show, params: {
+        access_code:,
         journey_id:,
         id:
       }
@@ -233,6 +234,7 @@ RSpec.describe JourneyStopsController, type: :controller do
       end
 
       context 'own journey stop' do
+        let(:access_type) { :private_journey }
         let(:journey_id) { journey.id }
         let(:id) { journey_stop.id }
 
@@ -259,18 +261,17 @@ RSpec.describe JourneyStopsController, type: :controller do
           let(:access_type) { :protected_journey }
 
           context 'without access_code' do
-            it_behaves_like 'can not view page'
-          end
-
-          context 'with access_code' do
             subject do
               get :show, params: {
-                access_code: second_journey.access_code,
                 journey_id:,
                 id:
               }
             end
 
+            it_behaves_like 'can not view page'
+          end
+
+          context 'with access_code' do
             it_behaves_like 'can view page'
           end
         end
@@ -312,7 +313,20 @@ RSpec.describe JourneyStopsController, type: :controller do
       context 'protected journey' do
         let(:access_type) { :protected_journey }
 
-        it_behaves_like 'can not view page'
+        context 'access_code in params' do
+          it_behaves_like 'can view page'
+        end
+
+        context 'access_code is not in params' do
+          subject do
+            get :show, params: {
+              journey_id:,
+              id:
+            }
+          end
+
+          it_behaves_like 'can not view page'
+        end
       end
 
       context 'monetized journey' do
