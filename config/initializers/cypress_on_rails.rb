@@ -1,4 +1,6 @@
-if defined?(CypressOnRails)
+# frozen_string_literal: true
+
+if defined?(CypressOnRails) && Rails.env.test?
   require 'sidekiq/testing'
   Sidekiq::Testing.fake!
   Sidekiq::Testing.inline!
