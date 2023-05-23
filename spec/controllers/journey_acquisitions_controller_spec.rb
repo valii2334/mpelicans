@@ -67,11 +67,13 @@ RSpec.describe JourneyAcquisitionsController, type: :controller do
             end
 
             it 'notifies users' do
-              expect(Notifier).to receive(:new).with({
-                                                       journey_id: second_journey.id,
-                                                       notification_type: :bought_journey,
-                                                       sender_id: user.id
-                                                     }).and_return(notifier)
+              expect(Notifier).to receive(:new).with(
+                {
+                  journey_id: second_journey.id,
+                  notification_type: :bought_journey,
+                  sender_id: user.id
+                }
+              ).and_return(notifier)
 
               subject
             end

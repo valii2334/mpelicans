@@ -69,7 +69,7 @@ class JourneysController < ApplicationController
   private
 
   def notify_users
-    Notifier.new(journey_id: @journey.id, notification_type: :new_journey, sender_id: @journey.user_id).notify
+    NotifierJob.perform_async(@journey.id, 'new_journey', @journey.user_id)
   end
 
   def journey_update_params

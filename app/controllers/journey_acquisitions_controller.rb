@@ -25,10 +25,10 @@ class JourneyAcquisitionsController < ApplicationController
   end
 
   def notification_type
-    :bought_journey
+    'bought_journey'
   end
 
   def notify_users(journey_id:, sender_id:)
-    Notifier.new(journey_id:, notification_type:, sender_id:).notify
+    NotifierJob.perform_async(journey_id, notification_type, sender_id)
   end
 end
