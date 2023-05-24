@@ -18,29 +18,25 @@
 </div>
 
 <div class="row">
-  <div class="col-3 col-0"></div>
   <div class="col-lg-6 col-12">
-    <a href="<%= @journey.image.variant(:max).url %>" data-toggle="lightbox" data-gallery="example-gallery">
-      <img src="<%= @journey.image.variant(:max).url %>" class="img-thumbnail rounded me-2 mb-2" id="journey-first-picture">
+    <a href="<%= @journey.image.variant(:max).processed.url %>" data-toggle="lightbox" data-gallery="example-gallery">
+      <img src="<%= @journey.image.variant(:max).processed.url %>" class="img-thumbnail rounded me-2 mb-2" id="journey-first-picture">
     </a>
   </div>
-  <div class="col-3 col-0"></div>
-</div>
 
-<div class="row">
-	<div class="col-12">
-		<div class="card">
-			<div class="card-body">
+  <div class="col-lg-6 col-12">
+    <div class="card">
+      <div class="card-body">
         <iframe
           width="100%"
-          height="450"
+          height="100%"
           style="border:0"
           loading="lazy"
           allowfullscreen
           referrerpolicy="no-referrer-when-downgrade"
           id="journey-map-display"
           src="<%= @journey.map_url %>">
-				</iframe>
+        </iframe>
       </div>
     </div>
   </div>

@@ -34,6 +34,13 @@ class JourneyStop < ApplicationRecord
     MapUrl.new(origin: plus_code).map_url
   end
 
+  def process_images
+    images.each do |image|
+      image.variant(:thumbnail).processed
+      image.variant(:max).processed
+    end
+  end
+
   private
 
   def images_are_present

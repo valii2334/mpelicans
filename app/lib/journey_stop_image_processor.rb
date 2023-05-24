@@ -11,6 +11,7 @@ class JourneyStopImageProcessor
     journey_stop.processing!
     journey_stop.images.destroy_all
     journey_stop.uploaded_images.each { |image| attach_image_to_journey_stop(uploaded_image: image) }
+    journey_stop.process_images
     journey_stop.processed!
   end
 
