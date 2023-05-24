@@ -9,26 +9,32 @@ class Ability
   def initialize(user, params)
     user ||= User.new
 
-    # Journey abilities
+    ##################################
+    # Journey
+    ##################################
+
     can :new, Journey
     can :show, Journey do |journey|
-      journey.public_journey? ||
-        can_view_protected_journey?(journey:, params:) ||
-        bought_journey?(user:, journey:)
+      can_view_journey?(journey:, user:, params:)
     end
     can :buy, Journey do |journey|
-      boughtable_journey?(user:, journey:)
+      can_buy_journey?(journey:, user:)
     end
     can :manage, Journey, user: user
 
-    # Journey Stop abilities
+    ##################################
+    # JourneyStop
+    ##################################
+
     can :new, JourneyStop
     can :show, JourneyStop do |journey_stop|
-      journey_stop.journey.public_journey? ||
-        can_view_protected_journey?(journey: journey_stop.journey, params:) ||
-        bought_journey?(user:, journey: journey_stop.journey)
+      can_view_journey?(journey: journey_stop.journey, user:, params:)
     end
     can :manage, JourneyStop, journey: { user: }
+
+    ##################################
+    # Relationship
+    ##################################
 
     can :create, Relationship do |_, follower, followee|
       !same_user?(followee:, follower:) && !follows?(follower:, followee:)
@@ -38,12 +44,16 @@ class Ability
   # rubocop:enable Metrics/MethodLength
   # rubocop:enable Metrics/AbcSize
 
-  def bought_journey?(user:, journey:)
+  def can_view_monetized_journey?(journey:, user:)
     journey.monetized_journey? &&
       PaidJourney.find_by(user_id: user.id, journey_id: journey.id).present?
   end
 
-  def boughtable_journey?(user:, journey:)
+  def can_view_protected_journey?(journey:, params:)
+    journey.protected_journey? && journey.access_code == params[:access_code]
+  end
+
+  def can_buy_journey?(journey:, user:)
     journey.monetized_journey? &&
       PaidJourney.find_by(user_id: user.id, journey_id: journey.id).blank?
   end
@@ -56,7 +66,9 @@ class Ability
     Relationship.find_by(follower_id: follower.id, followee_id: followee.id)
   end
 
-  def can_view_protected_journey?(journey:, params:)
-    journey.protected_journey? && journey.access_code == params[:access_code]
+  def can_view_journey?(journey:, user:, params:)
+    journey.public_journey? ||
+      can_view_protected_journey?(journey:, params:) ||
+      can_view_monetized_journey?(user:, journey:)
   end
 end
