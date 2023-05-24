@@ -1,15 +1,26 @@
-<div class="mb-3">
-  <h1 class="h3 d-inline align-middle" id="journey-stop-title"><%= @journey_stop.title %></h1>
-
-  <% if @journey_stop.journey.protected_journey? %>
-    <% if current_user && can?(:edit, @journey_stop.journey) %>
-      <%= link_to 'View Journey', journey_path(@journey_stop.journey), class: 'btn btn-primary float-end mt-n1' %>
+<div class="row">
+  <div class="col-6">
+    <h1 id="journey-stop-title"><%= @journey_stop.title %></h1>
+  </div>
+  <div class="col-6">
+    <% if @journey_stop.journey.protected_journey? %>
+      <% if current_user && can?(:edit, @journey_stop.journey) %>
+        <%= link_to 'View Journey', journey_path(@journey_stop.journey), class: 'btn btn-primary float-end mt-n1' %>
+      <% else %>
+        <%= link_to 'View Journey', watch_journey_url(access_code: @journey_stop.journey.access_code), class: 'btn btn-primary float-end mt-n1' %>
+      <% end %>
     <% else %>
-      <%= link_to 'View Journey', watch_journey_url(access_code: @journey_stop.journey.access_code), class: 'btn btn-primary float-end mt-n1' %>
+      <%= link_to 'View Journey', journey_path(@journey_stop.journey), class: 'btn btn-primary float-end mt-n1' %>
     <% end %>
-  <% else %>
-    <%= link_to 'View Journey', journey_path(@journey_stop.journey), class: 'btn btn-primary float-end mt-n1' %>
-  <% end %>
+  </div>
+</div>
+
+<div class="row">
+	<div class="col-12">
+    <p id="journey-stop-description">
+      <%= @journey_stop.description %>
+    </p>
+  </div>
 </div>
 
 <div class="row">
@@ -31,10 +42,6 @@
   </div>
 </div>
 
-<div class="mb-3">
-  <p class="h3 d-inline align-middle" id="journey-stop-description"><%= @journey_stop.description %></p>
-</div>
-
 <div class="row">
   <% if @journey_stop.waiting? %>
     <p class="h3 d-inline align-middle" id="journey-stop-image-processing-status">
@@ -47,8 +54,8 @@
   <% else %>
     <% @journey_stop.images.each_with_index do |image, index| %>
       <div class="col-sm-3" >
-        <a href="<%= image.url %>" data-toggle="lightbox" data-gallery="example-gallery">
-          <img src="<%= image.url %>" class="img-thumbnail rounded me-2 mb-2" id="journey-stop-image-<%= index %>">
+        <a href="<%= image.variant(:max).processed.url %>" data-toggle="lightbox" data-gallery="example-gallery">
+          <img src="<%= image.variant(:thumbnail).processed.url %>" class="img-thumbnail rounded me-2 mb-2" id="journey-stop-image-<%= index %>">
         </a>
       </div>
     <% end %>
