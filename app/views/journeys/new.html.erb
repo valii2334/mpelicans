@@ -45,7 +45,7 @@
                 <%= f.radio_button :access_type, 'private_journey', checked: true, class: 'form-check-input' %>
                 Private
 								<br>
-								<em>only you can view this journey</em>
+								<em>Only you can view this journey.</em>
               </label>
             </div>
 
@@ -54,7 +54,7 @@
                 <%= f.radio_button :access_type, 'protected_journey', class: 'form-check-input' %>
                 Protected
 								<br>
-								<em>we will generate a private link to share this journey</em>
+								<em>We will generate a private link to share for this journey.</em>
               </label>
             </div>
 
@@ -63,7 +63,7 @@
 								<%= f.radio_button :access_type, 'public_journey', class: 'form-check-input' %>
 								Public
 								<br>
-								<em>anyone can see this journey</em>
+								<em>Anyone can see this journey.</em>
 							</label>
 						</div>
 
@@ -72,14 +72,16 @@
 								<%= f.radio_button :access_type, 'monetized_journey', class: 'form-check-input' %>
 								Monetized
 								<br>
-								<em>people will be required to pay <b>$2.00</b> in order to see this journey</em>
+								<em>Users have to pay <b>$2.00</b> in order to see this journey.</em>
+								<br>
+								<em>After taxes you will receive <b>$1.25</b>.</em>
 							</label>
 						</div>
           </div>
 
           <div class="mb-3">
 						<label class="form-label">
-							Add the first picture of your journey
+							Add the first picture of your journey.
 						</label>
 						<br>
             <%= f.file_field :image, required: true %>

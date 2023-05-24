@@ -10,40 +10,20 @@ class JourneyStopImageProcessor
   def run
     journey_stop.processing!
     journey_stop.images.destroy_all
-    journey_stop.uploaded_images.each do |uploaded_image|
-      image_path = uploaded_image.s3_key
-
-      attach_image_to_journey_stop_images(image: resize_image(image_path:), journey_stop:)
-      remove_image(image_path:)
-    end
-
+    journey_stop.uploaded_images.each { |image| attach_image_to_journey_stop(uploaded_image: image) }
     journey_stop.processed!
   end
 
   private
 
-  def resize_image(image_path:)
-    File.binwrite(
-      image_path,
-      Storage.download(key: image_path).body.read
-    )
-
-    ImageProcessing::MiniMagick
-      .source(image_path)
-      .resize_to_limit!(
-        JourneyStop::MAX_IMAGE_WIDTH,
-        JourneyStop::MAX_IMAGE_HEIGHT
-      )
+  def download_image(image_path:)
+    Storage.download(key: image_path).body
   end
 
-  def attach_image_to_journey_stop_images(journey_stop:, image:)
+  def attach_image_to_journey_stop(uploaded_image:)
     journey_stop.images.attach(
-      io: image,
-      filename: File.basename(image)
+      io: download_image(image_path: uploaded_image.s3_key),
+      filename: uploaded_image.s3_key
     )
-  end
-
-  def remove_image(image_path:)
-    FileUtils.safe_unlink image_path
   end
 end

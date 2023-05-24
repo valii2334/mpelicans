@@ -3,13 +3,12 @@
 # JourneyStop Model
 class JourneyStop < ApplicationRecord
   MAXIMUM_NUMBER_OF_IMAGES = 5
-  MAX_IMAGE_WIDTH = 1024
-  MAX_IMAGE_HEIGHT = 1024
 
   belongs_to :journey
 
   has_many_attached :images do |attachable|
-    attachable.variant :max, resize_to_limit: [400, 400]
+    attachable.variant :thumbnail, resize_to_limit: [400, 400]
+    attachable.variant :max, resize_to_limit: [1024, 1024]
   end
 
   has_many :uploaded_images, dependent: :destroy

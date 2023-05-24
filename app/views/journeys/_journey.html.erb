@@ -1,8 +1,30 @@
-<div class="mb-3">
-  <h1 class="h3 d-inline align-middle" id="journey-title"><%= @journey.title %></h1>
-  <% if current_user && can?(:edit, @journey) %>
-    <%= link_to '+ New Stop', new_journey_journey_stop_path(@journey), class: 'btn btn-primary  float-end mt-n1' %>
-  <% end %>
+<div class="row">
+  <div class="col-6">
+    <h1 id="journey-title"><%= @journey.title %></h1>
+  </div>
+  <div class="col-6">
+    <% if current_user && can?(:edit, @journey) %>
+      <%= link_to '+ New Stop', new_journey_journey_stop_path(@journey), class: 'btn btn-primary  float-end mt-n1' %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+	<div class="col-12">
+    <p id="journey-description">
+      <%= @journey.description %>
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-3 col-0"></div>
+  <div class="col-lg-6 col-12">
+    <a href="<%= @journey.image.variant(:max).url %>" data-toggle="lightbox" data-gallery="example-gallery">
+      <img src="<%= @journey.image.variant(:max).url %>" class="img-thumbnail rounded me-2 mb-2" id="journey-first-picture">
+    </a>
+  </div>
+  <div class="col-3 col-0"></div>
 </div>
 
 <div class="row">
@@ -51,24 +73,10 @@
 <% end %>
 
 <div class="row">
-  <div class="col-12 col-md-6 col-lg-4">
-    <div class="card">
-      <%= image_tag @journey.image.variant(:max), class: 'card-img-top', id: 'journey-first-picture' %>
-      <div class="card-body">
-        <div class="card-title">
-          <%= @journey.title %>
-        </div>
-        <div class="card-text" id="journey-description">
-          <%= @journey.description %>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <% @journey.journey_stops.each_with_index do |journey_stop, index| %>
     <% index_class = "journey-stop-#{index}" %>
 
-    <div class="col-12 col-md-6 col-lg-4">
+    <div class="col-12 col-sm-6 col-md-3 col-lg-2">
       <div class="card">
         <% if journey_stop.waiting? %>
           <div class="card-header">
@@ -83,7 +91,7 @@
             </h5>
           </div>
         <% else %>
-          <%= image_tag journey_stop.images.first.variant(:max), class: "image #{index_class} card-img-top" %>
+          <%= image_tag journey_stop.images.first.variant(:thumbnail), class: "image #{index_class} card-img-top" %>
         <% end %>
         <div class="card-body">
           <div class="container">
