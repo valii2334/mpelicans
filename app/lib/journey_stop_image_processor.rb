@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class JourneyStopImageProcessor
-  attr_accessor :journey_stop, :images_paths
+  attr_accessor :journey_stop
 
   def initialize(journey_stop_id:)
     @journey_stop = JourneyStop.find(journey_stop_id)
