@@ -24,23 +24,21 @@
     </a>
   </div>
 
-  <div class="col-lg-6 col-12">
-    <div class="card">
-      <div class="card-body">
-        <iframe
-          width="100%"
-          height="100%"
-          style="border:0"
-          loading="lazy"
-          allowfullscreen
-          referrerpolicy="no-referrer-when-downgrade"
-          id="journey-map-display"
-          src="<%= @journey.map_url %>">
-        </iframe>
-      </div>
-    </div>
+  <div class="col-lg-6 col-12 img-thumbnail">
+    <iframe
+      width="100%"
+      height="100%"
+      style="border:0"
+      loading="lazy"
+      allowfullscreen
+      referrerpolicy="no-referrer-when-downgrade"
+      id="journey-map-display"
+      src="<%= @journey.map_url %>">
+    </iframe>
   </div>
 </div>
+
+<br>
 
 <% if current_user && can?(:edit, @journey) %>
   <div class="row">
