@@ -8,9 +8,9 @@
 @import "1-variables/app";
 
 // Bootstrap
-@import 'bootstrap/scss/bootstrap';
-@import 'bootstrap-icons/font/bootstrap-icons';
+@import '5-bootstrap/bootstrap';
 @import 'jquery-ui';
+
 // Theme mixins
 @import "2-mixins/badge";
 @import "2-mixins/button";

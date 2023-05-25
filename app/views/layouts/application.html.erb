@@ -7,14 +7,15 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application" %>
-    <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "mpelicans" %>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <div class="wrapper">
+    <div class="wrapper" data-controller="hello">
       <% if current_user %>
         <nav id="sidebar" class="sidebar js-sidebar">
           <div class="sidebar-content js-simplebar">
