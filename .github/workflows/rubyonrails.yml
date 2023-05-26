@@ -42,7 +42,7 @@ jobs:
         run: bin/rails db:schema:load
       # Compile assets
       - name: Compile assets
-        run: bin/rails assets:precompile
+        run: bin/rails assets:clobber assets:precompile
       # Add or replace test runners here
       - name: Run tests
         run: bin/rake
