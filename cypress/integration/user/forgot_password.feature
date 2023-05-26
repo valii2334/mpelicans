@@ -1,6 +1,9 @@
 Feature: Forgot Password
   I want to be able to reset my password
 
+  Background:
+    Given I clean database
+
   Scenario: As a registered user I want to reset my password
     Given I am a confirmed user
     And I go to home page

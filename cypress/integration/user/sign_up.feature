@@ -1,6 +1,9 @@
 Feature: Sign up
   I should be able to create an account
 
+  Background:
+    Given I clean database
+
   Scenario: As a customer I want to be able to sign up
     Given I go to home page
     And I click on link "Sign up"

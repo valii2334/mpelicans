@@ -1,6 +1,9 @@
 Feature: Follow
   I want to be able to follow another user
 
+  Background:
+    Given I clean database
+
   Scenario: As a registered user I can follow another user
     Given I am a confirmed user
     And I log in

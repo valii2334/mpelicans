@@ -1,6 +1,9 @@
 Feature: Update attributes
   I want to be able to update username, biography, image and password
 
+  Background:
+    Given I clean database
+
   Scenario: As a registered user I can update my username and biography
     Given I am a confirmed user
     And I log in

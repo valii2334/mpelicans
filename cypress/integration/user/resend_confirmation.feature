@@ -1,6 +1,9 @@
 Feature: Resend confirmation
   I should be receive another confirmation email
 
+  Background:
+    Given I clean database
+
   Scenario: As a customer I want to be able to receive a second confirmation email
     Given I am an unconfirmed user
     And I go to home page

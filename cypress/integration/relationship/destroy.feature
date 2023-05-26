@@ -1,6 +1,9 @@
 Feature: Unfollow
   I want to be able to unfollow a followed user
 
+  Background:
+    Given I clean database
+
   Scenario: As a registered user I can unfollow another user
     Given I am a confirmed user
     And I log in

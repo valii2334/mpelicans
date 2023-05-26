@@ -2,7 +2,8 @@ Feature: Create Journey Stop
   I want to create a journey stop
 
   Background:
-    Given I am a confirmed user
+    Given I clean database
+    And I am a confirmed user
     And I log in
     And I click on link "+ New Journey"
     And I fill in journey information with

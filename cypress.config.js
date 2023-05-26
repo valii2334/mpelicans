@@ -43,6 +43,7 @@ async function setupNodeEvents (on, config) {
 
 
 module.exports = defineConfig({
+  projectId: "ey2w85",
   e2e: {
     baseUrl: "http://localhost:3000",
     defaultCommandTimeout: 10000,

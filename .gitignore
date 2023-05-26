@@ -46,3 +46,6 @@
 # Ignore all videos and screenshots from cypress
 /cypress/videos/*
 /cypress/screenshots/*
+
+# yarn cache
+.yarn/cache
