@@ -17,9 +17,9 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" data-controller="lightbox">
   <div class="col-lg-6 col-12">
-    <a href="<%= @journey.image.variant(:max).processed.url %>" data-toggle="lightbox" data-gallery="example-gallery">
+    <a href="<%= @journey.image.variant(:max).processed.url %>" data-gallery="example-gallery" class="lightbox-image">
       <img src="<%= @journey.image.variant(:max).processed.url %>" class="img-thumbnail rounded me-2 mb-2" id="journey-first-picture">
     </a>
   </div>

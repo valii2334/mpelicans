@@ -2488,6 +2488,7 @@ __metadata:
     babel-preset-es2015: ^6.24.1
     bootstrap: ^5.2.0
     bootstrap-icons: ^1.9.1
+    bs5-lightbox: ^1.8.3
     cypress: ^12.0.0
     cypress-cucumber-preprocessor: ^4.3.1
     cypress-fill-command: ^1.0.2
@@ -3568,6 +3569,15 @@ __metadata:
   bin:
     browserslist: cli.js
   checksum: 9755986b22e73a6a1497fd8797aedd88e04270be33ce66ed5d85a1c8a798292a65e222b0f251bafa1c2522261e237d73b08b58689d4920a607e5a53d56dc4706
+  languageName: node
+  linkType: hard
+
+"bs5-lightbox@npm:^1.8.3":
+  version: 1.8.3
+  resolution: "bs5-lightbox@npm:1.8.3"
+  peerDependencies:
+    bootstrap: ^5.0.0
+  checksum: b587c8428ca25b34896c93c079b04b306b2841f2a4e43e00d08e343d6a6829a9d71e92416a04e0ba41f48d6b9eb3d024a02a993ad7b689cbb833e5eedbdddf52
   languageName: node
   linkType: hard
 
