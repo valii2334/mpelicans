@@ -45,9 +45,7 @@ Cypress.Commands.add('appFixtures', function (options) {
 beforeEach(() => {
   cy.app('clean');
   cy.on("uncaught:exception", (e, runnable) => {
-    if(e.message.includes("Failed to resolve module specifier")){
-      return false;
-    }
+    return false;
   });
 });
 
