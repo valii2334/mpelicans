@@ -1,5 +1,9 @@
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
+Given(/^I clean database/, () => {
+  cy.app('clean');
+});
+
 Given(/^I am a confirmed user/, () => {
   cy.appScenario('create_user');
   cy.appScenario('confirm_last_user');

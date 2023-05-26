@@ -1,6 +1,9 @@
 Feature: View travelers
   I want to be able to view travelers journeys
 
+  Background:
+    Given I clean database
+
   Scenario: As an unregistered user I can view only public and monetized journeys
     Given a random user with "MP02" username has multiple journeys
       | title     | access_type       |

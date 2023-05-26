@@ -41,11 +41,6 @@ Cypress.Commands.add('appFixtures', function (options) {
 });
 // CypressOnRails: end
 
-// The next is optional
-beforeEach(() => {
-  cy.app('clean');
-});
-
 Cypress.on('uncaught:exception', (err, runnable) => {
   return false;
 });
