@@ -2,7 +2,7 @@
 // Run that command whenever you add a new controller or create them with
 // ./bin/rails generate stimulus controllerName
 
-import { application } from "./stimulus"
+import { application } from "./application"
 
 import DocumentsController from "./documents_controller"
 
