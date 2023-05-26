@@ -12,11 +12,4 @@ import "./modules/theme";
 import "./modules/fullscreen";
 import "./modules/feather";
 
-$(document).ready(function () {
-  $('form').submit(function(){
-    $(this).find(':submit').attr('disabled','disabled');
-    $(this).find(':submit').val('Please wait ...');
-  });
-});
-
 import "./controllers"

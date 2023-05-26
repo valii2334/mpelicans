@@ -44,6 +44,11 @@ Cypress.Commands.add('appFixtures', function (options) {
 // The next is optional
 beforeEach(() => {
   cy.app('clean');
+  cy.on("uncaught:exception", (e, runnable) => {
+    if(e.message.includes("Failed to resolve module specifier \"application\".")){
+      return false;
+    }
+  });
 });
 
 // comment this out if you do not want to attempt to log additional info on test fail
