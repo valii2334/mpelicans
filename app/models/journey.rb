@@ -31,6 +31,8 @@ class Journey < ApplicationRecord
 
   scope :public_viewable_journeys, -> { where(access_type: %i[public_journey monetized_journey]) }
 
+  default_scope { order(created_at: :desc) }
+
   def map_url
     MapUrl.new(origin:, destination:, waypoints:).map_url
   end

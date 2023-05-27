@@ -18,7 +18,7 @@ class JourneyStop < ApplicationRecord
   validate :images_are_present
   validate :maximum_number_of_images
 
-  default_scope { order(created_at: :asc) }
+  default_scope { order(created_at: :desc) }
 
   enum image_processing_status: {
     waiting: 0,
