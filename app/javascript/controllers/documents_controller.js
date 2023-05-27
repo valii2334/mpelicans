@@ -6,6 +6,7 @@ export default class extends Controller {
       $(this).find(':submit').attr('disabled','disabled');
       $(this).find(':submit').val('Please wait ...');
 
+      window.scrollTo(0,0);
       $('#pleaseWaitModal').modal('show');
     });
   }
