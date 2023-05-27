@@ -137,11 +137,7 @@
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
                   
                   <div class="dropdown-menu-header">
-                    <% if unread_notifications.count.zero? %>
-                      No New Notifications
-                    <% else %>
-                      <%= unread_notifications.count %> New Notifications
-                    <% end %>
+                    You have <%= unread_notifications.count %> notifications
                   </div>
                   <div class="list-group">
                     <% unread_notifications.each do |unread_notification| %>
