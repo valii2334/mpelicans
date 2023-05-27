@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
     ActiveStorage::Current.url_options = { host: 'localhost:3000' } if Rails.env.test?
   end
 
+  rescue_from StandardError do |exception|
+    redirect_to root_path
+  end
+
   def current_ability
     @current_ability ||= Ability.new(current_user, params)
   end
