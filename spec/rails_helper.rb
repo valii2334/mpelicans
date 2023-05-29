@@ -33,6 +33,9 @@ require 'sidekiq/testing'
 Sidekiq::Testing.fake!
 Sidekiq::Testing.inline!
 
+require 'webmock/rspec'
+WebMock.allow_net_connect!
+
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => e

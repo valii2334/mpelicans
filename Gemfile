@@ -13,6 +13,7 @@ gem 'bootsnap', require: false
 gem 'cancancan'
 gem 'cssbundling-rails'
 gem 'devise'
+gem 'faraday'
 gem 'image_processing', '>= 1.2'
 gem 'jbuilder'
 gem 'jsbundling-rails'
@@ -43,6 +44,7 @@ group :development, :test do
   gem 'rubocop'
   gem 'shoulda-matchers', '~> 4.1'
   gem 'simplecov'
+  gem 'webmock'
 end
 
 group :development do

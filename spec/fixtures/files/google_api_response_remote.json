@@ -1,0 +1,50 @@
+{
+    "plus_code" : {
+       "global_code" : "89Q5Q233+7V5"
+    },
+    "results" : [
+       {
+          "address_components" : [
+             {
+                "long_name" : "89Q5Q233+7V",
+                "short_name" : "89Q5Q233+7V",
+                "types" : [ "plus_code" ]
+             }
+          ],
+          "formatted_address" : "89Q5Q233+7V",
+          "geometry" : {
+             "bounds" : {
+                "northeast" : {
+                   "lat" : 45.75325000000001,
+                   "lng" : -36.99525
+                },
+                "southwest" : {
+                   "lat" : 45.753125,
+                   "lng" : -36.995375
+                }
+             },
+             "location" : {
+                "lat" : 45.753128,
+                "lng" : -36.995275
+             },
+             "location_type" : "GEOMETRIC_CENTER",
+             "viewport" : {
+                "northeast" : {
+                   "lat" : 45.75453648029151,
+                   "lng" : -36.9939635197085
+                },
+                "southwest" : {
+                   "lat" : 45.75183851970851,
+                   "lng" : -36.99666148029149
+                }
+             }
+          },
+          "place_id" : "GhIJ19mQf2bgRkARYcPTK2V_QsA",
+          "plus_code" : {
+             "global_code" : "89Q5Q233+7V"
+          },
+          "types" : [ "plus_code" ]
+       }
+    ],
+    "status" : "OK"
+ }
