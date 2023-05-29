@@ -11,7 +11,7 @@ on:
   pull_request:
     branches: [ "main" ]
 jobs:
-  test:
+  RSpecCypress:
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -53,7 +53,7 @@ jobs:
           RAILS_ENV=test bundle exec rails s &
           yarn cypress run --record
 
-  lint:
+  Rubocop:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
