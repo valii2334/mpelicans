@@ -45,6 +45,22 @@ Cypress.on('uncaught:exception', (err, runnable) => {
   return false;
 });
 
+beforeEach(() => {
+  const latitude = '46.772952';
+  const longitude = '23.625674';
+
+  cy.appScenario('stub_google_api', { latitude: latitude, longitude: longitude });
+
+  cy.on('window:before:load', (win) => {
+    cy.stub(win.navigator.geolocation, "getCurrentPosition").callsFake((cb, err) => {
+      if (latitude && longitude) {
+        return cb({ coords: { latitude, longitude } });
+      }
+      throw err({ code: 1 });
+    });
+  });
+})
+
 // comment this out if you do not want to attempt to log additional info on test fail
 Cypress.on('fail', (err, runnable) => {
   // allow app to generate additional logging data
