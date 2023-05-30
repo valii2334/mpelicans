@@ -2,6 +2,8 @@
 
 # Journey Model
 class Journey < ApplicationRecord
+  include PlusCodeSetterConcern
+
   has_one_attached :image do |attachable|
     attachable.variant :thumbnail, resize_to_limit: [400, 400]
     attachable.variant :max, resize_to_limit: [1024, 1024]
@@ -32,6 +34,8 @@ class Journey < ApplicationRecord
   scope :public_viewable_journeys, -> { where(access_type: %i[public_journey monetized_journey]) }
 
   default_scope { order(created_at: :desc) }
+
+  alias_attribute :plus_code, :start_plus_code
 
   def map_url
     MapUrl.new(origin:, destination:, waypoints:).map_url

@@ -57,6 +57,12 @@ RSpec.describe Journey, type: :model do
     end
   end
 
+  context '#set_plus_code' do
+    subject { create :journey, plus_code: provided_plus_code, lat: latitude, long: longitude }
+
+    it_behaves_like 'plus_code setter'
+  end
+
   ##################################
   # Methods
   ##################################

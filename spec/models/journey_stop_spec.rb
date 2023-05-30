@@ -78,6 +78,16 @@ RSpec.describe JourneyStop, type: :model do
   end
 
   ##################################
+  # Callbacks
+  ##################################
+
+  context '#set_plus_code' do
+    subject { create :journey_stop, plus_code: provided_plus_code, lat: latitude, long: longitude }
+
+    it_behaves_like 'plus_code setter'
+  end
+
+  ##################################
   # Associations
   ##################################
 

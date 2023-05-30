@@ -150,3 +150,44 @@ RSpec.shared_examples 'notifications are sent' do
     end
   end
 end
+
+RSpec.shared_examples 'plus_code setter' do
+  let(:latitude)  { nil }
+  let(:longitude) { nil }
+
+  context 'plus_code is provided' do
+    let(:provided_plus_code) { SecureRandom.uuid }
+
+    it 'does not set plus_code' do
+      subject
+
+      expect(subject.plus_code).to eq(provided_plus_code)
+    end
+  end
+
+  context 'plus_code is not provided' do
+    let(:provided_plus_code) { nil }
+
+    context 'lat and long are not provided' do
+      it 'does not set plus_code' do
+        expect { subject }.to raise_error(ActiveRecord::RecordInvalid, /code can't be blank/)
+      end
+    end
+
+    context 'lat and long are provided' do
+      let(:latitude)            { SecureRandom.uuid }
+      let(:longitude)           { SecureRandom.uuid }
+      let(:plus_code)           { SecureRandom.uuid }
+      let(:plus_code_retriever) { double('PlusCodeRetriever') }
+
+      before do
+        allow(PlusCodeRetriever).to receive(:new).with(latitude: latitude, longitude: longitude).and_return(plus_code_retriever)
+        allow(plus_code_retriever).to receive(:run).and_return(plus_code)
+      end
+
+      it 'sets plus code' do
+        expect(subject.plus_code).to eq(plus_code)
+      end
+    end
+  end
+end
