@@ -26,7 +26,7 @@
             <%= f.text_field :description, required: true, class: 'form-control' %>
           </div>
 
-          <%= render partial: 'shared/location', locals: { message: 'What is your journeys start location?' } %>
+          <%= render partial: 'shared/location', locals: { message: 'What is your journeys start location?', lat_element_id: '#journey_lat', long_element_id: '#journey_long' } %>
 
           <div class="mb-3">
             <label class="form-label">

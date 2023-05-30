@@ -1,8 +1,12 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  connect() {
+  static values = {
+    latElementId: String,
+    longElementId: String
+  }
 
+  connect() {
   }
 
   currentLocation() {
@@ -11,15 +15,13 @@ export default class extends Controller {
     };
 
     const successCallback = (position) => {
-      console.log(position);
-      $('#journey_lat').val(position.coords.latitude);
-      $('#journey_long').val(position.coords.longitude);
+      $(this.latElementIdValue).val(position.coords.latitude);
+      $(this.longElementIdValue).val(position.coords.longitude);
 
       this.locationWasSet();
     };
       
     const errorCallback = (error) => {
-      console.log(error);
       this.locationWasNotSet();
     };
     
