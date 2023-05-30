@@ -56,12 +56,8 @@ class JourneyStopsController < ApplicationController
 
   def journey_stop_params
     parameters = params.require(:journey_stop).permit(
-      :description,
-      :journey_id,
-      :lat,
-      :long,
-      :plus_code,
-      :title
+      :description, :journey_id, :lat, :long,
+      :plus_code, :title
     )
     parameters.merge(
       image_processing_status: :waiting,

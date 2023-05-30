@@ -20,9 +20,7 @@ class JourneysController < ApplicationController
   end
 
   def create
-    @journey = Journey.new(
-      journey_params.merge(user_id: current_user.id)
-    )
+    @journey = Journey.new(journey_params.merge(user_id: current_user.id))
 
     authorize_journey(:create)
 
