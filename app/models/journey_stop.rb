@@ -14,6 +14,7 @@ class JourneyStop < ApplicationRecord
   end
 
   has_many :uploaded_images, dependent: :destroy
+  has_many :notifications,   dependent: :destroy
 
   validates :description, :title, :plus_code, presence: true
 
