@@ -6,7 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one_attached :image do |attachable|
-    attachable.variant :max, resize_to_limit: [400, 400]
+    attachable.variant :max, resize_and_pad: [400, 400]
   end
 
   has_many :journeys, dependent: :destroy

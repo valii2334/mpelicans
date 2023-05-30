@@ -5,7 +5,7 @@ class Journey < ApplicationRecord
   include PlusCodeSetterConcern
 
   has_one_attached :image do |attachable|
-    attachable.variant :thumbnail, resize_to_limit: [400, 400]
+    attachable.variant :thumbnail, resize_and_pad: [400, 400]
     attachable.variant :max, resize_to_limit: [1024, 1024]
   end
 

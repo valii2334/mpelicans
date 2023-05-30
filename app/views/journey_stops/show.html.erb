@@ -53,7 +53,7 @@
     </p>
   <% else %>
     <% @journey_stop.images.each_with_index do |image, index| %>
-      <div class="col-sm-3" >
+      <div class="col-12 col-sm-6 col-md-3 col-lg-2">
         <a href="<%= image.variant(:max).processed.url %>" data-gallery="example-gallery" class="lightbox-image">
           <img src="<%= image.variant(:thumbnail).processed.url %>" class="img-thumbnail rounded me-2 mb-2" id="journey-stop-image-<%= index %>">
         </a>
