@@ -2,6 +2,8 @@
 
 # JourneyStop Model
 class JourneyStop < ApplicationRecord
+  include PlusCodeSetterConcern
+
   MAXIMUM_NUMBER_OF_IMAGES = 5
 
   belongs_to :journey

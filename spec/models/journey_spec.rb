@@ -17,6 +17,8 @@ RSpec.describe Journey, type: :model do
   it { should have_attribute :accepts_recommendations }
   it { should have_attribute :user_id }
   it { should have_attribute :access_code }
+  it { should have_attribute :lat }
+  it { should have_attribute :long }
 
   # ENUMS
 
@@ -53,6 +55,12 @@ RSpec.describe Journey, type: :model do
 
       expect(journey.access_code).to_not be_nil
     end
+  end
+
+  context '#set_plus_code' do
+    subject { create :journey, plus_code: provided_plus_code, lat: latitude, long: longitude }
+
+    it_behaves_like 'plus_code setter'
   end
 
   ##################################

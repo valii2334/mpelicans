@@ -16,6 +16,8 @@ RSpec.describe JourneyStop, type: :model do
   it { should have_attribute :passed_images_count }
   it { should have_attribute :plus_code }
   it { should have_attribute :journey_id }
+  it { should have_attribute :lat }
+  it { should have_attribute :long }
 
   # ENUMS
 
@@ -73,6 +75,16 @@ RSpec.describe JourneyStop, type: :model do
         )
       end
     end
+  end
+
+  ##################################
+  # Callbacks
+  ##################################
+
+  context '#set_plus_code' do
+    subject { create :journey_stop, plus_code: provided_plus_code, lat: latitude, long: longitude }
+
+    it_behaves_like 'plus_code setter'
   end
 
   ##################################
