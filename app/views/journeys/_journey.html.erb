@@ -45,9 +45,12 @@
   	<div class="col-12">
   		<div class="card">
         <div class="card-header">
-          <h5 class="card-title mb-0">
+          <h5 class="card-title">
             Privacy
           </h5>
+          <h6 class="card-subtitle text-muted">
+            Current setting: <strong><%= @journey.access_type.split('_').first %></strong>.
+          </h6>
         </div>
   			<div class="card-body">
           <% if @journey.protected_journey? %>
@@ -56,7 +59,7 @@
             <br>
           <% end %>
 
-          <div class="card-text">
+          <div class="mb-3">
             <% journey_privacy_buttons(journey: @journey).each do |button| %>
               <%= button %>
             <% end %>
@@ -75,13 +78,13 @@
       <div class="card">
         <% if journey_stop.waiting? %>
           <div class="card-header">
-            <h5 class="card-title mb-0" id="journey-stop-image-processing-status">
+            <h5 class="card-title" id="journey-stop-image-processing-status">
               Please wait. Images have been scheduled for processing.
             </h5>
           </div>
         <% elsif journey_stop.processing? %>
           <div class="card-header">
-            <h5 class="card-title mb-0" id="journey-stop-image-processing-status">
+            <h5 class="card-title" id="journey-stop-image-processing-status">
               Please wait. Images are being processed.
             </h5>
           </div>
@@ -89,7 +92,7 @@
           <%= image_tag journey_stop.images.first.variant(:thumbnail), class: "image #{index_class} card-img-top" %>
         <% end %>
         <div class="card-header">
-          <h5 class="card-title title mb-0 <%= index_class %>" id="journey-stop-image-processing-status">
+          <h5 class="card-title title <%= index_class %>" id="journey-stop-image-processing-status">
             <%= journey_stop.title %> - <a href="<%= journey_stop.location_link %>" target="_blank" class="location <%= index_class %>">View Location</a>
           </h5>
         </div>

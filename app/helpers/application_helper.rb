@@ -39,7 +39,7 @@ module ApplicationHelper
   end
 
   def journey_privacy_button(journey:, privacy_type:)
-    link_to "Make your journey #{privacy_type}",
+    link_to privacy_type.upcase_first,
             journey_path(
               journey,
               journey: {
@@ -48,7 +48,15 @@ module ApplicationHelper
             ),
             method: :put,
             confirm: 'Are you sure?',
-            class: 'btn btn-sm btn-outline-primary'
+            class: "btn btn-sm #{color_class(privacy_type:)}"
+  end
+
+  def color_class(privacy_type:)
+    return 'btn-primary' if privacy_type == 'public'
+    return 'btn-danger'  if privacy_type == 'private'
+    return 'btn-warning' if privacy_type == 'protected'
+
+    'btn-success'
   end
 
   def remaining_privacy_types(journey:)
