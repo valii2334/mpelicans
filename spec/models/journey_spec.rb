@@ -17,6 +17,8 @@ RSpec.describe Journey, type: :model do
   it { should have_attribute :accepts_recommendations }
   it { should have_attribute :user_id }
   it { should have_attribute :access_code }
+  it { should have_attribute :lat }
+  it { should have_attribute :long }
 
   # ENUMS
 

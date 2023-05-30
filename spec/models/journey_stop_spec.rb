@@ -16,6 +16,8 @@ RSpec.describe JourneyStop, type: :model do
   it { should have_attribute :passed_images_count }
   it { should have_attribute :plus_code }
   it { should have_attribute :journey_id }
+  it { should have_attribute :lat }
+  it { should have_attribute :long }
 
   # ENUMS
 
