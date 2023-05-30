@@ -3,7 +3,6 @@ Feature: View travelers
 
   Background:
     Given I clean database
-    And I stub current location
 
   Scenario: As an unregistered user I can view only public and monetized journeys
     Given a random user with "MP02" username has multiple journeys

@@ -46,10 +46,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 });
 
 beforeEach(() => {
-  const latitude = '46.772952';
-  const longitude = '23.625674';
-
-  cy.appScenario('stub_google_api', { latitude: latitude, longitude: longitude });
+  cy.appScenario('stub_google_api');
 
   cy.on('window:before:load', (win) => {
     cy.stub(win.navigator.geolocation, "getCurrentPosition").callsFake((cb, err) => {

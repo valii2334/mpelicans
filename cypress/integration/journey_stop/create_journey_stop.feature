@@ -3,7 +3,6 @@ Feature: Create Journey Stop
 
   Background:
     Given I clean database
-    And I stub current location
     And I am a confirmed user
     And I log in
     And I click on link "+ New Journey"
