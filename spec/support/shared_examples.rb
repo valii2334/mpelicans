@@ -181,7 +181,8 @@ RSpec.shared_examples 'plus_code setter' do
       let(:plus_code_retriever) { double('PlusCodeRetriever') }
 
       before do
-        allow(PlusCodeRetriever).to receive(:new).with(latitude: latitude, longitude: longitude).and_return(plus_code_retriever)
+        allow(PlusCodeRetriever).to receive(:new).with(latitude:,
+                                                       longitude:).and_return(plus_code_retriever)
         allow(plus_code_retriever).to receive(:run).and_return(plus_code)
       end
 
