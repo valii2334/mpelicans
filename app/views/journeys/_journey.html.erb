@@ -18,7 +18,7 @@
 </div>
 
 <div class="row" data-controller="lightbox">
-  <div class="col-lg-6 col-12">
+  <div class="col-lg-6 col-12 text-center">
     <a href="<%= @journey.image.variant(:max).processed.url %>" data-gallery="example-gallery" class="lightbox-image">
       <img src="<%= @journey.image.variant(:max).processed.url %>" class="img-thumbnail rounded me-2 mb-2" id="journey-first-picture">
     </a>
@@ -44,11 +44,12 @@
   <div class="row">
   	<div class="col-12">
   		<div class="card">
-  			<div class="card-body">
-          <div class="card-title">
+        <div class="card-header">
+          <h5 class="card-title mb-0">
             Privacy
-          </div>
-
+          </h5>
+        </div>
+  			<div class="card-body">
           <% if @journey.protected_journey? %>
             <a href="<%= watch_journey_url(access_code: @journey.access_code) %>" class="private_link">Private link to share</a>
             <br>
@@ -87,32 +88,22 @@
         <% else %>
           <%= image_tag journey_stop.images.first.variant(:thumbnail), class: "image #{index_class} card-img-top" %>
         <% end %>
+        <div class="card-header">
+          <h5 class="card-title title mb-0 <%= index_class %>" id="journey-stop-image-processing-status">
+            <%= journey_stop.title %> - <a href="<%= journey_stop.location_link %>" target="_blank" class="location <%= index_class %>">View Location</a>
+          </h5>
+        </div>
         <div class="card-body">
-          <div class="container">
-            <div class="card-title title <%= index_class %>">
-              <%= journey_stop.title %> - <a href="<%= journey_stop.location_link %>" target="_blank" class="location <%= index_class %>">View Location</a>
-            </div>
-          </div>
-          <div class="container">
-            <div class="card-subtitle description <%= index_class %>">
-              <%= journey_stop.description %>
-            </div>
-          </div>
-          <br>
-          <div class="container">
-            <div class="row row-cols-4">
-            </div>
-          </div>
-          <br>
-          <div class="container">
-            <% if can?(:show, journey_stop) %>
-              <% if params[:access_code] %>
-                <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop, access_code: params[:access_code]), class: 'btn btn-sm btn-primary' %>
-              <% else %>
-                <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop), class: 'btn btn-sm btn-primary' %>
-              <% end %>
+          <p class="card-text description <%= index_class %>">
+            <%= journey_stop.description %>
+          </p>
+          <% if can?(:show, journey_stop) %>
+            <% if params[:access_code] %>
+              <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop, access_code: params[:access_code]), class: 'btn btn-sm btn-primary' %>
+            <% else %>
+              <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop), class: 'btn btn-sm btn-primary' %>
             <% end %>
-          </div>
+          <% end %>
         </div>
       </div>
     </div>
