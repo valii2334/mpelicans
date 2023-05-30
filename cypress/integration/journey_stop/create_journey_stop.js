@@ -8,7 +8,8 @@ Given(/^I fill in journey stop information with/, (datatable) => {
 
   cy.get('#journey_stop_title').fill(table[0].title);
   cy.get('#journey_stop_description').fill(table[0].description);
-  cy.get('#journey_stop_plus_code').fill(table[0].plus_code);
+
+  cy.contains('Current Location').click();
 
   const imagesArray       = table[0].journey_stop_images.split(',');
   const imagesPathsArrays = [];

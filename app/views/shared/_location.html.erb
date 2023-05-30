@@ -1,0 +1,14 @@
+<div 
+  class="mb-3" 
+  data-controller="location" 
+  data-location-lat-element-id-value="<%= lat_element_id %>" 
+  data-location-long-element-id-value="<%= long_element_id %>"
+>
+  <label class="form-label">
+    <%= message %>
+  </label>
+  <br>
+  <p id="location_not_set_text" class="text-danger d-none">Location is required</p>
+  <p id="location_set_text" class="text-success d-none">Location was successfully set</p>
+  <button class="btn btn-sm btn-primary" type="button" data-action="click->location#currentLocation">Current Location</button>
+</div>
