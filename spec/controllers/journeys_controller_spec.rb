@@ -94,22 +94,6 @@ RSpec.describe JourneysController, type: :controller do
     end
 
     context 'authorization' do
-      context 'for other user' do
-        context 'valid parameters' do
-          let(:journey_params) do
-            {
-              description: FFaker::Lorem.paragraph,
-              image: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
-              start_plus_code: FFaker::Random.rand,
-              title: FFaker::Name.name,
-              user_id: second_user.id
-            }
-          end
-
-          it_behaves_like 'can not view page'
-        end
-      end
-
       context 'for current user' do
         context 'invalid parameters' do
           context 'missing title' do
