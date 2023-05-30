@@ -89,7 +89,7 @@
           <%= image_tag journey_stop.images.first.variant(:thumbnail), class: "image #{index_class} card-img-top" %>
         <% end %>
         <div class="card-header">
-          <h5 class="card-title title mb-0" id="journey-stop-image-processing-status">
+          <h5 class="card-title title mb-0 <%= index_class %>" id="journey-stop-image-processing-status">
             <%= journey_stop.title %> - <a href="<%= journey_stop.location_link %>" target="_blank" class="location <%= index_class %>">View Location</a>
           </h5>
         </div>
