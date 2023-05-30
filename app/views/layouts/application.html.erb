@@ -109,7 +109,7 @@
               <i class="hamburger align-self-center"></i>
             </a>
 
-            <% unread_notifications = current_user.received_notifications.includes(:sender, :receiver, :journey, :journey_stop) %>
+            <% unread_notifications = current_user.received_notifications.not_read.includes(:sender, :receiver, :journey, :journey_stop) %>
 
             <ul class="navbar-nav navbar-align">
               <li class="nav-item dropdown">
