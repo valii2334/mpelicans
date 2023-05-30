@@ -7,7 +7,9 @@ Given(/^I fill in journey information with/, (datatable) => {
 
   cy.get('#journey_title').fill(table[0].title);
   cy.get('#journey_description').fill(table[0].description);
-  cy.get('#journey_start_plus_code').fill(table[0].start_plus_code);
+
+  cy.contains('Current Location').click();
+
   cy.get('#journey_image').selectFile('./cypress/support/' + table[0].journey_image);
 });
 

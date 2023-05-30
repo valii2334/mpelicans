@@ -70,3 +70,19 @@ When(/^I visit "([^"]*)"/, (route) => {
 Then(/^I should be on "([^"]*)" profile page/, (username) => {
   cy.get('#pelican-name').contains(username);
 });
+
+Given(/^I stub current location/, () => {
+  const latitude = '46.772952';
+  const longitude = '23.625674';
+
+  cy.appScenario('stub_google_api', { latitude: latitude, longitude: longitude });
+
+  cy.on('window:before:load', (win) => {
+    cy.stub(win.navigator.geolocation, "getCurrentPosition").callsFake((cb, err) => {
+      if (latitude && longitude) {
+        return cb({ coords: { latitude, longitude } });
+      }
+      throw err({ code: 1 });
+    });
+  });
+});

@@ -6,6 +6,8 @@ import { application } from "./application"
 
 import DocumentsController from "./documents_controller"
 import LightboxController from "./lightbox_controller"
+import LocationController from "./location_controller"
 
 application.register("documents", DocumentsController)
 application.register("lightbox", LightboxController)
+application.register("location", LocationController)

@@ -58,6 +58,8 @@ class JourneyStopsController < ApplicationController
     parameters = params.require(:journey_stop).permit(
       :description,
       :journey_id,
+      :lat,
+      :long,
       :plus_code,
       :title
     )
