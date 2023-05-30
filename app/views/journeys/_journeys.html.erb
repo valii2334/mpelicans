@@ -8,8 +8,10 @@
 				<div class="col-12 col-sm-6 col-md-3 col-lg-2">
 					<div class="card">
 						<%= image_tag journey.image.variant(:thumbnail), class: 'card-img-top' %>
+            <div class="card-header">
+              <h5 class="card-title mb-o"><%= journey.title %></h5>
+            </div>
 						<div class="card-body">
-							<h5 class="card-title"><%= journey.title %></h5>
 							<p class="card-text"><%= journey.description %></p>
                 <% if can?(:show, journey) %>
 									<%= link_to 'View Journey', journey_path(journey), class: 'btn btn-sm btn-primary' %>
