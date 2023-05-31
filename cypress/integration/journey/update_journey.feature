@@ -20,5 +20,5 @@ Feature: Update Journey
     Given I go to home page
     And I click on link "All Journeys"
     And I click on link "View Journey"
-    When I click on link "Make your journey protected"
+    When I click on link "Protected"
     Then I should see journey private link in the page
