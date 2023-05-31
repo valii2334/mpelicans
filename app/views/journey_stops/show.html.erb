@@ -1,8 +1,5 @@
 <div class="row">
-  <div class="col-6">
-    <h1 id="journey-stop-title"><%= @journey_stop.title %></h1>
-  </div>
-  <div class="col-6">
+  <div class="col-12">
     <% if @journey_stop.journey.protected_journey? %>
       <% if current_user && can?(:edit, @journey_stop.journey) %>
         <%= link_to 'View Journey', journey_path(@journey_stop.journey), class: 'btn btn-primary float-end mt-n1' %>
@@ -12,6 +9,12 @@
     <% else %>
       <%= link_to 'View Journey', journey_path(@journey_stop.journey), class: 'btn btn-primary float-end mt-n1' %>
     <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <h1 id="journey-stop-title"><%= @journey_stop.title %></h1>
   </div>
 </div>
 

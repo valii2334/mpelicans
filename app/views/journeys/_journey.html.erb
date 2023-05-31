@@ -1,11 +1,14 @@
-<div class="row">
-  <div class="col-6">
-    <h1 id="journey-title"><%= @journey.title %></h1>
-  </div>
-  <div class="col-6">
+<div class="row"> 
+  <div class="col-12">
     <% if current_user && can?(:edit, @journey) %>
       <%= link_to '+ New Stop', new_journey_journey_stop_path(@journey), class: 'btn btn-primary  float-end mt-n1' %>
     <% end %>
+  </div>
+<div>
+
+<div class="row">
+  <div class="col-12">
+    <h1 id="journey-title"><%= @journey.title %></h1>
   </div>
 </div>
 
@@ -19,26 +22,32 @@
 
 <div class="row" data-controller="lightbox">
   <div class="col-lg-6 col-12 text-center">
-    <a href="<%= @journey.image.variant(:max).processed.url %>" data-gallery="example-gallery" class="lightbox-image">
-      <img src="<%= @journey.image.variant(:max).processed.url %>" class="img-thumbnail rounded me-2 mb-2" id="journey-first-picture">
-    </a>
+    <div class="card">
+			<div class="card-body">
+        <a href="<%= @journey.image.variant(:max).processed.url %>" data-gallery="example-gallery" class="lightbox-image">
+          <img src="<%= @journey.image.variant(:max).processed.url %>" class="img-thumbnail rounded me-2 mb-2" id="journey-first-picture">
+        </a>
+      </div>
+    </div>
   </div>
 
-  <div class="col-lg-6 col-12 img-thumbnail">
-    <iframe
-      width="100%"
-      height="100%"
-      style="border:0"
-      loading="lazy"
-      allowfullscreen
-      referrerpolicy="no-referrer-when-downgrade"
-      id="journey-map-display"
-      src="<%= @journey.map_url %>">
-    </iframe>
+  <div class="col-lg-6 col-12">
+    <div class="card" style="height: 95%;">
+      <div class="card-body">
+        <iframe
+          width="100%"
+          height="100%"
+          style="border:0"
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade"
+          id="journey-map-display"
+          src="<%= @journey.map_url %>">
+        </iframe>
+      </div>
+    </div>
   </div>
 </div>
-
-<br>
 
 <% if current_user && can?(:edit, @journey) %>
   <div class="row">
