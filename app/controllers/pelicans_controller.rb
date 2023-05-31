@@ -4,12 +4,10 @@
 class PelicansController < ApplicationController
   before_action :authenticate_user!, only: %i[edit update]
 
-  include ActiveRecord::Sanitization
-
   def index
     @users = if params[:pelicans] && params[:pelicans][:query_string]
                User
-                 .where('username ILIKE ?', "%#{params[:pelicans][:query_string]}%")
+                 .where('username ILIKE ?', "%#{ActiveRecord::Base::sanitize_sql_like(params[:pelicans][:query_string])}%")
                  .where.not(id: [current_user.try(:id)])
              else
                []

@@ -5,6 +5,6 @@
 
   <% relationship =  Relationship.find_by(follower_id: follower.id, followee_id: followee.id) %>
   <% if can?(:destroy, relationship, follower, followee) %>
-    <%= link_to 'Unfollow', relationship_path(id: relationship.id), method: :delete, class: 'btn btn-sm btn-primary pelican-path' %>
+    <%= link_to 'Unfollow', relationship_path(id: relationship.id), method: :delete, class: 'btn btn-sm btn-danger pelican-path' %>
   <% end %>
 <% end %>
