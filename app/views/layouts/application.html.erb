@@ -63,7 +63,15 @@
                   <% end %>
 
                   <ul id="journeys" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
-                    <li class="sidebar-item <%= active_controller_action?(controller: 'journeys', action: 'index') %> <%= active_controller_action?(controller: 'journeys', action: 'show') %>">
+                    <li class="sidebar-item <%= active_controller_action?(controller: 'journeys', action: 'index', condition: params[:which_journeys] == 'mine') %>">
+                      <%= link_to 'My Journeys', journeys_path(which_journeys: 'mine'), class: 'sidebar-link' %>
+                    </li>
+
+                    <li class="sidebar-item <%= active_controller_action?(controller: 'journeys', action: 'index', condition: params[:which_journeys] == 'bought') %>">
+                      <%= link_to 'Bought Journeys', journeys_path(which_journeys: 'bought'), class: 'sidebar-link' %>
+                    </li>
+
+                    <li class="sidebar-item <%= active_controller_action?(controller: 'journeys', action: 'index', condition: params[:which_journeys].nil?) %>">
                       <%= link_to 'All Journeys', journeys_path, class: 'sidebar-link' %>
                     </li>
 

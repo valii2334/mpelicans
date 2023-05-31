@@ -2,8 +2,8 @@
 
 # Methods used by views, global
 module ApplicationHelper
-  def active_controller_action?(controller:, action:)
-    return 'active' if controller_action?(controller:, action:)
+  def active_controller_action?(controller:, action:, condition: true)
+    return 'active' if controller_action?(controller:, action:) && condition
   end
 
   def active_controller?(controller:)
