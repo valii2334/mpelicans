@@ -31,7 +31,7 @@
     </div>
 	<% else %>
 		<% @users.each do |user| %>
-				<div class="col-6 col-sm-4 col-md-2 col-lg-1">
+				<div class="col-6 col-sm-4 col-md-3 col-lg-2">
 					<div class="card mb-3">
             <% if user.image.attached? %>
               <%= image_tag user.image.variant(:max), class: "card-img-top" %>
@@ -45,8 +45,10 @@
 							<p class="card-text">
                 <%= user.biography %>
               </p>
-							<%= link_to 'View Pelican', pelican_path(user.username), class: 'btn btn-sm btn-primary pelican-path' %>
-              <%= render partial: 'follow_unfollow', locals: { follower: current_user, followee: user } %>
+              <div class="btn-group btn-group-sm mb-0" role="group" aria-label="pelican_button_group" style="width: 100%;">
+                <%= link_to 'View', pelican_path(user.username), class: 'btn btn-sm btn-primary pelican-path' %>
+                <%= render partial: 'follow_unfollow', locals: { follower: current_user, followee: user } %>
+              </div>
 						</div>
 					</div>
 				</div>
