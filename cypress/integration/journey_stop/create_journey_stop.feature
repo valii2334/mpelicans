@@ -14,7 +14,7 @@ Feature: Create Journey Stop
     Then journey information should be
       | title            | description              | start_plus_code | journey_image |
       | Going to Munchen | My first trip to Germany | 8GR5QJFG%2B57M  | madrid.jpg    |
-    And link "All Journeys" is active in the sidebar
+    And link "My Journeys" is active in the sidebar
     And I click on link "+ New Stop"
 
   Scenario: If a users enters correct journey stop information then we can create a journey stop
