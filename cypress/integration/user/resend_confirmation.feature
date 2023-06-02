@@ -13,6 +13,4 @@ Feature: Resend confirmation
     When I click on input "Resend confirmation instructions"
     Then "2" emails should have been delivered
     And I click on confirmation link
-    And I enter my email and password
-    When I click on input "Log in"
     Then I should be on the home page
