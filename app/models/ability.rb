@@ -45,8 +45,7 @@ class Ability
   # rubocop:enable Metrics/AbcSize
 
   def can_view_monetized_journey?(journey:, user:)
-    journey.monetized_journey? &&
-      PaidJourney.find_by(user_id: user.id, journey_id: journey.id).present?
+    journey.monetized_journey? && user.bought_journey?(journey:)
   end
 
   def can_view_protected_journey?(journey:, params:)
