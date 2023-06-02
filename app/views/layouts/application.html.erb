@@ -27,27 +27,21 @@
             <div class="sidebar-user">
               <div class="d-flex justify-content-center">
                 <div class="flex-shrink-0">
-                  <% if current_user && current_user.image.attached? %>
+                  <% if current_user.image.attached? %>
                     <%= image_tag current_user.image.variant(:max), class: "avatar img-fluid rounded me-1" %>
                   <% else %>
                     <%= image_tag "avatars/avatar.png", class: "avatar img-fluid rounded me-1" %>
                   <% end %>
                 </div>
-                <% if current_user %>
-                  <div class="flex-grow-1 ps-2">
-                    <a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                      <%= current_user.username %>
-                    </a>
-                    <div class="sidebar-user-subtitle">Journeys: <%= current_user.journeys.count %></div>
-                    <div class="dropdown-menu dropdown-menu-start">
-                      <%= link_to "Log out", destroy_user_session_path, class: 'dropdown-item' %>
-                    </div>
+                <div class="flex-grow-1 ps-2">
+                  <a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                    <%= current_user.username %>
+                  </a>
+                  <div class="sidebar-user-subtitle">Journeys: <%= current_user.journeys.count %></div>
+                  <div class="dropdown-menu dropdown-menu-start">
+                    <%= link_to "Log out", destroy_user_session_path, class: 'dropdown-item' %>
                   </div>
-                <% else %>
-                  <div class="flex-grow-1 ps-2" style="color: white;">
-                    Migrating Pelican
-                  </div>
-                <% end %>
+                </div>
               </div>
             </div>
 
