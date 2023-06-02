@@ -2,7 +2,7 @@
 
 # CRUD For Journey
 class JourneysController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: %i[index show]
   before_action :check_params, only: [:index]
 
   def index
