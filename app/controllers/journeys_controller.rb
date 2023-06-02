@@ -12,7 +12,7 @@ class JourneysController < ApplicationController
                         when 'bought'
                           [current_user.bought_journeys, 'Bought Journeys']
                         when nil
-                          [viewble_journeys, 'All Journeys']
+                          [viewble_journeys, 'Last Journeys']
                         end
   end
 
