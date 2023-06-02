@@ -79,7 +79,7 @@ RSpec.describe User, type: :model do
       user = build(:user, username: 'WHITE SPACE')
 
       expect(user.valid?).to be_falsey
-      expect(user.errors.full_messages).to include('Username can not contain white spaces')
+      expect(user.errors.full_messages).to include('Username can not contain special characters')
     end
   end
 end

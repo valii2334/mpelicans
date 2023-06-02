@@ -58,7 +58,8 @@ class User < ApplicationRecord
 
   def username_validator
     return if username.blank?
+    return unless username.match?(/[^a-zA-Z0-9]/)
 
-    errors.add :base, :invalid, message: 'Username can not contain white spaces' if username.include?(' ')
+    errors.add :base, :invalid, message: 'Username can not contain special characters'
   end
 end
