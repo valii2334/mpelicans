@@ -54,8 +54,7 @@ class Ability
   end
 
   def can_buy_journey?(journey:, user:)
-    journey.monetized_journey? &&
-      PaidJourney.find_by(user_id: user.id, journey_id: journey.id).blank?
+    journey.monetized_journey? && !user.bought_journey?(journey:)
   end
 
   def same_user?(follower:, followee:)

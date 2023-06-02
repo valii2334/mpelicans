@@ -1,0 +1,88 @@
+<% if current_user %>
+  <nav id="sidebar" class="sidebar js-sidebar">
+    <div class="sidebar-content js-simplebar">
+      <a class="sidebar-brand" href="<%= root_path %>">
+        <span class="sidebar-brand-text align-middle">
+          MPelicans
+        </span>
+      </a>
+
+      <div class="sidebar-user">
+        <div class="d-flex justify-content-center">
+          <div class="flex-shrink-0">
+            <% if current_user.image.attached? %>
+              <%= image_tag current_user.image.variant(:max), class: "avatar img-fluid rounded me-1" %>
+            <% else %>
+              <%= image_tag "avatars/avatar.png", class: "avatar img-fluid rounded me-1" %>
+            <% end %>
+          </div>
+          <div class="flex-grow-1 ps-2">
+            <a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown">
+              <%= current_user.username %>
+            </a>
+            <div class="sidebar-user-subtitle">Journeys: <%= current_user.journeys.count %></div>
+            <div class="dropdown-menu dropdown-menu-start">
+              <%= link_to "Log out", destroy_user_session_path, class: 'dropdown-item' %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <% if current_user %>
+        <ul class="sidebar-nav">
+          <li class="sidebar-header">
+            Pages
+          </li>
+
+          <li class="sidebar-item <%= active_controller?(controller: 'journeys') || active_controller?(controller: 'journey_stops') %>">
+            <%= link_to journeys_path, class: 'sidebar-link', data: { "bs-target" => '#journeys' } do %>
+              <i class="align-middle" data-feather="layout"></i> <span class="align-middle">Journeys</span>
+            <% end %>
+
+            <ul id="journeys" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+              <li class="sidebar-item <%= active_journeys_tab?(tab: 'mine') %>">
+                <%= link_to 'My Journeys', journeys_path(which_journeys: 'mine'), class: 'sidebar-link' %>
+              </li>
+
+              <li class="sidebar-item <%= active_journeys_tab?(tab: 'bought') %>">
+                <%= link_to 'Bought Journeys', journeys_path(which_journeys: 'bought'), class: 'sidebar-link' %>
+              </li>
+
+              <li class="sidebar-item <%= active_journeys_tab? %>">
+                <%= link_to 'All Journeys', journeys_path, class: 'sidebar-link' %>
+              </li>
+
+              <li class="sidebar-item <%= active_controller_action?(controller: 'journeys', action: 'new') %>">
+                <%= link_to "+ New Journey", new_journey_path, class: 'sidebar-link' %>
+              </li>
+            </ul>
+          </li>
+
+          <li class="sidebar-item <%= active_controller_action?(controller: 'pelicans', action: 'index') %> <%= active_controller_action?(controller: 'pelicans', action: 'show') %>">
+            <%= link_to pelicans_path, class: 'sidebar-link', data: { "bs-target" => '#pelicans' } do %>
+              <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Pelicans</span>
+            <% end %>
+
+            <ul id="pelicans" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+              <li class="sidebar-item <%= active_controller_action?(controller: 'pelicans', action: 'index') %>">
+                <%= link_to "Search", pelicans_path, class: 'sidebar-link' %>
+              </li>
+            </ul>
+          </li>
+
+          <li class="sidebar-item <%= active_controller_action?(controller: 'pelicans', action: 'edit') %>">
+            <%= link_to edit_pelican_path(current_user.username), class: 'sidebar-link' do %>
+              <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+            <% end %>
+          </li>
+
+          <li class="sidebar-item">
+            <%= link_to destroy_user_session_path, class: 'sidebar-link', data: { confirm: 'Are you sure?' } do %>
+              <i class="align-middle" data-feather="log-out"></i> <span class="align-middle">Log Out</span>
+            <% end %>
+          </li>
+        </ul>
+      <% end %>
+    </div>
+  </nav>
+<% end %>

@@ -48,6 +48,12 @@ class User < ApplicationRecord
 
   delegate :public_viewable_journeys, to: :journeys
 
+  def bought_journey?(journey:)
+    return unless journey
+
+    PaidJourney.find_by(user_id: id, journey_id: journey.id)
+  end
+
   private
 
   def username_validator

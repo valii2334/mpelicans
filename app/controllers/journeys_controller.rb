@@ -5,8 +5,14 @@ class JourneysController < ApplicationController
   before_action :authenticate_user!, except: [:show]
 
   def index
-    @journeys = current_user.journeys
-    @bought_journeys = current_user.bought_journeys
+    @journeys, @title = case params[:which_journeys]
+                        when 'mine'
+                          [current_user.journeys, 'My Journeys']
+                        when 'bought'
+                          [current_user.bought_journeys, 'Bought Journeys']
+                        when nil
+                          [viewble_journeys, 'All Journeys']
+                        end
   end
 
   def new
@@ -93,5 +99,11 @@ class JourneysController < ApplicationController
 
   def authorize_journey(method)
     authorize! method, @journey
+  end
+
+  def viewble_journeys
+    Journey.where(access_type: %i[public_journey monetized_journey])
+           .where.not(user_id: current_user.id)
+           .order(created_at: :desc).limit(25)
   end
 end
