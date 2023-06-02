@@ -2,15 +2,44 @@
 
 # Methods used by views, global
 module ApplicationHelper
-  def active_controller_action?(controller:, action:, condition: true)
-    return 'active' if controller_action?(controller:, action:) && condition
+  def active_controller_action?(controller:, action:)
+    return 'active' if controller_action?(controller:, action:)
   end
 
   def active_controller?(controller:)
     return 'active' if controller?(controller:)
   end
 
+  def active_journeys_tab?(tab: nil)
+    return unless controller?(controller: 'journeys') || controller?(controller: 'journey_stops')
+
+    my_journeys_tab?(tab:) || bought_journeys_tab?(tab:) || all_journeys_tab?
+  end
+
   private
+
+  def my_journeys_tab?(tab:)
+    return unless tab == 'mine'
+    return 'active' if params[:which_journeys] == tab || can_edit_current_journey?
+  end
+
+  def bought_journeys_tab?(tab:)
+    return unless tab == 'bought'
+    return 'active' if params[:which_journeys] == tab || bought_current_journey?
+  end
+
+  def all_journeys_tab?
+    return if params[:which_journeys].present?
+    return 'active' if !can_edit_current_journey? && !bought_current_journey?
+  end
+
+  def can_edit_current_journey?
+    can?(:edit, current_journey)
+  end
+
+  def bought_current_journey?
+    current_user.bought_journey?(journey: current_journey)
+  end
 
   def controller_action?(controller:, action:)
     controller?(controller:) && action?(action:)
@@ -24,12 +53,12 @@ module ApplicationHelper
     params[:action] == action
   end
 
-  def on_this_journey_page?(journey:)
-    params[:id] == String(journey.id)
-  end
-
-  def journey_stop_belongs_to_journey?(journey:)
-    params[:journey_id] == String(journey.id)
+  def current_journey
+    if controller?(controller: 'journeys')
+      Journey.find_by(id: params[:id])
+    elsif controller?(controller: 'journey_stops')
+      Journey.find_by(id: params[:journey_id])
+    end
   end
 
   def journey_privacy_buttons(journey:)
