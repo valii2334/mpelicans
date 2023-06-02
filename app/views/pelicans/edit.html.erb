@@ -32,7 +32,9 @@
               <div class="row">
                 <div class="col-md-8">
                   <div class="mb-3">
-                    <%= f.label :username, class: 'form-label' %><br />
+                    <%= f.label :username, class: 'form-label' %>
+					<em>(can contain letters and numbers only)</em>
+					<br/>
                     <%= f.text_field :username, required: true, autofocus: true, autocomplete: "username", value: current_user.username, class: 'form-control' %>
                   </div>
                   <div class="mb-3">
