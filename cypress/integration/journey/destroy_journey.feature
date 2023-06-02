@@ -19,6 +19,6 @@ Feature: Destroy Journey
   Scenario: If a users clicks on Delete Journey then it should be deleted
     Given I go to home page
     And I click on link "My Journeys"
-    And I click on link "View Journey"
+    And I click on link "View"
     When I click on link "Delete Journey"
     Then I should see "There are no journeys yet." in the page

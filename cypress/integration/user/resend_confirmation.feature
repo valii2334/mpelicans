@@ -7,6 +7,7 @@ Feature: Resend confirmation
   Scenario: As a customer I want to be able to receive a second confirmation email
     Given I am an unconfirmed user
     And I go to home page
+    And I go to log in page
     And I click on link "Didn't receive confirmation instructions?"
     And I fill input "#user_email" with user email
     When I click on input "Resend confirmation instructions"

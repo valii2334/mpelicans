@@ -13,13 +13,19 @@
             </div>
 						<div class="card-body">
 							<p class="card-text"><%= journey.description %></p>
+              <div class="btn-group btn-group-sm mb-0" role="group" aria-label="pelican_button_group" style="width: 100%;">
                 <% if can?(:show, journey) %>
-									<%= link_to 'View Journey', journey_path(journey), class: 'btn btn-sm btn-primary' %>
-                <% elsif can?(:buy, journey) %>
-                  <%= link_to create_checkout_session_payments_path(journey_id: journey.id), method: :post, class: 'btn btn-sm btn-primary' do %>
-										<i class="align-middle" data-feather="lock"></i> <span class="align-middle">Buy Journey</span>
-									<% end %>
-								<% end %>
+									<%= link_to 'View', journey_path(journey), class: 'btn btn-sm btn-primary' %>
+                <% end %>
+                <% if current_user.nil? || journey.user != current_user %>
+                  <%= link_to 'User Profile', pelican_path(journey.user.username), class: 'btn btn-sm btn-secondary' %>
+                  <% if can?(:buy, journey) %>
+                    <%= link_to create_checkout_session_payments_path(journey_id: journey.id), method: :post, class: 'btn btn-sm btn-success' do %>
+                      <i class="align-middle" data-feather="lock"></i> <span class="align-middle">Buy</span>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </div>
 						</div>
 					</div>
 				</div>

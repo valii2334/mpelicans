@@ -27,7 +27,7 @@ Feature: Destroy Journey Stop
   Scenario: If a users enters correct journey stop information then we can create a journey stop
     Given I go to home page
     And I click on link "My Journeys"
-    And I click on link "View Journey"
+    And I click on link "View"
     And I should have a journey stop card
     Given I click on link "View Stop"
     When I click on link "Delete Stop"

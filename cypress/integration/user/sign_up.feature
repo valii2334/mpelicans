@@ -6,7 +6,7 @@ Feature: Sign up
 
   Scenario: As a customer I want to be able to sign up
     Given I go to home page
-    And I click on link "Sign up"
+    And I go to sign up page
     And I fill in user informations
       | email             | username | password | password_confirmation |
       | example@email.com | MP01     | password | password              |
@@ -18,7 +18,7 @@ Feature: Sign up
 
   Scenario: As a customer I will see an error if I enter a username containing white spaces
   Given I go to home page
-  And I click on link "Sign up"
+  And I go to sign up page
   And I fill in user informations
     | email             | username | password | password_confirmation |
     | example@email.com | MP 01    | password | password              |

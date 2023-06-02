@@ -2,7 +2,8 @@
 
 # CRUD For Journey
 class JourneysController < ApplicationController
-  before_action :authenticate_user!, except: [:show]
+  before_action :authenticate_user!, except: %i[index show]
+  before_action :check_params, only: [:index]
 
   def index
     @journeys, @title = case params[:which_journeys]
@@ -74,6 +75,10 @@ class JourneysController < ApplicationController
 
   private
 
+  def check_params
+    params[:which_journeys] = nil unless current_user
+  end
+
   def notify_users
     NotifierJob.perform_async(@journey.id, 'new_journey', @journey.user_id)
   end
@@ -103,7 +108,7 @@ class JourneysController < ApplicationController
 
   def viewble_journeys
     Journey.where(access_type: %i[public_journey monetized_journey])
-           .where.not(user_id: current_user.id)
+           .where.not(user_id: current_user&.id)
            .order(created_at: :desc).limit(25)
   end
 end

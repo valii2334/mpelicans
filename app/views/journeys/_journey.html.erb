@@ -110,11 +110,13 @@
             <%= journey_stop.description %>
           </p>
           <% if can?(:show, journey_stop) %>
-            <% if params[:access_code] %>
-              <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop, access_code: params[:access_code]), class: 'btn btn-sm btn-primary' %>
-            <% else %>
-              <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop), class: 'btn btn-sm btn-primary' %>
-            <% end %>
+            <div class="btn-group btn-group-sm mb-0" role="group" aria-label="pelican_button_group" style="width: 100%;">
+              <% if params[:access_code] %>
+                <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop, access_code: params[:access_code]), class: 'btn btn-sm btn-primary' %>
+              <% else %>
+                <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop), class: 'btn btn-sm btn-primary' %>
+              <% end %>
+            </div>
           <% end %>
         </div>
       </div>

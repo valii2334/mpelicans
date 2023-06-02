@@ -15,7 +15,9 @@
           <%= @user.biography %>
         </p>
 				<div>
-          <%= render partial: 'follow_unfollow', locals: { follower: current_user, followee: @user } %>
+          <div class="btn-group btn-group-sm mb-0" role="group" aria-label="pelican_button_group" style="width: 100%;">
+            <%= render partial: 'follow_unfollow', locals: { follower: current_user, followee: @user } %>
+          </div>
 				</div>
 			</div>
     </div>
