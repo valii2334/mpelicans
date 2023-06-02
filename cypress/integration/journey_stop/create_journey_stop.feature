@@ -25,7 +25,7 @@ Feature: Create Journey Stop
     Then journey stop information should be
       | title               | description               | plus_code      | journey_stop_image |
       | My first stop title | My first stop description | 8GR5QJFG%2B57M | .jpg               |
-    When I click on link "View Journey"
+    When I click on link "View"
     Then journey stop card should contain
       | title               | description               | plus_code      | journey_stop_image |
       | My first stop title | My first stop description | 8GR5QJFG+57M   | .jpg               |

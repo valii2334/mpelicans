@@ -24,7 +24,7 @@ Feature: View travelers
       | Journey 1 | public_journey    |
     When I visit "pelicans/MP02"
     Then I should see "Journey 1" in the page
-    When I click on link "View Journey"
+    When I click on link "View"
     Then I should see "Journey 1" details
 
   Scenario: As an unregistered user I can not view a monetized journey before paying
@@ -33,9 +33,9 @@ Feature: View travelers
       | Journey 1 | monetized_journey    |
     When I visit "pelicans/MP02"
     Then I should see "Journey 1" in the page
-    And I should not see "View Journey" in the page
-    And I should see "Buy Journey" in the page
-    When I click on link "Buy Journey"
+    And I should not see "View" in the page
+    And I should see "Buy" in the page
+    When I click on link "Buy"
     Then I should see "Sign up to share your journeys!" in the page
 
   Scenario: As a registered user I can buy another users monetized journey
@@ -46,9 +46,9 @@ Feature: View travelers
       | Journey 1 | monetized_journey    |
     When I visit "pelicans/MP02"
     Then I should see "Journey 1" in the page
-    And I should see "Buy Journey" in the page
+    And I should see "Buy" in the page
     Given I stub stripe stripe to return a "success" for first "MP01" and journey "Journey 1"
-    When I click on link "Buy Journey"
+    When I click on link "Buy"
     Then I should see "Journey 1" details
     When I click on link "Bought Journeys"
     Then I should see "Journey 1" in the page
@@ -61,7 +61,7 @@ Feature: View travelers
       | Journey 1 | monetized_journey    |
     When I visit "pelicans/MP02"
     Then I should see "Journey 1" in the page
-    And I should see "Buy Journey" in the page
+    And I should see "Buy" in the page
     Given I stub stripe stripe to return a "error" for first "MP01" and journey "Journey 1"
-    When I click on link "Buy Journey"
+    When I click on link "Buy"
     Then I should be on the home page
