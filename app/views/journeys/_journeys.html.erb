@@ -18,7 +18,7 @@
 									<%= link_to 'View', journey_path(journey), class: 'btn btn-sm btn-primary' %>
                 <% end %>
                 <% if current_user.nil? || journey.user != current_user %>
-                  <%= link_to 'Profile', pelican_path(journey.user.username), class: 'btn btn-sm btn-secondary' %>
+                  <%= link_to 'User Profile', pelican_path(journey.user.username), class: 'btn btn-sm btn-secondary' %>
                   <% if can?(:buy, journey) %>
                     <%= link_to create_checkout_session_payments_path(journey_id: journey.id), method: :post, class: 'btn btn-sm btn-success' do %>
                       <i class="align-middle" data-feather="lock"></i> <span class="align-middle">Buy</span>
