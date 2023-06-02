@@ -12,8 +12,11 @@ module ApplicationHelper
 
   def active_journeys_tab?(tab: nil)
     return unless controller?(controller: 'journeys') || controller?(controller: 'journey_stops')
+    return if active_controller_action?(controller: 'journeys', action: 'new')
+    return my_journeys_tab?(tab:) if tab == 'mine'
+    return bought_journeys_tab?(tab:) if tab == 'bought'
 
-    my_journeys_tab?(tab:) || bought_journeys_tab?(tab:) || all_journeys_tab?
+    all_journeys_tab?
   end
 
   private
