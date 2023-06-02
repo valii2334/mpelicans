@@ -60,6 +60,6 @@ class User < ApplicationRecord
     return if username.blank?
     return unless username.match?(/[^a-zA-Z0-9]/)
 
-    errors.add :base, :invalid, message: 'Username can not contain special characters'
+    errors.add :username, :invalid, message: 'Username can not contain special characters'
   end
 end
