@@ -104,6 +104,6 @@ class JourneysController < ApplicationController
   def viewble_journeys
     Journey.where(access_type: %i[public_journey monetized_journey])
            .where.not(user_id: current_user.id)
-           .order(created_at: :desc)
+           .order(created_at: :desc).limit(25)
   end
 end
