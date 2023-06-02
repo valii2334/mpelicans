@@ -7,6 +7,7 @@ Feature: Forgot Password
   Scenario: As a registered user I want to reset my password
     Given I am a confirmed user
     And I go to home page
+    And I go to log in page
     And I click on link "Forgot your password?"
     And I fill input "#user_email" with user email
     When I click on input "Send me reset password instructions"

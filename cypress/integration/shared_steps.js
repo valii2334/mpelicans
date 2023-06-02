@@ -9,8 +9,21 @@ Given(/^I am a confirmed user/, () => {
   cy.appScenario('confirm_last_user');
 });
 
+Given(/^I go to log in page/, () => {
+  cy.get('.main_pelican').click()
+  cy.get('a').contains('Log in').click();
+});
+
+Given(/^I go to sign up page/, () => {
+  cy.get('.main_pelican').click()
+  cy.get('a').contains('Sign up').click();
+});
+
 Given(/^I log in/, () => {
   cy.visit('/');
+
+  cy.get('.main_pelican').click()
+  cy.get('a').contains('Log in').click();
 
   // Fill informations
   cy.get('#user_email').fill(Cypress.env('userEmail'));
