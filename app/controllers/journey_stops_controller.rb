@@ -14,6 +14,8 @@ class JourneyStopsController < ApplicationController
     authorize_journey_stop(:create)
 
     if @journey_stop.save
+      @journey_stop.journey.touch
+
       post_create_actions
 
       redirect_to journey_journey_stop_path(@journey_stop.journey, @journey_stop)
