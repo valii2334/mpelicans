@@ -1,0 +1,14 @@
+<div class="card md-3">
+  <div class="card-body text-center">
+    <% if user.image.attached? %>
+      <%= image_tag user.image.variant(:max), class: "img-fluid rounded-circle mb-2", width: '128', height: '128' %>
+    <% else %>
+      <%= image_tag "avatars/avatar.png", class: "img-fluid rounded-circle mb-2", width: '128', height: '128' %>
+    <% end %>
+    <h5 class="card-title mb-0"><%= user.username %></h5>
+    <div class="text-muted mb-2"><%= user.biography %></div>
+
+    <%= link_to 'View Profile', pelican_path(user.username), class: 'btn btn-sm btn-primary pelican-path' %>
+    <%= render partial: 'follow_unfollow', locals: { follower: current_user, followee: user } %>
+  </div>
+</div>
