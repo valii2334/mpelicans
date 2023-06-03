@@ -104,6 +104,9 @@
           <h5 class="card-title title <%= index_class %>" id="journey-stop-image-processing-status">
             <%= journey_stop.title %> - <a href="<%= journey_stop.location_link %>" target="_blank" class="location <%= index_class %>">View Location</a>
           </h5>
+          <em>
+            <%= journey_stop.created_at.strftime("%A, %d %b %Y") %>
+          </em>
         </div>
         <div class="card-body">
           <p class="card-text description <%= index_class %>">
