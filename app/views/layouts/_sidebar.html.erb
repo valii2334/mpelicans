@@ -20,7 +20,11 @@
             <a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown">
               <%= current_user.username %>
             </a>
-            <div class="sidebar-user-subtitle">Journeys: <%= current_user.journeys.count %></div>
+            <div class="sidebar-user-subtitle">
+              Journeys: <%= current_user.journeys.count %>
+              <br>
+              Followers: <%= current_user.followers.count %>
+            </div>
             <div class="dropdown-menu dropdown-menu-start">
               <%= link_to "Log out", destroy_user_session_path, class: 'dropdown-item' %>
             </div>
