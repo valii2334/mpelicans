@@ -21,9 +21,9 @@
               <%= current_user.username %>
             </a>
             <div class="sidebar-user-subtitle">
-              Journeys: <%= current_user.journeys.count %>
+              Journeys: <%= number_to_human(current_user.journeys.count) %>
               <br>
-              Followers: <%= current_user.followers.count %>
+              Followers: <%= number_to_human(current_user.followers.count) %>
             </div>
             <div class="dropdown-menu dropdown-menu-start">
               <%= link_to "Log out", destroy_user_session_path, class: 'dropdown-item' %>
