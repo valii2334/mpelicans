@@ -22,7 +22,4 @@ Feature: Update attributes
     And I fill input "#user_password" with "NEW PASSWORD"
     And I fill input "#user_password_confirmation" with "NEW PASSWORD"
     When I click on input "Save password"
-    Then I fill input "#user_email" with user email
-    And I fill input "#user_password" with "NEW PASSWORD"
-    And I click on input "Log in"
-    Then I should be on the profile page
+    Then I should see "Your user was updated" in the page

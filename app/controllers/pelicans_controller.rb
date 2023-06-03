@@ -3,6 +3,7 @@
 # User controller
 class PelicansController < ApplicationController
   before_action :authenticate_user!, only: %i[edit update]
+  before_action :set_user, only: %i[edit update]
 
   def index
     @users = if params[:pelicans] && params[:pelicans][:query_string]
@@ -25,25 +26,27 @@ class PelicansController < ApplicationController
                 end
   end
 
-  def edit
-    @user = current_user
-  end
+  def edit; end
 
   def update
-    current_user.update(update_params)
+    @user.update(update_params)
 
     reset_password
 
-    if current_user.errors.blank?
-      success_message(message: 'Your user was updated')
+    if @user.errors.blank?
+      render_success_message(message: 'Your user was updated')
     else
-      alert_message
+      render_alert_message
     end
 
-    redirect_to edit_pelican_path(current_user.username)
+    render 'edit'
   end
 
   private
+
+  def set_user
+    @user = current_user
+  end
 
   def reset_password
     return if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
@@ -52,6 +55,8 @@ class PelicansController < ApplicationController
       params[:user][:password],
       params[:user][:password_confirmation]
     )
+
+    bypass_sign_in current_user
   end
 
   def update_params

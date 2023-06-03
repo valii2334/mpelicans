@@ -51,7 +51,10 @@ RSpec.describe PelicansController, type: :controller do
         }
       }
 
-      expect(response).to redirect_to(edit_pelican_path(user.username))
+      user.reload
+
+      expect(response).to be_successful
+      expect(user.valid_password?(new_password)).to be_truthy
     end
   end
 end
