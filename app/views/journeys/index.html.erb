@@ -7,3 +7,7 @@
 </div>
 
 <%= render partial: 'journeys', locals: { journeys: @journeys } %>
+
+<div class="mb-3">
+  <%= paginate @journeys, theme: 'bootstrap-5' %>
+</div>

@@ -12,8 +12,10 @@ class PelicansController < ApplicationController
                  .where('username ILIKE ?', query_string)
                  .where.not(id: [current_user.try(:id)])
              else
-               User.order(created_at: :asc).last(25)
+               User.order(created_at: :asc)
              end
+
+    @users = @users.page params[:page]
   end
 
   def show

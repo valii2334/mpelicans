@@ -14,6 +14,9 @@ class JourneysController < ApplicationController
                         when nil
                           [viewble_journeys, 'Latest Journeys']
                         end
+
+    
+    @journeys = @journeys.page params[:page]
   end
 
   def new

@@ -2,6 +2,8 @@
 
 # User model
 class User < ApplicationRecord
+  paginates_per 50
+
   devise :confirmable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
