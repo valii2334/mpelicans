@@ -108,20 +108,22 @@
         <% else %>
           <%= image_tag journey_stop.images.first.variant(:thumbnail), class: "image #{index_class} card-img-top" %>
         <% end %>
-        <div class="card-header">
-          <em>
-            Created <%= time_ago_in_words(journey_stop.created_at) %> ago.
-          </em>
-        </div>
         <div class="card-body">
-          <% if can?(:show, journey_stop) %>
-            <% if params[:access_code] %>
-              <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop, access_code: params[:access_code]), class: 'btn btn-sm btn-primary' %>
-            <% else %>
-              <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop), class: 'btn btn-sm btn-primary' %>
+          <p>
+            <em>
+              Created <%= time_ago_in_words(journey_stop.created_at) %> ago.
+            </em>
+          </p>
+          <p>
+            <% if can?(:show, journey_stop) %>
+              <% if params[:access_code] %>
+                <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop, access_code: params[:access_code]), class: 'btn btn-sm btn-primary' %>
+              <% else %>
+                <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop), class: 'btn btn-sm btn-primary' %>
+              <% end %>
             <% end %>
             <a href="<%= journey_stop.location_link %>" target="_blank" class="btn btn-sm btn-primary <%= index_class %>">Location</a>
-          <% end %>
+          </p>
         </div>
       </div>
     </div>
