@@ -7,17 +7,19 @@
 		<% journeys.each do |journey| %>
 				<div class="col-12 col-sm-6 col-md-4 col-lg-4">
 					<div class="card">
-						<%= image_tag journey.image.variant(:thumbnail), class: 'card-img-top' %>
-            <div class="card-header">
+            <div class="card-body">
               <h5 class="card-title">
                 <%= journey.title %> 
               </h5>
+              <p class="card-text"><%= journey.description %></p>
+            </div>
+						<%= image_tag journey.image.variant(:thumbnail), class: 'card-img-top' %>
+            <div class="card-header">
               <em>
                 Lastest update <%= time_ago_in_words(journey.updated_at) %> ago.
               </em>
             </div>
 						<div class="card-body">
-							<p class="card-text"><%= journey.description %></p>
               <p>
                 <% if can?(:show, journey) %>
                   <%= link_to 'View Journey', journey_path(journey), class: 'btn btn-sm btn-primary' %>

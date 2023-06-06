@@ -85,6 +85,14 @@
 
     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card">
+        <div class="card-body">
+          <h5 class="card-title title <%= index_class %>" id="journey-stop-image-processing-status">
+            <%= journey_stop.title %>
+          </h5>
+          <p class="card-text description <%= index_class %>">
+            <%= journey_stop.description %>
+          </p>
+        </div>
         <% if journey_stop.waiting? %>
           <div class="card-header">
             <h5 class="card-title" id="journey-stop-image-processing-status">
@@ -101,14 +109,11 @@
           <%= image_tag journey_stop.images.first.variant(:thumbnail), class: "image #{index_class} card-img-top" %>
         <% end %>
         <div class="card-header">
-          <h5 class="card-title title <%= index_class %>" id="journey-stop-image-processing-status">
-            <%= journey_stop.title %>
-          </h5>
+          <em>
+            Created <%= time_ago_in_words(journey_stop.created_at) %> ago.
+          </em>
         </div>
         <div class="card-body">
-          <p class="card-text description <%= index_class %>">
-            <%= journey_stop.description %>
-          </p>
           <% if can?(:show, journey_stop) %>
             <% if params[:access_code] %>
               <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop, access_code: params[:access_code]), class: 'btn btn-sm btn-primary' %>

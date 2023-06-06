@@ -7,8 +7,9 @@
     <% end %>
     <h5 class="card-title mb-0"><%= user.username %></h5>
     <div class="text-muted mb-2"><%= user.biography %></div>
-
-    <%= link_to 'View Profile', pelican_path(user.username), class: 'btn btn-sm btn-primary pelican-path' %>
+    <% unless params[:action] == 'show' %>
+      <%= link_to 'View Profile', pelican_path(user.username), class: 'btn btn-sm btn-primary pelican-path' %>
+    <% end %>
     <%= render partial: 'follow_unfollow', locals: { follower: current_user, followee: user } %>
   </div>
   <hr class="my-0">
