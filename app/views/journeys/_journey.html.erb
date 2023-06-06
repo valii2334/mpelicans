@@ -102,7 +102,7 @@
         <% end %>
         <div class="card-header">
           <h5 class="card-title title <%= index_class %>" id="journey-stop-image-processing-status">
-            <%= journey_stop.title %> - <a href="<%= journey_stop.location_link %>" target="_blank" class="location <%= index_class %>">View Location</a>
+            <%= journey_stop.title %>
           </h5>
         </div>
         <div class="card-body">
@@ -110,13 +110,12 @@
             <%= journey_stop.description %>
           </p>
           <% if can?(:show, journey_stop) %>
-            <div class="btn-group btn-group-sm mb-0" role="group" aria-label="pelican_button_group" style="width: 100%;">
-              <% if params[:access_code] %>
-                <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop, access_code: params[:access_code]), class: 'btn btn-sm btn-primary' %>
-              <% else %>
-                <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop), class: 'btn btn-sm btn-primary' %>
-              <% end %>
-            </div>
+            <% if params[:access_code] %>
+              <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop, access_code: params[:access_code]), class: 'btn btn-sm btn-primary' %>
+            <% else %>
+              <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop), class: 'btn btn-sm btn-primary' %>
+            <% end %>
+            <a href="<%= journey_stop.location_link %>" target="_blank" class="btn btn-sm btn-primary <%= index_class %>">Location</a>
           <% end %>
         </div>
       </div>

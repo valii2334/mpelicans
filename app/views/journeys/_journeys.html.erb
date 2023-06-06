@@ -18,19 +18,25 @@
             </div>
 						<div class="card-body">
 							<p class="card-text"><%= journey.description %></p>
-              <div class="btn-group btn-group-sm mb-0" role="group" aria-label="pelican_button_group" style="width: 100%;">
+              <p>
                 <% if can?(:show, journey) %>
-									<%= link_to 'View Journey', journey_path(journey), class: 'btn btn-sm btn-primary' %>
+                  <%= link_to 'View Journey', journey_path(journey), class: 'btn btn-sm btn-primary' %>
                 <% end %>
                 <% if current_user.nil? || journey.user != current_user %>
-                  <%= link_to 'View Profile', pelican_path(journey.user.username), class: 'btn btn-sm btn-secondary' %>
                   <% if can?(:buy, journey) %>
                     <%= link_to create_checkout_session_payments_path(journey_id: journey.id), method: :post, class: 'btn btn-sm btn-success' do %>
                       <i class="align-middle" data-feather="lock"></i> <span class="align-middle">Buy</span>
                     <% end %>
                   <% end %>
                 <% end %>
-              </div>
+              </p>
+              <%= link_to pelican_path(journey.user.username) do %>
+                <% if journey.user.image.attached? %>
+                  <%= image_tag journey.user.image.variant(:max), class: "rounded-circle me-1", alt: "Avatar", width: "28", height: "28" %>
+                <% else %>
+                  <%= image_tag "avatars/avatar.png", class: "rounded-circle me-1", alt: "Avatar", width: "28", height: "28" %>
+                <% end %>
+              <% end %>
 						</div>
 					</div>
 				</div>
