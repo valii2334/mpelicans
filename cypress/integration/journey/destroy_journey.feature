@@ -5,7 +5,7 @@ Feature: Destroy Journey
     Given I clean database
     And I stub current location
     And I am a confirmed user
-    And I log in
+    And I log in with "email"
     And I click on link "+ New Journey"
     Given I fill in journey information with
       | title            | description              | journey_image |

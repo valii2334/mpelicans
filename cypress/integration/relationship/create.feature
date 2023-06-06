@@ -6,7 +6,7 @@ Feature: Follow
 
   Scenario: As a registered user I can follow another user
     Given I am a confirmed user
-    And I log in
+    And I log in with "username"
     And a random user with "MP02" username has multiple journeys
       | title     | access_type          |
       | Journey 1 | monetized_journey    |

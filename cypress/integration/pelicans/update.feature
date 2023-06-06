@@ -6,7 +6,7 @@ Feature: Update attributes
 
   Scenario: As a registered user I can update my username and biography
     Given I am a confirmed user
-    And I log in
+    And I log in with "username"
     And I click on link "Profile"
     And I fill input "#user_username" with "USERNAME"
     And I fill input "#user_biography" with "BIOGRAPHY"
@@ -16,7 +16,7 @@ Feature: Update attributes
 
   Scenario: As a registered user I can update my password
     Given I am a confirmed user
-    And I log in
+    And I log in with "username"
     And I click on link "Profile"
     And I click on link "Password"
     And I fill input "#user_password" with "NEW PASSWORD"

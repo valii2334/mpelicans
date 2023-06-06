@@ -40,7 +40,7 @@ Feature: View travelers
 
   Scenario: As a registered user I can buy another users monetized journey
     Given I am a confirmed user
-    And I log in
+    And I log in with "email"
     And a random user with "MP02" username has multiple journeys
       | title     | access_type          |
       | Journey 1 | monetized_journey    |
@@ -55,7 +55,7 @@ Feature: View travelers
 
   Scenario: As a registered user I can not buy another users monetized journey if my card is declined
     Given I am a confirmed user
-    And I log in
+    And I log in with "username"
     And a random user with "MP02" username has multiple journeys
       | title     | access_type          |
       | Journey 1 | monetized_journey    |

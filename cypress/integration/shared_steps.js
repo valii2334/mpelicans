@@ -19,14 +19,18 @@ Given(/^I go to sign up page/, () => {
   cy.get('a').contains('Sign up').click();
 });
 
-Given(/^I log in/, () => {
+Given(/^I log in with "([^"]*)"/, (loginAttribute) => {
   cy.visit('/');
 
   cy.get('.main_pelican').click()
   cy.get('a').contains('Log in').click();
 
   // Fill informations
-  cy.get('#user_email').fill(Cypress.env('userEmail'));
+  if(loginAttribute == "email") {
+    cy.get('#user_login').fill(Cypress.env('userEmail'));
+  } else {
+    cy.get('#user_login').fill(Cypress.env('userUsername'));
+  }
   cy.get('#user_password').fill(Cypress.env('userPassword'));
 
   // Click on Send me reset password instructions
@@ -61,11 +65,6 @@ Then(/^I click on confirmation link/, () => {
   cy.appEval("ActionMailer::Base.deliveries.last.body.raw_source.lines[4].split('\"')[1]").then(($confirmationLink) => {
     cy.visit($confirmationLink);
   });
-});
-
-Then(/^I enter my email and password/, () => {
-  cy.get('#user_email').fill(Cypress.env('userEmail'));
-  cy.get('#user_password').fill(Cypress.env('userPassword'));
 });
 
 Then(/^I should see "([^"]*)" in the page/, (text) => {
