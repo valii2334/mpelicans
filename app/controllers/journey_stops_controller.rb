@@ -70,7 +70,7 @@ class JourneyStopsController < ApplicationController
   end
 
   def enqueue_process_images_job
-    ImageUploader.new(journey_stop_id: @journey_stop.id, uploaded_files: params[:journey_stop][:images]).run
+    ImageUploader.new(imageable: @journey_stop, uploaded_files: params[:journey_stop][:images]).run
     JourneyStopJobs::ProcessImages.perform_async(@journey_stop.id)
   end
 

@@ -8,9 +8,9 @@ RSpec.describe ImageUploader do
   let(:text_file)      { Rack::Test::UploadedFile.new('spec/fixtures/files/text.txt', 'text/txt') }
   let(:random_uuid)    { '200fdb12-7b81-4fb0-9b3e-740c7b0578ee' }
   let(:uploaded_files) { [image_file, text_file] }
-  let(:expected_key)   { "#{journey_stop.id}-#{random_uuid}#{File.extname(image_file.tempfile)}" }
+  let(:expected_key)   { "JourneyStop-#{journey_stop.id}-#{random_uuid}#{File.extname(image_file.tempfile)}" }
 
-  subject { described_class.new(journey_stop_id: journey_stop.id, uploaded_files:).run }
+  subject { described_class.new(imageable: journey_stop, uploaded_files:).run }
 
   before do
     allow(SecureRandom).to receive(:uuid).and_return(random_uuid)
