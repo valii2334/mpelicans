@@ -45,6 +45,7 @@ RSpec.describe Journey, type: :model do
   it { should have_many(:paid_journeys).dependent(:destroy) }
   it { should have_many(:notifications).dependent(:destroy) }
   it { should have_many(:paying_users).through(:paid_journeys).source(:user) }
+  it { should have_one(:uploaded_image).dependent(:destroy) }
 
   ##################################
   # Callbacks

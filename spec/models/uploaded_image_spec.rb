@@ -10,8 +10,9 @@ RSpec.describe UploadedImage, type: :model do
   # Attribute existence
   ##################################
 
-  it { should have_attribute :journey_stop_id }
   it { should have_attribute :s3_key }
+  it { should have_attribute :imageable_id }
+  it { should have_attribute :imageable_type }
 
   ##################################
   # Validations
@@ -23,5 +24,5 @@ RSpec.describe UploadedImage, type: :model do
   # Associations
   ##################################
 
-  it { should belong_to(:journey_stop) }
+  it { should belong_to(:imageable) }
 end

@@ -6,10 +6,10 @@ require 'async/barrier'
 class ImageUploader
   ACCEPTED_CONTENT_TYPES = ['image/png', 'image/jpg', 'image/jpeg'].freeze
 
-  attr_accessor :journey_stop_id, :uploaded_files
+  attr_accessor :journey_stop, :uploaded_files
 
   def initialize(journey_stop_id:, uploaded_files:)
-    @journey_stop_id = journey_stop_id
+    @journey_stop = JourneyStop.find(journey_stop_id)
     @uploaded_files = uploaded_files.select do |uploaded_file|
       ACCEPTED_CONTENT_TYPES.include?(uploaded_file.content_type)
     end
@@ -37,10 +37,10 @@ class ImageUploader
   end
 
   def generate_s3_key(image:)
-    "#{journey_stop_id}-#{SecureRandom.uuid}#{File.extname(image.tempfile)}"
+    "#{journey_stop.id}-#{SecureRandom.uuid}#{File.extname(image.tempfile)}"
   end
 
   def create_uploaded_image(image:)
-    UploadedImage.create(journey_stop_id:, s3_key: generate_s3_key(image:))
+    UploadedImage.create(imageable: journey_stop, s3_key: generate_s3_key(image:))
   end
 end

@@ -16,6 +16,7 @@ class Journey < ApplicationRecord
   has_many :paid_journeys, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :paying_users, through: :paid_journeys, source: :user
+  has_one :uploaded_image, as: :imageable, dependent: :destroy
 
   enum access_type: {
     private_journey: 0,

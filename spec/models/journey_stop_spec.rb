@@ -92,7 +92,7 @@ RSpec.describe JourneyStop, type: :model do
   ##################################
 
   it { should belong_to(:journey) }
-  it { should have_many(:uploaded_images) }
+  it { should have_many(:uploaded_images).dependent(:destroy) }
   it { should have_many(:notifications).dependent(:destroy) }
 
   ##################################
