@@ -6,15 +6,7 @@ class PelicansController < ApplicationController
   before_action :set_user, only: %i[edit update]
 
   def index
-    @users = if params[:pelicans] && params[:pelicans][:query_string]
-               query_string = "%#{ActiveRecord::Base.sanitize_sql_like(params[:pelicans][:query_string])}%"
-               User
-                 .where('username ILIKE ?', query_string)
-                 .where.not(id: [current_user.try(:id)])
-             else
-               User.order(created_at: :asc)
-             end
-
+    @users = fetch_users
     @users = @users.page params[:page]
   end
 
@@ -46,13 +38,25 @@ class PelicansController < ApplicationController
 
   private
 
+  def fetch_users
+    return User.order(created_at: :asc) unless query_string
+
+    User
+      .where('username ILIKE ?', query_string)
+      .where.not(id: [current_user.try(:id)])
+  end
+
+  def query_string
+    return nil unless params[:pelicans] && params[:pelicans][:query_string]
+
+    "%#{ActiveRecord::Base.sanitize_sql_like(params[:pelicans][:query_string])}%"
+  end
+
   def set_user
     @user = current_user
   end
 
   def reset_password
-    return if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
-
     current_user.reset_password(
       params[:user][:password],
       params[:user][:password_confirmation]

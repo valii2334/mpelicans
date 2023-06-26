@@ -15,7 +15,6 @@ class JourneysController < ApplicationController
                           [viewble_journeys, 'Latest Journeys']
                         end
 
-    
     @journeys = @journeys.page params[:page]
   end
 
