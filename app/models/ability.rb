@@ -37,7 +37,7 @@ class Ability
     ##################################
 
     can :create, Relationship do |_, follower, followee|
-      !same_user?(followee:, follower:) && !follows?(follower:, followee:)
+      !same_user?(followee:, follower:) && !follower.follows?(followee:)
     end
     can :destroy, Relationship, follower_id: user.id
   end
@@ -58,10 +58,6 @@ class Ability
 
   def same_user?(follower:, followee:)
     follower == followee
-  end
-
-  def follows?(follower:, followee:)
-    Relationship.find_by(follower_id: follower.id, followee_id: followee.id)
   end
 
   def can_view_journey?(journey:, user:, params:)

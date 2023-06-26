@@ -57,9 +57,11 @@ class User < ApplicationRecord
   attr_writer :login
 
   def bought_journey?(journey:)
-    return unless journey
+    bought_journeys.include?(journey)
+  end
 
-    PaidJourney.find_by(user_id: id, journey_id: journey.id)
+  def follows?(followee:)
+    followees.include?(followee)
   end
 
   def login

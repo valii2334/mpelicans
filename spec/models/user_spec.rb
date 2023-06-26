@@ -73,6 +73,42 @@ RSpec.describe User, type: :model do
     end
   end
 
+  context '#bought_journey?' do
+    let!(:journey1) { create :journey }
+    let!(:journey2) { create :journey }
+    let!(:bought_journey) { create :paid_journey, user: subject, journey: journey1 }
+
+    context 'bought journey' do
+      it 'returns true' do
+        expect(subject.bought_journey?(journey: journey1)).to be_truthy
+      end
+    end
+
+    context 'did not bought journey' do
+      it 'returns false' do
+        expect(subject.bought_journey?(journey: journey2)).to be_falsey
+      end
+    end
+  end
+
+  context '#follows?' do
+    let!(:user1) { create :user }
+    let!(:user2) { create :user }
+    let!(:follower) { create :relationship, follower: subject, followee: user1 }
+
+    context 'follows user' do
+      it 'returns true' do
+        expect(subject.follows?(followee: user1)).to be_truthy
+      end
+    end
+
+    context 'does not follow user' do
+      it 'returns true' do
+        expect(subject.follows?(followee: user2)).to be_falsey
+      end
+    end
+  end
+
   ##################################
   # Callbacks
   ##################################
