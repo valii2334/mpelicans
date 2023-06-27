@@ -1,5 +1,5 @@
-<div class="row">
-  <div class="col-12">
+<div class="row"> 
+  <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
     <% if @journey_stop.journey.protected_journey? %>
       <% if current_user && can?(:edit, @journey_stop.journey) %>
         <%= link_to 'View Journey', journey_path(@journey_stop.journey), class: 'btn btn-primary float-end mt-n1' %>
@@ -12,27 +12,27 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-12">
+<div class="row"> 
+  <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
     <h1 id="journey-stop-title"><%= @journey_stop.title %></h1>
   </div>
 </div>
 
-<div class="row">
-	<div class="col-12">
+<div class="row"> 
+  <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
     <p id="journey-stop-description">
       <%= @journey_stop.description %>
     </p>
   </div>
 </div>
 
-<div class="row">
-	<div class="col-12">
+<div class="row"> 
+  <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
 		<div class="card">
 			<div class="card-body">
         <iframe
           width="100%"
-          height="450"
+          height="450px"
           style="border:0"
           loading="lazy"
           allowfullscreen
@@ -46,25 +46,31 @@
 </div>
 
 <div class="row" data-controller="lightbox">
-  <% if @journey_stop.waiting? %>
-    <p class="h3 d-inline align-middle" id="journey-stop-image-processing-status">
-      Please wait. Images have been scheduled for processing.
-    </p>
-  <% elsif @journey_stop.processing? %>
-    <p class="h3 d-inline align-middle" id="journey-stop-image-processing-status">
-      Please wait. Images are being processed.
-    </p>
-  <% else %>
-    <% @journey_stop.images.each_with_index do |image, index| %>
-      <div class="col-12 col-sm-6 col-md-3 col-lg-2">
-        <a href="<%= image.variant(:max).processed.url %>" data-gallery="example-gallery" class="lightbox-image">
-          <img src="<%= image.variant(:thumbnail).processed.url %>" class="img-thumbnail rounded me-2 mb-2" id="journey-stop-image-<%= index %>">
-        </a>
-      </div>
+  <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
+    <% if @journey_stop.waiting? %>
+      <p class="h3 d-inline align-middle" id="journey-stop-image-processing-status">
+        Please wait. Images have been scheduled for processing.
+      </p>
+    <% elsif @journey_stop.processing? %>
+      <p class="h3 d-inline align-middle" id="journey-stop-image-processing-status">
+        Please wait. Images are being processed.
+      </p>
+    <% else %>
+      <% @journey_stop.images.each_with_index do |image, index| %>
+        <div class="col-6">
+          <a href="<%= image.variant(:max).processed.url %>" data-gallery="example-gallery" class="lightbox-image">
+            <img src="<%= image.variant(:thumbnail).processed.url %>" class="img-thumbnail rounded me-2 mb-2" id="journey-stop-image-<%= index %>">
+          </a>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>
 
-<% if current_user && can?(:destroy, @journey_stop) %>
-  <%= link_to 'Delete Stop', journey_journey_stop_path(@journey_stop.journey, @journey_stop), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger float-end mt-n1' %>
-<% end %>
+<div class="row"> 
+  <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
+    <% if current_user && can?(:destroy, @journey_stop) %>
+      <%= link_to 'Delete Stop', journey_journey_stop_path(@journey_stop.journey, @journey_stop), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger float-end mt-n1' %>
+    <% end %>
+  </div>
+</div>

@@ -2,14 +2,14 @@
 
 require 'rails_helper'
 
-RSpec.describe JourneyStopImageProcessor do
-  let(:journey_stop)   { create(:journey_stop) }
+RSpec.describe JourneyImageProcessor do
+  let(:imageable)      { create(:journey_stop) }
   let(:image_path)     { 'spec/fixtures/files/madrid.jpg' }
-  let(:s3_key)         { "test-#{journey_stop.id}-#{SecureRandom.uuid}#{File.extname(image_path)}" }
-  let(:uploaded_image) { create :uploaded_image, imageable: journey_stop, s3_key: }
+  let(:s3_key)         { "test-#{imageable.id}-#{SecureRandom.uuid}#{File.extname(image_path)}" }
+  let(:uploaded_image) { create :uploaded_image, imageable: imageable, s3_key: }
 
   subject do
-    described_class.new(journey_stop_id: journey_stop.id).run
+    described_class.new(imageable_id: imageable.id, imageable_type: 'journey_stop').run
   end
 
   before do
@@ -23,15 +23,15 @@ RSpec.describe JourneyStopImageProcessor do
   it 'resizes and attaches image', :aggregate_failures do
     subject
 
-    journey_stop.reload
+    imageable.reload
 
     # It attaches the file to the journey stop
-    expect(journey_stop.images.attachments.size).to eq(1)
+    expect(imageable.images.attachments.size).to eq(1)
 
     # It deletes the file
     expect { File.open(s3_key) }.to raise_error(Errno::ENOENT)
 
     # Set image processing status as processed
-    expect(journey_stop.processed?).to be_truthy
+    expect(imageable.processed?).to be_truthy
   end
 end

@@ -1,5 +1,5 @@
 <div class="row"> 
-  <div class="col-12">
+  <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
     <% if current_user && can?(:edit, @journey) %>
       <%= link_to '+ New Stop', new_journey_journey_stop_path(@journey), class: 'btn btn-primary  float-end mt-n1' %>
     <% end %>
@@ -7,13 +7,13 @@
 <div>
 
 <div class="row">
-  <div class="col-12">
+  <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
     <h1 id="journey-title"><%= @journey.title %></h1>
   </div>
 </div>
 
 <div class="row">
-	<div class="col-12">
+	<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
     <p id="journey-description">
       <%= @journey.description %>
     </p>
@@ -21,22 +21,28 @@
 </div>
 
 <div class="row" data-controller="lightbox">
-  <div class="col-lg-6 col-12 text-center">
+  <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12 text-center">
     <div class="card">
 			<div class="card-body">
-        <a href="<%= @journey.image.variant(:max).processed.url %>" data-gallery="example-gallery" class="lightbox-image">
-          <img src="<%= @journey.image.variant(:max).processed.url %>" class="img-thumbnail rounded me-2 mb-2" id="journey-first-picture">
-        </a>
+        <% if @journey.processed? %>
+          <a href="<%= @journey.images.first.variant(:max).processed.url %>" data-gallery="example-gallery" class="lightbox-image">
+            <img src="<%= @journey.images.first.variant(:max).processed.url %>" class="img-thumbnail rounded me-2 mb-2" id="journey-first-picture">
+          </a>
+        <% else %>
+          Please wait. Image is being processed.
+        <% end %>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="col-lg-6 col-12">
+<div class="row">
+  <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
     <div class="card" style="height: 95%;">
       <div class="card-body">
         <iframe
           width="100%"
-          height="100%"
+          height="450px"
           style="border:0"
           loading="lazy"
           allowfullscreen
@@ -51,7 +57,7 @@
 
 <% if current_user && can?(:edit, @journey) %>
   <div class="row">
-  	<div class="col-12">
+  	<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
   		<div class="card">
         <div class="card-header">
           <h5 class="card-title">
@@ -63,15 +69,25 @@
         </div>
   			<div class="card-body">
           <% if @journey.protected_journey? %>
-            <a href="<%= watch_journey_url(access_code: @journey.access_code) %>" class="private_link">Private link to share</a>
+            <div class="row">
+              <a href="<%= watch_journey_url(access_code: @journey.access_code) %>" class="private_link">Private link to share</a>
+            </div>
+            <br>
+            <br>
+          <% elsif @journey.public_journey? %>
+            <div class="row">
+              <a href="<%= journey_url(@journey) %>" class="public_link">Public link to share</a>
+            </div>
             <br>
             <br>
           <% end %>
 
-          <div class="mb-3">
-            <% journey_privacy_buttons(journey: @journey).each do |button| %>
-              <%= button %>
-            <% end %>
+          <div class="row">
+            <div class="mb-3">
+              <% journey_privacy_buttons(journey: @journey).each do |button| %>
+                <%= button %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
@@ -83,7 +99,7 @@
   <% @journey.journey_stops.each_with_index do |journey_stop, index| %>
     <% index_class = "journey-stop-#{index}" %>
 
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+    <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title title <%= index_class %>" id="journey-stop-image-processing-status">
@@ -131,5 +147,9 @@
 </div>
 
 <% if current_user && can?(:destroy, @journey) %>
-  <%= link_to 'Delete Journey', journey_path(@journey), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger  float-end mt-n1' %>
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
+      <%= link_to 'Delete Journey', journey_path(@journey), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger float-end mt-n1' %>
+    </div>
+  </div>
 <% end %>

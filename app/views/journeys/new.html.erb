@@ -1,9 +1,13 @@
-<div class="mb-3">
-  <h1 class="h3 d-inline align-middle">Start a Journey</h1>
+<div class="row">
+  <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
+    <h1 class="h3 d-inline align-middle">Start a Journey</h1>
+  </div>
 </div>
 
+<br>
+
 <div class="row" data-controller="documents">
-	<div class="col-12">
+	<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
 		<div class="card">
 			<div class="card-body">
         <%= form_for @journey do |f| %>
@@ -77,7 +81,7 @@
 							Add the first picture of your journey.
 						</label>
 						<br>
-            <%= f.file_field :image, required: true %>
+            <%= f.file_field :images, required: true %>
           </div>
 
 					<div class="actions">

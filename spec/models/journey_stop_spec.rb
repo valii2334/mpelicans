@@ -19,7 +19,9 @@ RSpec.describe JourneyStop, type: :model do
   it { should have_attribute :lat }
   it { should have_attribute :long }
 
+  ##################################
   # ENUMS
+  ##################################
 
   it do
     should define_enum_for(:image_processing_status).with_values(
@@ -52,30 +54,7 @@ RSpec.describe JourneyStop, type: :model do
     end
   end
 
-  describe '#images_are_present' do
-    context 'passed_images_count is gt than 0' do
-      before do
-        subject.passed_images_count = 1
-      end
-
-      it 'is valid' do
-        expect(subject).to be_valid
-      end
-    end
-
-    context 'passed_images_count is 0' do
-      before do
-        subject.passed_images_count = 0
-      end
-
-      it 'it is not valid', :aggregate_failures do
-        expect(subject).to_not be_valid
-        expect(subject.errors.messages).to eq(
-          { images: ["can't be blank"] }
-        )
-      end
-    end
-  end
+  it_behaves_like '#images_are_present'
 
   ##################################
   # Callbacks

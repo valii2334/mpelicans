@@ -100,7 +100,7 @@ RSpec.describe JourneysController, type: :controller do
             let(:journey_params) do
               {
                 description: FFaker::Lorem.paragraph,
-                image: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
+                images: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
                 start_plus_code: FFaker::Random.rand,
                 user_id: user.id
               }
@@ -112,7 +112,7 @@ RSpec.describe JourneysController, type: :controller do
           context 'missing description' do
             let(:journey_params) do
               {
-                image: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
+                images: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
                 start_plus_code: FFaker::Random.rand,
                 title: FFaker::Name.name,
                 user_id: user.id
@@ -126,7 +126,7 @@ RSpec.describe JourneysController, type: :controller do
             let(:journey_params) do
               {
                 description: FFaker::Lorem.paragraph,
-                image: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
+                images: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
                 title: FFaker::Name.name,
                 user_id: user.id
               }
@@ -145,7 +145,7 @@ RSpec.describe JourneysController, type: :controller do
               }
             end
 
-            include_examples 'missing parameter', Journey, 'Image'
+            include_examples 'missing parameter', Journey, 'Images'
           end
         end
 
@@ -156,7 +156,7 @@ RSpec.describe JourneysController, type: :controller do
             {
               access_type:,
               description: FFaker::Lorem.paragraph,
-              image: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
+              images: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
               start_plus_code: FFaker::Random.rand,
               title: FFaker::Name.name,
               user_id: user.id

@@ -34,8 +34,7 @@ class JourneysController < ApplicationController
     authorize_journey(:create)
 
     if @journey.save
-      notify_users
-      success_message(message: 'Your journey was created.')
+      post_create_actions
 
       redirect_to journey_path(@journey)
     else
@@ -77,6 +76,17 @@ class JourneysController < ApplicationController
 
   private
 
+  def post_create_actions
+    enqueue_process_images_job
+    notify_users
+    success_message(message: 'Your journey was created.')
+  end
+
+  def enqueue_process_images_job
+    ImageUploader.new(imageable: @journey, uploaded_files: [params[:journey][:images]]).run
+    JourneyJobs::ProcessImages.perform_async(@journey.id, 'journey')
+  end
+
   def check_params
     params[:which_journeys] = nil unless current_user
   end
@@ -92,7 +102,7 @@ class JourneysController < ApplicationController
   end
 
   def journey_params
-    params.require(:journey).permit(
+    parameters = params.require(:journey).permit(
       :accepts_recommendations,
       :access_type,
       :description,
@@ -101,6 +111,11 @@ class JourneysController < ApplicationController
       :long,
       :start_plus_code,
       :title
+    )
+
+    parameters.merge(
+      image_processing_status: :waiting,
+      passed_images_count: (params[:journey][:images] || []).size
     )
   end
 

@@ -20,11 +20,19 @@ RSpec.describe Journey, type: :model do
   it { should have_attribute :lat }
   it { should have_attribute :long }
 
+  ##################################
   # ENUMS
+  ##################################
 
   it do
     should define_enum_for(:access_type).with_values(
       %i[private_journey protected_journey public_journey monetized_journey]
+    )
+  end
+
+  it do
+    should define_enum_for(:image_processing_status).with_values(
+      %i[waiting processing processed]
     )
   end
 
@@ -36,6 +44,8 @@ RSpec.describe Journey, type: :model do
   it { should validate_presence_of :start_plus_code }
   it { should validate_presence_of :title }
 
+  it_behaves_like '#images_are_present'
+
   ##################################
   # Associations
   ##################################
@@ -45,7 +55,7 @@ RSpec.describe Journey, type: :model do
   it { should have_many(:paid_journeys).dependent(:destroy) }
   it { should have_many(:notifications).dependent(:destroy) }
   it { should have_many(:paying_users).through(:paid_journeys).source(:user) }
-  it { should have_one(:uploaded_image).dependent(:destroy) }
+  it { should have_many(:uploaded_images).dependent(:destroy) }
 
   ##################################
   # Callbacks

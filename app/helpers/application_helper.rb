@@ -84,9 +84,9 @@ module ApplicationHelper
   end
 
   def color_class(privacy_type:)
-    return 'btn-primary' if privacy_type == 'public'
-    return 'btn-danger'  if privacy_type == 'private'
-    return 'btn-warning' if privacy_type == 'protected'
+    return 'btn-primary'   if privacy_type == 'public'
+    return 'btn-danger'    if privacy_type == 'private'
+    return 'btn-secondary' if privacy_type == 'protected'
 
     'btn-success'
   end

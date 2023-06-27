@@ -1,11 +1,11 @@
 <div class="row">
 	<% if journeys.empty? %>
-		<div class="mb-3">
+		<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
 			<h1 class="h4 d-inline align-middle">There are no journeys yet.</h1>
 		</div>
 	<% else %>
 		<% journeys.each do |journey| %>
-				<div class="col-12 col-sm-6 col-md-4 col-lg-4">
+				<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
 					<div class="card">
             <div class="card-body">
               <h5 class="card-title">
@@ -13,7 +13,7 @@
               </h5>
               <p class="card-text"><%= journey.description %></p>
             </div>
-						<%= image_tag journey.image.variant(:thumbnail), class: 'card-img-top' %>
+						<%= image_tag journey.images.first.variant(:thumbnail), class: 'card-img-top' %>
 						<div class="card-body">
               <p>
                 <em>

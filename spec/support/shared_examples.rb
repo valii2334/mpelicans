@@ -192,3 +192,28 @@ RSpec.shared_examples 'plus_code setter' do
     end
   end
 end
+
+RSpec.shared_examples '#images_are_present' do
+  context 'passed_images_count is gt than 0' do
+    before do
+      subject.passed_images_count = 1
+    end
+
+    it 'is valid' do
+      expect(subject).to be_valid
+    end
+  end
+
+  context 'passed_images_count is 0' do
+    before do
+      subject.passed_images_count = 0
+    end
+
+    it 'it is not valid', :aggregate_failures do
+      expect(subject).to_not be_valid
+      expect(subject.errors.messages).to eq(
+        { images: ["can't be blank"] }
+      )
+    end
+  end
+end
