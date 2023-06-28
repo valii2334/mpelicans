@@ -2,8 +2,21 @@
 
 # CRUD For Journey
 class JourneysController < ApplicationController
+  include PermittedParameters
+
   before_action :authenticate_user!, except: %i[index show]
   before_action :check_params, only: [:index]
+
+  PERMITTED_PARAMETERS = %i[
+    accepts_recommendations
+    access_type
+    description
+    image
+    lat
+    long
+    start_plus_code
+    title
+  ].freeze
 
   def index
     @journeys, @title = case params[:which_journeys]
@@ -29,7 +42,7 @@ class JourneysController < ApplicationController
   end
 
   def create
-    @journey = Journey.new(journey_params.merge(user_id: current_user.id))
+    @journey = new_journey
 
     authorize_journey(:create)
 
@@ -76,6 +89,13 @@ class JourneysController < ApplicationController
 
   private
 
+  def new_journey
+    Journey.new(permitted_parameters(
+      model: :journey,
+      permitted_parameters: PERMITTED_PARAMETERS
+    ).merge(user_id: current_user.id))
+  end
+
   def post_create_actions
     enqueue_process_images_job
     notify_users
@@ -98,24 +118,6 @@ class JourneysController < ApplicationController
   def journey_update_params
     params.require(:journey).permit(
       :access_type
-    )
-  end
-
-  def journey_params
-    parameters = params.require(:journey).permit(
-      :accepts_recommendations,
-      :access_type,
-      :description,
-      :image,
-      :lat,
-      :long,
-      :start_plus_code,
-      :title
-    )
-
-    parameters.merge(
-      image_processing_status: :waiting,
-      passed_images_count: (params[:journey][:images] || []).size
     )
   end
 

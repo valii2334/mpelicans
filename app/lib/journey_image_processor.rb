@@ -5,10 +5,10 @@ class JourneyImageProcessor
 
   def initialize(imageable_id:, imageable_type:)
     @imageable = if imageable_type == 'journey_stop'
-      JourneyStop.find(imageable_id)
-    else
-      Journey.find(imageable_id)
-    end
+                   JourneyStop.find(imageable_id)
+                 else
+                   Journey.find(imageable_id)
+                 end
   end
 
   def run

@@ -2,14 +2,26 @@
 
 # CRUD For Journey Stop
 class JourneyStopsController < ApplicationController
+  include PermittedParameters
+
   before_action :authenticate_user!, except: [:show]
+
+  PERMITTED_PARAMETERS = %i[
+    description
+    journey_id
+    lat
+    long
+    plus_code
+    title
+  ].freeze
 
   def new
     @journey_stop = JourneyStop.new(journey_id: params[:journey_id])
   end
 
   def create
-    @journey_stop = JourneyStop.new(journey_stop_params)
+    @journey_stop = JourneyStop.new(permitted_parameters(model: :journey_stop,
+                                                         permitted_parameters: PERMITTED_PARAMETERS))
 
     authorize_journey_stop(:create)
 
@@ -57,17 +69,6 @@ class JourneyStopsController < ApplicationController
 
   def update_journey_updated_at
     @journey_stop.journey.update(updated_at: DateTime.now)
-  end
-
-  def journey_stop_params
-    parameters = params.require(:journey_stop).permit(
-      :description, :journey_id, :lat, :long,
-      :plus_code, :title
-    )
-    parameters.merge(
-      image_processing_status: :waiting,
-      passed_images_count: (params[:journey_stop][:images] || []).size
-    )
   end
 
   def authorize_journey_stop(method)

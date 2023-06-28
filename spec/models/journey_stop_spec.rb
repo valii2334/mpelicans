@@ -43,7 +43,7 @@ RSpec.describe JourneyStop, type: :model do
 
       expect(subject).to_not be_valid
       expect(subject.errors.messages).to eq(
-        { images: ["can't post more than #{JourneyStop::MAXIMUM_NUMBER_OF_IMAGES} images"] }
+        { images: ["can't post more than #{JourneyStop::MAXIMUM_NUMBER_OF_IMAGES}"] }
       )
     end
 

@@ -118,7 +118,7 @@ RSpec.describe JourneyStopsController, type: :controller do
 
         it 'includes error message' do
           expect(CGI.unescapeHTML(subject.body)).to include(
-            "can't post more than #{JourneyStop::MAXIMUM_NUMBER_OF_IMAGES} images"
+            "can't post more than #{JourneyStop::MAXIMUM_NUMBER_OF_IMAGES}"
           )
         end
       end

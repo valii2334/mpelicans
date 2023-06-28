@@ -6,7 +6,7 @@ RSpec.describe JourneyImageProcessor do
   let(:imageable)      { create(:journey_stop) }
   let(:image_path)     { 'spec/fixtures/files/madrid.jpg' }
   let(:s3_key)         { "test-#{imageable.id}-#{SecureRandom.uuid}#{File.extname(image_path)}" }
-  let(:uploaded_image) { create :uploaded_image, imageable: imageable, s3_key: }
+  let(:uploaded_image) { create :uploaded_image, imageable:, s3_key: }
 
   subject do
     described_class.new(imageable_id: imageable.id, imageable_type: 'journey_stop').run

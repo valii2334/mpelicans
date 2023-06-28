@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Imageable
   extend ActiveSupport::Concern
 
@@ -8,9 +10,9 @@ module Imageable
     end
 
     enum image_processing_status: {
-      waiting:    0,
+      waiting: 0,
       processing: 1,
-      processed:  2
+      processed: 2
     }
   end
 
