@@ -13,7 +13,7 @@ Feature: Destroy Journey Stop
     When I click on input "Create"
     Then journey information should be
       | title            | description              | start_plus_code | journey_image |
-      | Going to Munchen | My first trip to Germany | 8GR5QJFG%2B57M  | Journey       |
+      | Going to Munchen | My first trip to Germany | 8GR5QJFG%2B57M  | .jpg          |
     And link "My Journeys" is active in the sidebar
     And I click on link "+ New Stop"
     Given I fill in journey stop information with

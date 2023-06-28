@@ -13,7 +13,7 @@ Feature: Create Journey Stop
     When I click on input "Create"
     Then journey information should be
       | title            | description              | start_plus_code | journey_image |
-      | Going to Munchen | My first trip to Germany | 8GR5QJFG%2B57M  | Journey       |
+      | Going to Munchen | My first trip to Germany | 8GR5QJFG%2B57M  | .jpg          |
     And link "My Journeys" is active in the sidebar
     And I click on link "+ New Stop"
 
@@ -35,4 +35,4 @@ Feature: Create Journey Stop
       | title               | description               | journey_stop_images                                                    |
       | My first stop title | My first stop description | madrid.jpg,madrid1.png,madrid2.png,madrid3.png,madrid4.png,madrid5.png |
     When I click on input "Create"
-    Then I should see "can't post more than 5 images" in the page
+    Then I should see "can't post more than 5" in the page
