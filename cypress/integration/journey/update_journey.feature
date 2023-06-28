@@ -13,7 +13,7 @@ Feature: Update Journey
     When I click on input "Create"
     Then journey information should be
       | title            | description              | start_plus_code | journey_image |
-      | Going to Munchen | My first trip to Germany | 8GR5QJFG%2B57M  | madrid.jpg    |
+      | Going to Munchen | My first trip to Germany | 8GR5QJFG%2B57M  | Journey       |
     And link "My Journeys" is active in the sidebar
 
   Scenario: A user can change a journey from private to protected and back

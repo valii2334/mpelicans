@@ -10,7 +10,7 @@ Given(/^I fill in journey information with/, (datatable) => {
 
   cy.contains('Current Location').click();
 
-  cy.get('#journey_image').selectFile('./cypress/support/' + table[0].journey_image);
+  cy.get('#journey_images').selectFile('./cypress/support/' + table[0].journey_image);
 });
 
 Then(/^journey information should be/, (datatable) => {
