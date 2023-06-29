@@ -17,15 +17,15 @@ module Retrievers
       return mine_journeys         if mine_journeys?
       return bought_journeys       if bought_journeys?
 
-      return []
+      []
     end
 
     private
 
     def latest_journeys
       ::Journey
-          .where(access_type: VIEWABLE_ACCESS_TYPES)
-          .where(image_processing_status: :processed)
+        .where(access_type: VIEWABLE_ACCESS_TYPES)
+        .where(image_processing_status: :processed)
     end
 
     def users_latest_journeys
