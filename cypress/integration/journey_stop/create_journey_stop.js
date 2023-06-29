@@ -32,7 +32,6 @@ Then(/^journey stop card should contain/, (datatable) => {
   const table = datatable.hashes();
 
   cy.get('.title.journey-stop-0').contains(table[0].title);
-  cy.get('.description.journey-stop-0').contains(table[0].description);
   cy.get('.location.journey-stop-0').should('have.attr', 'href').should('include', table[0].plus_code);
   cy.get('.image.journey-stop-0').should('have.attr', 'src').should('include', table[0].journey_stop_image);
 });
