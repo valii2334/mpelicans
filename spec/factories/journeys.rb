@@ -13,8 +13,6 @@ FactoryBot.define do
     passed_images_count     { 1 }
     user
 
-    after(:create) do |journey|
-      journey.process_images
-    end
+    after(:create, &:process_images)
   end
 end
