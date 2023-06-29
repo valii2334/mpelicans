@@ -13,6 +13,10 @@ FactoryBot.define do
     passed_images_count     { 1 }
     user
 
-    after(:create, &:process_images)
+    # rubocop:disable Style/SymbolProc
+    after(:create) do |journey|
+      journey.process_images
+    end
+    # rubocop:enable Style/SymbolProc
   end
 end
