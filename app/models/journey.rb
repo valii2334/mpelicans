@@ -23,8 +23,6 @@ class Journey < ApplicationRecord
 
   before_validation :add_access_code
 
-  scope :public_viewable_journeys, -> { where(access_type: %i[public_journey monetized_journey]) }
-
   default_scope { order(updated_at: :desc) }
 
   alias_attribute :plus_code, :start_plus_code

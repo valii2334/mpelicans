@@ -52,7 +52,7 @@ class User < ApplicationRecord
 
   validate :username_validator
 
-  delegate :public_viewable_journeys, to: :journeys
+  default_scope { order(created_at: :desc) }
 
   attr_writer :login
 

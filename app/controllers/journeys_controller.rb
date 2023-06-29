@@ -5,7 +5,6 @@ class JourneysController < ApplicationController
   include PermittedParameters
 
   before_action :authenticate_user!, except: %i[index show]
-  before_action :check_params, only: [:index]
 
   PERMITTED_PARAMETERS = %i[
     accepts_recommendations
@@ -19,15 +18,7 @@ class JourneysController < ApplicationController
   ].freeze
 
   def index
-    @journeys, @title = case params[:which_journeys]
-                        when 'mine'
-                          [current_user.journeys, 'My Journeys']
-                        when 'bought'
-                          [current_user.bought_journeys, 'Bought Journeys']
-                        when nil
-                          [viewble_journeys, 'Latest Journeys']
-                        end
-
+    @journeys = Retrievers::Journey.new(user: current_user, which_journeys: params[:which_journeys]).fetch
     @journeys = @journeys.page params[:page]
   end
 
@@ -107,10 +98,6 @@ class JourneysController < ApplicationController
     JourneyJobs::ProcessImages.perform_async(@journey.id, 'journey')
   end
 
-  def check_params
-    params[:which_journeys] = nil unless current_user
-  end
-
   def notify_users
     NotifierJob.perform_async(@journey.id, 'new_journey', @journey.user_id)
   end
@@ -123,11 +110,5 @@ class JourneysController < ApplicationController
 
   def authorize_journey(method)
     authorize! method, @journey
-  end
-
-  def viewble_journeys
-    Journey.where(access_type: %i[public_journey monetized_journey])
-           .where.not(user_id: current_user&.id)
-           .limit(25)
   end
 end

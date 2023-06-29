@@ -4,11 +4,7 @@ class JourneyImageProcessor
   attr_accessor :imageable
 
   def initialize(imageable_id:, imageable_type:)
-    @imageable = if imageable_type == 'journey_stop'
-                   JourneyStop.find(imageable_id)
-                 else
-                   Journey.find(imageable_id)
-                 end
+    @imageable = load_imageable(imageable_id:, imageable_type:)
   end
 
   def run
@@ -20,6 +16,12 @@ class JourneyImageProcessor
   end
 
   private
+
+  def load_imageable(imageable_id:, imageable_type:)
+    return JourneyStop.find(imageable_id) if imageable_type == 'journey_stop'
+
+    Journey.find(imageable_id)
+  end
 
   def download_image(image_path:)
     Storage.download(key: image_path).body
