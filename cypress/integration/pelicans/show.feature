@@ -50,7 +50,7 @@ Feature: View travelers
     Given I stub stripe stripe to return a "success" for first "MP01" and journey "Journey 1"
     When I click on link "Buy"
     Then I should see "Journey 1" details
-    When I click on link "Bought Journeys"
+    When I click on link "Bought"
     Then I should see "Journey 1" in the page
 
   Scenario: As a registered user I can not buy another users monetized journey if my card is declined

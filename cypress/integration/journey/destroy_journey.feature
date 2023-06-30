@@ -14,11 +14,11 @@ Feature: Destroy Journey
     Then journey information should be
       | title            | description              | start_plus_code  | journey_image |
       | Going to Munchen | My first trip to Germany | 8GR5QJFG%2B57M   | .jpg          |
-    And link "My Journeys" is active in the sidebar
+    And link "Mine" is active in the sidebar
 
   Scenario: If a users clicks on Delete Journey then it should be deleted
     Given I go to home page
-    And I click on link "My Journeys"
+    And I click on link "Mine"
     And I click on link "View"
     When I click on link "Delete Journey"
     Then I should see "There are no journeys yet." in the page

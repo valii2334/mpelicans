@@ -16,4 +16,4 @@ Feature: Create Journey
     Then journey information should be
       | title            | description              | start_plus_code  | journey_image |
       | Going to Munchen | My first trip to Germany | 8GR5QJFG%2B57M   | .jpg          |
-    And link "My Journeys" is active in the sidebar
+    And link "Mine" is active in the sidebar

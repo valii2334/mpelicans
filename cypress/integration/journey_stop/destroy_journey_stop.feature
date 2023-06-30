@@ -14,7 +14,7 @@ Feature: Destroy Journey Stop
     Then journey information should be
       | title            | description              | start_plus_code | journey_image |
       | Going to Munchen | My first trip to Germany | 8GR5QJFG%2B57M  | .jpg          |
-    And link "My Journeys" is active in the sidebar
+    And link "Mine" is active in the sidebar
     And I click on link "+ New Stop"
     Given I fill in journey stop information with
       | title               | description               | journey_stop_images |
@@ -26,7 +26,7 @@ Feature: Destroy Journey Stop
 
   Scenario: If a users enters correct journey stop information then we can create a journey stop
     Given I go to home page
-    And I click on link "My Journeys"
+    And I click on link "Mine"
     And I click on link "View"
     And I should have a journey stop card
     Given I click on link "View Stop"
