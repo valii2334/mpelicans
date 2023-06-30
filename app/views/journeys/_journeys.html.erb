@@ -28,11 +28,13 @@
               </h5>
             </div>
 						<div class="card-body">
-              <p>
-                <em>
-                  New stop added <%= time_ago_in_words(journey.updated_at) %> ago.
-                </em>
-              </p>
+              <% if journey.journey_stops.present? %>
+                <p>
+                  <em>
+                    New stop added <%= time_ago_in_words(journey.journey_stops.last.created_at) %> ago.
+                  </em>
+                </p>
+              <% end %>
               <p>
                 <%= link_to pelican_path(journey.user.username) do %>
                   <% if journey.user.image.attached? %>

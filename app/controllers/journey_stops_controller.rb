@@ -61,14 +61,9 @@ class JourneyStopsController < ApplicationController
   private
 
   def post_create_actions
-    update_journey_updated_at
     enqueue_process_images_job
     notify_users(journey: @journey_stop.journey)
     success_message(message: 'Your journey stop was created.')
-  end
-
-  def update_journey_updated_at
-    @journey_stop.journey.update(updated_at: DateTime.now)
   end
 
   def authorize_journey_stop(method)
