@@ -16,3 +16,5 @@ import "./modules/feather";
 import "./src/bs5-lightbox";
 
 import "./controllers"
+import "trix"
+import "@rails/actiontext"

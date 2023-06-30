@@ -109,19 +109,6 @@ RSpec.describe JourneysController, type: :controller do
             include_examples 'missing parameter', Journey, 'Title'
           end
 
-          context 'missing description' do
-            let(:journey_params) do
-              {
-                images: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
-                start_plus_code: FFaker::Random.rand,
-                title: FFaker::Name.name,
-                user_id: user.id
-              }
-            end
-
-            include_examples 'missing parameter', Journey, 'Description'
-          end
-
           context 'missing start_plus_code' do
             let(:journey_params) do
               {

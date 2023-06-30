@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_26_160203) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_29_181738) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "action_text_rich_texts", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "body"
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -44,7 +54,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_26_160203) do
 
   create_table "journey_stops", force: :cascade do |t|
     t.string "title", null: false
-    t.string "description", null: false
     t.string "plus_code", null: false
     t.integer "journey_id", null: false
     t.datetime "created_at", null: false
@@ -53,12 +62,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_26_160203) do
     t.integer "passed_images_count"
     t.string "lat"
     t.string "long"
+    t.text "description"
     t.index ["journey_id"], name: "index_journey_stops_on_journey_id"
   end
 
   create_table "journeys", force: :cascade do |t|
     t.string "title", null: false
-    t.text "description", null: false
     t.string "start_plus_code", null: false
     t.integer "access_type", default: 0, null: false
     t.boolean "accepts_recommendations", default: false, null: false
@@ -70,6 +79,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_26_160203) do
     t.string "long"
     t.integer "passed_images_count"
     t.integer "image_processing_status"
+    t.text "description"
     t.index ["user_id"], name: "index_journeys_on_user_id"
   end
 

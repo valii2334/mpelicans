@@ -14,11 +14,13 @@ class Journey < ApplicationRecord
   has_many :paying_users, through: :paid_journeys, source: :user
   has_many :uploaded_images, as: :imageable, dependent: :destroy
 
+  has_rich_text :description
+
   validates :access_code,
-            :description,
             :start_plus_code,
             :title,
             presence: true
+
   validate :images_are_present
 
   before_validation :add_access_code

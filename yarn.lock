@@ -1978,6 +1978,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rails/actiontext@npm:^7.0.5-1":
+  version: 7.0.5
+  resolution: "@rails/actiontext@npm:7.0.5"
+  dependencies:
+    "@rails/activestorage": ">= 7.0.0-alpha1"
+  peerDependencies:
+    trix: ^1.3.1
+  checksum: 7a37bf55a37e7fa74db5345f8a89363a1636b0596557503360967d3d1d838f740950e8994331636a4714effae95f338fd06ddbe4e8c9a8bd12512b9f01e658fd
+  languageName: node
+  linkType: hard
+
+"@rails/activestorage@npm:>= 7.0.0-alpha1":
+  version: 7.0.5
+  resolution: "@rails/activestorage@npm:7.0.5"
+  dependencies:
+    spark-md5: ^3.0.1
+  checksum: 57906778b180af14f0395f179a2908f293541f22acf35edc3b9b94c62db226412f160fcba7b43238263f7c54e652babbba37197ed8747c08176abc7900f8a153
+  languageName: node
+  linkType: hard
+
 "@tootallnate/once@npm:2":
   version: 2.0.0
   resolution: "@tootallnate/once@npm:2.0.0"
@@ -2484,6 +2504,7 @@ __metadata:
     "@hotwired/stimulus": ^3.2.1
     "@hotwired/turbo-rails": ^7.1.3
     "@popperjs/core": ^2.11.6
+    "@rails/actiontext": ^7.0.5-1
     babel-loader: ^9.1.2
     babel-preset-es2015: ^6.24.1
     bootstrap: ^5.2.0
@@ -2500,6 +2521,7 @@ __metadata:
     sass: ^1.54.8
     semistandard: ^16.0.1
     simplebar: ^5.3.9
+    trix: ^2.0.5
     webpack: ^5.75.0
   languageName: unknown
   linkType: soft
@@ -8918,6 +8940,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"spark-md5@npm:^3.0.1":
+  version: 3.0.2
+  resolution: "spark-md5@npm:3.0.2"
+  checksum: 5feebff0bfabcecf56ba03af3e38fdb068272ed41fbf0a94ff9ef65b9bb9cb1dd69be3684db6542e62497b1eac3ae324c07ac4dcb606465dc36ca048177077bf
+  languageName: node
+  linkType: hard
+
 "sprintf-js@npm:~1.0.2":
   version: 1.0.3
   resolution: "sprintf-js@npm:1.0.3"
@@ -9432,6 +9461,13 @@ __metadata:
     psl: ^1.1.28
     punycode: ^2.1.1
   checksum: 16a8cd090224dd176eee23837cbe7573ca0fa297d7e468ab5e1c02d49a4e9a97bb05fef11320605eac516f91d54c57838a25864e8680e27b069a5231d8264977
+  languageName: node
+  linkType: hard
+
+"trix@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "trix@npm:2.0.5"
+  checksum: e318ad0a2956945792e6b279e2cfeb9182c4e72a50de6392bc7ee2d058d509274758ebeb7ef1dee6d215e7d6418ed2675706029fe3acd9d4c8a7ba833f833388
   languageName: node
   linkType: hard
 

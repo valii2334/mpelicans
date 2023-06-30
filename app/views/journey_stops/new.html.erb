@@ -29,7 +29,7 @@
 
           <div class="mb-3">
             <%= f.label :description, class: 'form-label' %>
-            <%= f.text_field :description, required: true, class: 'form-control' %>
+            <%= f.rich_text_area :description, required: true, class: 'form-control' %>
           </div>
 
           <%= render partial: 'shared/location', locals: { message: 'What is your current stops location? Set location to:', lat_element_id: '#journey_stop_lat', long_element_id: '#journey_stop_long' } %>

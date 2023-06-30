@@ -18,13 +18,23 @@
   </div>
 </div>
 
-<div class="row"> 
-  <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-    <p id="journey-stop-description">
-      <%= @journey_stop.description %>
-    </p>
+<% if @journey_stop.waiting? %>
+  <%= render partial: 'shared/processing_images', locals: { message: 'Please wait. Images have been scheduled for processing.' } %>
+<% elsif @journey_stop.processing? %>
+  <%= render partial: 'shared/processing_images', locals: { message: 'Please wait. Images are being processed.' } %>
+<% else %>
+  <div class="row" data-controller="lightbox">
+    <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
+      <% @journey_stop.images.each_with_index do |image, index| %>
+        <div class="col-6">
+          <a href="<%= image.variant(:max).processed.url %>" data-gallery="example-gallery" class="lightbox-image">
+            <img src="<%= image.variant(:thumbnail).processed.url %>" class="img-thumbnail rounded me-2 mb-2" id="journey-stop-image-<%= index %>">
+          </a>
+        </div>
+      <% end %>
+    </div>
   </div>
-</div>
+<% end %>
 
 <div class="row"> 
   <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
@@ -45,27 +55,19 @@
   </div>
 </div>
 
-<div class="row" data-controller="lightbox">
-  <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-    <% if @journey_stop.waiting? %>
-      <p class="h3 d-inline align-middle" id="journey-stop-image-processing-status">
-        Please wait. Images have been scheduled for processing.
-      </p>
-    <% elsif @journey_stop.processing? %>
-      <p class="h3 d-inline align-middle" id="journey-stop-image-processing-status">
-        Please wait. Images are being processed.
-      </p>
-    <% else %>
-      <% @journey_stop.images.each_with_index do |image, index| %>
-        <div class="col-6">
-          <a href="<%= image.variant(:max).processed.url %>" data-gallery="example-gallery" class="lightbox-image">
-            <img src="<%= image.variant(:thumbnail).processed.url %>" class="img-thumbnail rounded me-2 mb-2" id="journey-stop-image-<%= index %>">
-          </a>
+<% if @journey_stop.description.body %>
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
+      <div class="card">
+        <div class="card-body">
+          <div id="journey-stop-description">
+            <%= @journey_stop.description %>
+          </div>
         </div>
-      <% end %>
-    <% end %>
+      </div>
+    </div>
   </div>
-</div>
+<% end %>
 
 <div class="row"> 
   <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">

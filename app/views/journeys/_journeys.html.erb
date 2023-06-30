@@ -7,12 +7,26 @@
 		<% journeys.each do |journey| %>
 				<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
 					<div class="card">
-            <div class="card-body">
+            <% if journey.waiting? %>
+              <div class="card-header">
+                <h5 class="card-title" id="journey-stop-image-processing-status">
+                  Please wait. Images have been scheduled for processing.
+                </h5>
+              </div>
+            <% elsif journey.processing? %>
+              <div class="card-header">
+                <h5 class="card-title" id="journey-stop-image-processing-status">
+                  Please wait. Images are being processed.
+                </h5>
+              </div>
+            <% else %>
+             <%= image_tag journey.images.first.variant(:thumbnail), class: 'card-img-top' %>
+            <% end %>
+            <div class="card-header">
               <h5 class="card-title">
                 <%= journey.title %> 
               </h5>
             </div>
-						<%= image_tag journey.images.first.variant(:thumbnail), class: 'card-img-top' %>
 						<div class="card-body">
               <p>
                 <em>
