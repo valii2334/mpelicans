@@ -31,23 +31,17 @@ RSpec.describe WatchJourneysController, type: :controller do
       context 'access_type is protected_journey' do
         let(:access_type) { :protected_journey }
 
-        it_behaves_like 'can view page'
-      end
-    end
+        context 'invalid access_code' do
+          let(:access_code) { SecureRandom.uuid }
 
-    context 'access_code' do
-      let(:access_type) { :protected_journey }
+          it_behaves_like 'can not view page'
+        end
 
-      context 'invalid access_code' do
-        let(:access_code) { SecureRandom.uuid }
+        context 'valid access_code' do
+          let(:access_code) { journey.access_code }
 
-        it_behaves_like 'can not view page'
-      end
-
-      context 'valid access_code' do
-        let(:access_code) { journey.access_code }
-
-        it_behaves_like 'can view page'
+          it_behaves_like 'can view page'
+        end
       end
     end
   end

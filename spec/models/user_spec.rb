@@ -102,11 +102,28 @@ RSpec.describe User, type: :model do
   ##################################
 
   context '#username_validator' do
-    it 'validates that a username does not contain white space characters', :aggregate_failures do
-      user = build(:user, username: 'WHITE SPACE')
+    before do
+      subject.username = username
+    end
 
-      expect(user.valid?).to be_falsey
-      expect(user.errors.full_messages).to include('Username can not contain special characters')
+    context 'contains white space' do
+      let(:username) { 'WHITE SPACE' }
+
+      it_behaves_like 'username is not valid'
+    end
+
+    context 'contains character other than letter or number' do
+      let(:username) { 'VALENTIN@' }
+
+      it_behaves_like 'username is not valid'
+    end
+
+    context 'contains only letters and numbers' do
+      let(:username) { 'VALENTINLAZAR1' }
+
+      it 'is valid' do
+        expect(subject).to be_valid
+      end
     end
   end
 end

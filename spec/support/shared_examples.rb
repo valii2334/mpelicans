@@ -217,3 +217,10 @@ RSpec.shared_examples '#images_are_present' do
     end
   end
 end
+
+RSpec.shared_examples 'username is not valid' do
+  it 'is not valid', :aggregate_failures do
+    expect(subject.valid?).to be_falsey
+    expect(subject.errors.full_messages).to include('Username can not contain special characters')
+  end
+end
