@@ -12,10 +12,24 @@
   </div>
 </div>
 
+<% if @journey.description.body %>
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
+      <div class="card">
+        <div class="card-body">
+          <div id="journey-description">
+            <%= @journey.description %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
 <% if @journey.waiting? %>
   <%= render partial: 'shared/processing_images', locals: { message: 'Please wait. Image has been scheduled for processing.' } %>
 <% elsif @journey.processing? %>
-  <%= render partial: 'shared/processing_images', locals: { message: 'Please wait. Image is being processed.' } %>
+  <%= render partial: 'shared/processing_images', locals: { message: 'Please wait. Image  being processed.' } %>
 <% else %>
   <div class="row" data-controller="lightbox">
     <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12 text-center">
@@ -48,20 +62,6 @@
     </div>
   </div>
 </div>
-
-<% if @journey.description.body %>
-  <div class="row">
-    <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-      <div class="card">
-        <div class="card-body">
-          <div id="journey-description">
-            <%= @journey.description %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-<% end %>
 
 <% if current_user && can?(:edit, @journey) %>
   <div class="row">
