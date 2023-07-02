@@ -14,8 +14,8 @@ export default class extends Controller {
     const lng = this.pinsValue[0].position.lng;
 
     // Request needed libraries.
-    const { Map } = await google.maps.importLibrary("maps");
-    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+    const { Map, InfoWindow } = await google.maps.importLibrary("maps");
+    const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
     const { LatLng } = await google.maps.importLibrary("core");
     const center = new LatLng(lat, lng);
     const map = new Map(document.getElementById("map"), {
@@ -24,16 +24,26 @@ export default class extends Controller {
       mapId: "4504f8b37365c3d0",
     });
 
-    for (const property of this.pinsValue) {      
+    for (const property of this.pinsValue) {    
+      const pin = new PinElement({
+        glyph: '',
+      });
+
       const AdvancedMarkerElement = new google.maps.marker.AdvancedMarkerElement({
         map,
-        content: this.buildContent(property),
         position: property.position,
         title: property.title,
+        content: pin.element
       });
+
+      const infoWindow = new InfoWindow();
+
+      AdvancedMarkerElement.addListener("click", ({ domEvent, latLng }) => {
+        const { target } = domEvent;
   
-      AdvancedMarkerElement.addListener("click", () => {
-        this.toggleHighlight(AdvancedMarkerElement, property);
+        infoWindow.close();
+        infoWindow.setContent(this.buildContent(property));
+        infoWindow.open(AdvancedMarkerElement.map, AdvancedMarkerElement);
       });
     }
   }
@@ -50,28 +60,23 @@ export default class extends Controller {
 
   buildContent(property) {
     const content = document.createElement("div");
-  
-    content.classList.add("property");
 
     if (property.link_to_self) {
       content.innerHTML = `
-      <div class="icon">
-        <i aria-hidden="true" class="fa fa-icon fa-map-pin" title="${property.title}"></i>
-      </div>
       <div class="details">
-        <div class="title">${property.title}</div>
-        <a target="_blank" href=${property.link_to_self}>View Journey Stop</a>
+        <div class="title"><b>${property.title}</b></div>
+        <br>
+        <a href=${property.link_to_self}>View Journey Stop</a>
+        <br>
         <a target="_blank" href=${property.link_to_google_maps}>View location in Google Maps</a>
       </div>
       `;
     } else {
       content.innerHTML = `
-      <div class="icon">
-        <i aria-hidden="true" class="fa fa-icon fa-map-pin" title="${property.title}"></i>
-      </div>
       <div class="details">
-        <div class="title">${property.title}</div>
-        <a target="_blank" href=${property.link_to_google_maps}>View location in Google Maps</a>
+        <div class="title"><b>${property.title}</b></div>
+        <br>
+        <a href=${property.link_to_google_maps}>View location in Google Maps</a>
       </div>
       `;
     }
