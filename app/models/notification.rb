@@ -24,24 +24,21 @@ class Notification < ApplicationRecord
   def notification_text
     return "#{sender.username} just bought #{journey.title}."            if bought_journey?
     return "#{sender.username} created a new journey: #{journey.title}." if new_journey?
-    return "#{sender.username} added a new stop to #{journey.title}."    if new_journey_stop?
 
-    raise StandardError, 'Notification next not implemented for this notification type'
+    "#{sender.username} added a new stop to #{journey.title}."
   end
 
   def notification_link
     return pelican_path(username: sender.username)                                             if bought_journey?
     return journey_path(id: journey.id)                                                        if new_journey?
-    return journey_journey_stop_path(journey_id: journey_stop.journey.id, id: journey_stop.id) if new_journey_stop?
 
-    raise StandardError, 'Notification link not implemented for this notification type'
+    journey_journey_stop_path(journey_id: journey_stop.journey.id, id: journey_stop.id)
   end
 
   def notification_title
     return 'Someone bought your journey!' if bought_journey?
     return 'New journey created!'         if new_journey?
-    return 'New journey stop added!'      if new_journey_stop?
 
-    raise StandardError, 'Notification title not implemented for this notification type'
+    'New journey stop added!'
   end
 end
