@@ -84,4 +84,14 @@ RSpec.describe JourneyStop, type: :model do
       expect(subject.link_to_self).to eq(expected_url)
     end
   end
+
+  context '#pin' do
+    before do
+      subject.save
+    end
+
+    it 'returns the pin' do
+      expect(subject.pin).to eq(Pin.new(pinnable: subject).to_pin)
+    end
+  end
 end

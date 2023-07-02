@@ -83,4 +83,23 @@ RSpec.describe Journey, type: :model do
       expect(subject.link_to_self).to eq(nil)
     end
   end
+
+  context '#pins' do
+    before do
+      subject.save
+    end
+
+    let!(:journey_stop0) { create(:journey_stop, journey: subject) }
+    let!(:journey_stop1) { create(:journey_stop, journey: subject) }
+
+    it 'returns all pins' do
+      expect(subject.pins).to match_array(
+        [
+          Pin.new(pinnable: subject).to_pin,
+          Pin.new(pinnable: journey_stop0).to_pin,
+          Pin.new(pinnable: journey_stop1).to_pin
+        ]
+      )
+    end
+  end
 end
