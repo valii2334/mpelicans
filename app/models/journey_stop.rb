@@ -24,7 +24,7 @@ class JourneyStop < ApplicationRecord
   end
 
   def link_to_self
-    journey_journey_stop_url(journey, self, host: 'https://mpelicans.com')
+    journey_journey_stop_url(journey, self, host: 'https://www.mpelicans.com')
   end
 
   def maximum_number_of_images
