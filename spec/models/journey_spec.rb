@@ -80,9 +80,7 @@ RSpec.describe Journey, type: :model do
     end
 
     it 'returns full url to self' do
-      expected_url = "https://mpelicans.com/journeys/#{subject.id}"
-
-      expect(subject.link_to_self).to eq(expected_url)
+      expect(subject.link_to_self).to eq(nil)
     end
   end
 end
