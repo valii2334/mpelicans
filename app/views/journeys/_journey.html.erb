@@ -45,7 +45,7 @@
 <% end %>
 
 <% unless Rails.env.test? %>
-  <%= render partial: 'shared/map' %>
+  <%= render partial: 'shared/map', locals: { pins: @journey.pins.to_json } %>
 <% end %>
 
 <% if current_user && can?(:edit, @journey) %>
@@ -70,6 +70,12 @@
           <% elsif @journey.public_journey? %>
             <div class="row">
               <a href="<%= journey_url(@journey) %>" class="public_link">Public link to share</a>
+            </div>
+            <br>
+            <br>
+          <% elsif @journey.monetized_journey? %>
+            <div class="row">
+              <a href="<%= pelican_url(username: @journey.user.username) %>" class="public_link_to_profile">Public link to profile to share</a>
             </div>
             <br>
             <br>

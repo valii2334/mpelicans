@@ -33,7 +33,7 @@
 <% end %>
 
 <% unless Rails.env.test? %>
-  <%= render partial: 'shared/map' %>
+  <%= render partial: 'shared/map', locals: { pins: [@journey_stop.pin].to_json } %>
 <% end %>
 
 <% if @journey_stop.waiting? %>

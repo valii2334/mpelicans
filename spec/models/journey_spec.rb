@@ -61,14 +61,28 @@ RSpec.describe Journey, type: :model do
   ##################################
 
   context '#add_access_code' do
-    it 'adds an access code' do
-      journey = create(:journey)
+    before do
+      subject.save
+    end
 
-      expect(journey.access_code).to_not be_nil
+    it 'adds an access code' do
+      expect(subject.access_code).to_not be_nil
     end
   end
 
   ##################################
   # Methods
   ##################################
+
+  context '#link_to_self' do
+    before do
+      subject.save
+    end
+
+    it 'returns full url to self' do
+      expected_url = "https://mpelicans.com/journeys/#{subject.id}"
+
+      expect(subject.link_to_self).to eq(expected_url)
+    end
+  end
 end

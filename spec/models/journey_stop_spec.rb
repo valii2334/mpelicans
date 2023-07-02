@@ -72,4 +72,16 @@ RSpec.describe JourneyStop, type: :model do
   ##################################
   # Methods
   ##################################
+
+  context '#link_to_self' do
+    before do
+      subject.save
+    end
+
+    it 'returns full url to self' do
+      expected_url = "https://mpelicans.com/journeys/#{subject.journey.id}/journey_stops/#{subject.id}"
+
+      expect(subject.link_to_self).to eq(expected_url)
+    end
+  end
 end

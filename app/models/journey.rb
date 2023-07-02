@@ -36,6 +36,15 @@ class Journey < ApplicationRecord
 
   before_validation :add_access_code
 
+  def pins
+    pinnables = [self, journey_stops].flatten
+    pinnables.map { |pinnable| Pin.new(pinnable:).to_pin }
+  end
+
+  def link_to_self
+    nil
+  end
+
   private
 
   def add_access_code

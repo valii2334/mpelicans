@@ -2,6 +2,7 @@
 
 # JourneyStop Model
 class JourneyStop < ApplicationRecord
+  include Rails.application.routes.url_helpers
   include Imageable
 
   MAXIMUM_NUMBER_OF_IMAGES = 5
@@ -17,6 +18,14 @@ class JourneyStop < ApplicationRecord
   validate :maximum_number_of_images
 
   default_scope { order(created_at: :desc) }
+
+  def pin
+    Pin.new(pinnable: self).to_pin
+  end
+
+  def link_to_self
+    journey_journey_stop_url(journey, self, host: 'https://mpelicans.com')
+  end
 
   def maximum_number_of_images
     return if passed_images_count <= MAXIMUM_NUMBER_OF_IMAGES
