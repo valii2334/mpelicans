@@ -12,8 +12,8 @@ Feature: Destroy Journey
       | Going to Munchen | My first trip to Germany | madrid.jpg    |
     When I click on input "Create"
     Then journey information should be
-      | title            | description              | start_plus_code  | journey_image |
-      | Going to Munchen | My first trip to Germany | 8GR5QJFG%2B57M   | .jpg          |
+      | title            | description              | journey_image |
+      | Going to Munchen | My first trip to Germany | .jpg          |
     And link "Mine" is active in the sidebar
 
   Scenario: If a users clicks on Delete Journey then it should be deleted

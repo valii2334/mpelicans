@@ -12,8 +12,8 @@ Feature: Create Journey Stop
       | Going to Munchen | My first trip to Germany | madrid.jpg    |
     When I click on input "Create"
     Then journey information should be
-      | title            | description              | start_plus_code | journey_image |
-      | Going to Munchen | My first trip to Germany | 8GR5QJFG%2B57M  | .jpg          |
+      | title            | description              | journey_image |
+      | Going to Munchen | My first trip to Germany | .jpg          |
     And link "Mine" is active in the sidebar
     And I click on link "+ New Stop"
 
@@ -23,12 +23,12 @@ Feature: Create Journey Stop
       | My first stop title | My first stop description | madrid.jpg          |
     When I click on input "Create"
     Then journey stop information should be
-      | title               | description               | plus_code      | journey_stop_image |
-      | My first stop title | My first stop description | 8GR5QJFG%2B57M | .jpg               |
+      | title               | description               | journey_stop_image |
+      | My first stop title | My first stop description | .jpg               |
     When I click on link "View"
     Then journey stop card should contain
-      | title               | plus_code      | journey_stop_image |
-      | My first stop title | 8GR5QJFG+57M   | .jpg               |
+      | title               | journey_stop_image |
+      | My first stop title | .jpg               |
 
   Scenario: A user can not submit a journey stop with more than 5 images
     Given I fill in journey stop information with

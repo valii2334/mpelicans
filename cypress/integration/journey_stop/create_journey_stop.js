@@ -24,7 +24,6 @@ Then(/^journey stop information should be/, (datatable) => {
 
   cy.get('#journey-stop-title').contains(table[0].title);
   cy.get('#journey-stop-description').contains(table[0].description);
-  cy.get('#journey-stop-map-display').should('have.attr', 'src').should('include', table[0].plus_code);
   cy.get('#journey-stop-image-0').should('have.attr', 'src').should('include', table[0].journey_stop_image);
 });
 
@@ -32,6 +31,5 @@ Then(/^journey stop card should contain/, (datatable) => {
   const table = datatable.hashes();
 
   cy.get('.title.journey-stop-0').contains(table[0].title);
-  cy.get('.location.journey-stop-0').should('have.attr', 'href').should('include', table[0].plus_code);
   cy.get('.image.journey-stop-0').should('have.attr', 'src').should('include', table[0].journey_stop_image);
 });

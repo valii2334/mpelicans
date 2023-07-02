@@ -2,7 +2,6 @@
 
 # Journey Model
 class Journey < ApplicationRecord
-  include PlusCodeSetterConcern
   include Imageable
 
   paginates_per 50
@@ -17,13 +16,12 @@ class Journey < ApplicationRecord
   has_rich_text :description
 
   validates :access_code,
-            :start_plus_code,
+            :lat,
+            :long,
             :title,
             presence: true
 
   validate :images_are_present
-
-  before_validation :add_access_code
 
   default_scope { order(updated_at: :desc) }
 
@@ -36,27 +34,9 @@ class Journey < ApplicationRecord
     monetized_journey: 3
   }
 
-  def map_url
-    MapUrl.new(origin:, destination:, waypoints:).map_url
-  end
+  before_validation :add_access_code
 
   private
-
-  def origin
-    start_plus_code
-  end
-
-  def destination
-    return nil if journey_stops.empty?
-
-    journey_stops.last.plus_code
-  end
-
-  def waypoints
-    return [] if journey_stops.count < 2
-
-    journey_stops.pluck(:plus_code)[0...-1]
-  end
 
   def add_access_code
     return if access_code

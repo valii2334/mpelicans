@@ -13,7 +13,6 @@ class JourneysController < ApplicationController
     image
     lat
     long
-    start_plus_code
     title
   ].freeze
 

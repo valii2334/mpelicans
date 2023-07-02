@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_29_181738) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_02_115544) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,29 +54,27 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_29_181738) do
 
   create_table "journey_stops", force: :cascade do |t|
     t.string "title", null: false
-    t.string "plus_code", null: false
     t.integer "journey_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "image_processing_status"
     t.integer "passed_images_count"
-    t.string "lat"
-    t.string "long"
+    t.string "lat", null: false
+    t.string "long", null: false
     t.text "description"
     t.index ["journey_id"], name: "index_journey_stops_on_journey_id"
   end
 
   create_table "journeys", force: :cascade do |t|
     t.string "title", null: false
-    t.string "start_plus_code", null: false
     t.integer "access_type", default: 0, null: false
     t.boolean "accepts_recommendations", default: false, null: false
     t.integer "user_id", null: false
     t.string "access_code", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "lat"
-    t.string "long"
+    t.string "lat", null: false
+    t.string "long", null: false
     t.integer "passed_images_count"
     t.integer "image_processing_status"
     t.text "description"

@@ -14,7 +14,8 @@ RSpec.describe JourneyStop, type: :model do
   it { should have_attribute :description }
   it { should have_attribute :image_processing_status }
   it { should have_attribute :passed_images_count }
-  it { should have_attribute :plus_code }
+  it { should have_attribute :lat }
+  it { should have_attribute :long }
   it { should have_attribute :journey_id }
   it { should have_attribute :lat }
   it { should have_attribute :long }
@@ -33,8 +34,9 @@ RSpec.describe JourneyStop, type: :model do
   # Validations
   ##################################
 
+  it { should validate_presence_of :lat }
+  it { should validate_presence_of :long }
   it { should validate_presence_of :title }
-  it { should validate_presence_of :plus_code }
 
   describe '#maximum_number_of_images' do
     it 'is not valid if passed_images_count is gt than MAXIMUM_NUMBER_OF_IMAGES' do
@@ -59,12 +61,6 @@ RSpec.describe JourneyStop, type: :model do
   # Callbacks
   ##################################
 
-  context '#set_plus_code' do
-    subject { create :journey_stop, plus_code: provided_plus_code, lat: latitude, long: longitude }
-
-    it_behaves_like 'plus_code setter'
-  end
-
   ##################################
   # Associations
   ##################################
@@ -76,10 +72,4 @@ RSpec.describe JourneyStop, type: :model do
   ##################################
   # Methods
   ##################################
-
-  describe '#location_link' do
-    it 'returns location_link' do
-      expect(subject.location_link).to eq("https://www.plus.codes/#{subject.plus_code}")
-    end
-  end
 end

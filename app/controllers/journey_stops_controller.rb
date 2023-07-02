@@ -11,7 +11,6 @@ class JourneyStopsController < ApplicationController
     journey_id
     lat
     long
-    plus_code
     title
   ].freeze
 

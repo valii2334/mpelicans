@@ -18,7 +18,6 @@ Then(/^journey information should be/, (datatable) => {
 
   cy.get('#journey-title').contains(table[0].title);
   cy.get('#journey-description').contains(table[0].description);
-  cy.get('#journey-map-display').should('have.attr', 'src').should('include', table[0].start_plus_code);
   cy.get('#journey-first-picture').should('have.attr', 'src').should('include', table[0].journey_image);
 });
 

@@ -32,24 +32,9 @@
   </div>
 <% end %>
 
-<div class="row"> 
-  <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-		<div class="card">
-			<div class="card-body">
-        <iframe
-          width="100%"
-          height="450px"
-          style="border:0"
-          loading="lazy"
-          allowfullscreen
-          referrerpolicy="no-referrer-when-downgrade"
-          id="journey-stop-map-display"
-          src="<%= @journey_stop.map_url %>">
-				</iframe>
-      </div>
-    </div>
-  </div>
-</div>
+<% unless Rails.env.test? %>
+  <%= render partial: 'shared/map' %>
+<% end %>
 
 <% if @journey_stop.waiting? %>
   <%= render partial: 'shared/processing_images', locals: { message: 'Please wait. Images have been scheduled for processing.' } %>

@@ -26,7 +26,8 @@ RSpec.describe JourneyStopsController, type: :controller do
         {
           title: FFaker::Name.name,
           description: FFaker::Lorem.paragraph,
-          plus_code: FFaker::Random.rand,
+          lat: '46.749971',
+          long: '23.598739',
           images: [fixture_file_upload('lasvegas.jpg', 'image/jpeg')],
           journey_id: second_journey.id
         }
@@ -44,7 +45,8 @@ RSpec.describe JourneyStopsController, type: :controller do
         let(:journey_stop_params) do
           {
             description: FFaker::Lorem.paragraph,
-            plus_code: FFaker::Random.rand,
+            lat: '46.749971',
+            long: '23.598739',
             images: [fixture_file_upload('lasvegas.jpg', 'image/jpeg')],
             journey_id: journey.id
           }
@@ -53,17 +55,32 @@ RSpec.describe JourneyStopsController, type: :controller do
         include_examples 'missing parameter', JourneyStop, 'Title'
       end
 
-      context 'missing plus_code' do
+      context 'missing lat' do
         let(:journey_stop_params) do
           {
             title: FFaker::Name.name,
             description: FFaker::Lorem.paragraph,
             images: [fixture_file_upload('lasvegas.jpg', 'image/jpeg')],
+            long: '23.598739',
             journey_id: journey.id
           }
         end
 
-        include_examples 'missing parameter', JourneyStop, 'Plus code'
+        include_examples 'missing parameter', JourneyStop, 'Lat'
+      end
+
+      context 'missing long' do
+        let(:journey_stop_params) do
+          {
+            title: FFaker::Name.name,
+            description: FFaker::Lorem.paragraph,
+            images: [fixture_file_upload('lasvegas.jpg', 'image/jpeg')],
+            lat: '46.749971',
+            journey_id: journey.id
+          }
+        end
+
+        include_examples 'missing parameter', JourneyStop, 'Long'
       end
 
       context 'missing images' do
@@ -84,7 +101,8 @@ RSpec.describe JourneyStopsController, type: :controller do
           {
             title: FFaker::Name.name,
             description: FFaker::Lorem.paragraph,
-            plus_code: FFaker::Random.rand,
+            lat: '46.749971',
+            long: '23.598739',
             images: [
               fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
               fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
@@ -116,7 +134,8 @@ RSpec.describe JourneyStopsController, type: :controller do
         {
           title: FFaker::Name.name,
           description: FFaker::Lorem.paragraph,
-          plus_code: FFaker::Random.rand,
+          lat: '46.749971',
+          long: '23.598739',
           images: [fixture_file_upload('lasvegas.jpg', 'image/jpeg')],
           journey_id: journey.id
         }
