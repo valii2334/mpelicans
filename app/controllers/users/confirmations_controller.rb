@@ -16,7 +16,7 @@ module Users
 
       if successfully_sent?(resource)
         success_message(
-          message: 'You will receive an email with instructions for how to confirm your email address in a few minutes.'
+          message: I18n.t('devise.confirmations.send_paranoid_instructions')
         )
 
         respond_with({}, location: after_resending_confirmation_instructions_path_for(resource_name))

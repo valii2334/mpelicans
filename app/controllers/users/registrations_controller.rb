@@ -29,8 +29,7 @@ module Users
         else
           set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
           success_message(
-            message: 'A message with a confirmation link has been sent ' \
-                     'to your email address. Please follow the link to activate your account.'
+            message: I18n.t('devise.registrations.signed_up_but_unconfirmed')
           )
           expire_data_after_sign_in!
           respond_with resource, location: after_inactive_sign_up_path_for(resource)
