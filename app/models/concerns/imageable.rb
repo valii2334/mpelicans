@@ -23,7 +23,19 @@ module Imageable
     end
   end
 
+  def images_thumbnail_urls
+    image_urls(variant: :thumbnail)
+  end
+
+  def images_max_urls
+    image_urls(variant: :max)
+  end
+
   private
+
+  def image_urls(variant:)
+    images.map { |image| image.variant(variant).processed.url }
+  end
 
   def images_are_present
     errors.add :images, :invalid, message: "can't be blank" if passed_images_count.zero?

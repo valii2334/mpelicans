@@ -1,7 +1,7 @@
 <div class="card md-3">
   <div class="card-body text-center">
     <% if user.image.attached? %>
-      <%= image_tag user.image.variant(:max), class: "img-fluid rounded-circle mb-2", width: '128', height: '128' %>
+      <img src="<%= user.image.variant(:max).processed.url %>" class="img-fluid rounded-circle mb-2" width='128' height='128'>
     <% else %>
       <%= image_tag "avatars/avatar.png", class: "img-fluid rounded-circle mb-2", width: '128', height: '128' %>
     <% end %>

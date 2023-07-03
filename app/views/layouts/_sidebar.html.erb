@@ -11,7 +11,7 @@
         <div class="d-flex justify-content-center">
           <div class="flex-shrink-0">
             <% if current_user.image.attached? %>
-              <%= image_tag current_user.image.variant(:max), class: "avatar img-fluid rounded me-1" %>
+              <img src="<%= current_user.image.variant(:max).processed.url %>" class="avatar img-fluid rounded me-1">
             <% else %>
               <%= image_tag "avatars/avatar.png", class: "avatar img-fluid rounded me-1" %>
             <% end %>

@@ -43,10 +43,13 @@
 <% else %>
   <div class="row" data-controller="lightbox">
     <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-      <% @journey_stop.images.each_with_index do |image, index| %>
+      <% images_thumbnail_urls = @journey_stop.images_thumbnail_urls %>
+      <% images_max_urls       = @journey_stop.images_max_urls %>
+
+      <% images_max_urls.each_with_index do |image_max_urls, index| %>
         <div class="col-6">
-          <a href="<%= image.variant(:max).processed.url %>" data-gallery="example-gallery" class="lightbox-image">
-            <img src="<%= image.variant(:thumbnail).processed.url %>" class="img-thumbnail rounded me-2 mb-2" id="journey-stop-image-<%= index %>">
+          <a href="<%= image_max_urls %>" data-gallery="example-gallery" class="lightbox-image">
+            <img src="<%= images_thumbnail_urls[index] %>" class="img-thumbnail rounded me-2 mb-2" id="journey-stop-image-<%= index %>">
           </a>
         </div>
       <% end %>
