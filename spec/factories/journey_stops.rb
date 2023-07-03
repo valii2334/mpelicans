@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './spec/factory_bot_helper.rb'
+require './spec/factory_bot_helper'
 
 FactoryBot.define do
   factory :journey_stop do
