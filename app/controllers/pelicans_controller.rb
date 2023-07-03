@@ -11,13 +11,13 @@ class PelicansController < ApplicationController
   end
 
   def show
-    @user     = User.find_by!(username: params[:username])
+    @user = User.find_by!(username: params[:username])
 
-    if current_user == @user
-      @journeys = Retrievers::Journey.new(user: current_user, which_journeys: 'mine').fetch
-    else
-      @journeys = Retrievers::Journey.new(user: @user).fetch
-    end
+    @journeys = if current_user == @user
+                  Retrievers::Journey.new(user: current_user, which_journeys: 'mine').fetch
+                else
+                  Retrievers::Journey.new(user: @user).fetch
+                end
   end
 
   def edit; end
