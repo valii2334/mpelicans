@@ -34,6 +34,7 @@ class Storage
     Aws::S3::Client.new(
       {
         region: ENV.fetch('S3_REGION', nil),
+        use_accelerate_endpoint: true,
         credentials: Aws::Credentials.new(
           ENV.fetch('S3_ACCESS_KEY_ID', nil),
           ENV.fetch('S3_SECRET_ACCESS_KEY', nil)
