@@ -33,13 +33,9 @@
 <% else %>
   <div class="row" data-controller="lightbox">
     <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12 text-center">
-      <div class="card">
-        <div class="card-body">
-          <a href="<%= @journey.images_max_urls.first %>" data-gallery="example-gallery" class="lightbox-image">
-            <img src="<%= @journey.images_thumbnail_urls.first %>" class="img-thumbnail rounded me-2 mb-2" id="journey-first-picture">
-          </a>
-        </div>
-      </div>
+      <a href="<%= @journey.images_max_urls.first %>" data-gallery="example-gallery" class="lightbox-image">
+        <img src="<%= @journey.images_thumbnail_urls.first %>" style="width: 100%" class="img-thumbnail rounded mb-2" id="journey-first-picture">
+      </a>
     </div>
   </div>
 <% end %>
