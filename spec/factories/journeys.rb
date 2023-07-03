@@ -9,15 +9,9 @@ FactoryBot.define do
     access_type             { :private_journey }
     accepts_recommendations { false }
     access_code             { nil }
-    image_processing_status { :processed }
+    image_processing_status { :waiting }
     images                  { [Rack::Test::UploadedFile.new('spec/fixtures/files/lasvegas.jpg', 'image/jpeg')] }
     passed_images_count     { 1 }
     user
-
-    # rubocop:disable Style/SymbolProc
-    after(:create) do |journey|
-      journey.process_images
-    end
-    # rubocop:enable Style/SymbolProc
   end
 end
