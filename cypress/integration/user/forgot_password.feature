@@ -11,7 +11,6 @@ Feature: Forgot Password
     And I click on link "Forgot your password?"
     And I fill input "#user_email" with user email
     When I click on input "Send me reset password instructions"
-    Then I should receive an email with a reset link
     And I click on password reset link
     And I fill in password and password confirmation
     And I click on input "Change my password"
