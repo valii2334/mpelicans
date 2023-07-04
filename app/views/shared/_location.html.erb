@@ -1,14 +1,21 @@
 <div 
-  class="mb-3" 
+  class="mb-3"
+  style="height: 450px; padding-bottom: 50px;"
   data-controller="location" 
   data-location-lat-element-id-value="<%= lat_element_id %>" 
   data-location-long-element-id-value="<%= long_element_id %>"
 >
   <label class="form-label">
     <%= message %>
+    <br>
+    <strong>You need to set a location before going forward</strong>
   </label>
   <br>
-  <p id="location_not_set_text" class="text-danger d-none">There was a problem while setting current location.</p>
-  <p id="location_set_text" class="text-success d-none">Location was successfully set.</p>
-  <button class="btn btn-sm btn-primary" type="button" data-action="click->location#currentLocation">Current Location</button>
+    <input
+    id="pac-input"
+    class="controls"
+    type="text"
+    placeholder="Search Box"
+  />
+  <div id="map"></div>
 </div>
