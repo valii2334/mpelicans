@@ -13,7 +13,7 @@ class JourneyStop < ApplicationRecord
 
   has_rich_text :description
 
-  validates :description, :title, :lat, :long, presence: true
+  validates :title, :lat, :long, presence: true
   validate :images_are_present
   validate :maximum_number_of_images
 

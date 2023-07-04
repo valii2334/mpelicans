@@ -12,7 +12,7 @@
   </div>
 </div>
 
-<% if @journey.description.body %>
+<% unless @journey.description.body.to_plain_text.blank? %>
   <div class="row">
     <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
       <div class="card">

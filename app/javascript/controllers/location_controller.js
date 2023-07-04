@@ -96,11 +96,11 @@ export default class extends Controller {
 
     const successCallback = (position) => {
       this.setLatLngFormValues(position.coords.latitude, position.coords.longitude)
-      this.setMarkerPositionAndPanTo(marker, { lat: position.coords.latitude, lng: position.coords.longitude}, map, true);
+      this.setMarkerPositionAndPanTo(marker, new google.maps.LatLng(position.coords.latitude, position.coords.longitude), map, true);
     };
       
     const errorCallback = (error) => {
-      this.setMarkerPositionAndPanTo(marker, { lat: this.latValue, lng: this.longValue}, map, false);
+      this.setMarkerPositionAndPanTo(marker, new google.maps.LatLng(this.latValue, this.longValue), map, false);
     };
     
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options);
