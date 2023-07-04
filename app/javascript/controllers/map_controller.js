@@ -10,27 +10,24 @@ export default class extends Controller {
   }
 
   async initMap () {
-    const lat = this.pinsValue[0].position.lat;
-    const lng = this.pinsValue[0].position.lng;
-
     // Request needed libraries.
     const { Map, InfoWindow } = await google.maps.importLibrary("maps");
     const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
     const { LatLng } = await google.maps.importLibrary("core");
-    const center = new LatLng(lat, lng);
     const map = new Map(document.getElementById("map"), {
-      zoom: 11,
-      center,
-      mapId: "4504f8b37365c3d0",
+      mapId: "4504f8b37365c3d0"
     });
 
-    for (const property of this.pinsValue) {    
+    var bounds = new google.maps.LatLngBounds();
 
+    for (const property of this.pinsValue) {    
       const AdvancedMarkerElement = new google.maps.marker.AdvancedMarkerElement({
         map,
         position: property.position,
         title: property.title
       });
+
+      bounds.extend(property.position);
 
       const infoWindow = new InfoWindow();
 
@@ -42,6 +39,16 @@ export default class extends Controller {
         infoWindow.open(AdvancedMarkerElement.map, AdvancedMarkerElement);
       });
     }
+    
+    google.maps.event.addListenerOnce(map, 'bounds_changed', function(event) {
+      this.setZoom(map.getZoom()-1);
+    
+      if (this.getZoom() > 15) {
+        this.setZoom(15);
+      }
+    });
+    
+    map.fitBounds(bounds);
   }
 
   toggleHighlight(markerView, property) {
