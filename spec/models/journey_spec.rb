@@ -70,6 +70,20 @@ RSpec.describe Journey, type: :model do
     end
   end
 
+  context '#set_latest_journey_stop_added_at' do
+    let(:expected_datetime) { DateTime.new(2023, 1, 1, 10, 0, 0) }
+
+    before do
+      allow(DateTime).to receive(:now).and_return(expected_datetime)
+    end
+
+    it 'sets latest_journey_stop_added_at' do
+      expect { subject.save }.to change {
+        subject.latest_journey_stop_added_at
+      }.from(NilClass).to(expected_datetime)
+    end
+  end
+
   ##################################
   # Methods
   ##################################

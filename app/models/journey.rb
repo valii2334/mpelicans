@@ -17,13 +17,14 @@ class Journey < ApplicationRecord
 
   validates :access_code,
             :lat,
+            :latest_journey_stop_added_at,
             :long,
             :title,
             presence: true
 
   validate :images_are_present
 
-  default_scope { order(updated_at: :desc) }
+  default_scope { order(latest_journey_stop_added_at: :desc) }
 
   alias_attribute :plus_code, :start_plus_code
 
@@ -35,6 +36,7 @@ class Journey < ApplicationRecord
   }
 
   before_validation :add_access_code
+  before_validation :set_latest_journey_stop_added_at
 
   def pins
     pinnables = [self, journey_stops].flatten
@@ -46,6 +48,12 @@ class Journey < ApplicationRecord
   end
 
   private
+
+  def set_latest_journey_stop_added_at
+    return if latest_journey_stop_added_at
+
+    self.latest_journey_stop_added_at = DateTime.now
+  end
 
   def add_access_code
     return if access_code

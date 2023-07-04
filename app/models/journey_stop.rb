@@ -19,12 +19,20 @@ class JourneyStop < ApplicationRecord
 
   default_scope { order(created_at: :desc) }
 
+  before_create :set_latest_journey_stop_added_at
+
   def pin
     Pin.new(pinnable: self).to_pin
   end
 
   def link_to_self
     journey_journey_stop_url(journey, self, host: 'https://www.mpelicans.com')
+  end
+
+  private
+
+  def set_latest_journey_stop_added_at
+    journey.update(latest_journey_stop_added_at: DateTime.now)
   end
 
   def maximum_number_of_images

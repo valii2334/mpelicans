@@ -61,6 +61,23 @@ RSpec.describe JourneyStop, type: :model do
   # Callbacks
   ##################################
 
+  context '#set_latest_journey_stop_added_at' do
+    let(:old_latest_journey_stop_added_at) { DateTime.new(2022, 1, 1, 10, 0, 0) }
+    let(:expected_datetime) { DateTime.new(2023, 1, 1, 10, 0, 0) }
+
+    before do
+      allow(DateTime).to receive(:now).and_return(expected_datetime)
+
+      subject.journey.update(latest_journey_stop_added_at: old_latest_journey_stop_added_at)
+    end
+
+    it 'sets latest_journey_stop_added_at' do
+      expect { subject.save }.to change {
+        subject.journey.latest_journey_stop_added_at
+      }.from(old_latest_journey_stop_added_at).to(expected_datetime)
+    end
+  end
+
   ##################################
   # Associations
   ##################################
