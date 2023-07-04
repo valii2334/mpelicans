@@ -25,15 +25,11 @@ export default class extends Controller {
     });
 
     for (const property of this.pinsValue) {    
-      const pin = new PinElement({
-        glyph: '',
-      });
 
       const AdvancedMarkerElement = new google.maps.marker.AdvancedMarkerElement({
         map,
         position: property.position,
-        title: property.title,
-        content: pin.element
+        title: property.title
       });
 
       const infoWindow = new InfoWindow();
