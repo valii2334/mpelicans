@@ -1,6 +1,5 @@
 <div 
   class="mb-3"
-  style="height: 450px; padding-bottom: 50px;"
   data-controller="location" 
   data-location-lat-element-id-value="<%= lat_element_id %>" 
   data-location-long-element-id-value="<%= long_element_id %>"
@@ -11,11 +10,22 @@
     <strong>You need to set a location before going forward</strong>
   </label>
   <br>
-    <input
-    id="pac-input"
-    class="controls"
-    type="text"
-    placeholder="Search Box"
-  />
-  <div id="map"></div>
+
+  <div class="row">
+    <div class="col-12">
+      <input
+        id="pac-input"
+        class="controls"
+        type="text"
+        placeholder="Search Box"
+      />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card" style="height: 450px">
+        <div id="map"></div>
+      </div>
+    </div>
+  </div>
 </div>
