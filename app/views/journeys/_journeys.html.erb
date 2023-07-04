@@ -31,7 +31,13 @@
               <% if journey.journey_stops.present? %>
                 <p>
                   <em>
-                    New stop added <%= time_ago_in_words(journey.journey_stops.first.created_at) %> ago.
+                    New stop was added <%= time_ago_in_words(journey.journey_stops.first.created_at) %> ago.
+                  </em>
+                </p>
+              <% else %>
+                <p>
+                  <em>
+                    Journey was created <%= time_ago_in_words(journey.created_at) %> ago.
                   </em>
                 </p>
               <% end %>
