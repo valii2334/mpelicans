@@ -9,7 +9,6 @@ export default class extends Controller {
   }
 
   connect() {
-    this.currentLocation();
     this.initMap();
   }
 
@@ -43,7 +42,7 @@ export default class extends Controller {
 
     // On every click set marker position
     map.addListener("click", (e) => {
-      this.setMarkerPositionAndPanTo(marker, e.latLng, map);
+      this.setMarkerPositionAndPanTo(marker, e.latLng, map, true);
     });
 
     searchBox.addListener("places_changed", () => {
@@ -63,7 +62,7 @@ export default class extends Controller {
         }
   
         // Create a marker
-        this.setMarkerPositionAndPanTo(marker, place.geometry.location, map);
+        this.setMarkerPositionAndPanTo(marker, place.geometry.location, map, true);
 
         if (place.geometry.viewport) {
           // Only geocodes have viewport.
@@ -76,47 +75,43 @@ export default class extends Controller {
     });
 
     // Set initial marker on map
-    this.setMarkerPositionAndPanTo(marker, { lat: this.latValue, lng: this.longValue}, map);
+    this.currentLocation(map, marker);
   }
   
-  setMarkerPositionAndPanTo(marker, latLng, map) {
+  setMarkerPositionAndPanTo(marker, latLng, map, locationManuallySet) {
     marker.setPosition(latLng);
     map.panTo(latLng);
 
-    this.setLatLngFormValues(latLng.lat, latLng.lng)
+    this.setLatLngFormValues(latLng.lat, latLng.lng);
+
+    if (locationManuallySet) {
+      this.locationWasSetManually();
+    }
   }
 
-  currentLocation() {
+  currentLocation(map, marker) {
     const options = {
       enableHighAccuracy: true
     };
 
     const successCallback = (position) => {
       this.setLatLngFormValues(position.coords.latitude, position.coords.longitude)
-
-      this.latValue = position.coords.latitude;
-      this.longValue = position.coords.longitude;
+      this.setMarkerPositionAndPanTo(marker, { lat: position.coords.latitude, lng: position.coords.longitude}, map, true);
     };
       
     const errorCallback = (error) => {
-      this.locationWasNotSet();
+      this.setMarkerPositionAndPanTo(marker, { lat: this.latValue, lng: this.longValue}, map, false);
     };
     
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options);
   }
 
-  locationWasSet() {
+  locationWasSetManually() {
     $('#form_submit_button')[0].disabled = false
-  }
-
-  locationWasNotSet() {
-    $('#form_submit_button')[0].disabled = true
   }
 
   setLatLngFormValues(lat, long) {
     $(this.latElementIdValue).val(lat);
     $(this.longElementIdValue).val(long);
-
-    this.locationWasSet();
   }
 }
