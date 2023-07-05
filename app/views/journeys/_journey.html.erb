@@ -12,6 +12,18 @@
   </div>
 </div>
 
+<% if current_user && can?(:edit, @journey) %>
+  <div class="row">
+  	<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
+  		<div class="card">
+        <div class="card-body">
+            Privacy: <%= @journey.access_type.split('_').first %>.
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
 <% unless @journey.description.body.to_plain_text.blank? %>
   <div class="row">
     <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
@@ -44,52 +56,6 @@
   <%= render partial: 'shared/map', locals: { pins: @journey.pins.to_json } %>
 <% end %>
 
-<% if current_user && can?(:edit, @journey) %>
-  <div class="row">
-  	<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-  		<div class="card">
-        <div class="card-header">
-          <h5 class="card-title">
-            Privacy
-          </h5>
-          <h6 class="card-subtitle text-muted">
-            Current setting: <strong><%= @journey.access_type.split('_').first %></strong>.
-          </h6>
-        </div>
-  			<div class="card-body">
-          <% if @journey.protected_journey? %>
-            <div class="row">
-              <a href="<%= watch_journey_url(access_code: @journey.access_code) %>" class="private_link">Private link to share</a>
-            </div>
-            <br>
-            <br>
-          <% elsif @journey.public_journey? %>
-            <div class="row">
-              <a href="<%= journey_url(@journey) %>" class="public_link">Public link to share</a>
-            </div>
-            <br>
-            <br>
-          <% elsif @journey.monetized_journey? %>
-            <div class="row">
-              <a href="<%= pelican_url(username: @journey.user.username) %>" class="public_link_to_profile">Public link to profile to share</a>
-            </div>
-            <br>
-            <br>
-          <% end %>
-
-          <div class="row">
-            <div class="mb-3">
-              <% journey_privacy_buttons(journey: @journey).each do |button| %>
-                <%= button %>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-<% end %>
-
 <div class="row">
   <% @journey.journey_stops.each_with_index do |journey_stop, index| %>
     <% index_class = "journey-stop-#{index}" %>
@@ -118,9 +84,7 @@
         </div>
         <div class="card-body">
           <p>
-            <em>
-              Created <%= time_ago_in_words(journey_stop.created_at) %> ago.
-            </em>
+            Created <%= time_ago_in_words(journey_stop.created_at) %> ago.
           </p>
           <p>
             <% if can?(:show, journey_stop) %>

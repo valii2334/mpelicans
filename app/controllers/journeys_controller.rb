@@ -47,20 +47,6 @@ class JourneysController < ApplicationController
     end
   end
 
-  def update
-    @journey = Journey.find(params[:id])
-
-    authorize_journey(:update)
-
-    if @journey.update(journey_update_params)
-      success_message(message: 'Your journey was updated.')
-    else
-      alert_message
-    end
-
-    redirect_to journey_path(@journey)
-  end
-
   def destroy
     @journey = Journey.find(params[:id])
 
@@ -99,12 +85,6 @@ class JourneysController < ApplicationController
 
   def notify_users
     NotifierJob.perform_async(@journey.id, 'new_journey', @journey.user_id)
-  end
-
-  def journey_update_params
-    params.require(:journey).permit(
-      :access_type
-    )
   end
 
   def authorize_journey(method)
