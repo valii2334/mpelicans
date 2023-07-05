@@ -16,8 +16,6 @@ RSpec.describe Journey, type: :model do
   it { should have_attribute :accepts_recommendations }
   it { should have_attribute :user_id }
   it { should have_attribute :access_code }
-  it { should have_attribute :lat }
-  it { should have_attribute :long }
 
   ##################################
   # ENUMS
@@ -25,7 +23,7 @@ RSpec.describe Journey, type: :model do
 
   it do
     should define_enum_for(:access_type).with_values(
-      %i[private_journey protected_journey public_journey monetized_journey]
+      %i[public_journey protected_journey private_journey monetized_journey]
     )
   end
 
@@ -39,8 +37,6 @@ RSpec.describe Journey, type: :model do
   # Validations
   ##################################
 
-  it { should validate_presence_of :lat }
-  it { should validate_presence_of :long }
   it { should validate_presence_of :title }
 
   it_behaves_like '#images_are_present'
@@ -88,16 +84,6 @@ RSpec.describe Journey, type: :model do
   # Methods
   ##################################
 
-  context '#link_to_self' do
-    before do
-      subject.save
-    end
-
-    it 'returns full url to self' do
-      expect(subject.link_to_self).to eq(nil)
-    end
-  end
-
   context '#pins' do
     before do
       subject.save
@@ -109,7 +95,6 @@ RSpec.describe Journey, type: :model do
     it 'returns all pins' do
       expect(subject.pins).to match_array(
         [
-          Pin.new(pinnable: subject).to_pin,
           Pin.new(pinnable: journey_stop0).to_pin,
           Pin.new(pinnable: journey_stop1).to_pin
         ]

@@ -52,7 +52,7 @@
   </div>
 <% end %>
 
-<% unless Rails.env.test? %>
+<% if !Rails.env.test? && @journey.pins.present? %>
   <%= render partial: 'shared/map', locals: { pins: @journey.pins.to_json } %>
 <% end %>
 

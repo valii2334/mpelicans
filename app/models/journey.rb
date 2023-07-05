@@ -16,9 +16,7 @@ class Journey < ApplicationRecord
   has_rich_text :description
 
   validates :access_code,
-            :lat,
             :latest_journey_stop_added_at,
-            :long,
             :title,
             presence: true
 
@@ -29,9 +27,9 @@ class Journey < ApplicationRecord
   alias_attribute :plus_code, :start_plus_code
 
   enum access_type: {
-    private_journey: 0,
+    public_journey: 0,
     protected_journey: 1,
-    public_journey: 2,
+    private_journey: 2,
     monetized_journey: 3
   }
 
@@ -39,12 +37,7 @@ class Journey < ApplicationRecord
   before_validation :set_latest_journey_stop_added_at
 
   def pins
-    pinnables = [self, journey_stops].flatten
-    pinnables.map { |pinnable| Pin.new(pinnable:).to_pin }
-  end
-
-  def link_to_self
-    nil
+    journey_stops.map { |pinnable| Pin.new(pinnable:).to_pin }
   end
 
   private

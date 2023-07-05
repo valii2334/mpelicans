@@ -11,9 +11,6 @@
 		<div class="card">
 			<div class="card-body">
         <%= form_for @journey do |f| %>
-					<%= f.hidden_field :lat %>
-          <%= f.hidden_field :long %>
-
 					<div class="mb-3" style="color: red;">
 						<% @journey.errors.full_messages.each do |message| %>
 							<li><%= message %></li>
@@ -30,21 +27,19 @@
             <%= f.rich_text_area :description, class: 'form-control' %>
           </div>
 
-          <%= render partial: 'shared/location', locals: { message: 'What is your journeys start location?', lat_element_id: '#journey_lat', long_element_id: '#journey_long' } %>
-
           <div class="mb-3">
             <label class="form-label">
               Access Type. This can be changed later.
             </label>
 
-            <div class="form-check">
-              <label>
-                <%= f.radio_button :access_type, 'private_journey', checked: true, class: 'form-check-input' %>
-                Private
+						<div class="form-check">
+							<label>
+								<%= f.radio_button :access_type, 'public_journey', checked: true, class: 'form-check-input' %>
+								Public
 								<br>
-								<em>Only you can view this journey.</em>
-              </label>
-            </div>
+								<em>Anyone can see this journey.</em>
+							</label>
+						</div>
 
             <div class="form-check">
               <label>
@@ -55,14 +50,14 @@
               </label>
             </div>
 
-						<div class="form-check">
-							<label>
-								<%= f.radio_button :access_type, 'public_journey', class: 'form-check-input' %>
-								Public
+            <div class="form-check">
+              <label>
+                <%= f.radio_button :access_type, 'private_journey', class: 'form-check-input' %>
+                Private
 								<br>
-								<em>Anyone can see this journey.</em>
-							</label>
-						</div>
+								<em>Only you can view this journey.</em>
+              </label>
+            </div>
 
 						<div class="form-check">
 							<label>
@@ -85,7 +80,7 @@
           </div>
 
 					<div class="actions">
-            <%= f.submit "Create", disabled: true, class: 'btn btn-primary', id: "form_submit_button" %>
+            <%= f.submit "Create", class: 'btn btn-primary', id: "form_submit_button" %>
           </div>
         <% end %>
 			</div>

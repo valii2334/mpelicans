@@ -101,8 +101,6 @@ RSpec.describe JourneysController, type: :controller do
               {
                 description: FFaker::Lorem.paragraph,
                 images: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
-                lat: '46.749971',
-                long: '23.598739',
                 user_id: user.id
               }
             end
@@ -122,34 +120,6 @@ RSpec.describe JourneysController, type: :controller do
 
             include_examples 'missing parameter', Journey, 'Images'
           end
-
-          context 'missing lat' do
-            let(:journey_params) do
-              {
-                description: FFaker::Lorem.paragraph,
-                images: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
-                long: '23.598739',
-                title: FFaker::Name.name,
-                user_id: user.id
-              }
-            end
-
-            include_examples 'missing parameter', Journey, 'Lat'
-          end
-
-          context 'missing long' do
-            let(:journey_params) do
-              {
-                description: FFaker::Lorem.paragraph,
-                images: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
-                lat: '46.749971',
-                title: FFaker::Name.name,
-                user_id: user.id
-              }
-            end
-
-            include_examples 'missing parameter', Journey, 'Long'
-          end
         end
 
         context 'valid parameters' do
@@ -160,8 +130,6 @@ RSpec.describe JourneysController, type: :controller do
               access_type:,
               description: FFaker::Lorem.paragraph,
               images: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
-              lat: '46.749971',
-              long: '23.598739',
               title: FFaker::Name.name,
               user_id: user.id
             }

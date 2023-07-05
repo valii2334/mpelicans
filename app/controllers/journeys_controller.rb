@@ -11,8 +11,6 @@ class JourneysController < ApplicationController
     access_type
     description
     image
-    lat
-    long
     title
   ].freeze
 

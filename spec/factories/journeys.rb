@@ -6,8 +6,6 @@ FactoryBot.define do
   factory :journey do
     title { FFaker::Name.name }
     description             { FFaker::Lorem.paragraph }
-    lat                     { '46.749971' }
-    long                    { '23.598739' }
     access_type             { :private_journey }
     accepts_recommendations { false }
     access_code             { nil }

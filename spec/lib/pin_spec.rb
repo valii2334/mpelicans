@@ -19,14 +19,6 @@ RSpec.describe Pin do
     }
   end
 
-  context 'journey' do
-    let(:pinnable) { create :journey }
-
-    it 'returns a pin' do
-      expect(subject).to eq(expected_pin)
-    end
-  end
-
   context 'journey_stop' do
     let(:pinnable) { create :journey_stop }
 
