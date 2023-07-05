@@ -1,29 +1,18 @@
 <footer class="footer">
-    <div class="container-fluid">
-    <div class="row text-muted">
-        <div class="col-6 text-start">
-        <p class="mb-0">
-            <strong>VLZ &copy; <%= DateTime.now.year %></strong>
-        </p>
-        </div>
-        <div class="col-6 text-end">
-        <ul class="list-inline">
-            <li class="list-inline-item">
+  <div class="container-fluid">
+  <div class="row text-muted">
+      <div class="col-6 text-start">
+      <p class="mb-0">
+        <strong>VLZ DEVOPS S.R.L. &copy; <%= DateTime.now.year %></strong>
+      </p>
+      </div>
+      <div class="col-6 text-end">
+      <ul class="list-inline">
+        <li class="list-inline-item">
             <a class="text-muted" href="mailto:<%= ENV.fetch('SUPPORT_EMAIL', 'support@mpelicans.com') %>">Support</a>
-            </li>
-            <li class="list-inline-item">
-            <a class="text-muted" href="mailto:<%= ENV.fetch('SUPPORT_EMAIL', 'support@mpelicans.com') %>">Help Center</a>
-            </li>
-            <% if false %>
-            <li class="list-inline-item">
-                <a class="text-muted" href="#">Privacy</a>
-            </li>
-            <li class="list-inline-item">
-                <a class="text-muted" href="#">Terms</a>
-            </li>
-            <% end %>
-        </ul>
-        </div>
-    </div>
-    </div>
+        </li>
+      </ul>
+      </div>
+  </div>
+  </div>
 </footer>
