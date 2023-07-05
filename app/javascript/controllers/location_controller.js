@@ -19,7 +19,7 @@ export default class extends Controller {
     const { SearchBox } = await google.maps.importLibrary("places");
 
     const map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 13,
+      zoom: 18,
       center: { lat: this.latValue, lng: this.longValue },
     });
   
