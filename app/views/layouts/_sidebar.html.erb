@@ -62,6 +62,18 @@
             </ul>
           </li>
 
+          <li class="sidebar-item <%= active_controller_action?(controller: 'map_pins', action: 'index') %>">
+            <%= link_to map_pins_path, class: 'sidebar-link', data: { "bs-target" => '#map_pins' } do %>
+              <i class="align-middle" data-feather="map-pin"></i> <span class="align-middle">Pins</span>
+            <% end %>
+
+            <ul id="map_pins" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+              <li class="sidebar-item <%= active_controller_action?(controller: 'map_pins', action: 'index') %>">
+                <%= link_to "Saved", map_pins_path, class: 'sidebar-link' %>
+              </li>
+            </ul>
+          </li>
+
           <li class="sidebar-item <%= active_controller_action?(controller: 'pelicans', action: 'index') %> <%= active_controller_action?(controller: 'pelicans', action: 'show') %>">
             <%= link_to pelicans_path, class: 'sidebar-link', data: { "bs-target" => '#pelicans' } do %>
               <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Pelicans</span>

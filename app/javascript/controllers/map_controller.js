@@ -39,10 +39,10 @@ export default class extends Controller {
         infoWindow.open(AdvancedMarkerElement.map, AdvancedMarkerElement);
       });
     }
-    
+
     google.maps.event.addListenerOnce(map, 'bounds_changed', function(event) {
       this.setZoom(map.getZoom()-1);
-    
+
       if (this.getZoom() > 15) {
         this.setZoom(15);
       }
