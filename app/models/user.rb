@@ -44,6 +44,8 @@ class User < ApplicationRecord
            dependent: :destroy,
            inverse_of: :receiver
 
+  has_many :map_pins, dependent: :destroy
+
   validates :username, presence: true
   validates :username, uniqueness: { case_sensitive: false }
 

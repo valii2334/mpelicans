@@ -30,6 +30,7 @@ RSpec.describe User, type: :model do
   it { should have_many(:paid_journeys).class_name('PaidJourney').dependent(:destroy).inverse_of(:user) }
   it { should have_many(:bought_journeys).through(:paid_journeys).source(:journey) }
   it { should have_many(:journeys).dependent(:destroy) }
+  it { should have_many(:map_pins).dependent(:destroy) }
 
   it {
     should have_many(:followed_users)

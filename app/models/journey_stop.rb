@@ -10,7 +10,7 @@ class JourneyStop < ApplicationRecord
   belongs_to :journey
   has_many :notifications, dependent: :destroy
   has_many :uploaded_images, as: :imageable, dependent: :destroy
-
+  has_many :map_pins, dependent: :nullify
   has_rich_text :description
 
   validates :title, :lat, :long, presence: true
