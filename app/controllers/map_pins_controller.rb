@@ -21,6 +21,19 @@ class MapPinsController < ApplicationController
     @map_pins.map { |pinnable| Pin.new(pinnable:).to_pin }
   end
 
+  def create
+    journey_stop = JourneyStop.find(params[:journey_stop_id])
+
+    MapPin.create!(
+      journey_stop_id: journey_stop.id,
+      lat: journey_stop.lat,
+      long: journey_stop.long,
+      user_id: current_user.id
+    )
+
+    head :ok
+  end
+
   private
 
   def user_id

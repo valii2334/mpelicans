@@ -21,4 +21,10 @@ RSpec.describe MapPin, type: :model do
 
   it { should belong_to(:journey_stop).optional(true) }
   it { should belong_to(:user) }
+
+  ##################################
+  # Validations
+  ##################################
+
+  it { should validate_uniqueness_of(:journey_stop_id).scoped_to(:user_id) }
 end

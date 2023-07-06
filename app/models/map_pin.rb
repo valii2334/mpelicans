@@ -7,4 +7,5 @@ class MapPin < ApplicationRecord
   delegate :title, :link_to_self, to: :journey_stop, allow_nil: true
 
   validates :lat, :long, presence: true
+  validates :journey_stop_id, uniqueness: { scope: :user_id }
 end
