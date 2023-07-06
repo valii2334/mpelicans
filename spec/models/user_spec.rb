@@ -31,6 +31,7 @@ RSpec.describe User, type: :model do
   it { should have_many(:bought_journeys).through(:paid_journeys).source(:journey) }
   it { should have_many(:journeys).dependent(:destroy) }
   it { should have_many(:map_pins).dependent(:destroy) }
+  it { should have_many(:pinned_journey_stops).through(:map_pins).source(:journey_stop) }
 
   it {
     should have_many(:followed_users)
@@ -92,8 +93,28 @@ RSpec.describe User, type: :model do
     end
 
     context 'does not follow user' do
-      it 'returns true' do
+      it 'returns false' do
         expect(subject.follows?(followee: user2)).to be_falsey
+      end
+    end
+  end
+
+  context '#pinned_journey_stop?' do
+    let!(:map_pin) { create :map_pin }
+
+    context 'pinned journey stop' do
+      before do
+        map_pin.update(user: subject)
+      end
+
+      it 'returns true' do
+        expect(subject.pinned_journey_stop?(journey_stop: map_pin.journey_stop)).to be_truthy
+      end
+    end
+
+    context 'not pinned journey stop' do
+      it 'returns false' do
+        expect(subject.pinned_journey_stop?(journey_stop: map_pin.journey_stop)).to be_falsey
       end
     end
   end

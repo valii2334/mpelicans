@@ -72,7 +72,9 @@ RSpec.describe Retrievers::Journey do
         create :journey, user:, image_processing_status: :processing, access_type: :private_journey
       end
 
-      context 'which_journeys is nil' do
+      context 'which_journeys is users' do
+        let(:which_journeys) { 'users' }
+
         it 'returns users processed monetized and public journeys only' do
           expect(subject).to match_array(
             [cu_processed_monetized_journey, cu_processed_public_journey]

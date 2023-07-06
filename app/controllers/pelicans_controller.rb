@@ -16,7 +16,7 @@ class PelicansController < ApplicationController
     @journeys = if current_user == @user
                   Retrievers::Journey.new(user: current_user, which_journeys: 'mine').fetch
                 else
-                  Retrievers::Journey.new(user: @user).fetch
+                  Retrievers::Journey.new(user: @user, which_journeys: 'users').fetch
                 end
   end
 

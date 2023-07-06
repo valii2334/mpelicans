@@ -83,8 +83,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_113952) do
   create_table "map_pins", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "journey_stop_id"
-    t.string "lat", null: false
-    t.string "long", null: false
+    t.float "lat", null: false
+    t.float "long", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["journey_stop_id"], name: "index_map_pins_on_journey_stop_id"

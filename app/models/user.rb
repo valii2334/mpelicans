@@ -46,6 +46,10 @@ class User < ApplicationRecord
 
   has_many :map_pins, dependent: :destroy
 
+  has_many :pinned_journey_stops,
+           through: :map_pins,
+           source: :journey_stop
+
   validates :username, presence: true
   validates :username, uniqueness: { case_sensitive: false }
 
@@ -68,6 +72,10 @@ class User < ApplicationRecord
 
   def login
     @login || username || email
+  end
+
+  def pinned_journey_stop?(journey_stop:)
+    pinned_journey_stops.include?(journey_stop)
   end
 
   def self.find_for_database_authentication(warden_conditions)

@@ -62,4 +62,48 @@ RSpec.describe MapPinsController, type: :controller do
       end
     end
   end
+
+  context 'destroy' do
+    let!(:map_pin) { create :map_pin, user: }
+
+    subject do
+      delete :destroy, params: { id: map_pin.id }
+    end
+
+    context 'logged in' do
+      before do
+        sign_in user
+      end
+
+      context 'can destroy map pin of current user' do
+        it 'it is successful' do
+          subject
+
+          expect(response.status).to eq(200)
+        end
+
+        it 'destroys a MapPin' do
+          expect do
+            subject
+          end.to change { user.map_pins.count }.by(-1)
+        end
+      end
+
+      context 'can not destroy pin of another user' do
+        let!(:map_pin) { create :map_pin }
+
+        it 'returns an error' do
+          expect { subject }.to raise_error(CanCan::AccessDenied)
+        end
+      end
+    end
+
+    context 'not logged in' do
+      it 'it is redirected' do
+        subject
+
+        expect(response.status).to eq(302)
+      end
+    end
+  end
 end

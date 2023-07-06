@@ -36,6 +36,16 @@
   <%= render partial: 'shared/map', locals: { pins: [@journey_stop.pin].to_json } %>
 <% end %>
 
+<% if current_user && @journey_stop.user != current_user %>
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
+      <%= render partial: 'map_pins/pin_unpin', locals: { current_user: current_user, journey_stop: @journey_stop } %>
+    </div>
+  </div>
+<% end %>
+
+<br>
+
 <% if @journey_stop.waiting? %>
   <%= render partial: 'shared/processing_images', locals: { message: 'Please wait. Images have been scheduled for processing.' } %>
 <% elsif @journey_stop.processing? %>

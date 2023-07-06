@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     end
   end
   resources :watch_journeys, only: [:show], param: :access_code
-  resources :map_pins,       only: [:index, :create]
+  resources :map_pins,       only: [:index, :create, :destroy]
 
   root 'journeys#index'
 end

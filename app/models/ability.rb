@@ -37,9 +37,14 @@ class Ability
     ##################################
 
     can :create, Relationship do |_, follower, followee|
-      !same_user?(followee:, follower:) && !follower.follows?(followee:)
+      follower != followee && !follower.follows?(followee:)
     end
     can :destroy, Relationship, follower_id: user.id
+
+    can :create, MapPin do |_, current_user, journey_stop|
+      current_user != journey_stop.user && !current_user.pinned_journey_stop?(journey_stop:)
+    end
+    can :destroy, MapPin, user_id: user.id
   end
   # rubocop:enable Metrics/MethodLength
   # rubocop:enable Metrics/AbcSize
@@ -54,10 +59,6 @@ class Ability
 
   def can_buy_journey?(journey:, user:)
     journey.monetized_journey? && !user.bought_journey?(journey:)
-  end
-
-  def same_user?(follower:, followee:)
-    follower == followee
   end
 
   def can_view_journey?(journey:, user:, params:)

@@ -1,0 +1,10 @@
+<%= tag.div id: dom_id(journey_stop, :save_pin) do %>
+  <% if can?(:create, MapPin.new, current_user, journey_stop) %>
+    <%= button_to 'Save Pin', map_pins_path(journey_stop_id: journey_stop.id), method: :post, remote: true, class: 'btn btn-primary' %>
+  <% else %>
+    <% map_pin = MapPin.find_by(user_id: current_user.id, journey_stop_id: journey_stop.id) %>
+    <% if can?(:destroy, map_pin, current_user, journey_stop) %>
+      <%= button_to 'Remove Pin', map_pin_path(id: map_pin.id), method: :delete, remote: true, class: 'btn btn-primary' %>
+    <% end %>
+  <% end %>
+<% end %>

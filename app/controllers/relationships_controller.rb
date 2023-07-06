@@ -9,7 +9,7 @@ class RelationshipsController < ApplicationController
 
     authorize! :create, Relationship.new, current_user, followee
 
-    Relationship.find_or_create_by!(follower_id: current_user.id, followee_id: params[:followee_id])
+    Relationship.create!(follower_id: current_user.id, followee_id: params[:followee_id])
 
     success_message(message: "You are now following #{followee.username} across the world!")
 

@@ -17,6 +17,8 @@ class JourneyStop < ApplicationRecord
   validate :images_are_present
   validate :maximum_number_of_images
 
+  delegate :user, to: :journey
+
   default_scope { order(created_at: :desc) }
 
   before_create :set_latest_journey_stop_added_at
