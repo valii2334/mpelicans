@@ -42,48 +42,18 @@
             <%= link_to journeys_path, class: 'sidebar-link', data: { "bs-target" => '#journeys' } do %>
               <i class="align-middle" data-feather="layout"></i> <span class="align-middle">Journeys</span>
             <% end %>
-
-            <ul id="journeys" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
-              <li class="sidebar-item <%= active_journeys_tab?(tab: 'mine') %>">
-                <%= link_to 'Mine', journeys_path(which_journeys: 'mine'), class: 'sidebar-link' %>
-              </li>
-
-              <li class="sidebar-item <%= active_journeys_tab?(tab: 'bought') %>">
-                <%= link_to 'Bought', journeys_path(which_journeys: 'bought'), class: 'sidebar-link' %>
-              </li>
-
-              <li class="sidebar-item <%= active_journeys_tab? %>">
-                <%= link_to 'Latest', journeys_path, class: 'sidebar-link' %>
-              </li>
-
-              <li class="sidebar-item <%= active_controller_action?(controller: 'journeys', action: 'new') %>">
-                <%= link_to "+ New Journey", new_journey_path, class: 'sidebar-link' %>
-              </li>
-            </ul>
           </li>
 
           <li class="sidebar-item <%= active_controller_action?(controller: 'map_pins', action: 'index') %>">
             <%= link_to map_pins_path, class: 'sidebar-link', data: { "bs-target" => '#map_pins' } do %>
               <i class="align-middle" data-feather="map-pin"></i> <span class="align-middle">Pins</span>
             <% end %>
-
-            <ul id="map_pins" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
-              <li class="sidebar-item <%= active_controller_action?(controller: 'map_pins', action: 'index') %>">
-                <%= link_to "Saved", map_pins_path, class: 'sidebar-link' %>
-              </li>
-            </ul>
           </li>
 
           <li class="sidebar-item <%= active_controller_action?(controller: 'pelicans', action: 'index') %> <%= active_controller_action?(controller: 'pelicans', action: 'show') %>">
             <%= link_to pelicans_path, class: 'sidebar-link', data: { "bs-target" => '#pelicans' } do %>
-              <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Pelicans</span>
+              <i class="align-middle" data-feather="users"></i> <span class="align-middle">Pelicans</span>
             <% end %>
-
-            <ul id="pelicans" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
-              <li class="sidebar-item <%= active_controller_action?(controller: 'pelicans', action: 'index') %>">
-                <%= link_to "Search", pelicans_path, class: 'sidebar-link' %>
-              </li>
-            </ul>
           </li>
 
           <li class="sidebar-item <%= active_controller_action?(controller: 'pelicans', action: 'edit') %>">

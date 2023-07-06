@@ -14,7 +14,6 @@ Feature: Destroy Journey Stop
     Then journey information should be
       | title            | description              | journey_image |
       | Going to Munchen | My first trip to Germany | .jpg          |
-    And link "Mine" is active in the sidebar
     And I click on link "+ New Stop"
     Given I fill in journey stop information with
       | title               | description               | journey_stop_images |

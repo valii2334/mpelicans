@@ -54,7 +54,9 @@ Given(/^I go to home page/, () => {
 });
 
 Then(/^I should be on the home page/, () => {
-  cy.get('h1').contains('Latest');
+  cy.contains('Mine');
+  cy.contains('Bought');
+  cy.contains('Latest');
 });
 
 Then(/^I should be on the profile page/, () => {

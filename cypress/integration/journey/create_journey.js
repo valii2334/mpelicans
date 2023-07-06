@@ -17,7 +17,3 @@ Then(/^journey information should be/, (datatable) => {
   cy.get('#journey-description').contains(table[0].description);
   cy.get('#journey-first-picture').should('have.attr', 'src').should('include', table[0].journey_image);
 });
-
-Then(/^link "([^"]*)" is active in the sidebar/, (link) => {
-  cy.get('li.sidebar-item.active').contains(link);
-});
