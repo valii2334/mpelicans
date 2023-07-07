@@ -14,6 +14,7 @@ RSpec.describe MapPin, type: :model do
   it { should have_attribute :user_id }
   it { should have_attribute :lat }
   it { should have_attribute :long }
+  it { should have_attribute :title }
 
   ##################################
   # Associations
@@ -26,5 +27,8 @@ RSpec.describe MapPin, type: :model do
   # Validations
   ##################################
 
+  it { should validate_presence_of :lat }
+  it { should validate_presence_of :long }
+  it { should validate_presence_of :title }
   it { should validate_uniqueness_of(:journey_stop_id).scoped_to(:user_id) }
 end

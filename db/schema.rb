@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_07_055616) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_07_063144) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -87,6 +87,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_07_055616) do
     t.float "long", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "title"
+    t.index ["journey_stop_id"], name: "index_map_pins_on_journey_stop_id"
+    t.index ["user_id", "journey_stop_id"], name: "index_map_pins_on_user_id_and_journey_stop_id", unique: true
+    t.index ["user_id"], name: "index_map_pins_on_user_id"
   end
 
   create_table "notifications", force: :cascade do |t|

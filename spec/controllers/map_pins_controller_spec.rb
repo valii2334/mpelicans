@@ -47,10 +47,18 @@ RSpec.describe MapPinsController, type: :controller do
         expect(response.status).to eq(200)
       end
 
-      it 'creates a MapPin' do
+      it 'creates a MapPin with attributes', :aggregate_failures do
         expect do
           subject
         end.to change { user.map_pins.count }.by(1)
+
+        map_pin = user.map_pins.last
+
+        expect(map_pin.user).to eq(user)
+        expect(map_pin.journey_stop).to eq(journey_stop)
+        expect(map_pin.lat).to eq(journey_stop.lat)
+        expect(map_pin.long).to eq(journey_stop.long)
+        expect(map_pin.title).to eq(journey_stop.title)
       end
     end
 

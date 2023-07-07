@@ -7,8 +7,8 @@ FactoryBot.define do
     description { FFaker::Lorem.paragraph }
     # images                  { [Rack::Test::UploadedFile.new('spec/fixtures/files/lasvegas.jpg', 'image/jpeg')] }
     image_processing_status { :processed }
-    lat                     { '46.749971' }
-    long                    { '23.598739' }
+    lat                     { 46.749971 }
+    long                    { 23.598739 }
     passed_images_count     { 1 }
     title                   { FFaker::Name.name }
 
