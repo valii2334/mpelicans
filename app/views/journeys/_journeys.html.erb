@@ -29,12 +29,13 @@
             </div>
 						<div class="card-body">
               <p>
-                <%= link_to pelican_path(journey.user.username) do %>
+                <%= link_to pelican_path(journey.user.username), class: 'link-secondary' do %>
                   <% if journey.user.image.attached? %>
-                    <img src="<%= journey.user.image.variant(:max).processed.url %>" class="rounded-circle me-1" alt="Avatar" width="28", height="28">
+                    <img src="<%= journey.user.image.variant(:max).processed.url %>" class="rounded-circle me-1" alt="Avatar" width="28", height="28">        
                   <% else %>
                     <%= image_tag "avatars/avatar.png", class: "rounded-circle me-1", alt: "Avatar", width: "28", height: "28" %>
                   <% end %>
+                  <b><%= journey.user.username %></b>
                 <% end %>
               </p>
               <% if journey.journey_stops.present? %>
