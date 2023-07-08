@@ -87,8 +87,11 @@
         </div>
         <div class="card-body">
           <p>
-            Created <%= time_ago_in_words(journey_stop.created_at) %> ago.
+            <h6 class="card-subtitle text-muted">
+              Created <%= time_ago_in_words(journey_stop.created_at) %> ago.
+            </h6>
           </p>
+
           <p>
             <% if can?(:show, journey_stop) %>
               <% if params[:access_code] %>

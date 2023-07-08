@@ -43,11 +43,15 @@
               </p>
               <% if journey.journey_stops.present? %>
                 <p>
-                  New stop was added <%= time_ago_in_words(journey.latest_journey_stop_added_at) %> ago.
+                  <h6 class="card-subtitle text-muted">
+                    New stop was added <%= time_ago_in_words(journey.latest_journey_stop_added_at) %> ago.
+                  </h6>
                 </p>
               <% else %>
                 <p>
-                  Journey was created <%= time_ago_in_words(journey.created_at) %> ago.
+                  <h6 class="card-subtitle text-muted">
+                    Journey was created <%= time_ago_in_words(journey.created_at) %> ago.
+                  </h6>
                 </p>
               <% end %>
               <p>
