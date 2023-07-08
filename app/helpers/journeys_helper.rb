@@ -9,9 +9,8 @@ module JourneysHelper
     'Latest'
   end
 
-  def current_row_glass(number_of_groups:, current_group_count:)
-    return 'col-4'  if number_of_groups > 1
-    return 'col-12' if current_group_count == 1
+  def current_row_class(number_of_images:)
+    return 'col-12' if number_of_images == 1
 
     'col-6'
   end

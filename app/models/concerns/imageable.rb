@@ -3,8 +3,8 @@
 module Imageable
   extend ActiveSupport::Concern
 
-  NUMBER_OF_DISPLAYED_IMAGES = 9
-  NUMBER_OF_IMAGES_PER_ROW   = 3
+  NUMBER_OF_DISPLAYED_IMAGES = 4
+  NUMBER_OF_IMAGES_PER_ROW   = 2
 
   included do
     has_many_attached :images do |attachable|
