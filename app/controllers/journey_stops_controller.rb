@@ -55,9 +55,17 @@ class JourneyStopsController < ApplicationController
     @journey_stop = JourneyStop.find(params[:id])
 
     authorize_journey_stop(:show)
+
+    increase_views_count
   end
 
   private
+
+  # rubocop:disable Rails/SkipsModelValidations
+  def increase_views_count
+    @journey_stop.increment!(:views_count)
+  end
+  # rubocop:enable Rails/SkipsModelValidations
 
   def post_create_actions
     enqueue_process_images_job

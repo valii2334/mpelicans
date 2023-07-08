@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_07_063144) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_08_133341) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,6 +62,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_07_063144) do
     t.text "description"
     t.float "lat", null: false
     t.float "long", null: false
+    t.integer "views_count", default: 0
     t.index ["journey_id"], name: "index_journey_stops_on_journey_id"
   end
 
@@ -77,6 +78,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_07_063144) do
     t.integer "image_processing_status"
     t.text "description"
     t.datetime "latest_journey_stop_added_at", null: false
+    t.integer "views_count", default: 0
     t.index ["user_id"], name: "index_journeys_on_user_id"
   end
 

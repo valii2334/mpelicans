@@ -81,6 +81,9 @@
           <h5 class="card-title title <%= index_class %>" id="journey-stop-image-processing-status">
             <%= journey_stop.title %>
           </h5>
+          <h6 class="card-subtitle text-muted">
+            <%= pluralize(journey_stop.views_count, 'view') %>
+          </h6>
         </div>
         <div class="card-body">
           <p>

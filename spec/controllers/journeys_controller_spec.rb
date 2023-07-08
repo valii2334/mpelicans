@@ -10,6 +10,24 @@ RSpec.describe JourneysController, type: :controller do
   let(:second_user) { create(:user) }
   let(:second_journey) { create(:journey, user: second_user) }
 
+  RSpec.shared_examples 'increases views count' do
+    it 'increases views count' do
+      expect do
+        subject
+      end.to change { Journey.find(journey_id).views_count }.by(1)
+    end
+  end
+
+  RSpec.shared_examples 'does not increase views count' do
+    it 'does not increase views count' do
+      expect do
+        expect do
+          subject
+        end.to raise_error(CanCan::AccessDenied)
+      end.to change { Journey.find(journey_id).views_count }.by(0)
+    end
+  end
+
   context '#show' do
     subject do
       get :show, params: { id: journey_id, access_code: second_journey.access_code }
@@ -24,6 +42,7 @@ RSpec.describe JourneysController, type: :controller do
 
       context 'private_journey' do
         it_behaves_like 'can not view page'
+        it_behaves_like 'does not increase views count'
       end
 
       context 'protected_journey' do
@@ -33,6 +52,7 @@ RSpec.describe JourneysController, type: :controller do
 
         context 'params contain access_code' do
           it_behaves_like 'can view page'
+          it_behaves_like 'increases views count'
         end
 
         context 'params does not contain access_code' do
@@ -41,6 +61,7 @@ RSpec.describe JourneysController, type: :controller do
           end
 
           it_behaves_like 'can not view page'
+          it_behaves_like 'does not increase views count'
         end
       end
 
@@ -50,6 +71,7 @@ RSpec.describe JourneysController, type: :controller do
         end
 
         it_behaves_like 'can view page'
+        it_behaves_like 'increases views count'
       end
 
       context 'monetized_journey' do
@@ -59,6 +81,7 @@ RSpec.describe JourneysController, type: :controller do
 
         context 'not paid' do
           it_behaves_like 'can not view page'
+          it_behaves_like 'does not increase views count'
         end
 
         context 'purchased this journey' do
@@ -67,6 +90,7 @@ RSpec.describe JourneysController, type: :controller do
           end
 
           it_behaves_like 'can view page'
+          it_behaves_like 'increases views count'
         end
       end
     end
@@ -79,6 +103,7 @@ RSpec.describe JourneysController, type: :controller do
       end
 
       it_behaves_like 'can view page'
+      it_behaves_like 'increases views count'
     end
   end
 

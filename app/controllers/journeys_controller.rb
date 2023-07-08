@@ -27,6 +27,8 @@ class JourneysController < ApplicationController
     @journey = Journey.find(params[:id])
 
     authorize_journey(:show)
+
+    increase_views_count
   end
 
   def create
@@ -62,6 +64,12 @@ class JourneysController < ApplicationController
   end
 
   private
+
+  # rubocop:disable Rails/SkipsModelValidations
+  def increase_views_count
+    @journey.increment!(:views_count)
+  end
+  # rubocop:enable Rails/SkipsModelValidations
 
   def new_journey
     Journey.new(permitted_parameters(
