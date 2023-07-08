@@ -26,8 +26,8 @@ Feature: Create Journey Stop
       | My first stop title | My first stop description | .jpg               |
     When I click on link "View"
     Then journey stop card should contain
-      | title               | journey_stop_image |
-      | My first stop title | .jpg               |
+      | title               |
+      | My first stop title |
 
   Scenario: A user can not submit a journey stop with more than 5 images
     Given I fill in journey stop information with

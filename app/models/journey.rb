@@ -40,6 +40,10 @@ class Journey < ApplicationRecord
     journey_stops.map { |pinnable| Pin.new(pinnable:).to_pin }
   end
 
+  def all_thumbnails
+    [images_thumbnail_urls, journey_stops.map(&:all_thumbnails)].flatten
+  end
+
   private
 
   def set_latest_journey_stop_added_at

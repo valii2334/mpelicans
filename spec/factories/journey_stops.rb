@@ -4,8 +4,7 @@ require './spec/factory_bot_helper'
 
 FactoryBot.define do
   factory :journey_stop do
-    description { FFaker::Lorem.paragraph }
-    # images                  { [Rack::Test::UploadedFile.new('spec/fixtures/files/lasvegas.jpg', 'image/jpeg')] }
+    description             { FFaker::Lorem.paragraph }
     image_processing_status { :processed }
     lat                     { 46.749971 }
     long                    { 23.598739 }

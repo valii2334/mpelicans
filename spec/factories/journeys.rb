@@ -4,13 +4,12 @@ require './spec/factory_bot_helper'
 
 FactoryBot.define do
   factory :journey do
-    title { FFaker::Name.name }
+    title                   { FFaker::Name.name }
     description             { FFaker::Lorem.paragraph }
     access_type             { :private_journey }
     accepts_recommendations { false }
     access_code             { nil }
     image_processing_status { :processed }
-    # images                  { [Rack::Test::UploadedFile.new('spec/fixtures/files/lasvegas.jpg', 'image/jpeg')] }
     passed_images_count     { 1 }
     user
 

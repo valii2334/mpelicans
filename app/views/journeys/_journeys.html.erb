@@ -20,7 +20,7 @@
                 </h5>
               </div>
             <% else %>
-            <img src="<%= journey.images_thumbnail_urls.first %>" class='card-img-top'>
+              <%= render partial: 'shared/images_grid', locals: { image_urls_groups: journey.thumbnails_grouped }%>
             <% end %>
             <div class="card-header">
               <h5 class="card-title">

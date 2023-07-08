@@ -31,6 +31,10 @@ class JourneyStop < ApplicationRecord
     journey_journey_stop_url(journey, self, host: 'https://www.mpelicans.com')
   end
 
+  def all_thumbnails
+    images_thumbnail_urls
+  end
+
   private
 
   def set_latest_journey_stop_added_at
