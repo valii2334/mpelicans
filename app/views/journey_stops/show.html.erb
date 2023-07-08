@@ -36,12 +36,8 @@
   <%= render partial: 'shared/map', locals: { pins: [@journey_stop.pin].to_json } %>
 <% end %>
 
-<% if current_user && @journey_stop.user != current_user %>
-  <div class="row">
-    <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-      <%= render partial: 'map_pins/pin_unpin', locals: { current_user: current_user, journey_stop: @journey_stop } %>
-    </div>
-  </div>
+<% unless @journey_stop.journey.protected_journey? %>
+  <%= render partial: 'map_pins/pin_unpin', locals: { current_user: current_user, journey_stop: @journey_stop } %>
 <% end %>
 
 <br>

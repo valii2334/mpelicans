@@ -1,10 +1,26 @@
-<%= tag.div id: dom_id(journey_stop, :save_pin) do %>
-  <% if can?(:create, MapPin.new, current_user, journey_stop) %>
-    <%= button_to 'Save Pin', map_pins_path(journey_stop_id: journey_stop.id), method: :post, remote: true, class: 'btn btn-primary' %>
-  <% else %>
-    <% map_pin = MapPin.find_by(user_id: current_user.id, journey_stop_id: journey_stop.id) %>
-    <% if can?(:destroy, map_pin, current_user, journey_stop) %>
-      <%= button_to 'Remove Pin', map_pin_path(id: map_pin.id), method: :delete, remote: true, class: 'btn btn-primary' %>
+<% if current_user %>
+  <%= tag.div id: dom_id(journey_stop, :save_pin) do %>
+    <% if can?(:create, MapPin.new, current_user, journey_stop) %>
+      <div class="row">
+        <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
+          <%= button_to 'Save Pin', map_pins_path(journey_stop_id: journey_stop.id), method: :post, remote: true, class: 'btn btn-primary' %>
+        </div>
+      </div>
+    <% else %>
+      <% map_pin = MapPin.find_by(user_id: current_user.id, journey_stop_id: journey_stop.id) %>
+      <% if can?(:destroy, map_pin, current_user, journey_stop) %>
+        <div class="row">
+          <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
+            <%= button_to 'Remove Pin', map_pin_path(id: map_pin.id), method: :delete, remote: true, class: 'btn btn-primary' %>
+          </div>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
+<% else %>
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
+      <%= button_to 'Save Pin', new_user_session_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
 <% end %>

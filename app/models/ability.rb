@@ -37,12 +37,16 @@ class Ability
     ##################################
 
     can :create, Relationship do |_, follower, followee|
-      follower != followee && !follower.follows?(followee:)
+      follower &&
+        follower != followee &&
+        !follower.follows?(followee:)
     end
     can :destroy, Relationship, follower_id: user.id
 
     can :create, MapPin do |_, current_user, journey_stop|
-      current_user != journey_stop.user && !current_user.pinned_journey_stop?(journey_stop:)
+      current_user &&
+        current_user != journey_stop.user &&
+        !current_user.pinned_journey_stop?(journey_stop:)
     end
     can :destroy, MapPin, user_id: user.id
   end

@@ -7,4 +7,6 @@
   <% if can?(:destroy, relationship, follower, followee) %>
     <%= link_to 'Unfollow', relationship_path(id: relationship.id), method: :delete, class: 'btn btn-sm btn-danger pelican-path' %>
   <% end %>
+<% else %>
+  <%= link_to 'Follow', new_user_session_path, class: 'btn btn-sm btn-secondary pelican-path' %>
 <% end %>
