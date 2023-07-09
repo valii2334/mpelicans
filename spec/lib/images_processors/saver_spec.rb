@@ -8,7 +8,7 @@ RSpec.describe ImagesProcessors::Saver do
   let(:predefined_secure_random_uuid) { SecureRandom.uuid }
   let(:image_file)                    { Rack::Test::UploadedFile.new('spec/fixtures/files/lasvegas.jpg', 'image/jpeg') }
   let(:http_uploaded_files)           { [image_file] }
-  let(:expected_saved_file_paths)     { [Rails.root.join("tmp/#{predefined_secure_random_uuid}.jpg").to_s] }
+  let(:expected_saved_file_paths)     { [Rails.root.join("tmp/images/#{predefined_secure_random_uuid}.jpg").to_s] }
 
   subject { described_class.new(imageable_id:, imageable_type:, http_uploaded_files:) }
 
