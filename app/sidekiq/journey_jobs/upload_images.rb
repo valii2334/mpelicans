@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 module JourneyJobs
-  class ProcessImages
+  class UploadImages
     include Sidekiq::Job
 
     def perform(*args)
-      ImagesProcessors::Processor.new(
+      ImagesProcessors::Uploader.new(
         imageable_id: args[0],
-        imageable_type: args[1]
+        imageable_type: args[1],
+        saved_files_paths: args[2]
       ).run
     end
   end

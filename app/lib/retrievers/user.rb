@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Retrievers
-  class User
+  class User < Retrievers::Base
     attr_accessor :query_string
 
     def initialize(query_string: nil)

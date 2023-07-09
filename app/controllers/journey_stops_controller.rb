@@ -87,7 +87,11 @@ class JourneyStopsController < ApplicationController
   end
 
   def enqueue_process_images_job
-    ImageUploader.new(imageable: @journey_stop, uploaded_files: params[:journey_stop][:images]).run
+    ImagesProcessors::Validator.new(
+      imageable_id: @journey_stop.id,
+      imageable_type: @journey_stop.class.name,
+      http_uploaded_files: params[:journey_stop][:images]
+    ).run
   end
 
   def notify_users

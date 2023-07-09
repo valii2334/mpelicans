@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Retrievers
-  class Journey
+  class Journey < Retrievers::Base
     VIEWABLE_ACCESS_TYPES = %i[public_journey monetized_journey].freeze
 
     attr_accessor :user, :which_journeys

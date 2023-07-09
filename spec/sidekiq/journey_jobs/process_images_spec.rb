@@ -8,10 +8,10 @@ RSpec.describe JourneyJobs::ProcessImages, type: :job do
 
   subject { described_class.new.perform(imageable_id, imageable_type) }
 
-  let(:journey_image_processor) { double('JourneyImageProcessor') }
+  let(:journey_image_processor) { double('ImagesProcessors::Processor') }
 
   before do
-    allow(JourneyImageProcessor).to(
+    allow(ImagesProcessors::Processor).to(
       receive(:new).with(imageable_id:, imageable_type:)
                    .and_return(journey_image_processor)
     )
@@ -19,7 +19,7 @@ RSpec.describe JourneyJobs::ProcessImages, type: :job do
   end
 
   it 'calls JourneyImageProcessor' do
-    expect(JourneyImageProcessor).to(
+    expect(ImagesProcessors::Processor).to(
       receive(:new).with(imageable_id:, imageable_type:)
     )
 

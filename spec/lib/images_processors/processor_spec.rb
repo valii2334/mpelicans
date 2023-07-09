@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe JourneyImageProcessor do
+RSpec.describe ImagesProcessors::Processor do
   let(:imageable)      { create(:journey_stop) }
   let(:image_path)     { 'spec/fixtures/files/madrid.jpg' }
-  let(:s3_key)         { "test-#{imageable.id}-#{SecureRandom.uuid}#{File.extname(image_path)}" }
+  let(:s3_key)         { "#{SecureRandom.uuid}.jpg" }
   let(:uploaded_image) { create :uploaded_image, imageable:, s3_key: }
 
   subject do
