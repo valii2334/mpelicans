@@ -4,11 +4,13 @@ module ImagesProcessors
   class Validator < ImagesProcessors::Base
     attr_accessor :imageable_id, :imageable_type, :http_uploaded_files
 
+    # rubocop:disable Lint/MissingSuper
     def initialize(imageable_id:, imageable_type:, http_uploaded_files:)
       @imageable_id = imageable_id
       @imageable_type = imageable_type
       @http_uploaded_files = http_uploaded_files
     end
+    # rubocop:enable Lint/MissingSuper
 
     def run_processor
       @http_uploaded_files = @http_uploaded_files.select do |http_uploaded_file|

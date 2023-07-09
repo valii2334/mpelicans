@@ -4,10 +4,12 @@ module ImagesProcessors
   class Processor < ImagesProcessors::Base
     attr_accessor :imageable_id, :imageable_type
 
+    # rubocop:disable Lint/MissingSuper
     def initialize(imageable_id:, imageable_type:)
       @imageable_id = imageable_id
       @imageable_type = imageable_type
     end
+    # rubocop:enable Lint/MissingSuper
 
     def run_processor
       imageable.processing!

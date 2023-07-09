@@ -6,10 +6,12 @@ module Retrievers
 
     attr_accessor :user, :which_journeys
 
+    # rubocop:disable Lint/MissingSuper
     def initialize(user: nil, which_journeys: nil)
       @user = user
       @which_journeys = which_journeys
     end
+    # rubocop:enable Lint/MissingSuper
 
     def fetch
       return latest_journeys       unless which_journeys

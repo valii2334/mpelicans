@@ -4,12 +4,14 @@ module ImagesProcessors
   class Saver < ImagesProcessors::Base
     attr_accessor :imageable_id, :imageable_type, :http_uploaded_files, :saved_files_paths
 
+    # rubocop:disable Lint/MissingSuper
     def initialize(imageable_id:, imageable_type:, http_uploaded_files:)
       @imageable_id = imageable_id
       @imageable_type = imageable_type
       @http_uploaded_files = http_uploaded_files
       @saved_files_paths = []
     end
+    # rubocop:enable Lint/MissingSuper
 
     def run_processor
       @http_uploaded_files.each do |http_uploaded_file|

@@ -7,11 +7,13 @@ module ImagesProcessors
   class Uploader < ImagesProcessors::Base
     attr_accessor :imageable_id, :imageable_type, :saved_files_paths
 
+    # rubocop:disable Lint/MissingSuper
     def initialize(imageable_id:, imageable_type:, saved_files_paths:)
       @imageable_id = imageable_id
       @imageable_type = imageable_type
       @saved_files_paths = saved_files_paths
     end
+    # rubocop:enable Lint/MissingSuper
 
     # rubocop:disable Metrics/MethodLength
     def run_processor

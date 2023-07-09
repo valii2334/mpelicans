@@ -4,9 +4,11 @@ module Retrievers
   class User < Retrievers::Base
     attr_accessor :query_string
 
+    # rubocop:disable Lint/MissingSuper
     def initialize(query_string: nil)
       @query_string = query_string
     end
+    # rubocop:enable Lint/MissingSuper
 
     def fetch
       return ::User.all if query_string.blank?
