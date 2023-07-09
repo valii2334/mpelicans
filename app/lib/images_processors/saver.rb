@@ -28,7 +28,7 @@ module ImagesProcessors
     private
 
     def file_path(http_uploaded_file:)
-      "/tmp/#{SecureRandom.uuid}#{File.extname(http_uploaded_file.tempfile)}"
+      "tmp/#{SecureRandom.uuid}#{File.extname(http_uploaded_file.tempfile)}"
     end
 
     def enque_next_steps
