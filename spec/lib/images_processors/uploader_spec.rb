@@ -6,7 +6,7 @@ RSpec.describe ImagesProcessors::Uploader do
   let(:imageable)         { create :journey }
   let(:imageable_id)      { imageable.id }
   let(:imageable_type)    { imageable.class.name }
-  let(:saved_file_path)   { "tmp/#{SecureRandom.uuid}.jpg" }
+  let(:saved_file_path)   { Rails.root.join("tmp/#{SecureRandom.uuid}.jpg").to_s }
   let(:saved_files_paths) { [saved_file_path] }
 
   subject { described_class.new(imageable_id:, imageable_type:, saved_files_paths:) }
