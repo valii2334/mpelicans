@@ -69,17 +69,20 @@
           <%= image_tag "avatars/avatar.png", class: "avatar img-fluid rounded-circle", alt: "Migrating Pelican" %>
         </a>
         <div class="dropdown-menu dropdown-menu-start">
+          <%= link_to "Latest Journeys", root_path, class: "dropdown-item d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none" %>
+          <%= link_to "Pelicans", pelicans_path, class: "dropdown-item d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none" %>
+          <div class="dropdown-divider d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none"></div>
           <%= link_to "Log in", new_session_path('user'), class: "dropdown-item" %>
           <%= link_to "Sign up", new_registration_path('user'), class: "dropdown-item" %>
         </div>
 
-        <li class="nav-item px-2">
+        <li class="nav-item px-2 d-none d-lg-block d-xl-block d-xxl-block">
           <a class="nav-link" href="<%= root_path %>" role="button">
             Latest Journeys
           </a>
         </li>
 
-        <li class="nav-item px-2">
+        <li class="nav-item px-2 d-none d-lg-block d-xl-block d-xxl-block">
           <a class="nav-link" href="<%= pelicans_path %>" role="button">
             Pelicans
           </a>
