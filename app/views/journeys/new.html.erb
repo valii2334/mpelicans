@@ -76,7 +76,7 @@
 							Add the first picture of your journey.
 						</label>
 						<br>
-            <%= f.file_field :images, required: true %>
+            <%= f.file_field :images, required: true, accept: ImageUploader::ACCEPTED_CONTENT_TYPES.join(',') %>
           </div>
 
 					<div class="actions">
