@@ -25,6 +25,8 @@ class ImageUploader
       end
       barrier.wait
     end
+
+    JourneyJobs::ProcessImages.perform_async(imageable.id, imageable.class.name)
   end
 
   private

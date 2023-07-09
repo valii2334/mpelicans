@@ -8,23 +8,27 @@ RSpec.describe MapPinsController, type: :controller do
   let(:user) { create :user }
 
   context '#index' do
+    subject do
+      get :index
+    end
+
     context 'logged in' do
       before do
         sign_in user
       end
 
       it 'is successful' do
-        get :index
+        subject
 
         expect(response.status).to eq(200)
       end
     end
 
     context 'not logged in' do
-      it 'is successful' do
-        get :index
+      it 'it is redirected' do
+        subject
 
-        expect(response.status).to eq(200)
+        expect(response.status).to eq(302)
       end
     end
   end

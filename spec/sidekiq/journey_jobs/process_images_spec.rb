@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe JourneyJobs::ProcessImages, type: :job do
   let(:imageable_id) { rand(1..99) }
-  let(:imageable_type) { 'journey' }
+  let(:imageable_type) { 'Journey' }
 
   subject { described_class.new.perform(imageable_id, imageable_type) }
 

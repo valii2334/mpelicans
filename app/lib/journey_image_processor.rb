@@ -18,9 +18,7 @@ class JourneyImageProcessor
   private
 
   def load_imageable(imageable_id:, imageable_type:)
-    return JourneyStop.find(imageable_id) if imageable_type == 'journey_stop'
-
-    Journey.find(imageable_id)
+    imageable_type.constantize.find(imageable_id)
   end
 
   def download_image(image_path:)

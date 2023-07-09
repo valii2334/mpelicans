@@ -15,6 +15,8 @@ RSpec.describe ImageUploader do
   before do
     allow(SecureRandom).to receive(:uuid).and_return(random_uuid)
     allow(Storage).to receive(:upload).with(key: expected_key, body: instance_of(String)).and_return(true)
+    allow(JourneyJobs::ProcessImages).to receive(:perform_async).with(journey_stop.id,
+                                                                      journey_stop.class.name).and_return(true)
   end
 
   describe 'run' do
@@ -26,6 +28,13 @@ RSpec.describe ImageUploader do
       subject
 
       expect(journey_stop.reload.uploaded_images.last.s3_key).to eq expected_key
+    end
+
+    it 'starts processing images' do
+      allow(JourneyJobs::ProcessImages).to receive(:perform_async).with(journey_stop.id,
+                                                                        journey_stop.class.name).and_return(true)
+
+      subject
     end
   end
 end

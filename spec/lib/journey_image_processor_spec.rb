@@ -9,7 +9,7 @@ RSpec.describe JourneyImageProcessor do
   let(:uploaded_image) { create :uploaded_image, imageable:, s3_key: }
 
   subject do
-    described_class.new(imageable_id: imageable.id, imageable_type: 'journey_stop').run
+    described_class.new(imageable_id: imageable.id, imageable_type: imageable.class.name).run
   end
 
   before do

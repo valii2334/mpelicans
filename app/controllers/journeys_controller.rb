@@ -39,6 +39,8 @@ class JourneysController < ApplicationController
     if @journey.save
       post_create_actions
 
+      success_message(message: 'Your journey was created.')
+
       redirect_to journey_path(@journey)
     else
       alert_message
@@ -81,12 +83,10 @@ class JourneysController < ApplicationController
   def post_create_actions
     enqueue_process_images_job
     notify_users
-    success_message(message: 'Your journey was created.')
   end
 
   def enqueue_process_images_job
     ImageUploader.new(imageable: @journey, uploaded_files: [params[:journey][:images]]).run
-    JourneyJobs::ProcessImages.perform_async(@journey.id, 'journey')
   end
 
   def notify_users

@@ -19,13 +19,14 @@ class JourneyStopsController < ApplicationController
   end
 
   def create
-    @journey_stop = JourneyStop.new(permitted_parameters(model: :journey_stop,
-                                                         permitted_parameters: PERMITTED_PARAMETERS))
+    @journey_stop = new_journey_stop
 
     authorize_journey_stop(:create)
 
     if @journey_stop.save
       post_create_actions
+
+      success_message(message: 'Your journey stop was created.')
 
       redirect_to journey_journey_stop_path(@journey_stop.journey, @journey_stop)
     else
@@ -61,6 +62,15 @@ class JourneyStopsController < ApplicationController
 
   private
 
+  def new_journey_stop
+    JourneyStop.new(
+      permitted_parameters(
+        model: :journey_stop,
+        permitted_parameters: PERMITTED_PARAMETERS
+      )
+    )
+  end
+
   # rubocop:disable Rails/SkipsModelValidations
   def increase_views_count
     @journey_stop.increment!(:views_count)
@@ -69,8 +79,7 @@ class JourneyStopsController < ApplicationController
 
   def post_create_actions
     enqueue_process_images_job
-    notify_users(journey: @journey_stop.journey)
-    success_message(message: 'Your journey stop was created.')
+    notify_users
   end
 
   def authorize_journey_stop(method)
@@ -79,10 +88,11 @@ class JourneyStopsController < ApplicationController
 
   def enqueue_process_images_job
     ImageUploader.new(imageable: @journey_stop, uploaded_files: params[:journey_stop][:images]).run
-    JourneyJobs::ProcessImages.perform_async(@journey_stop.id, 'journey_stop')
   end
 
-  def notify_users(journey:)
+  def notify_users
+    journey = @journey_stop.journey
+
     NotifierJob.perform_async(journey.id, 'new_journey_stop', journey.user_id)
   end
 end

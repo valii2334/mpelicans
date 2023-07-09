@@ -4,20 +4,14 @@
 class MapPinsController < ApplicationController
   include PermittedParameters
 
-  before_action :authenticate_user!, only: %i[create destroy]
+  before_action :authenticate_user!
 
   PERMITTED_PARAMETERS = %i[
     journey_stop_id
   ].freeze
 
   def index
-    @map_pins = if user_id
-                  MapPin.where(user_id:)
-                        .includes(:journey_stop)
-                else
-                  []
-                end
-
+    @map_pins = MapPin.where(user_id: current_user.id).includes(:journey_stop)
     @map_pins = @map_pins.map { |pinnable| Pin.new(pinnable:).to_pin }
   end
 
@@ -58,9 +52,5 @@ class MapPinsController < ApplicationController
       title: @journey_stop.title,
       user_id: current_user.id
     }
-  end
-
-  def user_id
-    current_user.try(:id) || params[:id]
   end
 end
