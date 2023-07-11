@@ -5,13 +5,13 @@ require 'async/barrier'
 
 module ImagesProcessors
   class Uploader < ImagesProcessors::Base
-    attr_accessor :imageable_id, :imageable_type, :saved_files_paths
+    attr_accessor :imageable_id, :imageable_type, :database_images_ids
 
     # rubocop:disable Lint/MissingSuper
-    def initialize(imageable_id:, imageable_type:, saved_files_paths:)
+    def initialize(imageable_id:, imageable_type:, database_images_ids:)
       @imageable_id = imageable_id
       @imageable_type = imageable_type
-      @saved_files_paths = saved_files_paths
+      @database_images_ids = database_images_ids
     end
     # rubocop:enable Lint/MissingSuper
 
@@ -19,13 +19,14 @@ module ImagesProcessors
     def run_processor
       barrier = Async::Barrier.new
       Async do
-        @saved_files_paths.each do |saved_file_path|
-          file_path = File.basename(saved_file_path)
+        @database_images_ids.each do |database_images_id|
+          database_image = DatabaseImage.find(database_images_id)
+          file_path = "#{SecureRandom.uuid}#{database_image.file_extension}"
 
           barrier.async do
-            upload_image(key: file_path, body: File.read(saved_file_path))
+            upload_image(key: file_path, body: database_image.data)
             create_uploaded_image(s3_key: file_path)
-            remove_file(saved_file_path:)
+            remove_database_image(database_image:)
           end
         end
         barrier.wait
@@ -47,8 +48,8 @@ module ImagesProcessors
       UploadedImage.create(imageable:, s3_key:)
     end
 
-    def remove_file(saved_file_path:)
-      FileUtils.rm_f(saved_file_path)
+    def remove_database_image(database_image:)
+      database_image.destroy
     end
   end
 end

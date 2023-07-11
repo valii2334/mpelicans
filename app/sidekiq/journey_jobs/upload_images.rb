@@ -8,7 +8,7 @@ module JourneyJobs
       ImagesProcessors::Uploader.new(
         imageable_id: args[0],
         imageable_type: args[1],
-        saved_files_paths: args[2]
+        database_images_ids: args[2]
       ).run
     end
   end

@@ -31,9 +31,6 @@
 !/tmp/storage/
 !/tmp/storage/.keep
 
-!/tmp/images/
-!/tmp/images/.keep
-
 /public/assets
 
 # Ignore master key for decrypting credentials and more.

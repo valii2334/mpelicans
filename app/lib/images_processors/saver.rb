@@ -2,37 +2,34 @@
 
 module ImagesProcessors
   class Saver < ImagesProcessors::Base
-    attr_accessor :imageable_id, :imageable_type, :http_uploaded_files, :saved_files_paths
+    attr_accessor :imageable_id, :imageable_type, :http_uploaded_files, :database_images_ids
 
     # rubocop:disable Lint/MissingSuper
     def initialize(imageable_id:, imageable_type:, http_uploaded_files:)
       @imageable_id = imageable_id
       @imageable_type = imageable_type
       @http_uploaded_files = http_uploaded_files
-      @saved_files_paths = []
+      @database_images_ids = []
     end
     # rubocop:enable Lint/MissingSuper
 
     def run_processor
       @http_uploaded_files.each do |http_uploaded_file|
-        file_path = file_path(http_uploaded_file:)
+        database_image = DatabaseImage.create(
+          data: http_uploaded_file.read,
+          file_extension: File.extname(http_uploaded_file.tempfile)
+        )
 
-        File.binwrite(file_path, http_uploaded_file.read)
-
-        @saved_files_paths << file_path
+        @database_images_ids << database_image.id
       end
 
-      @saved_files_paths
+      @database_images_ids
     end
 
     private
 
-    def file_path(http_uploaded_file:)
-      Rails.root.join("tmp/images/#{SecureRandom.uuid}#{File.extname(http_uploaded_file.tempfile)}").to_s
-    end
-
     def enque_next_steps
-      JourneyJobs::UploadImages.perform_async(@imageable_id, @imageable_type, @saved_files_paths)
+      JourneyJobs::UploadImages.perform_async(@imageable_id, @imageable_type, @database_images_ids)
     end
   end
 end
