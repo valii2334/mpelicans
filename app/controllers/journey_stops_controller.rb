@@ -73,6 +73,8 @@ class JourneyStopsController < ApplicationController
 
   # rubocop:disable Rails/SkipsModelValidations
   def increase_views_count
+    return if current_user == @journey_stop.user
+
     @journey_stop.increment!(:views_count)
   end
   # rubocop:enable Rails/SkipsModelValidations

@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'async'
+require 'async/barrier'
+
 module Imageable
   extend ActiveSupport::Concern
 
@@ -20,9 +23,16 @@ module Imageable
   end
 
   def process_images
-    images.each do |image|
-      image.variant(:thumbnail).processed
-      image.variant(:max).processed
+    barrier = Async::Barrier.new
+
+    Async do
+      images.each do |image|
+        barrier.async do
+          image.variant(:thumbnail).processed
+          image.variant(:max).processed
+        end
+      end
+      barrier.wait
     end
   end
 

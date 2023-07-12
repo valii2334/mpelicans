@@ -28,6 +28,14 @@ RSpec.describe JourneysController, type: :controller do
     end
   end
 
+  RSpec.shared_examples 'does not increase views count and does not raises an error' do
+    it 'does not increase views count' do
+      expect do
+        subject
+      end.to change { Journey.find(journey_id).views_count }.by(0)
+    end
+  end
+
   context '#show' do
     subject do
       get :show, params: { id: journey_id, access_code: second_journey.access_code }
@@ -103,7 +111,7 @@ RSpec.describe JourneysController, type: :controller do
       end
 
       it_behaves_like 'can view page'
-      it_behaves_like 'increases views count'
+      it_behaves_like 'does not increase views count and does not raises an error'
     end
   end
 
