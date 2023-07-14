@@ -75,18 +75,26 @@
           <%= link_to "Log in", new_session_path('user'), class: "dropdown-item" %>
           <%= link_to "Sign up", new_registration_path('user'), class: "dropdown-item" %>
         </div>
+      </li>
 
-        <li class="nav-item px-2 d-none d-lg-block d-xl-block d-xxl-block">
-          <a class="nav-link" href="<%= root_path %>" role="button">
-            Latest Journeys
-          </a>
-        </li>
+      <li class="nav-item px-2 d-none d-lg-block d-xl-block d-xxl-block">
+        <a class="nav-link" href="<%= root_path %>" role="button">
+          Latest Journeys
+        </a>
+      </li>
 
-        <li class="nav-item px-2 d-none d-lg-block d-xl-block d-xxl-block">
-          <a class="nav-link" href="<%= pelicans_path %>" role="button">
-            Pelicans
-          </a>
-        </li>
+      <li class="nav-item px-2 d-none d-lg-block d-xl-block d-xxl-block">
+        <a class="nav-link" href="<%= pelicans_path %>" role="button">
+          Pelicans
+        </a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav navbar-align d-lg-flex">
+      <li class="nav-item px-2">
+        <a class="nav-link" href="<%= about_us_company_index_path %>" role="button">
+          About Us
+        </a>
       </li>
     </ul>
   <% end %>
