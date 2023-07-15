@@ -11,7 +11,7 @@ module Imageable
 
   included do
     has_many_attached :images do |attachable|
-      attachable.variant :thumbnail, resize_and_pad:  [1024, 1024]
+      attachable.variant :thumbnail, resize_to_fill:  [1024, 1024]
       attachable.variant :max,       resize_to_limit: [2048, 2048]
     end
 

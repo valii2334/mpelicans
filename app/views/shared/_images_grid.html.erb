@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row align-items-center justify-content-center">
       <% image_urls_group.each do |image_url| %>
-        <div class="<%= current_row_class(number_of_images: image_urls_groups.map { |group| group.count }.sum)%>">
+        <div class="<%= current_row_class(number_of_images: image_urls_groups.map { |group| group.count }.sum)%> p-1">
           <img src="<%= image_url %>" style='width:100%'>
         </div>
       <% end %>
