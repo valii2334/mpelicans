@@ -47,16 +47,17 @@
 <% elsif @journey_stop.processing? %>
   <%= render partial: 'shared/processing_images', locals: { message: 'Please wait. Images are being processed.' } %>
 <% else %>
-  <div class="row" data-controller="lightbox">
-    <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-      <div class="row">
+  <div class="row"> 
+    <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12 p-1">
+      <div class="row align-items-center justify-content-center m-0" data-controller="lightbox">
+        
         <% images_thumbnail_urls = @journey_stop.images_thumbnail_urls %>
         <% images_max_urls       = @journey_stop.images_max_urls %>
 
         <% images_max_urls.each_with_index do |image_max_urls, index| %>
-          <div class="col-6">
+          <div class="col-6 p-1">
             <a href="<%= image_max_urls %>" data-gallery="example-gallery" class="lightbox-image">
-              <img src="<%= images_thumbnail_urls[index] %>" class="img-thumbnail rounded me-2 mb-2" id="journey-stop-image-<%= index %>">
+              <img src="<%= images_thumbnail_urls[index] %>" class="img-thumbnail border-0 p-1" id="journey-stop-image-<%= index %>">
             </a>
           </div>
         <% end %>
