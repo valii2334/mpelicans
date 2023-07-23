@@ -20,6 +20,7 @@ RSpec.describe JourneyStop, type: :model do
   it { should have_attribute :lat }
   it { should have_attribute :long }
   it { should have_attribute :views_count }
+  it { should have_attribute :place_id }
 
   ##################################
   # ENUMS
