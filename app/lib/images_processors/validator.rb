@@ -14,7 +14,7 @@ module ImagesProcessors
 
     def run_processor
       @http_uploaded_files = @http_uploaded_files.select do |http_uploaded_file|
-        ACCEPTED_CONTENT_TYPES.include?(http_uploaded_file.content_type)
+        http_uploaded_file.content_type.match?(ACCEPTED_CONTENT_TYPE)
       end
 
       @http_uploaded_files

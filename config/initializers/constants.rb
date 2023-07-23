@@ -1,1 +1,1 @@
-ACCEPTED_CONTENT_TYPES = ['image/png', 'image/jpg', 'image/jpeg'].freeze
+ACCEPTED_CONTENT_TYPE = 'image/*'.freeze
