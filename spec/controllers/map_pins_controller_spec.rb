@@ -63,6 +63,7 @@ RSpec.describe MapPinsController, type: :controller do
         expect(map_pin.lat).to eq(journey_stop.lat)
         expect(map_pin.long).to eq(journey_stop.long)
         expect(map_pin.title).to eq(journey_stop.title)
+        expect(map_pin.place_id).to eq(journey_stop.place_id)
       end
     end
 

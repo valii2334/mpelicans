@@ -50,7 +50,8 @@ class MapPinsController < ApplicationController
       lat: @journey_stop.lat,
       long: @journey_stop.long,
       title: @journey_stop.title,
-      user_id: current_user.id
+      user_id: current_user.id,
+      place_id: @journey_stop.place_id
     }
   end
 end

@@ -15,6 +15,7 @@ RSpec.describe MapPin, type: :model do
   it { should have_attribute :lat }
   it { should have_attribute :long }
   it { should have_attribute :title }
+  it { should have_attribute :place_id }
 
   ##################################
   # Associations
