@@ -36,21 +36,25 @@ module Imageable
     end
   end
 
-  def images_thumbnail_urls
-    image_urls(variant: :thumbnail)
-  end
-
-  def images_max_urls
-    image_urls(variant: :max)
+  def images_urls(variant:)
+    image_urls(variant:)
   end
 
   def thumbnails_grouped
-    all_thumbnails
-      .first(NUMBER_OF_DISPLAYED_IMAGES)
-      .in_groups_of(NUMBER_OF_IMAGES_PER_ROW, false)
+    grouped_images(images_urls: all_thumbnails)
+  end
+
+  def maxs_grouped
+    grouped_images(images_urls: all_maxs)
   end
 
   private
+
+  def grouped_images(images_urls:)
+    images_urls
+      .first(NUMBER_OF_DISPLAYED_IMAGES)
+      .in_groups_of(NUMBER_OF_IMAGES_PER_ROW, false)
+  end
 
   def image_urls(variant:)
     return [] unless processed?

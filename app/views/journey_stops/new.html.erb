@@ -14,6 +14,7 @@
           <%= f.hidden_field :journey_id, value: params[:journey_id] %>
           <%= f.hidden_field :lat %>
           <%= f.hidden_field :long %>
+          <%= f.hidden_field :place_id %>
 
 					<div class="mb-3" style="color: red;">
 						<% @journey_stop.errors.full_messages.each do |message| %>
@@ -31,7 +32,15 @@
             <%= f.rich_text_area :description, class: 'form-control' %>
           </div>
 
-          <%= render partial: 'shared/location', locals: { message: 'What is your current stops location?', lat_element_id: '#journey_stop_lat', long_element_id: '#journey_stop_long' } %>
+          <%= 
+            render partial: 'shared/location', 
+                   locals: { 
+                      message: 'What is your current stops location?', 
+                      lat_element_id: '#journey_stop_lat', 
+                      long_element_id: '#journey_stop_long',
+                      place_id_element_id: '#journey_stop_place_id'
+                    } 
+          %>
 
           <div class="mb-3">
 						<label class="form-label">

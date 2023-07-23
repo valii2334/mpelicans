@@ -51,8 +51,8 @@
     <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12 p-1">
       <div class="row align-items-center justify-content-center m-0" data-controller="lightbox">
         
-        <% images_thumbnail_urls = @journey_stop.images_thumbnail_urls %>
-        <% images_max_urls       = @journey_stop.images_max_urls %>
+        <% images_thumbnail_urls = @journey_stop.images_urls(variant: :thumbnail) %>
+        <% images_max_urls       = @journey_stop.images_urls(variant: :max) %>
 
         <% images_max_urls.each_with_index do |image_max_urls, index| %>
           <div class="col-6 p-1">

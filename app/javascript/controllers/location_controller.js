@@ -4,8 +4,10 @@ export default class extends Controller {
   static values = {
     latElementId: String,
     longElementId: String,
+    placeIdElementId: String,
     lat: 46.769813,
-    long: 23.589032
+    long: 23.589032,
+    placeId: '',
   }
 
   connect() {
@@ -42,7 +44,7 @@ export default class extends Controller {
 
     // On every click set marker position
     map.addListener("click", (e) => {
-      this.setMarkerPositionAndPanTo(marker, e.latLng, map, true);
+      this.setMarkerPositionAndPanTo(marker, e.latLng, e.placeId, map, true);
     });
 
     searchBox.addListener("places_changed", () => {
@@ -62,7 +64,7 @@ export default class extends Controller {
         }
   
         // Create a marker
-        this.setMarkerPositionAndPanTo(marker, place.geometry.location, map, true);
+        this.setMarkerPositionAndPanTo(marker, place.geometry.location, place.reference, map, true);
 
         if (place.geometry.viewport) {
           // Only geocodes have viewport.
@@ -78,11 +80,11 @@ export default class extends Controller {
     this.currentLocation(map, marker);
   }
   
-  setMarkerPositionAndPanTo(marker, latLng, map, locationManuallySet) {
+  setMarkerPositionAndPanTo(marker, latLng, placeId, map, locationManuallySet) {
     marker.setPosition(latLng);
     map.panTo(latLng);
 
-    this.setLatLngFormValues(latLng.lat, latLng.lng);
+    this.setLatLngFormValues(latLng.lat, latLng.lng, placeId);
 
     if (locationManuallySet) {
       this.locationWasSetManually();
@@ -95,12 +97,12 @@ export default class extends Controller {
     };
 
     const successCallback = (position) => {
-      this.setLatLngFormValues(position.coords.latitude, position.coords.longitude)
-      this.setMarkerPositionAndPanTo(marker, new google.maps.LatLng(position.coords.latitude, position.coords.longitude), map, true);
+      this.setLatLngFormValues(position.coords.latitude, position.coords.longitude, null)
+      this.setMarkerPositionAndPanTo(marker, new google.maps.LatLng(position.coords.latitude, position.coords.longitude), null, map, true);
     };
       
     const errorCallback = (error) => {
-      this.setMarkerPositionAndPanTo(marker, new google.maps.LatLng(this.latValue, this.longValue), map, false);
+      this.setMarkerPositionAndPanTo(marker, new google.maps.LatLng(this.latValue, this.longValue), null, map, false);
     };
     
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options);
@@ -110,8 +112,9 @@ export default class extends Controller {
     $('#form_submit_button')[0].disabled = false
   }
 
-  setLatLngFormValues(lat, long) {
+  setLatLngFormValues(lat, long, placeId) {
     $(this.latElementIdValue).val(lat);
     $(this.longElementIdValue).val(long);
+    $(this.placeIdElementIdValue).val(placeId);
   }
 }

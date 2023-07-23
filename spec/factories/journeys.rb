@@ -14,8 +14,8 @@ FactoryBot.define do
     user
 
     after(:create) do |journey|
-      allow(journey).to receive(:images_thumbnail_urls).and_return([])
-      allow(journey).to receive(:images_max_urls).and_return([])
+      allow(journey).to receive(:images_urls).with(variant: :max).and_return([])
+      allow(journey).to receive(:images_urls).with(variant: :thumbnail).and_return([])
     end
   end
 end

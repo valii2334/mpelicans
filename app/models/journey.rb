@@ -41,7 +41,17 @@ class Journey < ApplicationRecord
   end
 
   def all_thumbnails
-    [images_thumbnail_urls, journey_stops.map(&:all_thumbnails)].flatten
+    [
+      images_urls(variant: :thumbnail),
+      journey_stops.map(&:all_thumbnails)
+    ].flatten
+  end
+
+  def all_maxs
+    [
+      images_urls(variant: :max),
+      journey_stops.map(&:all_maxs)
+    ].flatten
   end
 
   private

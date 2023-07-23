@@ -14,8 +14,8 @@ FactoryBot.define do
     journey
 
     after(:create) do |journey_stop|
-      allow(journey_stop).to receive(:images_thumbnail_urls).and_return([])
-      allow(journey_stop).to receive(:images_max_urls).and_return([])
+      allow(journey_stop).to receive(:images_urls).with(variant: :max).and_return([])
+      allow(journey_stop).to receive(:images_urls).with(variant: :thumbnail).and_return([])
     end
   end
 end

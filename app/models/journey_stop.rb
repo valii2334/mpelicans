@@ -32,7 +32,11 @@ class JourneyStop < ApplicationRecord
   end
 
   def all_thumbnails
-    images_thumbnail_urls
+    images_urls(variant: :thumbnail)
+  end
+
+  def all_maxs
+    images_urls(variant: :max)
   end
 
   private

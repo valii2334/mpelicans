@@ -12,6 +12,7 @@ class JourneyStopsController < ApplicationController
     lat
     long
     title
+    place_id
   ].freeze
 
   def new
