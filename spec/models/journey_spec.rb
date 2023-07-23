@@ -85,6 +85,19 @@ RSpec.describe Journey, type: :model do
   # Methods
   ##################################
 
+  context '#lastest_journey_stop_id' do
+    before do
+      subject.save
+    end
+
+    let!(:journey_stop01) { create :journey_stop, journey: subject, created_at: DateTime.now }
+    let!(:journey_stop02) { create :journey_stop, journey: subject, created_at: DateTime.now + 1.day }
+
+    it 'returns latest journey_stop id' do
+      expect(subject.lastest_journey_stop_id).to eq(journey_stop02.id)
+    end
+  end
+
   context '#pins' do
     before do
       subject.save

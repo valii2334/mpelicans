@@ -54,6 +54,14 @@ class Journey < ApplicationRecord
     ].flatten
   end
 
+  def lastest_journey_stop_id
+    journey_stops
+      .unscoped
+      .order(created_at: :asc)
+      .last
+      .id
+  end
+
   private
 
   def set_latest_journey_stop_added_at

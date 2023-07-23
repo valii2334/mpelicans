@@ -54,7 +54,7 @@ class Notifier
       notification_type:
     }
 
-    attributes[:journey_stop_id] = journey.journey_stops.last.id if new_journey_stop?
+    attributes[:journey_stop_id] = journey.lastest_journey_stop_id if new_journey_stop?
 
     attributes
   end
