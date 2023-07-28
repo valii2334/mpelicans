@@ -5,7 +5,8 @@ export default class extends Controller {
     const options = {
       keyboard: true,
       size: 'lg',
-      constraint: true
+      constraint: true,
+      constrain: true
     };
     
     document.querySelectorAll('.lightbox-image').forEach((el) => el.addEventListener('click', (e) => {
