@@ -4,7 +4,7 @@ export default class extends Controller {
   connect() {
     const options = {
       keyboard: true,
-      size: 'fullscreen'
+      size: 'lg'
     };
     
     document.querySelectorAll('.lightbox-image').forEach((el) => el.addEventListener('click', (e) => {
