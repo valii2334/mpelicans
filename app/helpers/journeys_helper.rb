@@ -8,10 +8,4 @@ module JourneysHelper
 
     'Latest'
   end
-
-  def current_row_class(number_of_images:)
-    return 'col-12' if number_of_images == 1
-
-    'col-6'
-  end
 end
