@@ -1,11 +1,14 @@
 <% if current_user %>
   <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
-      <a class="sidebar-brand" href="<%= root_path %>">
-        <span class="sidebar-brand-text align-middle">
-          MPelicans
-        </span>
-      </a>
+      <div class="d-flex justify-content-center">
+        <a class="sidebar-brand" href="<%= root_path %>">
+          <%= image_tag "avatars/avatar.png", class: "avatar img-fluid rounded me-1", alt: "Migrating Pelican" %>
+          <span>
+            MPelicans
+          </span>
+        </a>
+      </div>
 
       <div class="sidebar-user">
         <div class="d-flex justify-content-center">
