@@ -64,17 +64,10 @@
   <% else %>
 
     <ul class="navbar-nav d-lg-flex">
-      <li class="nav-item px-2 dropdown">
-        <a class="nav-icon pe-md-0 dropdown-toggle main_pelican" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+      <li class="nav-item px-2">
+        <a class="nav-icon pe-md-0 main_pelican" href="<%= root_path %>">
           <%= image_tag "avatars/avatar.png", class: "avatar img-fluid rounded-circle", alt: "Migrating Pelican" %>
         </a>
-        <div class="dropdown-menu dropdown-menu-start">
-          <%= link_to "Latest Journeys", root_path, class: "dropdown-item d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none" %>
-          <%= link_to "Pelicans", pelicans_path, class: "dropdown-item d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none" %>
-          <div class="dropdown-divider d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none"></div>
-          <%= link_to "Log in", new_session_path('user'), class: "dropdown-item" %>
-          <%= link_to "Sign up", new_registration_path('user'), class: "dropdown-item" %>
-        </div>
       </li>
 
       <li class="nav-item px-2 d-none d-lg-block d-xl-block d-xxl-block">
@@ -88,13 +81,38 @@
           Pelicans
         </a>
       </li>
+
+      <li class="nav-item px-2 d-none d-lg-block d-xl-block d-xxl-block">
+        <a class="nav-link" href="<%= about_us_company_index_path %>" role="button">
+          About Us
+        </a>
+      </li>
     </ul>
 
     <ul class="navbar-nav navbar-align d-lg-flex">
       <li class="nav-item px-2">
-        <a class="nav-link" href="<%= about_us_company_index_path %>" role="button">
-          About Us
+        <a class="nav-link" href="<%= new_registration_path('user') %>" role="button">
+          Sign Up
         </a>
+      </li>
+
+      <li class="nav-item px-2">
+        <a class="nav-link" href="<%= new_session_path('user') %>" role="button">
+          Log In
+        </a>
+      </li>
+
+      <li class="nav-item px-2 dropdown d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+        <a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <div class="position-relative">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu align-middle me-2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </div>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end">
+          <%= link_to "Latest Journeys", root_path, class: "dropdown-item " %>
+          <%= link_to "Pelicans", pelicans_path, class: "dropdown-item" %>
+          <%= link_to "Anout Us", about_us_company_index_path, class: "dropdown-item" %>
+        </div>
       </li>
     </ul>
   <% end %>

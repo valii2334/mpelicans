@@ -10,7 +10,7 @@ Feature: Sign up
     And I fill in user informations
       | email             | username | password | password_confirmation |
       | example@email.com | MP01     | password | password              |
-    When I click on input "Sign up"
+    When I click on input "Sign Up"
     Then I click on confirmation link
     Then I should be on the home page
 
@@ -20,5 +20,5 @@ Feature: Sign up
     And I fill in user informations
       | email             | username | password | password_confirmation |
       | example@email.com | MP 01    | password | password              |
-    When I click on input "Sign up"
+    When I click on input "Sign Up"
     Then I should see "Username can not contain special characters" in the page 

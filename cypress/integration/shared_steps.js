@@ -10,20 +10,17 @@ Given(/^I am a confirmed user/, () => {
 });
 
 Given(/^I go to log in page/, () => {
-  cy.get('.main_pelican').click()
-  cy.get('a').contains('Log in').click();
+  cy.get('a').contains('Log In').click();
 });
 
 Given(/^I go to sign up page/, () => {
-  cy.get('.main_pelican').click()
-  cy.get('a').contains('Sign up').click();
+  cy.get('a').contains('Sign Up').click();
 });
 
 Given(/^I log in with "([^"]*)"/, (loginAttribute) => {
   cy.visit('/');
 
-  cy.get('.main_pelican').click()
-  cy.get('a').contains('Log in').click();
+  cy.get('a').contains('Log In').click();
 
   // Fill informations
   if(loginAttribute == "email") {
@@ -34,7 +31,7 @@ Given(/^I log in with "([^"]*)"/, (loginAttribute) => {
   cy.get('#user_password').fill(Cypress.env('userPassword'));
 
   // Click on Send me reset password instructions
-  cy.get('input').contains('Log in').click();
+  cy.get('input').contains('Log In').click();
 });
 
 Given(/^I click on link "([^"]*)"/, (textLink) => {

@@ -13,7 +13,7 @@ Feature: Destroy Journey
     When I click on input "Create"
     Then journey information should be
       | title            | description              | journey_image |
-      | Going to Munchen | My first trip to Germany | .jpg          |
+      | Going to Munchen | My first trip to Germany | .webp         |
 
   Scenario: If a users clicks on Delete Journey then it should be deleted
     Given I go to home page

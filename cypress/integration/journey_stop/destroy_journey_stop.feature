@@ -13,7 +13,7 @@ Feature: Destroy Journey Stop
     When I click on input "Create"
     Then journey information should be
       | title            | description              | journey_image |
-      | Going to Munchen | My first trip to Germany | .jpg          |
+      | Going to Munchen | My first trip to Germany | .webp         |
     And I click on link "+ New Stop"
     Given I fill in journey stop information with
       | title               | description               | journey_stop_images |
@@ -21,7 +21,7 @@ Feature: Destroy Journey Stop
     When I click on input "Create"
     Then journey stop information should be
       | title               | description               | journey_stop_image |
-      | My first stop title | My first stop description | .jpg               |
+      | My first stop title | My first stop description | .webp              |
 
   Scenario: If a users enters correct journey stop information then we can create a journey stop
     Given I go to home page
