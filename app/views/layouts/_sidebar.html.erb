@@ -20,16 +20,13 @@
             <% end %>
           </div>
           <div class="flex-grow-1 ps-2">
-            <a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown">
+            <a class="sidebar-user-title" href="<%= edit_pelican_path(current_user.username) %>">
               <%= current_user.username %>
             </a>
             <div class="sidebar-user-subtitle">
               Journeys: <%= number_to_human(current_user.journeys.count) %>
               <br>
               Followers: <%= number_to_human(current_user.followers.count) %>
-            </div>
-            <div class="dropdown-menu dropdown-menu-start">
-              <%= link_to "Log out", destroy_user_session_path, class: 'dropdown-item' %>
             </div>
           </div>
         </div>
@@ -62,6 +59,12 @@
           <li class="sidebar-item <%= active_controller_action?(controller: 'pelicans', action: 'edit') %>">
             <%= link_to edit_pelican_path(current_user.username), class: 'sidebar-link' do %>
               <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+            <% end %>
+          </li>
+          
+          <li class="sidebar-item <%= active_controller_action?(controller: 'company', action: 'about_us') %>">
+            <%= link_to about_us_company_index_path, class: 'sidebar-link' do %>
+              <i class="align-middle" data-feather="info"></i> <span class="align-middle">About Us</span>
             <% end %>
           </li>
 
