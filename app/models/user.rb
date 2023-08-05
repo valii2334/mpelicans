@@ -8,7 +8,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, authentication_keys: [:login]
 
   has_one_attached :image do |attachable|
-    attachable.variant :max, resize_and_pad: [400, 400]
+    attachable.variant :max,
+                       resize_and_pad: [200, 200],
+                       format: :webp,
+                       quality: 80
   end
 
   has_many :journeys, dependent: :destroy

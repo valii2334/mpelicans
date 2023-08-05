@@ -11,8 +11,14 @@ module Imageable
 
   included do
     has_many_attached :images do |attachable|
-      attachable.variant :thumbnail, resize_to_fill:  [500, 500],   format: :webp, quality: 80
-      attachable.variant :max,       resize_to_limit: [2048, 2048], format: :webp
+      attachable.variant :thumbnail,
+                         resize_to_fill: [400, 400],
+                         format: :webp,
+                         quality: 80
+
+      attachable.variant :max,
+                         resize_to_limit: [2048, 2048],
+                         format: :webp
     end
 
     enum image_processing_status: {
