@@ -1,12 +1,17 @@
-<div class="row align-items-center justify-content-center m-0">
-  <% thumbnail_image_urls.first(4).each_with_index do |thumbnail_image_url, index| %>
+<% thumbnail_image_urls = thumbnail_image_urls.in_groups_of(2, false) %>
+<% image_urls           = image_urls.in_groups_of(2, false) %>
+
+<% thumbnail_image_urls.each_with_index do |thumbnail_images_group, group_index| %>
+  <div class="row align-items-center justify-content-center m-0">
+    <% thumbnail_images_group.each_with_index do |thumbnail_image_url, image_index| %>
       <div class="col-6 p-1">
         <img 
           class="lazy w-100 lightbox-image" 
           data-src="<%= thumbnail_image_url %>"
-          data-remote="<%= image_urls[index] %>"
+          data-remote="<%= image_urls[group_index][image_index] %>"
           data-gallery="example-gallery-<%= object_id %>"
         >
       </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
+<% end %>

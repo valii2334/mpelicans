@@ -71,7 +71,7 @@
             </h5>
           </div>
         <% else %>
-          <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey_stop.all_thumbnails, image_urls: journey_stop.all_maxs, object_id: journey_stop.id }%>
+          <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey_stop.all_thumbnails.first(4), image_urls: journey_stop.all_maxs.first(4), object_id: journey_stop.id }%>
         <% end %>
         <div class="card-header">
           <h5 class="card-title title <%= index_class %>" id="journey-stop-image-processing-status">

@@ -20,7 +20,7 @@
                 </h5>
               </div>
             <% else %>
-              <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey.all_thumbnails, image_urls: journey.all_maxs, object_id: journey.id }%>
+              <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey.all_thumbnails.first(4), image_urls: journey.all_maxs.first(4), object_id: journey.id }%>
             <% end %>
             <div class="card-header">
               <h5 class="card-title">

@@ -5,7 +5,7 @@
         <% images_max_urls       = imageable.all_maxs %>
 
         <% images_max_urls.each_with_index do |image_max_url, index| %>
-            <div class="col-4">
+            <div class="col-lg-4 col-md-6 col-sm-6">
                 <img 
                 src="<%= images_thumbnail_urls[index] %>"
                 data-src="<%= image_max_url %>"
