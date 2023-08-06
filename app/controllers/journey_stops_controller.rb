@@ -100,6 +100,6 @@ class JourneyStopsController < ApplicationController
   def notify_users
     journey = @journey_stop.journey
 
-    NotifierJob.perform_async(journey.id, 'new_journey_stop', journey.user_id)
+    NotifierJobs::NewJourneyStop.perform_async(journey.id, @journey_stop.id, journey.user_id)
   end
 end

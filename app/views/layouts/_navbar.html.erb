@@ -32,7 +32,7 @@
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
           
           <div class="dropdown-menu-header">
-            You have <%= pluralize(notifications_count, 'notification') %>
+            You have <%= notifications_count %> new <%= 'notification'.pluralize(notifications_count) %>
           </div>
           <div class="list-group">
             <% unread_notifications.each do |unread_notification| %>

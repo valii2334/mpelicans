@@ -96,7 +96,7 @@ class JourneysController < ApplicationController
   end
 
   def notify_users
-    NotifierJob.perform_async(@journey.id, 'new_journey', @journey.user_id)
+    NotifierJobs::NewJourney.perform_async(@journey.id, @journey.user_id)
   end
 
   def authorize_journey(method)

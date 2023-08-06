@@ -11,7 +11,7 @@
       <% if can?(:destroy, map_pin, current_user, journey_stop) %>
         <div class="row">
           <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-            <%= button_to 'Remove Pin', map_pin_path(id: map_pin.id), method: :delete, remote: true, class: 'btn btn-primary' %>
+            <%= button_to 'Remove Pin', map_pin_path(id: map_pin.id), method: :delete, remote: true, class: 'btn btn-danger' %>
           </div>
         </div>
       <% end %>

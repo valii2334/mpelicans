@@ -54,7 +54,7 @@ RSpec.describe JourneyAcquisitionsController, type: :controller do
       context 'valid parameters' do
         context 'journey is monetized' do
           context 'other users journey' do
-            let(:notifier) { double('Notifier') }
+            let(:notifier) { double('Notifiers::BoughtJourney') }
 
             before do
               second_journey.update(access_type: :monetized_journey)
@@ -71,10 +71,9 @@ RSpec.describe JourneyAcquisitionsController, type: :controller do
               end
 
               it 'notifies users' do
-                expect(Notifier).to receive(:new).with(
+                expect(Notifiers::BoughtJourney).to receive(:new).with(
                   {
                     journey_id: second_journey.id,
-                    notification_type: :bought_journey,
                     sender_id: user.id
                   }
                 ).and_return(notifier)
@@ -99,10 +98,9 @@ RSpec.describe JourneyAcquisitionsController, type: :controller do
               end
 
               it 'does not notify users' do
-                expect(Notifier).to_not receive(:new).with(
+                expect(Notifiers::BoughtJourney).to_not receive(:new).with(
                   {
                     journey_id: second_journey.id,
-                    notification_type: :bought_journey,
                     sender_id: user.id
                   }
                 )

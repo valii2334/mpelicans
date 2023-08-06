@@ -40,6 +40,6 @@ class JourneyAcquisitionsController < ApplicationController
   end
 
   def notify_users(journey_id:, sender_id:)
-    NotifierJob.perform_async(journey_id, notification_type, sender_id)
+    NotifierJobs::BoughtJourney.perform_async(journey_id, sender_id)
   end
 end

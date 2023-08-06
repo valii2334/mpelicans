@@ -2,10 +2,20 @@
 
 FactoryBot.define do
   factory :notification do
-    sender            { create(:user) }
-    receiver          { create(:user) }
-    notification_type { :bought_journey }
+    sender   { create(:user) }
+    receiver { create(:user) }
+  end
 
-    journey
+  factory :bought_journey_notification, class: Notifications::BoughtJourney, parent: :notification do
+    journey { create(:journey) }
+  end
+
+  factory :new_journey_notification, class: Notifications::NewJourney, parent: :notification do
+    journey { create(:journey) }
+  end
+
+  factory :new_journey_stop_notification, class: Notifications::NewJourneyStop, parent: :notification do
+    journey { create(:journey) }
+    journey_stop { create(:journey_stop) }
   end
 end

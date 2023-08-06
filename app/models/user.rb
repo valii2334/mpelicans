@@ -56,9 +56,6 @@ class User < ApplicationRecord
   validates :username, presence: true
   validates :username, uniqueness: { case_sensitive: false }
 
-  validates :email, presence: true
-  validates :email, uniqueness: { case_sensitive: false }
-
   validate :username_validator
 
   default_scope { order(created_at: :desc) }

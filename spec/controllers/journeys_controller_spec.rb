@@ -174,35 +174,21 @@ RSpec.describe JourneysController, type: :controller do
             end.to change { Journey.count }.by(1)
           end
 
-          let(:notifier) { double('Notifier') }
+          let(:notifier) { double('Notifiers::NewJourney') }
 
           before do
+            allow(Notifiers::NewJourney).to receive(:new).and_return(notifier)
             allow(notifier).to receive(:notify).and_return(nil)
           end
 
-          context 'protected, private journey' do
-            %i[protected_journey private_journey].each do |access_type|
-              let(:access_type) { access_type }
+          it 'does notify users' do
+            subject
 
-              it 'does not notify users' do
-                subject
-              end
-            end
-          end
-
-          context 'public, monetized journey' do
-            %i[public_journey monetized_journey].each do |access_type|
-              let(:access_type) { access_type }
-
-              it 'does notify users' do
-                expect(Notifier).to receive(:new).with({
-                                                         journey_id: instance_of(Integer),
-                                                         notification_type: :new_journey,
-                                                         sender_id: user.id
-                                                       }).and_return(notifier)
-                subject
-              end
-            end
+            expect(Notifiers::NewJourney)
+              .to have_received(:new).with({
+                                             journey_id: Journey.last.id,
+                                             sender_id: user.id
+                                           })
           end
         end
       end
