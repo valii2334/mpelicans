@@ -19,7 +19,22 @@ module ApplicationHelper
     all_journeys_tab?
   end
 
+  def which_journeys_button_class(which_journeys:)
+    return select_journeys_tab if params[:which_journeys].blank? && which_journeys == 'latest'
+    return select_journeys_tab if params[:which_journeys] == which_journeys
+
+    not_selected_journeys_tab
+  end
+
   private
+
+  def select_journeys_tab
+    'btn-primary'
+  end
+
+  def not_selected_journeys_tab
+    'btn-outline-primary'
+  end
 
   def my_journeys_tab?(tab:)
     return unless tab == 'mine'
