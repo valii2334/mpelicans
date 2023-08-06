@@ -4,12 +4,12 @@ module Notifiers
   class NewJourney < Base
     attr_reader :journey, :sender
 
+    # rubocop:disable Lint/MissingSuper
     def initialize(journey_id:, sender_id:)
       @journey = Journey.find(journey_id)
       @sender  = User.find(sender_id)
-
-      super
     end
+    # rubocop:enable Lint/MissingSuper
 
     private
 
