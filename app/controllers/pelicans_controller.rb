@@ -25,7 +25,7 @@ class PelicansController < ApplicationController
   def update
     @user.update(update_params)
 
-    reset_password
+    reset_password if can_reset_password?
 
     if @user.errors.blank?
       render_success_message(message: 'Your user was updated')
@@ -44,8 +44,8 @@ class PelicansController < ApplicationController
 
   def reset_password
     current_user.reset_password(
-      params[:user][:password],
-      params[:user][:password_confirmation]
+      password,
+      password_confirmation
     )
 
     bypass_sign_in current_user
@@ -57,5 +57,17 @@ class PelicansController < ApplicationController
       :image,
       :username
     )
+  end
+
+  def can_reset_password?
+    password && password_confirmation
+  end
+
+  def password
+    params[:user][:password]
+  end
+
+  def password_confirmation
+    params[:user][:password_confirmation]
   end
 end
