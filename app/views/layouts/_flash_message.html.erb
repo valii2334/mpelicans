@@ -1,8 +1,8 @@
-<% if flash[:message] %>
-  <div class="alert alert-<%= flash[:message_type] || 'secondary' %> alert-dismissible" role="alert">
+<% if flash_message %>
+  <div class="alert alert-<%= flash_message_type %> alert-dismissible" role="alert">
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     <div class="alert-message">
-      <%= flash[:message] %>
+      <%= flash_message %>
     </div>
   </div>
 <% end %>

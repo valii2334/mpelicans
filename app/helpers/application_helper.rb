@@ -26,6 +26,18 @@ module ApplicationHelper
     not_selected_journeys_tab
   end
 
+  def flash_message
+    flash[:message] || alert || notice
+  end
+
+  def flash_message_type
+    return flash[:message_type] if flash[:message_type]
+    return 'success'            if notice
+    return 'danger'             if alert
+
+    'secondary'
+  end
+
   private
 
   def select_journeys_tab
