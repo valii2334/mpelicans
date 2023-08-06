@@ -42,7 +42,7 @@
   <%= render partial: 'shared/map', locals: { pins: @journey.pins.to_json } %>
 <% end %>
 
-<div class="row">
+<div class="row" data-controller="lightbox">
   <% @journey.journey_stops.each_with_index do |journey_stop, index| %>
     <% index_class = "journey-stop-#{index}" %>
 
@@ -61,7 +61,7 @@
             </h5>
           </div>
         <% else %>
-          <%= render partial: 'shared/images_grid', locals: { image_urls_groups: journey_stop.thumbnails_grouped }%>
+          <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey_stop.all_thumbnails, image_urls: journey_stop.all_maxs, object_id: journey_stop.id }%>
         <% end %>
         <div class="card-header">
           <h5 class="card-title title <%= index_class %>" id="journey-stop-image-processing-status">

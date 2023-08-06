@@ -46,21 +46,7 @@ module Imageable
     image_urls(variant:)
   end
 
-  def thumbnails_grouped
-    grouped_images(images_urls: all_thumbnails)
-  end
-
-  def maxs_grouped
-    grouped_images(images_urls: all_maxs)
-  end
-
   private
-
-  def grouped_images(images_urls:)
-    images_urls
-      .first(NUMBER_OF_DISPLAYED_IMAGES)
-      .in_groups_of(NUMBER_OF_IMAGES_PER_ROW, false)
-  end
 
   def image_urls(variant:)
     return [] unless processed?

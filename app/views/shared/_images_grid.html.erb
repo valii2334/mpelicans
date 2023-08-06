@@ -1,9 +1,12 @@
-<% image_urls_groups.each do |image_urls_group| %>
-  <div class="row align-items-center justify-content-center m-0">
-    <% image_urls_group.each do |image_url| %>
+<div class="row align-items-center justify-content-center m-0">
+  <% thumbnail_image_urls.first(4).each_with_index do |thumbnail_image_url, index| %>
       <div class="col-6 p-1">
-        <img class="lazy" data-src="<%= image_url %>" style='width:100%'>
+        <img 
+          class="lazy w-100 lightbox-image" 
+          data-src="<%= thumbnail_image_url %>"
+          data-remote="<%= image_urls[index] %>"
+          data-gallery="example-gallery-<%= object_id %>"
+        >
       </div>
-    <% end %>
-  </div>
-<% end %>
+  <% end %>
+</div>

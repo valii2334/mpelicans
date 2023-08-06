@@ -1,10 +1,10 @@
-<div class="row">
+<div class="row" data-controller="lightbox">
 	<% if journeys.empty? %>
 		<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
 			<h1 class="h4 d-inline align-middle">There are no journeys yet.</h1>
 		</div>
 	<% else %>
-		<% journeys.each do |journey| %>
+		<% journeys.each_with_index do |journey, index| %>
 				<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
 					<div class="card">
             <% if journey.waiting? %>
@@ -20,7 +20,7 @@
                 </h5>
               </div>
             <% else %>
-              <%= render partial: 'shared/images_grid', locals: { image_urls_groups: journey.thumbnails_grouped }%>
+              <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey.all_thumbnails, image_urls: journey.all_maxs, object_id: journey.id }%>
             <% end %>
             <div class="card-header">
               <h5 class="card-title">
