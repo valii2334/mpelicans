@@ -18,4 +18,9 @@ FactoryBot.define do
     journey { create(:journey) }
     journey_stop { create(:journey_stop) }
   end
+
+  # rubocop:disable Lint/EmptyBlock
+  factory :new_follower_notification, class: Notifications::NewFollower, parent: :notification do
+  end
+  # rubocop:enable Lint/EmptyBlock
 end

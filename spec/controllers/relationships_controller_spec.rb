@@ -36,6 +36,23 @@ RSpec.describe RelationshipsController, type: :controller do
           subject
         end.to change { Relationship.count }.by(1)
       end
+
+      let(:notifier) { double('Notifiers::NewFollower') }
+
+      before do
+        allow(Notifiers::NewFollower).to receive(:new).and_return(notifier)
+        allow(notifier).to receive(:notify).and_return(nil)
+      end
+
+      it 'does notify users' do
+        subject
+
+        expect(Notifiers::NewFollower)
+          .to have_received(:new).with({
+                                         receiver_id: followee_id.to_s,
+                                         sender_id: user.id
+                                       })
+      end
     end
 
     context 'I try to follow a user which I am already following' do
