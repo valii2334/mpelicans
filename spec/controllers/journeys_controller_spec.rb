@@ -133,7 +133,7 @@ RSpec.describe JourneysController, type: :controller do
             let(:journey_params) do
               {
                 description: FFaker::Lorem.paragraph,
-                images: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
+                images: [fixture_file_upload('lasvegas.jpg', 'image/jpeg')],
                 user_id: user.id
               }
             end
@@ -145,13 +145,43 @@ RSpec.describe JourneysController, type: :controller do
             let(:journey_params) do
               {
                 description: FFaker::Lorem.paragraph,
-                start_plus_code: FFaker::Random.rand,
                 title: FFaker::Name.name,
                 user_id: user.id
               }
             end
 
             include_examples 'missing parameter', Journey, 'Images'
+          end
+
+          context 'more images than MAXIMUM_NUMBER_OF_IMAGES' do
+            let(:journey_params) do
+              {
+                title: FFaker::Name.name,
+                description: FFaker::Lorem.paragraph,
+                lat: '46.749971',
+                long: '23.598739',
+                images: [
+                  fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
+                  fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
+                  fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
+                  fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
+                  fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
+                  fixture_file_upload('lasvegas.jpg', 'image/jpeg')
+                ]
+              }
+            end
+
+            it 'does not create a Journey' do
+              expect do
+                subject
+              end.to change { Journey.count }.by(0)
+            end
+
+            it 'includes error message' do
+              expect(CGI.unescapeHTML(subject.body)).to include(
+                "can't post more than #{Journey::MAXIMUM_NUMBER_OF_IMAGES}"
+              )
+            end
           end
         end
 
@@ -162,7 +192,7 @@ RSpec.describe JourneysController, type: :controller do
             {
               access_type:,
               description: FFaker::Lorem.paragraph,
-              images: fixture_file_upload('lasvegas.jpg', 'image/jpeg'),
+              images: [fixture_file_upload('lasvegas.jpg', 'image/jpeg')],
               title: FFaker::Name.name,
               user_id: user.id
             }

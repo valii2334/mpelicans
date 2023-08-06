@@ -10,7 +10,6 @@ class JourneysController < ApplicationController
     accepts_recommendations
     access_type
     description
-    image
     title
   ].freeze
 
@@ -91,7 +90,7 @@ class JourneysController < ApplicationController
     ImagesProcessors::Validator.new(
       imageable_id: @journey.id,
       imageable_type: @journey.class.name,
-      http_uploaded_files: [params[:journey][:images]]
+      http_uploaded_files: params[:journey][:images]
     ).run
   end
 

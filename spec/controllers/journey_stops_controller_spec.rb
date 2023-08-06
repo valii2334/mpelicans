@@ -88,7 +88,6 @@ RSpec.describe JourneyStopsController, type: :controller do
           {
             title: FFaker::Name.name,
             description: FFaker::Lorem.paragraph,
-            plus_code: FFaker::Random.rand,
             journey_id: journey.id
           }
         end

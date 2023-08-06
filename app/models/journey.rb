@@ -4,6 +4,8 @@
 class Journey < ApplicationRecord
   include Imageable
 
+  MAXIMUM_NUMBER_OF_IMAGES = 5
+
   paginates_per 50
 
   belongs_to :user
@@ -21,6 +23,7 @@ class Journey < ApplicationRecord
             presence: true
 
   validate :images_are_present
+  validate :maximum_number_of_images
 
   default_scope { order(latest_journey_stop_added_at: :desc) }
 
@@ -74,5 +77,11 @@ class Journey < ApplicationRecord
     return if access_code
 
     self.access_code = SecureRandom.uuid
+  end
+
+  def maximum_number_of_images
+    return if passed_images_count <= MAXIMUM_NUMBER_OF_IMAGES
+
+    errors.add :images, :invalid, message: "can't post more than #{MAXIMUM_NUMBER_OF_IMAGES}"
   end
 end

@@ -1,4 +1,4 @@
-<div class="row"> 
+<div class="row" data-controller="lightbox"> 
   <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
     <% if current_user && can?(:edit, @journey) %>
       <%= link_to '+ New Stop', new_journey_journey_stop_path(@journey), class: 'btn btn-primary  float-end mt-n1' %>
@@ -38,11 +38,21 @@
   </div>
 <% end %>
 
+<%= render partial: 'shared/images_gallyer', 
+            locals: { 
+              imageable: OpenStruct.new(
+              all_thumbnails: @journey.images_urls(variant: :thumbnail), 
+              all_maxs: @journey.images_urls(variant: :max)
+            ),
+            image_id: "journey-image"
+          } 
+%>
+
 <% if !Rails.env.test? && @journey.pins.present? %>
   <%= render partial: 'shared/map', locals: { pins: @journey.pins.to_json } %>
 <% end %>
 
-<div class="row" data-controller="lightbox">
+<div class="row">
   <% @journey.journey_stops.each_with_index do |journey_stop, index| %>
     <% index_class = "journey-stop-#{index}" %>
 

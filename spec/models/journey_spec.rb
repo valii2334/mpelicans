@@ -40,6 +40,23 @@ RSpec.describe Journey, type: :model do
 
   it { should validate_presence_of :title }
 
+  describe '#maximum_number_of_images' do
+    it 'is not valid if passed_images_count is gt than MAXIMUM_NUMBER_OF_IMAGES' do
+      subject.passed_images_count = Journey::MAXIMUM_NUMBER_OF_IMAGES + 1
+
+      expect(subject).to_not be_valid
+      expect(subject.errors.messages).to eq(
+        { images: ["can't post more than #{Journey::MAXIMUM_NUMBER_OF_IMAGES}"] }
+      )
+    end
+
+    it 'is valid if passed_images_count is l or e than MAXIMUM_NUMBER_OF_IMAGES' do
+      subject.passed_images_count = Journey::MAXIMUM_NUMBER_OF_IMAGES
+
+      expect(subject).to be_valid
+    end
+  end
+
   it_behaves_like '#images_are_present'
 
   ##################################

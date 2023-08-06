@@ -73,10 +73,14 @@
 
           <div class="mb-3">
 						<label class="form-label">
-							Add the first picture of your journey.
+							Add the first pictures of your journey
+              <br>
+              <strong>
+                Maximum <%= Journey::MAXIMUM_NUMBER_OF_IMAGES %> images.
+              </strong>
 						</label>
 						<br>
-            <%= f.file_field :images, required: true, accept: ACCEPTED_CONTENT_TYPE %>
+            <%= f.file_field :images, multiple: true, required: true, accept: ACCEPTED_CONTENT_TYPE %>
           </div>
 
 					<div class="actions">
