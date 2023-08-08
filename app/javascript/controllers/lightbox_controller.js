@@ -1,5 +1,4 @@
 import { Controller } from "@hotwired/stimulus"
-import Lightbox from 'bs5-lightbox';
 
 export default class extends Controller {
   connect() {

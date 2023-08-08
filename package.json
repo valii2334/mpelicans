@@ -7,7 +7,6 @@
     "@rails/actiontext": "^7.0.5-1",
     "bootstrap": "^5.2.0",
     "bootstrap-icons": "^1.9.1",
-    "bs5-lightbox": "^1.8.3",
     "domurl": "2.3.4",
     "esbuild": "^0.15.7",
     "expose-loader": "3.1.0",

@@ -12,6 +12,9 @@ import "./modules/theme";
 import "./modules/fullscreen";
 import "./modules/feather";
 
+// Lightbox
+import "./src/bs5-lightbox";
+
 // jquery-lazy
 import 'jquery-lazy';
 $(function() {
