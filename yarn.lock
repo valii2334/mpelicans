@@ -2517,7 +2517,9 @@ __metadata:
     esbuild: ^0.15.7
     expose-loader: 3.1.0
     feather-icons: 4.29.0
+    file-upload-with-preview: ^6.0.2
     jquery: ^3.6.1
+    jquery-lazy: ^1.7.11
     sass: ^1.54.8
     semistandard: ^16.0.1
     simplebar: ^5.3.9
@@ -5843,6 +5845,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"file-upload-with-preview@npm:^6.0.2":
+  version: 6.0.2
+  resolution: "file-upload-with-preview@npm:6.0.2"
+  checksum: d60fc1d45fea6b496eb4369b6c06299d2598c5500c9bb527f6dee74dc065438d949296b1d593f15288f5dfcb535b1e8083eddaaf95980a7c5049e8151d40b3f7
+  languageName: node
+  linkType: hard
+
 "fill-range@npm:^7.0.1":
   version: 7.0.1
   resolution: "fill-range@npm:7.0.1"
@@ -6879,7 +6888,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jquery@npm:^3.6.1":
+"jquery-lazy@npm:^1.7.11":
+  version: 1.7.11
+  resolution: "jquery-lazy@npm:1.7.11"
+  dependencies:
+    jquery: ">=1.7.2"
+  checksum: 75b5d1e97b1c34fd9aa62628f69ba56a68f3666c864e94006c62076428785ea8c09e80b1a026c910f72a398ff81bf9227783338a75c23e57a140d1f06762481c
+  languageName: node
+  linkType: hard
+
+"jquery@npm:>=1.7.2, jquery@npm:^3.6.1":
   version: 3.7.0
   resolution: "jquery@npm:3.7.0"
   checksum: 907785e133afc427650a131af5fccef66a404885037513b3d4d7d63aee6409bcc32a39836868c60e59b05aa0fb8ace8961c18b2ee3ffdf6ffdb571d6d7cd88ff

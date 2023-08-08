@@ -31,7 +31,7 @@ class JourneyStopsController < ApplicationController
 
       redirect_to journey_journey_stop_path(@journey_stop.journey, @journey_stop)
     else
-      alert_message
+      render_alert_message
 
       render action: 'new'
     end

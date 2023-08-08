@@ -13,7 +13,18 @@ import "./modules/fullscreen";
 import "./modules/feather";
 
 // Lightbox
-import "./src/bs5-lightbox";
+import Lightbox from 'bs5-lightbox';
+window.Lightbox = Lightbox;
+
+// jquery-lazy
+import 'jquery-lazy';
+$(function() {
+  $('.lazy').Lazy();
+});
+
+// File upload preview
+import { FileUploadWithPreview } from 'file-upload-with-preview';
+window.FileUploadWithPreview = FileUploadWithPreview;
 
 import "./controllers"
 import "trix"

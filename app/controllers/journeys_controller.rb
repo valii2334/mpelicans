@@ -42,7 +42,7 @@ class JourneysController < ApplicationController
 
       redirect_to journey_path(@journey)
     else
-      alert_message
+      render_alert_message
 
       render action: 'new'
     end
@@ -58,7 +58,7 @@ class JourneysController < ApplicationController
 
       redirect_to root_path
     else
-      alert_message
+      render_alert_message
 
       redirect_to journey_path(@journey)
     end
