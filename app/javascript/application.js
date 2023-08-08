@@ -12,10 +12,6 @@ import "./modules/theme";
 import "./modules/fullscreen";
 import "./modules/feather";
 
-// Lightbox
-import Lightbox from 'bs5-lightbox';
-window.Lightbox = Lightbox;
-
 // jquery-lazy
 import 'jquery-lazy';
 $(function() {
