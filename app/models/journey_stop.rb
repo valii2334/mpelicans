@@ -42,7 +42,7 @@ class JourneyStop < ApplicationRecord
   private
 
   def set_latest_journey_stop_added_at
-    journey.update(latest_journey_stop_added_at: DateTime.now)
+    journey.update_attribute(:latest_journey_stop_added_at, DateTime.now)
   end
 
   def maximum_number_of_images
