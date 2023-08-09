@@ -41,9 +41,11 @@ class JourneyStop < ApplicationRecord
 
   private
 
+  # rubocop:disable Rails/SkipsModelValidations
   def set_latest_journey_stop_added_at
     journey.update_attribute(:latest_journey_stop_added_at, DateTime.now)
   end
+  # rubocop:enable Rails/SkipsModelValidations
 
   def maximum_number_of_images
     return if passed_images_count <= MAXIMUM_NUMBER_OF_IMAGES
