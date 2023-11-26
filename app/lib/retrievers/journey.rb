@@ -27,10 +27,7 @@ module Retrievers
 
     def latest_journeys
       ::Journey
-        .includes(
-          :user,
-          uploaded_images: { imageable: :images }, journey_stops: { uploaded_images: { imageable: :images } }
-        )
+        .includes(associated_records)
         .where(access_type: VIEWABLE_ACCESS_TYPES)
         .where(image_processing_status: :processed)
     end
@@ -38,10 +35,7 @@ module Retrievers
     def users_latest_journeys
       user
         .journeys
-        .includes(
-          :user,
-          uploaded_images: { imageable: :images }, journey_stops: { uploaded_images: { imageable: :images } }
-        )
+        .includes(associated_records)
         .where(access_type: VIEWABLE_ACCESS_TYPES)
         .where(image_processing_status: :processed)
     end
@@ -49,20 +43,22 @@ module Retrievers
     def bought_journeys
       user
         .bought_journeys
-        .includes(
-          :user,
-          uploaded_images: { imageable: :images }, journey_stops: { uploaded_images: { imageable: :images } }
-        )
+        .includes(associated_records)
         .where(access_type: VIEWABLE_ACCESS_TYPES)
     end
 
     def mine_journeys
       user
         .journeys
-        .includes(
-          :user,
-          uploaded_images: { imageable: :images }, journey_stops: { uploaded_images: { imageable: :images } }
-        )
+        .includes(associated_records)
+    end
+
+    def associated_records
+      {
+        user: { image: { blob: :variant_records } },
+        uploaded_images: { imageable: { images: { blob: :variant_records } } },
+        journey_stops: { uploaded_images: { imageable: { images: { blob: :variant_records } } } }
+      }
     end
 
     def mine_journeys?
