@@ -51,7 +51,7 @@ module Imageable
   def image_urls(variant:)
     return [] unless processed?
 
-    images.map { |image| image.variant(variant).processed.url }
+    images.map { |image| image.variant(variant).url }
   end
 
   def images_are_present
