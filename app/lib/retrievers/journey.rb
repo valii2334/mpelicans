@@ -55,7 +55,6 @@ module Retrievers
 
     def associated_records
       {
-        user: { image: { blob: :variant_records } },
         uploaded_images: { imageable: { images: { blob: :variant_records } } },
         journey_stops: { uploaded_images: { imageable: { images: { blob: :variant_records } } } }
       }
