@@ -24,6 +24,7 @@ gem 'puma', '~> 5.0'
 gem 'redis', '~> 4.0'
 gem 'rubocop-rails', require: false
 gem 'sassc-rails'
+gem 'scout_apm'
 gem 'sentry-rails'
 gem 'sentry-ruby'
 gem 'sidekiq'
