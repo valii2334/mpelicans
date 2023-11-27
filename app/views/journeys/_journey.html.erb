@@ -41,7 +41,7 @@
 <div class="row">
   <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
     <div class="card">
-      <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: @journey.all_thumbnails, image_urls: @journey.all_maxs, object_id: @journey.id }%>
+      <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: @journey.images_urls(variant: :thumbnail), image_urls: @journey.images_urls(variant: :max), object_id: @journey.id }%>
     </div>
   </div>
 </div>
