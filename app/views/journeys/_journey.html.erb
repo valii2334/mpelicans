@@ -12,16 +12,6 @@
   </div>
 </div>
 
-<%= render partial: 'shared/images_gallyer', 
-            locals: { 
-              imageable: OpenStruct.new(
-              all_thumbnails: @journey.images_urls(variant: :thumbnail), 
-              all_maxs: @journey.images_urls(variant: :max)
-            ),
-            image_id: "journey-image"
-          } 
-%>
-
 <% if current_user && can?(:edit, @journey) %>
   <div class="row">
   	<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
@@ -48,6 +38,14 @@
   </div>
 <% end %>
 
+<div class="row">
+  <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
+    <div class="card">
+      <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: @journey.all_thumbnails, image_urls: @journey.all_maxs, object_id: @journey.id }%>
+    </div>
+  </div>
+</div>
+
 <% if !Rails.env.test? && @journey.pins.present? %>
   <%= render partial: 'shared/map', locals: { pins: @journey.pins.to_json } %>
 <% end %>
@@ -71,20 +69,20 @@
             </h5>
           </div>
         <% else %>
-          <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey_stop.all_thumbnails.first(4), image_urls: journey_stop.all_maxs.first(4), object_id: journey_stop.id }%>
+          <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey_stop.all_thumbnails, image_urls: journey_stop.all_maxs, object_id: journey_stop.id }%>
         <% end %>
         <div class="card-header">
           <h5 class="card-title title <%= index_class %>" id="journey-stop-image-processing-status">
             <%= journey_stop.title %>
           </h5>
           <h6 class="card-subtitle text-muted">
-            <%= pluralize(journey_stop.views_count, 'view') %>
+            Created <%= time_ago_in_words(journey_stop.created_at) %> ago.
           </h6>
         </div>
         <div class="card-body">
           <p>
             <h6 class="card-subtitle text-muted">
-              Created <%= time_ago_in_words(journey_stop.created_at) %> ago.
+              
             </h6>
           </p>
 
@@ -96,6 +94,9 @@
                 <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop), class: 'btn btn-sm btn-primary' %>
               <% end %>
             <% end %>
+          </p>
+          <p class="text-end">
+            <%= pluralize(journey_stop.views_count, 'view') %>
           </p>
         </div>
       </div>

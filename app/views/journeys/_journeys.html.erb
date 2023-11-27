@@ -20,40 +20,31 @@
                 </h5>
               </div>
             <% else %>
-              <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey.all_thumbnails.first(4), image_urls: journey.all_maxs.first(4), object_id: journey.id }%>
+              <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey.all_thumbnails, image_urls: journey.all_maxs, object_id: journey.id }%>
             <% end %>
             <div class="card-header">
               <h5 class="card-title">
                 <%= journey.title %> 
               </h5>
               <h6 class="card-subtitle text-muted">
-                <%= pluralize(journey.views_count, 'view') %>
+                <% if journey.journey_stops.present? %>
+                  New stop was added <%= time_ago_in_words(journey.latest_journey_stop_added_at) %> ago.
+                <% else %>
+                  Journey was created <%= time_ago_in_words(journey.created_at) %> ago.
+                <% end %>
               </h6>
             </div>
 						<div class="card-body">
               <p>
                 <%= link_to pelican_path(journey.user.username), class: 'link-secondary' do %>
                   <% if journey.user.image.attached? %>
-                    <img src="<%= journey.user.image.variant(:max).url %>" class="rounded-circle me-1" alt="Avatar" width="28", height="28">        
+                    <img src="<%= journey.user.image.variant(:max).processed.url %>" class="rounded-circle me-1" alt="Avatar" width="28", height="28">        
                   <% else %>
                     <%= image_tag "avatars/avatar.png", class: "rounded-circle me-1", alt: "Avatar", width: "28", height: "28" %>
                   <% end %>
                   <b><%= journey.user.username %></b>
                 <% end %>
               </p>
-              <% if journey.journey_stops.present? %>
-                <p>
-                  <h6 class="card-subtitle text-muted">
-                    New stop was added <%= time_ago_in_words(journey.latest_journey_stop_added_at) %> ago.
-                  </h6>
-                </p>
-              <% else %>
-                <p>
-                  <h6 class="card-subtitle text-muted">
-                    Journey was created <%= time_ago_in_words(journey.created_at) %> ago.
-                  </h6>
-                </p>
-              <% end %>
               <p>
                 <% if can?(:show, journey) %>
                   <%= link_to 'View Journey', journey_path(journey), class: 'btn btn-sm btn-primary' %>
@@ -68,6 +59,9 @@
                     <% end %>
                   <% end %>
                 <% end %>
+              </p>
+              <p class="text-end">
+                <%= pluralize(journey.views_count, 'view') %>
               </p>
 						</div>
 					</div>

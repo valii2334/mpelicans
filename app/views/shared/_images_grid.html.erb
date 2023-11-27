@@ -1,17 +1,9 @@
-<% thumbnail_image_urls = thumbnail_image_urls.in_groups_of(2, false) %>
-<% image_urls           = image_urls.in_groups_of(2, false) %>
+<% locals = { thumbnail_image_urls: thumbnail_image_urls, image_urls: image_urls, object_id: object_id } %>
 
-<% thumbnail_image_urls.each_with_index do |thumbnail_images_group, group_index| %>
-  <div class="row align-items-center justify-content-center m-0">
-    <% thumbnail_images_group.each_with_index do |thumbnail_image_url, image_index| %>
-      <div class="col-6 p-1">
-        <img 
-          class="lazy w-100 lightbox-image" 
-          data-src="<%= thumbnail_image_url %>"
-          data-remote="<%= image_urls[group_index][image_index] %>"
-          data-gallery="example-gallery-<%= object_id %>"
-        >
-      </div>
-    <% end %>
-  </div>
-<% end %>
+<div class="row align-items-center justify-content-center m-0">
+  <% if image_urls.count < 5 %>
+    <%= render partial: "shared/images_grid_#{image_urls.count}_image", locals: locals %>
+  <% else %>
+    <%= render partial: 'shared/images_grid_5_image', locals: locals %>
+  <% end %>
+</div>

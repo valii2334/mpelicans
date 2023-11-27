@@ -32,14 +32,6 @@
   </div>
 <% end %>
 
-<% unless Rails.env.test? %>
-  <%= render partial: 'shared/map', locals: { pins: [@journey_stop.pin].to_json } %>
-<% end %>
-
-<% unless @journey_stop.journey.protected_journey? %>
-  <%= render partial: 'map_pins/pin_unpin', locals: { current_user: current_user, journey_stop: @journey_stop } %>
-<% end %>
-
 <br>
 
 <% if @journey_stop.waiting? %>
@@ -47,7 +39,21 @@
 <% elsif @journey_stop.processing? %>
   <%= render partial: 'shared/processing_images', locals: { message: 'Please wait. Images are being processed.' } %>
 <% else %>
-  <%= render partial: 'shared/images_gallyer', locals: { imageable: @journey_stop, image_id: "journey-stop-image" } %>
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
+      <div class="card">
+        <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: @journey_stop.all_thumbnails, image_urls: @journey_stop.all_maxs, object_id: @journey_stop.id }%>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% unless Rails.env.test? %>
+  <%= render partial: 'shared/map', locals: { pins: [@journey_stop.pin].to_json } %>
+<% end %>
+
+<% unless @journey_stop.journey.protected_journey? %>
+  <%= render partial: 'map_pins/pin_unpin', locals: { current_user: current_user, journey_stop: @journey_stop } %>
 <% end %>
 
 <div class="row"> 

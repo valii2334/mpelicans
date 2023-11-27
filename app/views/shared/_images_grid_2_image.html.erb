@@ -1,0 +1,10 @@
+<% image_urls.each_with_index do |image_url, index| %>
+  <div class="col-6 p-1">
+    <img 
+      class="lazy w-100 lightbox-image" 
+      data-src="<%= thumbnail_image_urls[index] %>"
+      data-remote="<%= image_urls[index] %>"
+      data-gallery="example-gallery-<%= object_id %>"
+    >
+  </div>
+<% end %>

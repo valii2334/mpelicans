@@ -50,7 +50,7 @@
                 <div class="col-md-4">
                   <div class="text-center">
                     <% if @user.image.attached? %>
-                      <img src="<%= @user.image.variant(:max).url %>" class="rounded-circle img-responsive mt-2" width='128' height='128'>
+                      <img src="<%= @user.image.variant(:max).processed.url %>" class="rounded-circle img-responsive mt-2" width='128' height='128'>
                     <% else %>
                       <%= image_tag "avatars/avatar.png", class: "rounded-circle img-responsive mt-2", width: '128', height: '128' %>
                     <% end %>

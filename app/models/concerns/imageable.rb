@@ -12,7 +12,7 @@ module Imageable
   included do
     has_many_attached :images do |attachable|
       attachable.variant :thumbnail,
-                         resize_to_fill: [400, 400],
+                         resize_to_fill: [1024, 1024],
                          format: :webp,
                          quality: 80
 
@@ -51,7 +51,7 @@ module Imageable
   def image_urls(variant:)
     return [] unless processed?
 
-    images.map { |image| image.variant(variant).url }
+    images.map { |image| image.variant(variant).processed.url }
   end
 
   def images_are_present
