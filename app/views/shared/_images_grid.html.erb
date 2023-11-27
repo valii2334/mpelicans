@@ -1,9 +1,11 @@
 <% locals = { thumbnail_image_urls: thumbnail_image_urls, image_urls: image_urls, object_id: object_id } %>
 
-<div class="row align-items-center justify-content-center m-0">
-  <% if image_urls.count < 5 %>
-    <%= render partial: "shared/images_grid_#{image_urls.count}_image", locals: locals %>
-  <% else %>
-    <%= render partial: 'shared/images_grid_5_image', locals: locals %>
-  <% end %>
-</div>
+<% unless image_urls.empty? %>
+  <div class="row align-items-center justify-content-center m-0">
+    <% if image_urls.count < 5 %>
+      <%= render partial: "shared/images_grid_#{image_urls.count}_image", locals: locals %>
+    <% else %>
+      <%= render partial: 'shared/images_grid_5_image', locals: locals %>
+    <% end %>
+  </div>
+<% end %>
