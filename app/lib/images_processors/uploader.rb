@@ -20,12 +20,14 @@ module ImagesProcessors
       barrier = Async::Barrier.new
       Async do
         @http_uploaded_files.each do |http_uploaded_file|
-          file_body = http_uploaded_file.tempfile.open.read
-          file_path = "#{SecureRandom.uuid}#{File.extname(http_uploaded_file.tempfile)}"
-
           barrier.async do
-            upload_image(key: file_path, body: file_body)
+            tempfile  = http_uploaded_file.tempfile.open
+            file_path = "#{SecureRandom.uuid}#{File.extname(http_uploaded_file.tempfile)}"
+
+            upload_image(key: file_path, body: tempfile.read)
             create_uploaded_image(s3_key: file_path)
+
+            tempfile.close
           end
         end
         barrier.wait
