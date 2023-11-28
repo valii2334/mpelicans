@@ -32,8 +32,6 @@
   </div>
 <% end %>
 
-<br>
-
 <% if @journey_stop.waiting? %>
   <%= render partial: 'shared/processing_images', locals: { message: 'Please wait. Images have been scheduled for processing.' } %>
 <% elsif @journey_stop.processing? %>
