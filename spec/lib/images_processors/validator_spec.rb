@@ -11,14 +11,14 @@ RSpec.describe ImagesProcessors::Validator do
 
   subject { described_class.new(imageable_id:, imageable_type:, http_uploaded_files:) }
 
-  let(:images_processor_saver) { double('ImagesProcessor::Saver') }
+  let(:images_processor_uploader) { double('ImagesProcessor::Uploader') }
 
   before do
-    allow(ImagesProcessors::Saver).to receive(:new).with(
+    allow(ImagesProcessors::Uploader).to receive(:new).with(
       imageable_id:, imageable_type:,
       http_uploaded_files: [image_file]
-    ).and_return(images_processor_saver)
-    allow(images_processor_saver).to receive(:run)
+    ).and_return(images_processor_uploader)
+    allow(images_processor_uploader).to receive(:run)
   end
 
   context '#run_processor' do
@@ -29,9 +29,9 @@ RSpec.describe ImagesProcessors::Validator do
 
   context '#enque_next_steps' do
     it 'calls ImagesProcessors::Saver with desired arguments' do
-      expect(ImagesProcessors::Saver).to receive(:new).with(imageable_id:, imageable_type:,
-                                                            http_uploaded_files: [image_file])
-      expect(images_processor_saver).to receive(:run)
+      expect(ImagesProcessors::Uploader).to receive(:new).with(imageable_id:, imageable_type:,
+                                                               http_uploaded_files: [image_file])
+      expect(images_processor_uploader).to receive(:run)
 
       subject.run
     end

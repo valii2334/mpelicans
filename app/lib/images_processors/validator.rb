@@ -23,7 +23,7 @@ module ImagesProcessors
     private
 
     def enque_next_steps
-      ImagesProcessors::Saver.new(
+      ImagesProcessors::Uploader.new(
         imageable_id:,
         imageable_type:,
         http_uploaded_files:

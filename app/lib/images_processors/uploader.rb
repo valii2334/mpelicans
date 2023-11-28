@@ -5,13 +5,13 @@ require 'async/barrier'
 
 module ImagesProcessors
   class Uploader < ImagesProcessors::Base
-    attr_accessor :imageable_id, :imageable_type, :database_images_ids
+    attr_accessor :imageable_id, :imageable_type, :http_uploaded_files
 
     # rubocop:disable Lint/MissingSuper
-    def initialize(imageable_id:, imageable_type:, database_images_ids:)
+    def initialize(imageable_id:, imageable_type:, http_uploaded_files:)
       @imageable_id = imageable_id
       @imageable_type = imageable_type
-      @database_images_ids = database_images_ids
+      @http_uploaded_files = http_uploaded_files
     end
     # rubocop:enable Lint/MissingSuper
 
@@ -19,14 +19,13 @@ module ImagesProcessors
     def run_processor
       barrier = Async::Barrier.new
       Async do
-        @database_images_ids.each do |database_images_id|
-          database_image = DatabaseImage.find(database_images_id)
-          file_path = "#{SecureRandom.uuid}#{database_image.file_extension}"
+        @http_uploaded_files.each do |http_uploaded_file|
+          file_body = http_uploaded_file.tempfile.open.read
+          file_path = "#{SecureRandom.uuid}#{File.extname(http_uploaded_file.tempfile)}"
 
           barrier.async do
-            upload_image(key: file_path, body: database_image.data)
+            upload_image(key: file_path, body: file_body)
             create_uploaded_image(s3_key: file_path)
-            remove_database_image(database_image:)
           end
         end
         barrier.wait
@@ -46,10 +45,6 @@ module ImagesProcessors
 
     def create_uploaded_image(s3_key:)
       UploadedImage.create(imageable:, s3_key:)
-    end
-
-    def remove_database_image(database_image:)
-      database_image.destroy
     end
   end
 end
