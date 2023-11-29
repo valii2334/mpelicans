@@ -17,10 +17,13 @@ module ImagesProcessors
 
     # rubocop:disable Metrics/MethodLength
     def run_processor
+      Rails.logger.info("Started uploading images for #{imageable_id} #{imageable_type}")
+
       barrier = Async::Barrier.new
       Async do
-        @http_uploaded_files.each do |http_uploaded_file|
+        @http_uploaded_files.each_with_index do |http_uploaded_file, index|
           barrier.async do
+            Rails.logger.info("Started uploading image #{index} for #{imageable_id} #{imageable_type}")
             tempfile  = http_uploaded_file.tempfile.open
             file_path = "#{SecureRandom.uuid}#{File.extname(http_uploaded_file.tempfile)}"
 
@@ -28,10 +31,13 @@ module ImagesProcessors
             create_uploaded_image(s3_key: file_path)
 
             tempfile.close
+            Rails.logger.info("Finished uploading image #{index} for #{imageable_id} #{imageable_type}")
           end
         end
         barrier.wait
       end
+
+      Rails.logger.info("Finished uploading images for #{imageable_id} #{imageable_type}")
     end
     # rubocop:enable Metrics/MethodLength
 
