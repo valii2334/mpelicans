@@ -13,10 +13,10 @@ class PelicansController < ApplicationController
   def show
     @user = User.find_by!(username: params[:username])
 
-    @journeys = if current_user == @user
-                  Retrievers::Journey.new(user: current_user, which_journeys: 'mine').fetch
+    @journeys = if current_user_on_his_profile_page?
+                  current_users_journeys
                 else
-                  Retrievers::Journey.new(user: @user, which_journeys: 'users').fetch
+                  another_users_journeys
                 end
   end
 
@@ -37,6 +37,18 @@ class PelicansController < ApplicationController
   end
 
   private
+
+  def current_user_on_his_profile_page?
+    current_user == @user
+  end
+
+  def current_users_journeys
+    Retrievers::Journey.new(user: current_user, which_journeys: 'mine').fetch
+  end
+
+  def another_users_journeys
+    Retrievers::Journey.new(user: @user, which_journeys: 'users').fetch
+  end
 
   def set_user
     @user = current_user

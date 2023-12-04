@@ -242,11 +242,26 @@ RSpec.describe JourneysController, type: :controller do
       sign_in user
     end
 
-    subject do
-      get :index
+    context 'valid which_journeys param' do
+      subject do
+        get :index, params: { which_journeys: 'latest' }
+      end
+  
+      it_behaves_like 'can view page'
     end
 
-    it_behaves_like 'can view page'
+    context 'invalid which_journeys param' do
+      subject do
+        get :index, params: { which_journeys: 'random_strong' }
+      end
+
+      it 'is redirect to view latest journeys' do
+        subject
+
+        expect(response).to be_redirect
+        expect(response.redirect_url).to include('/journeys?which_journeys=latest')
+      end
+    end
   end
 
   context '#destroy' do

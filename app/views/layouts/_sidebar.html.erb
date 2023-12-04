@@ -39,7 +39,7 @@
           </li>
 
           <li class="sidebar-item <%= active_controller?(controller: 'journeys') || active_controller?(controller: 'journey_stops') %>">
-            <%= link_to journeys_path, class: 'sidebar-link', data: { "bs-target" => '#journeys' } do %>
+            <%= link_to journeys_path(which_journeys: Journey::AVAILABLE_FILTER_BUTTONS.first), class: 'sidebar-link', data: { "bs-target" => '#journeys' } do %>
               <i class="align-middle" data-feather="layout"></i> <span class="align-middle">Journeys</span>
             <% end %>
           </li>

@@ -20,7 +20,6 @@ module ApplicationHelper
   end
 
   def which_journeys_button_class(which_journeys:)
-    return select_journeys_tab if params[:which_journeys].blank? && which_journeys == 'latest'
     return select_journeys_tab if params[:which_journeys] == which_journeys
 
     not_selected_journeys_tab

@@ -5,6 +5,7 @@ class Journey < ApplicationRecord
   include Imageable
 
   MAXIMUM_NUMBER_OF_IMAGES = 5
+  AVAILABLE_FILTER_BUTTONS = %w[latest mine bought].freeze
 
   paginates_per 50
 
