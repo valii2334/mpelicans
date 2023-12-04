@@ -14,18 +14,16 @@ module Retrievers
     # rubocop:enable Lint/MissingSuper
 
     def fetch
-      return latest_journeys       unless which_journeys
-
       return users_latest_journeys if users_journeys?
       return mine_journeys         if mine_journeys?
       return bought_journeys       if bought_journeys?
 
-      []
+      all_latest_journeys
     end
 
     private
 
-    def latest_journeys
+    def all_latest_journeys
       ::Journey
         .includes(associated_records)
         .where(access_type: VIEWABLE_ACCESS_TYPES)

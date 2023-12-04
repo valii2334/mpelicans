@@ -127,7 +127,12 @@ RSpec.describe Retrievers::Journey do
         let(:which_journeys) { 'random string' }
 
         it 'returns an empty array' do
-          expect(subject).to match_array([])
+          expect(subject).to match_array([
+                                           random_processed_monetized_journey,
+                                           random_processed_public_journey,
+                                           cu_processed_monetized_journey,
+                                           cu_processed_public_journey
+                                         ])
         end
       end
     end
