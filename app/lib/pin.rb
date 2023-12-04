@@ -22,10 +22,20 @@ class Pin
   private
 
   def link_to_google_maps
-    if pinnable.place_id.present?
-      return "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=#{pinnable.place_id}"
-    end
+    return pinnable_place_url if pinnable_belongs_to_a_place?
 
+    pinnable_coordinates_url
+  end
+
+  def pinnable_belongs_to_a_place?
+    pinnable.place_id.present?
+  end
+
+  def pinnable_place_url
+    "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=#{pinnable.place_id}"
+  end
+
+  def pinnable_coordinates_url
     "https://www.google.com/maps/search/?api=1&query=#{pinnable.lat},#{pinnable.long}"
   end
 end
