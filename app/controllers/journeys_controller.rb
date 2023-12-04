@@ -74,11 +74,15 @@ class JourneysController < ApplicationController
 
   # rubocop:disable Rails/SkipsModelValidations
   def increase_views_count
-    return if current_user == @journey.user
+    return if logged_in_user_created_journey?
 
     @journey.increment!(:views_count)
   end
   # rubocop:enable Rails/SkipsModelValidations
+
+  def logged_in_user_created_journey?
+    current_user == @journey.user
+  end
 
   def new_journey
     Journey.new(permitted_parameters(
