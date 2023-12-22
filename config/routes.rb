@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   resources :company, only: [] do
     collection do
       get :about_us
+      get :how_it_works
     end
   end
 

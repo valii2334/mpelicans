@@ -40,6 +40,10 @@ class Journey < ApplicationRecord
   before_validation :add_access_code
   before_validation :set_latest_journey_stop_added_at
 
+  def meta_description_content
+    [title, description.to_plain_text].join('.')
+  end
+
   def pins
     journey_stops.map { |pinnable| Pin.new(pinnable:).to_pin }
   end
