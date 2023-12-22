@@ -55,7 +55,9 @@
           </div>
 
           <div class="actions">
-            <%= f.submit "Create", disabled: true, class: 'btn btn-primary', id: "form_submit_button" %>
+            <div class="actions" data-controller="pleasewait" data-pleasewait-formid-value="new_journey_stop" >
+              <button disabled="disabled" class='btn btn-primary' id="form_submit_button" data-action="click->pleasewait#submitForm">Create</button>
+            </div>
           </div>
         <% end %>
 			</div>

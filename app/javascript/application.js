@@ -15,6 +15,9 @@ import "./modules/feather";
 // Lightbox
 import "./src/bs5-lightbox";
 
+// jQuery Validate
+import "./src/jquery.validate";
+
 // jquery-lazy
 import 'jquery-lazy';
 $(function() {

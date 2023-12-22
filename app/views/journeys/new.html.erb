@@ -83,8 +83,8 @@
             <%= f.file_field :images, multiple: true, required: true, accept: ACCEPTED_CONTENT_TYPE %>
           </div>
 
-					<div class="actions">
-            <%= f.submit "Create", class: 'btn btn-primary', id: "form_submit_button" %>
+					<div class="actions" data-controller="pleasewait" data-pleasewait-formid-value="new_journey" >
+            <button class='btn btn-primary' id="form_submit_button" data-action="click->pleasewait#submitForm">Create</button>
           </div>
         <% end %>
 			</div>

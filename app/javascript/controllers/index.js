@@ -8,8 +8,10 @@ import DocumentsController from "./documents_controller"
 import LightboxController from "./lightbox_controller"
 import LocationController from "./location_controller"
 import MapController from "./map_controller"
+import PleaseWaitController from "./please_wait_controller"
 
 application.register("documents", DocumentsController)
 application.register("lightbox", LightboxController)
 application.register("location", LocationController)
 application.register("map", MapController)
+application.register("pleasewait", PleaseWaitController)
