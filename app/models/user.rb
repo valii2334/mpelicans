@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
   has_one_attached :image do |attachable|
     attachable.variant :max,
-                       resize_and_pad: [200, 200],
+                       resize_to_fill: [200, 200],
                        format: :webp,
                        quality: 80
   end

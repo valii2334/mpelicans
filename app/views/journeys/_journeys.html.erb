@@ -60,8 +60,9 @@
                   <% end %>
                 <% end %>
               </p>
-              <p class="text-end">
-                <%= pluralize(journey.views_count, 'view') %>
+              <p class="text-end mb-0">
+                <%= number_to_human(journey.views_count) %>
+                <%= 'view'.pluralize(journey.views_count) %>
               </p>
 						</div>
 					</div>
