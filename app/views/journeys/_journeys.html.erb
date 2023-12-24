@@ -33,7 +33,7 @@
         </div>
         <div class="card-body">
           <p>
-            <%= link_to pelican_path(journey.user.username), class: 'link-secondary' do %>
+            <%= link_to pelican_path(journey.user.username), class: 'card-link' do %>
               <% if journey.user.image.attached? %>
                 <img src="<%= journey.user.image.variant(:max).processed.url %>" class="rounded-circle me-1" alt="Avatar" width="28", height="28">        
               <% else %>
