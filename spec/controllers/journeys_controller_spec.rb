@@ -246,7 +246,7 @@ RSpec.describe JourneysController, type: :controller do
       subject do
         get :index, params: { which_journeys: 'latest' }
       end
-  
+
       it_behaves_like 'can view page'
     end
 
