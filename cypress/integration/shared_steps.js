@@ -42,6 +42,10 @@ When(/^I click on input "([^"]*)"/, (textLink) => {
   cy.get('input').contains(textLink).click();
 });
 
+When(/^I click on button "([^"]*)"/, (textLink) => {
+  cy.get('button').contains(textLink).click();
+});
+
 Given(/^I fill input "([^"]*)" with user email/, (inputName) => {
   cy.get(inputName).fill(Cypress.env('userEmail'));
 });

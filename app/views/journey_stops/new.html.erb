@@ -1,66 +1,70 @@
 <div class="row">
-  <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-    <div class="mb-3">
-      <h1 class="h3 d-inline align-middle">Make a Stop</h1>
+  <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12">
+    <div class="row">
+      <div class="col-12">
+        <div class="mb-3">
+          <h1 class="h3 d-inline align-middle">Make a Stop</h1>
+        </div>
+      </div>
+    </div>
+      
+    <div class="row" data-controller="documents">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <%= form_for [@journey_stop.journey, @journey_stop] do |f| %>
+              <%= f.hidden_field :journey_id, value: params[:journey_id] %>
+              <%= f.hidden_field :lat %>
+              <%= f.hidden_field :long %>
+              <%= f.hidden_field :place_id %>
+
+              <div class="mb-3" style="color: red;">
+                <% @journey_stop.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </div>
+
+              <div class="mb-3">
+                <%= f.label :title, class: 'form-label' %>
+                <%= f.text_field :title, required: true, class: 'form-control' %>
+              </div>
+
+              <div class="mb-3">
+                <%= f.label :description, class: 'form-label' %>
+                <%= f.rich_text_area :description, class: 'form-control' %>
+              </div>
+
+              <%= 
+                render partial: 'shared/location', 
+                      locals: { 
+                          message: 'What is your current stops location?', 
+                          lat_element_id: '#journey_stop_lat', 
+                          long_element_id: '#journey_stop_long',
+                          place_id_element_id: '#journey_stop_place_id'
+                        } 
+              %>
+
+              <div class="mb-3">
+                <label class="form-label">
+                  Add pictures from the stop you made
+                  <br>
+                  <strong>
+                    Maximum <%= JourneyStop::MAXIMUM_NUMBER_OF_IMAGES %> images.
+                  </strong>
+                </label>
+                <br>
+                <%= f.file_field :images, multiple: true, required: true, accept: ACCEPTED_CONTENT_TYPE %>
+              </div>
+
+              <div class="actions">
+                <div class="actions" data-controller="pleasewait" data-pleasewait-formid-value="new_journey_stop" >
+                  <button disabled="disabled" class='btn btn-primary' id="form_submit_button" data-action="click->pleasewait#submitForm">Create</button>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-  
-<div class="row" data-controller="documents">
-	<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-		<div class="card">
-			<div class="card-body">
-        <%= form_for [@journey_stop.journey, @journey_stop] do |f| %>
-          <%= f.hidden_field :journey_id, value: params[:journey_id] %>
-          <%= f.hidden_field :lat %>
-          <%= f.hidden_field :long %>
-          <%= f.hidden_field :place_id %>
-
-					<div class="mb-3" style="color: red;">
-						<% @journey_stop.errors.full_messages.each do |message| %>
-							<li><%= message %></li>
-						<% end %>
-					</div>
-
-          <div class="mb-3">
-            <%= f.label :title, class: 'form-label' %>
-            <%= f.text_field :title, required: true, class: 'form-control' %>
-          </div>
-
-          <div class="mb-3">
-            <%= f.label :description, class: 'form-label' %>
-            <%= f.rich_text_area :description, class: 'form-control' %>
-          </div>
-
-          <%= 
-            render partial: 'shared/location', 
-                   locals: { 
-                      message: 'What is your current stops location?', 
-                      lat_element_id: '#journey_stop_lat', 
-                      long_element_id: '#journey_stop_long',
-                      place_id_element_id: '#journey_stop_place_id'
-                    } 
-          %>
-
-          <div class="mb-3">
-						<label class="form-label">
-							Add pictures from the stop you made
-              <br>
-              <strong>
-                Maximum <%= JourneyStop::MAXIMUM_NUMBER_OF_IMAGES %> images.
-              </strong>
-						</label>
-						<br>
-            <%= f.file_field :images, multiple: true, required: true, accept: ACCEPTED_CONTENT_TYPE %>
-          </div>
-
-          <div class="actions">
-            <div class="actions" data-controller="pleasewait" data-pleasewait-formid-value="new_journey_stop" >
-              <button disabled="disabled" class='btn btn-primary' id="form_submit_button" data-action="click->pleasewait#submitForm">Create</button>
-            </div>
-          </div>
-        <% end %>
-			</div>
-		</div>
-	</div>
 </div>

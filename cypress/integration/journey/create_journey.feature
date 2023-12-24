@@ -12,7 +12,7 @@ Feature: Create Journey
     Given I fill in journey information with
       | title            | description              | journey_image |
       | Going to Munchen | My first trip to Germany | madrid.jpg    |
-    When I click on input "Create"
+    When I click on button "Create"
     Then journey information should be
       | title            | description              | journey_image |
       | Going to Munchen | My first trip to Germany | .webp         |

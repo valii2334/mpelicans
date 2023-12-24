@@ -10,7 +10,7 @@ Feature: Create Journey Stop
     And I fill in journey information with
       | title            | description              | journey_image |
       | Going to Munchen | My first trip to Germany | madrid.jpg    |
-    When I click on input "Create"
+    When I click on button "Create"
     Then journey information should be
       | title            | description              | journey_image |
       | Going to Munchen | My first trip to Germany | .webp         |
@@ -20,7 +20,7 @@ Feature: Create Journey Stop
     Given I fill in journey stop information with
       | title               | description               | journey_stop_images |
       | My first stop title | My first stop description | madrid.jpg          |
-    When I click on input "Create"
+    When I click on button "Create"
     Then journey stop information should be
       | title               | description               | journey_stop_image |
       | My first stop title | My first stop description | .webp              |
@@ -33,5 +33,5 @@ Feature: Create Journey Stop
     Given I fill in journey stop information with
       | title               | description               | journey_stop_images                                                    |
       | My first stop title | My first stop description | madrid.jpg,madrid1.png,madrid2.png,madrid3.png,madrid4.png,madrid5.png |
-    When I click on input "Create"
+    When I click on button "Create"
     Then I should see "can't post more than 5" in the page

@@ -1,110 +1,115 @@
 <meta name="description" content="<%= @journey.meta_description_content %>">
 
-<div class="row" data-controller="lightbox"> 
-  <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
+<div class="row">
+  <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12">
+    <div class="row" data-controller="lightbox"> 
+      <div class="col-12">
+        <% if current_user && can?(:edit, @journey) %>
+          <%= link_to '+ New Stop', new_journey_journey_stop_path(@journey), class: 'btn btn-primary  float-end mt-n1' %>
+        <% end %>
+      </div>
+    <div>
+
+    <div class="row">
+      <div class="col-12">
+        <h1 id="journey-title"><%= @journey.title %></h1>
+      </div>
+    </div>
+
     <% if current_user && can?(:edit, @journey) %>
-      <%= link_to '+ New Stop', new_journey_journey_stop_path(@journey), class: 'btn btn-primary  float-end mt-n1' %>
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+                Privacy: <%= @journey.access_type.split('_').first %>.
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% unless @journey.description.body.to_plain_text.blank? %>
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <div id="journey-description">
+                <%= @journey.description %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if !Rails.env.test? && @journey.pins.present? %>
+      <%= render partial: 'shared/map', locals: { pins: @journey.pins.to_json } %>
+    <% end %>
+
+    <div class="row">
+      <% @journey.journey_stops.each_with_index do |journey_stop, index| %>
+        <% index_class = "journey-stop-#{index}" %>
+
+        <div class="col-12">
+          <div class="card">
+            <% if journey_stop.waiting? %>
+              <div class="card-header">
+                <h5 class="card-title" id="journey-stop-image-processing-status">
+                  Please wait. Images have been scheduled for processing.
+                </h5>
+              </div>
+            <% elsif journey_stop.processing? %>
+              <div class="card-header">
+                <h5 class="card-title" id="journey-stop-image-processing-status">
+                  Please wait. Images are being processed.
+                </h5>
+              </div>
+            <% else %>
+              <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey_stop.all_thumbnails, image_urls: journey_stop.all_maxs, object_id: journey_stop.id }%>
+            <% end %>
+            <div class="card-header">
+              <h5 class="card-title title <%= index_class %>" id="journey-stop-image-processing-status">
+                <%= journey_stop.title %>
+              </h5>
+              <h6 class="card-subtitle text-muted">
+                Created <%= time_ago_in_words(journey_stop.created_at) %> ago.
+              </h6>
+            </div>
+            <div class="card-body">
+              <p>
+                <% if can?(:show, journey_stop) %>
+                  <% if params[:access_code] %>
+                    <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop, access_code: params[:access_code]), class: 'btn btn-sm btn-primary' %>
+                  <% else %>
+                    <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop), class: 'btn btn-sm btn-primary' %>
+                  <% end %>
+                <% end %>
+              </p>
+              <p class="text-end mb-0">
+                <%= number_to_human(journey_stop.views_count) %>
+                <%= 'view'.pluralize(journey_stop.views_count) %>
+              </p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: @journey.images_urls(variant: :thumbnail), image_urls: @journey.images_urls(variant: :max), object_id: @journey.id }%>
+        </div>
+      </div>
+    </div>
+
+    <% if current_user && can?(:destroy, @journey) %>
+      <div class="row">
+        <div class="col-12">
+          <%= link_to 'Delete Journey', journey_path(@journey), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger float-end mt-n1' %>
+        </div>
+      </div>
     <% end %>
   </div>
-<div>
-
-<div class="row">
-  <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-    <h1 id="journey-title"><%= @journey.title %></h1>
-  </div>
 </div>
 
-<% if current_user && can?(:edit, @journey) %>
-  <div class="row">
-  	<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-  		<div class="card">
-        <div class="card-body">
-            Privacy: <%= @journey.access_type.split('_').first %>.
-        </div>
-      </div>
-    </div>
-  </div>
-<% end %>
-
-<% unless @journey.description.body.to_plain_text.blank? %>
-  <div class="row">
-    <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-      <div class="card">
-        <div class="card-body">
-          <div id="journey-description">
-            <%= @journey.description %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-<% end %>
-
-<div class="row">
-  <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-    <div class="card">
-      <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: @journey.images_urls(variant: :thumbnail), image_urls: @journey.images_urls(variant: :max), object_id: @journey.id }%>
-    </div>
-  </div>
-</div>
-
-<% if !Rails.env.test? && @journey.pins.present? %>
-  <%= render partial: 'shared/map', locals: { pins: @journey.pins.to_json } %>
-<% end %>
-
-<div class="row">
-  <% @journey.journey_stops.each_with_index do |journey_stop, index| %>
-    <% index_class = "journey-stop-#{index}" %>
-
-    <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-      <div class="card">
-        <% if journey_stop.waiting? %>
-          <div class="card-header">
-            <h5 class="card-title" id="journey-stop-image-processing-status">
-              Please wait. Images have been scheduled for processing.
-            </h5>
-          </div>
-        <% elsif journey_stop.processing? %>
-          <div class="card-header">
-            <h5 class="card-title" id="journey-stop-image-processing-status">
-              Please wait. Images are being processed.
-            </h5>
-          </div>
-        <% else %>
-          <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey_stop.all_thumbnails, image_urls: journey_stop.all_maxs, object_id: journey_stop.id }%>
-        <% end %>
-        <div class="card-header">
-          <h5 class="card-title title <%= index_class %>" id="journey-stop-image-processing-status">
-            <%= journey_stop.title %>
-          </h5>
-          <h6 class="card-subtitle text-muted">
-            Created <%= time_ago_in_words(journey_stop.created_at) %> ago.
-          </h6>
-        </div>
-        <div class="card-body">
-          <p>
-            <% if can?(:show, journey_stop) %>
-              <% if params[:access_code] %>
-                <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop, access_code: params[:access_code]), class: 'btn btn-sm btn-primary' %>
-              <% else %>
-                <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop), class: 'btn btn-sm btn-primary' %>
-              <% end %>
-            <% end %>
-          </p>
-          <p class="text-end mb-0">
-            <%= number_to_human(journey_stop.views_count) %>
-            <%= 'view'.pluralize(journey_stop.views_count) %>
-          </p>
-        </div>
-      </div>
-    </div>
-  <% end %>
-</div>
-
-<% if current_user && can?(:destroy, @journey) %>
-  <div class="row">
-    <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-      <%= link_to 'Delete Journey', journey_path(@journey), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger float-end mt-n1' %>
-    </div>
-  </div>
-<% end %>

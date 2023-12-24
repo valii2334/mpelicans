@@ -10,7 +10,7 @@ Feature: Destroy Journey Stop
     And I fill in journey information with
       | title            | description              | journey_image |
       | Going to Munchen | My first trip to Germany | madrid.jpg    |
-    When I click on input "Create"
+    When I click on button "Create"
     Then journey information should be
       | title            | description              | journey_image |
       | Going to Munchen | My first trip to Germany | .webp         |
@@ -18,7 +18,7 @@ Feature: Destroy Journey Stop
     Given I fill in journey stop information with
       | title               | description               | journey_stop_images |
       | My first stop title | My first stop description | madrid.jpg          |
-    When I click on input "Create"
+    When I click on button "Create"
     Then journey stop information should be
       | title               | description               | journey_stop_image |
       | My first stop title | My first stop description | .webp              |

@@ -1,93 +1,97 @@
 <div class="row">
-  <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-    <h1 class="h3 d-inline align-middle">Start a Journey</h1>
+  <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="h3 d-inline align-middle">Start a Journey</h1>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row" data-controller="documents">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <%= form_for @journey do |f| %>
+              <div class="mb-3" style="color: red;">
+                <% @journey.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </div>
+
+              <div class="mb-3">
+                <%= f.label :title, class: 'form-label' %>
+                <%= f.text_field :title, required: true, class: 'form-control' %>
+              </div>
+
+              <div class="mb-3">
+                <%= f.label :description, class: 'form-label' %>
+                <%= f.rich_text_area :description, class: 'form-control' %>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">
+                  Access Type
+                </label>
+
+                <div class="form-check">
+                  <label>
+                    <%= f.radio_button :access_type, 'public_journey', checked: true, class: 'form-check-input' %>
+                    Public
+                    <br>
+                    <em>Anyone can see this journey.</em>
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <label>
+                    <%= f.radio_button :access_type, 'protected_journey', class: 'form-check-input' %>
+                    Protected
+                    <br>
+                    <em>We will generate a private link to share for this journey.</em>
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <label>
+                    <%= f.radio_button :access_type, 'private_journey', class: 'form-check-input' %>
+                    Private
+                    <br>
+                    <em>Only you can view this journey.</em>
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <label>
+                    <%= f.radio_button :access_type, 'monetized_journey', class: 'form-check-input' %>
+                    Monetized
+                    <br>
+                    <em>Users have to pay <b>$2.00</b> in order to see this journey.</em>
+                    <br>
+                    <em>After taxes you will receive <b>$1.25</b>.</em>
+                  </label>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">
+                  Add the first pictures of your journey
+                  <br>
+                  <strong>
+                    Maximum <%= Journey::MAXIMUM_NUMBER_OF_IMAGES %> images.
+                  </strong>
+                </label>
+                <br>
+                <%= f.file_field :images, multiple: true, required: true, accept: ACCEPTED_CONTENT_TYPE %>
+              </div>
+
+              <div class="actions" data-controller="pleasewait" data-pleasewait-formid-value="new_journey" >
+                <button class='btn btn-primary' id="form_submit_button" data-action="click->pleasewait#submitForm">Create</button>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-
-<br>
-
-<div class="row" data-controller="documents">
-	<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-		<div class="card">
-			<div class="card-body">
-        <%= form_for @journey do |f| %>
-					<div class="mb-3" style="color: red;">
-						<% @journey.errors.full_messages.each do |message| %>
-							<li><%= message %></li>
-						<% end %>
-					</div>
-
-          <div class="mb-3">
-            <%= f.label :title, class: 'form-label' %>
-            <%= f.text_field :title, required: true, class: 'form-control' %>
-          </div>
-
-          <div class="mb-3">
-            <%= f.label :description, class: 'form-label' %>
-            <%= f.rich_text_area :description, class: 'form-control' %>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">
-              Access Type
-            </label>
-
-						<div class="form-check">
-							<label>
-								<%= f.radio_button :access_type, 'public_journey', checked: true, class: 'form-check-input' %>
-								Public
-								<br>
-								<em>Anyone can see this journey.</em>
-							</label>
-						</div>
-
-            <div class="form-check">
-              <label>
-                <%= f.radio_button :access_type, 'protected_journey', class: 'form-check-input' %>
-                Protected
-								<br>
-								<em>We will generate a private link to share for this journey.</em>
-              </label>
-            </div>
-
-            <div class="form-check">
-              <label>
-                <%= f.radio_button :access_type, 'private_journey', class: 'form-check-input' %>
-                Private
-								<br>
-								<em>Only you can view this journey.</em>
-              </label>
-            </div>
-
-						<div class="form-check">
-							<label>
-								<%= f.radio_button :access_type, 'monetized_journey', class: 'form-check-input' %>
-								Monetized
-								<br>
-								<em>Users have to pay <b>$2.00</b> in order to see this journey.</em>
-								<br>
-								<em>After taxes you will receive <b>$1.25</b>.</em>
-							</label>
-						</div>
-          </div>
-
-          <div class="mb-3">
-						<label class="form-label">
-							Add the first pictures of your journey
-              <br>
-              <strong>
-                Maximum <%= Journey::MAXIMUM_NUMBER_OF_IMAGES %> images.
-              </strong>
-						</label>
-						<br>
-            <%= f.file_field :images, multiple: true, required: true, accept: ACCEPTED_CONTENT_TYPE %>
-          </div>
-
-					<div class="actions" data-controller="pleasewait" data-pleasewait-formid-value="new_journey" >
-            <button class='btn btn-primary' id="form_submit_button" data-action="click->pleasewait#submitForm">Create</button>
-          </div>
-        <% end %>
-			</div>
-		</div>
-	</div>
 </div>
