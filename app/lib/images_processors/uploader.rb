@@ -24,14 +24,7 @@ module ImagesProcessors
       Async do
         @http_uploaded_files.each_with_index do |http_uploaded_file, index|
           barrier.async do
-            Rails.logger.info("Started uploading image #{index} for #{imageable_id} #{imageable_type}")
-            tempfile  = http_uploaded_file.tempfile.open
-            file_path = @file_paths[index]
-
-            upload_image(key: file_path, body: tempfile.read)
-
-            tempfile.close
-            Rails.logger.info("Finished uploading image #{index} for #{imageable_id} #{imageable_type}")
+            upload_http_uploaded_file(http_uploaded_file:, index:)
           end
         end
         barrier.wait
@@ -44,6 +37,17 @@ module ImagesProcessors
     # rubocop:enable Metrics/MethodLength
 
     private
+
+    def upload_http_uploaded_file(http_uploaded_file:, index:)
+      Rails.logger.info("Started uploading image #{index} for #{imageable_id} #{imageable_type}")
+      tempfile  = http_uploaded_file.tempfile.open
+      file_path = @file_paths[index]
+
+      upload_image(key: file_path, body: tempfile.read)
+
+      tempfile.close
+      Rails.logger.info("Finished uploading image #{index} for #{imageable_id} #{imageable_type}")
+    end
 
     def create_uploaded_images
       @file_paths.each do |file_path|
