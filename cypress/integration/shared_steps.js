@@ -79,7 +79,7 @@ When(/^I visit "([^"]*)"/, (route) => {
 });
 
 Then(/^I should be on "([^"]*)" profile page/, (username) => {
-  cy.get('#pelican-name').contains(username);
+  cy.get('.pelican-name').contains(username);
 });
 
 Given(/^I stub current location/, () => {

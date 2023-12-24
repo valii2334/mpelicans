@@ -1,22 +1,14 @@
 <div class="card md-3">
-  <div class="card-body text-center">
+  <div class="card-header text-center">
     <% if user.image.attached? %>
       <img src="<%= user.image.variant(:max).processed.url %>" class="img-fluid rounded-circle mb-2" width='128' height='128'>
     <% else %>
       <%= image_tag "avatars/avatar.png", class: "img-fluid rounded-circle mb-2", width: '128', height: '128' %>
     <% end %>
-    <h5 class="card-title mb-0"><%= user.username %></h5>
-    <div class="text-muted mb-2"><%= user.biography %></div>
-    <% unless params[:action] == 'show' %>
-      <%= link_to 'View Profile', pelican_path(user.username), class: 'btn btn-sm btn-primary pelican-path' %>
-    <% end %>
-    <%= render partial: 'follow_unfollow', locals: { follower: current_user, followee: user } %>
-  </div>
-  <hr class="my-0">
-  <div class="card-body">
-    <h5 class="h6 card-title">
-      Stats
+    <h5 class="card-title mb-0">
+      <%= link_to user.username, pelican_path(user.username), class: 'pelican-path pelican-name card-link' %>
     </h5>
+    <div class="text-muted mb-2"><%= user.biography %></div>
     <ul class="list-unstyled mb-0">
       <li class="mb-1">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map align-middle me-2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
@@ -27,5 +19,9 @@
         Followers: <%= number_to_human(user.followers.count) %>
       </li>
     </ul>
+  </div>
+
+  <div class="card-body text-center">
+    <%= render partial: 'follow_unfollow', locals: { follower: current_user, followee: user } %>
   </div>
 </div>
