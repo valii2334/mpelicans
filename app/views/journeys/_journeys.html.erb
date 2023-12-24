@@ -1,72 +1,68 @@
-<div class="row" data-controller="lightbox">
+<div data-controller="lightbox">
 	<% if journeys.empty? %>
-		<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-			<h1 class="h4 d-inline align-middle">There are no journeys yet.</h1>
-		</div>
+    <h1 class="h4 d-inline align-middle">There are no journeys yet.</h1>
 	<% else %>
 		<% journeys.each_with_index do |journey, index| %>
-				<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-					<div class="card">
-            <% if journey.waiting? %>
-              <div class="card-header">
-                <h5 class="card-title" id="journey-stop-image-processing-status">
-                  Please wait. Images have been scheduled for processing.
-                </h5>
-              </div>
-            <% elsif journey.processing? %>
-              <div class="card-header">
-                <h5 class="card-title" id="journey-stop-image-processing-status">
-                  Please wait. Images are being processed.
-                </h5>
-              </div>
+      <div class="card">
+        <% if journey.waiting? %>
+          <div class="card-header">
+            <h5 class="card-title" id="journey-stop-image-processing-status">
+              Please wait. Images have been scheduled for processing.
+            </h5>
+          </div>
+        <% elsif journey.processing? %>
+          <div class="card-header">
+            <h5 class="card-title" id="journey-stop-image-processing-status">
+              Please wait. Images are being processed.
+            </h5>
+          </div>
+        <% else %>
+          <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey.all_thumbnails, image_urls: journey.all_maxs, object_id: journey.id }%>
+        <% end %>
+        <div class="card-header">
+          <h5 class="card-title">
+            <%= journey.title %> 
+          </h5>
+          <h6 class="card-subtitle text-muted">
+            <% if journey.journey_stops.present? %>
+              New stop was added <%= time_ago_in_words(journey.latest_journey_stop_added_at) %> ago.
             <% else %>
-              <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey.all_thumbnails, image_urls: journey.all_maxs, object_id: journey.id }%>
+              Journey was created <%= time_ago_in_words(journey.created_at) %> ago.
             <% end %>
-            <div class="card-header">
-              <h5 class="card-title">
-                <%= journey.title %> 
-              </h5>
-              <h6 class="card-subtitle text-muted">
-                <% if journey.journey_stops.present? %>
-                  New stop was added <%= time_ago_in_words(journey.latest_journey_stop_added_at) %> ago.
-                <% else %>
-                  Journey was created <%= time_ago_in_words(journey.created_at) %> ago.
+          </h6>
+        </div>
+        <div class="card-body">
+          <p>
+            <%= link_to pelican_path(journey.user.username), class: 'link-secondary' do %>
+              <% if journey.user.image.attached? %>
+                <img src="<%= journey.user.image.variant(:max).processed.url %>" class="rounded-circle me-1" alt="Avatar" width="28", height="28">        
+              <% else %>
+                <%= image_tag "avatars/avatar.png", class: "rounded-circle me-1", alt: "Avatar", width: "28", height: "28" %>
+              <% end %>
+              <b><%= journey.user.username %></b>
+            <% end %>
+          </p>
+          <p>
+            <% if can?(:show, journey) %>
+              <%= link_to 'View Journey', journey_path(journey), class: 'btn btn-sm btn-primary' %>
+              <% if journey.journey_stops.present? %>
+                  <%= link_to 'View Latest Stop', journey_journey_stop_path(journey, journey.journey_stops.first), class: 'btn btn-sm btn-primary' %>
+              <% end %>
+            <% end %>
+            <% if current_user.nil? || journey.user != current_user %>
+              <% if can?(:buy, journey) %>
+                <%= link_to create_checkout_session_payments_path(journey_id: journey.id), method: :post, class: 'btn btn-sm btn-success' do %>
+                  <i class="align-middle" data-feather="lock"></i> <span class="align-middle">Buy</span>
                 <% end %>
-              </h6>
-            </div>
-						<div class="card-body">
-              <p>
-                <%= link_to pelican_path(journey.user.username), class: 'link-secondary' do %>
-                  <% if journey.user.image.attached? %>
-                    <img src="<%= journey.user.image.variant(:max).processed.url %>" class="rounded-circle me-1" alt="Avatar" width="28", height="28">        
-                  <% else %>
-                    <%= image_tag "avatars/avatar.png", class: "rounded-circle me-1", alt: "Avatar", width: "28", height: "28" %>
-                  <% end %>
-                  <b><%= journey.user.username %></b>
-                <% end %>
-              </p>
-              <p>
-                <% if can?(:show, journey) %>
-                  <%= link_to 'View Journey', journey_path(journey), class: 'btn btn-sm btn-primary' %>
-                  <% if journey.journey_stops.present? %>
-                      <%= link_to 'View Latest Stop', journey_journey_stop_path(journey, journey.journey_stops.first), class: 'btn btn-sm btn-primary' %>
-                  <% end %>
-                <% end %>
-                <% if current_user.nil? || journey.user != current_user %>
-                  <% if can?(:buy, journey) %>
-                    <%= link_to create_checkout_session_payments_path(journey_id: journey.id), method: :post, class: 'btn btn-sm btn-success' do %>
-                      <i class="align-middle" data-feather="lock"></i> <span class="align-middle">Buy</span>
-                    <% end %>
-                  <% end %>
-                <% end %>
-              </p>
-              <p class="text-end mb-0">
-                <%= number_to_human(journey.views_count) %>
-                <%= 'view'.pluralize(journey.views_count) %>
-              </p>
-						</div>
-					</div>
-				</div>
+              <% end %>
+            <% end %>
+          </p>
+          <p class="text-end mb-0">
+            <%= number_to_human(journey.views_count) %>
+            <%= 'view'.pluralize(journey.views_count) %>
+          </p>
+        </div>
+      </div>
 		<% end %>
 	<% end %>
 </div>

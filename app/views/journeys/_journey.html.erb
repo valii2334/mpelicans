@@ -83,12 +83,6 @@
         </div>
         <div class="card-body">
           <p>
-            <h6 class="card-subtitle text-muted">
-              
-            </h6>
-          </p>
-
-          <p>
             <% if can?(:show, journey_stop) %>
               <% if params[:access_code] %>
                 <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop, access_code: params[:access_code]), class: 'btn btn-sm btn-primary' %>
