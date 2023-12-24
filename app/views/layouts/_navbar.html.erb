@@ -7,6 +7,13 @@
     <% unread_notifications = current_user.received_notifications.not_read.includes(:sender, :receiver, :journey, :journey_stop) %>
     <% notifications_count  = unread_notifications.count %>
     <ul class="navbar-nav navbar-align">
+      <li class="nav-item">
+        <%= link_to map_pins_path, class: 'nav-icon' do %>
+          <i class="align-middle" data-feather="map-pin"></i>
+          <span class="align-middle"></span>
+        <% end %>
+      </li>
+
       <li class="nav-item dropdown">
         <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
           <div class="position-relative">
@@ -59,6 +66,16 @@
             </div>
           <% end %>
         </div>
+      </li>
+
+      <li class="nav-item">
+        <%= link_to pelican_path(current_user.username), class: 'nav-icon' do %>
+          <% if current_user.image.attached? %>
+            <img src="<%= current_user.image.variant(:max).processed.url %>" class="rounded-circle me-1" alt="Avatar" width="28", height="28">        
+          <% else %>
+            <%= image_tag "avatars/avatar.png", class: "rounded-circle me-1", alt: "Avatar", width: "28", height: "28" %>
+          <% end %>
+        <% end %>
       </li>
     </ul>
   <% else %>
