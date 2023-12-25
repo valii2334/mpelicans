@@ -74,6 +74,10 @@ class Journey < ApplicationRecord
     'Journey'
   end
 
+  def modal_id
+    "journey-#{id}"
+  end
+
   private
 
   def set_latest_journey_stop_added_at

@@ -47,6 +47,10 @@ class JourneyStop < ApplicationRecord
     'Stop'
   end
 
+  def modal_id
+    "journey-#{id}"
+  end
+
   private
 
   # rubocop:disable Rails/SkipsModelValidations
