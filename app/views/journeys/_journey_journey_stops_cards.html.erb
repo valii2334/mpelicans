@@ -1,15 +1,15 @@
 <div class="row">
   <% unless journey.journey_stops.empty? %>
-    <div class="col-lg-6 col-md-6 col-12">
-      <% journey.journey_stops.each_with_index do |journey_stop, index| %>
+    <% journey.journey_stops.each_with_index do |journey_stop, index| %>
+      <div class="col-lg-6 col-md-6 col-12">
         <%= render partial: 'journey_stops/journey_stop_card', locals: { journey_stop: journey_stop, index: index } %>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   <% end %>
 
   <% if journey.journey_stops.present? %>
-    <%= render partial: 'shared/journey_journey_stop/journey_images', locals: { journey_or_journey_stop: @journey }%>
+    <%= render partial: 'shared/journey_journey_stop/journey_images_card', locals: { journey_or_journey_stop: @journey }%>
   <% else %>
-    <%= render partial: 'shared/journey_journey_stop/journey_images_big', locals: { journey_or_journey_stop: @journey }%>
+    <%= render partial: 'shared/journey_journey_stop/journey_images_card_big', locals: { journey_or_journey_stop: @journey }%>
   <% end %>
 </div>
