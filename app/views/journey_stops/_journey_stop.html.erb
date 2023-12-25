@@ -22,46 +22,15 @@
 
     <div class="row">
       <div class="col-12">
-        <%= link_to pelican_path(@journey_stop.journey.user.username), class: 'card-link' do %>
-          <%= render partial: 'pelicans/profile_image', locals: { user: @journey_stop.journey.user } %>
-          <b><%= @journey_stop.journey.user.username %></b>
-        <% end %>
+        <%= render partial: 'shared/journey_journey_stop_card/creator', locals: { user: @journey_stop.journey.user }%>
       </div>
     </div>
 
     <br>
 
-    <% unless @journey_stop.description.body.to_plain_text.blank?  %>
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-body">
-              <div id="journey-stop-description">
-                <%= @journey_stop.description %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-
-    <% if @journey_stop.waiting? %>
-      <%= render partial: 'shared/processing_images', locals: { message: 'Please wait. Images have been scheduled for processing.' } %>
-    <% elsif @journey_stop.processing? %>
-      <%= render partial: 'shared/processing_images', locals: { message: 'Please wait. Images are being processed.' } %>
-    <% else %>
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: @journey_stop.all_thumbnails, image_urls: @journey_stop.all_maxs, object_id: @journey_stop.id }%>
-          </div>
-        </div>
-      </div>
-    <% end %>
-
-    <% unless Rails.env.test? %>
-      <%= render partial: 'shared/map', locals: { pins: [@journey_stop.pin].to_json } %>
-    <% end %>
+    <%= render partial: 'shared/journey_journey_stop/description', locals: { journey_or_journey_stop: @journey_stop }%>
+    <%= render partial: 'shared/journey_journey_stop/images',      locals: { journey_or_journey_stop: @journey_stop }%>
+    <%= render partial: 'shared/journey_journey_stop/map',         locals: { pins: [@journey_stop.pin] }%>
 
     <div class="row"> 
       <div class="col-12">

@@ -1,0 +1,13 @@
+<% unless journey_or_journey_stop.description.body.to_plain_text.blank? %>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div id="journey-description">
+            <%= journey_or_journey_stop.description %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
