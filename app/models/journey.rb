@@ -70,6 +70,10 @@ class Journey < ApplicationRecord
       .id
   end
 
+  def simple_class_name
+    'Journey'
+  end
+
   private
 
   def set_latest_journey_stop_added_at

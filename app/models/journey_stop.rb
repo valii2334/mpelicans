@@ -43,6 +43,10 @@ class JourneyStop < ApplicationRecord
     images_urls(variant: :max)
   end
 
+  def simple_class_name
+    'Stop'
+  end
+
   private
 
   # rubocop:disable Rails/SkipsModelValidations
