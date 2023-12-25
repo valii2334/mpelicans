@@ -46,7 +46,7 @@
     </div>
   </div>
 
-  <div class="col-lg-4 offset-lg-1 col-md-4 col-0">
+  <div class="col-lg-4 offset-lg-1 col-md-4 d-md-block d-lg-block d-xl-block d-xxl-block d-none">
     <% User.all.sample(20).each do |user| %>
       <%= render partial: 'pelicans/pelican', locals: { user: user } %>
     <% end %>
