@@ -1,10 +1,6 @@
 <div class="card md-3">
   <div class="card-header text-center">
-    <% if user.image.attached? %>
-      <img src="<%= user.image.variant(:max).processed.url %>" class="img-fluid rounded-circle mb-2" width='128' height='128'>
-    <% else %>
-      <%= image_tag "avatars/avatar.png", class: "img-fluid rounded-circle mb-2", width: '128', height: '128' %>
-    <% end %>
+    <%= render partial: 'pelicans/profile_image_big', locals: { user: user } %>
     <h5 class="card-title mb-0">
       <%= link_to user.username, pelican_path(user.username), class: 'pelican-path pelican-name card-link' %>
     </h5>

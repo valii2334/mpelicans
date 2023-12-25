@@ -1,0 +1,6 @@
+<p>
+  <%= link_to pelican_path(user.username), class: 'card-link' do %>
+    <%= render partial: 'pelicans/profile_image', locals: { user: user } %>
+    <b><%= user.username %></b>
+  <% end %>
+</p>

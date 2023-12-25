@@ -21,11 +21,7 @@
     <div class="row">
       <div class="col-12">
         <%= link_to pelican_path(@journey.user.username), class: 'card-link' do %>
-          <% if @journey.user.image.attached? %>
-            <img src="<%= @journey.user.image.variant(:max).processed.url %>" class="rounded-circle me-1" alt="Avatar" width="28", height="28">        
-          <% else %>
-            <%= image_tag "avatars/avatar.png", class: "rounded-circle me-1", alt: "Avatar", width: "28", height: "28" %>
-          <% end %>
+          <%= render partial: 'pelicans/profile_image', locals: { user: @journey.user } %>
           <b><%= @journey.user.username %></b>
         <% end %>
       </div>
@@ -65,50 +61,7 @@
 
     <div class="row">
       <% @journey.journey_stops.each_with_index do |journey_stop, index| %>
-        <% index_class = "journey-stop-#{index}" %>
-
-        <div class="col-12">
-          <div class="card">
-            <% if journey_stop.waiting? %>
-              <div class="card-header">
-                <h5 class="card-title" id="journey-stop-image-processing-status">
-                  Please wait. Images have been scheduled for processing.
-                </h5>
-              </div>
-            <% elsif journey_stop.processing? %>
-              <div class="card-header">
-                <h5 class="card-title" id="journey-stop-image-processing-status">
-                  Please wait. Images are being processed.
-                </h5>
-              </div>
-            <% else %>
-              <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey_stop.all_thumbnails, image_urls: journey_stop.all_maxs, object_id: journey_stop.id }%>
-            <% end %>
-            <div class="card-header">
-              <h5 class="card-title title <%= index_class %>" id="journey-stop-image-processing-status">
-                <%= journey_stop.title %>
-              </h5>
-              <h6 class="card-subtitle text-muted">
-                Created <%= time_ago_in_words(journey_stop.created_at) %> ago.
-              </h6>
-            </div>
-            <div class="card-body">
-              <p>
-                <% if can?(:show, journey_stop) %>
-                  <% if params[:access_code] %>
-                    <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop, access_code: params[:access_code]), class: 'btn btn-sm btn-primary' %>
-                  <% else %>
-                    <%= link_to 'View Stop', journey_journey_stop_path(@journey, journey_stop), class: 'btn btn-sm btn-primary' %>
-                  <% end %>
-                <% end %>
-              </p>
-              <p class="text-end mb-0">
-                <%= number_to_human(journey_stop.views_count) %>
-                <%= 'view'.pluralize(journey_stop.views_count) %>
-              </p>
-            </div>
-          </div>
-        </div>
+        <%= render partial: 'journey_stops/journey_stop_card', locals: { journey_stop: journey_stop, index: index } %>
       <% end %>
     </div>
 

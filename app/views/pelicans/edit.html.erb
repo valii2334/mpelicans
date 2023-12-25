@@ -49,11 +49,7 @@
                 </div>
                 <div class="col-md-4">
                   <div class="text-center">
-                    <% if @user.image.attached? %>
-                      <img src="<%= @user.image.variant(:max).processed.url %>" class="rounded-circle img-responsive mt-2" width='128' height='128'>
-                    <% else %>
-                      <%= image_tag "avatars/avatar.png", class: "rounded-circle img-responsive mt-2", width: '128', height: '128' %>
-                    <% end %>
+                    <%= render partial: 'pelicans/profile_image_big', locals: { user: @user } %>
                     <div class="mt-2">
                       <%= f.file_field :image, accept: ACCEPTED_CONTENT_TYPE %>
                     </div>

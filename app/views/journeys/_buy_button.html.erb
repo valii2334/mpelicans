@@ -1,0 +1,7 @@
+<% if current_user.nil? || journey.user != current_user %>
+  <% if can?(:buy, journey) %>
+    <%= link_to create_checkout_session_payments_path(journey_id: journey.id), method: :post, class: 'btn btn-sm btn-success' do %>
+      <i class="align-middle" data-feather="lock"></i> <span class="align-middle">Buy</span>
+    <% end %>
+  <% end %>
+<% end %>

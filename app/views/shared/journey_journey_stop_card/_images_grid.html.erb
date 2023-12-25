@@ -1,0 +1,15 @@
+<% if journey_or_journey_stop.waiting? %>
+  <div class="card-header">
+    <h5 class="card-title" id="journey-stop-image-processing-status">
+      Please wait. Images have been scheduled for processing.
+    </h5>
+  </div>
+<% elsif journey_or_journey_stop.processing? %>
+  <div class="card-header">
+    <h5 class="card-title" id="journey-stop-image-processing-status">
+      Please wait. Images are being processed.
+    </h5>
+  </div>
+<% else %>
+  <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey_or_journey_stop.all_thumbnails, image_urls: journey_or_journey_stop.all_maxs, object_id: journey_or_journey_stop.id }%>
+<% end %>

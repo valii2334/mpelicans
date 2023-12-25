@@ -13,11 +13,7 @@
       <div class="sidebar-user">
         <div class="d-flex justify-content-center">
           <div class="flex-shrink-0">
-            <% if current_user.image.attached? %>
-              <img src="<%= current_user.image.variant(:max).processed.url %>" class="avatar img-fluid rounded me-1">
-            <% else %>
-              <%= image_tag "avatars/avatar.png", class: "avatar img-fluid rounded me-1" %>
-            <% end %>
+            <%= render partial: 'pelicans/profile_image', locals: { user: current_user } %>
           </div>
           <div class="flex-grow-1 ps-2">
             <a class="sidebar-user-title" href="<%= edit_pelican_path(current_user.username) %>">

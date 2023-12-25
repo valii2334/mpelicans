@@ -1,0 +1,5 @@
+<% if user.image.attached? %>
+  <img src="<%= user.image.variant(:max).processed.url %>" class="rounded-circle me-1" alt="Avatar" width="28", height="28">        
+<% else %>
+  <%= image_tag "avatars/avatar.png", class: "rounded-circle me-1", alt: "Avatar", width: "28", height: "28" %>
+<% end %>

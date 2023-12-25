@@ -1,0 +1,9 @@
+<p>
+  <% if can?(:show, journey_stop) %>
+    <% if params[:access_code] %>
+      <%= link_to 'View Stop', journey_journey_stop_path(journey_stop.journey, journey_stop, access_code: params[:access_code]), class: 'btn btn-sm btn-primary' %>
+    <% else %>
+      <%= link_to 'View Stop', journey_journey_stop_path(journey_stop.journey, journey_stop), class: 'btn btn-sm btn-primary' %>
+    <% end %>
+  <% end %>
+</p>

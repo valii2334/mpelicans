@@ -1,0 +1,79 @@
+<meta name="description" content="<%= @journey_stop.meta_description_content %>">
+
+<div class="row">
+  <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12">
+    <div class="row" data-controller="lightbox"> 
+      <div class="col-8">
+        <h1 id="journey-stop-title">
+          <%= render partial: 'journey_stops/journey_button', locals: { current_user: current_user, journey_stop: @journey_stop } %>
+           / 
+          <%= @journey_stop.title %>
+        </h1>
+      </div>
+
+      <div class="col-4">
+        <% unless @journey_stop.journey.protected_journey? %>
+          <%= render partial: 'map_pins/pin_unpin', locals: { current_user: current_user, journey_stop: @journey_stop } %>
+        <% end %>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-12">
+        <%= link_to pelican_path(@journey_stop.journey.user.username), class: 'card-link' do %>
+          <%= render partial: 'pelicans/profile_image', locals: { user: @journey_stop.journey.user } %>
+          <b><%= @journey_stop.journey.user.username %></b>
+        <% end %>
+      </div>
+    </div>
+
+    <br>
+
+    <% unless @journey_stop.description.body.to_plain_text.blank?  %>
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <div id="journey-stop-description">
+                <%= @journey_stop.description %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @journey_stop.waiting? %>
+      <%= render partial: 'shared/processing_images', locals: { message: 'Please wait. Images have been scheduled for processing.' } %>
+    <% elsif @journey_stop.processing? %>
+      <%= render partial: 'shared/processing_images', locals: { message: 'Please wait. Images are being processed.' } %>
+    <% else %>
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: @journey_stop.all_thumbnails, image_urls: @journey_stop.all_maxs, object_id: @journey_stop.id }%>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% unless Rails.env.test? %>
+      <%= render partial: 'shared/map', locals: { pins: [@journey_stop.pin].to_json } %>
+    <% end %>
+
+    <div class="row"> 
+      <div class="col-12">
+        <% if current_user && can?(:destroy, @journey_stop) %>
+          <%= link_to 'Delete Stop',
+            journey_journey_stop_path(@journey_stop.journey, @journey_stop),
+            method: :delete,
+            data: { confirm: 'Are you sure?' },
+            class: 'btn btn-danger float-end mt-n1'
+          %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
