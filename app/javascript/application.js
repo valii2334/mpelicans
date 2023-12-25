@@ -20,6 +20,7 @@ import "./src/jquery.validate";
 
 // jquery-lazy
 import 'jquery-lazy';
+
 $(function() {
   $('.lazy').Lazy();
 });

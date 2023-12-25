@@ -9,9 +9,11 @@ import LightboxController from "./lightbox_controller"
 import LocationController from "./location_controller"
 import MapController from "./map_controller"
 import PleaseWaitController from "./please_wait_controller"
+import FadeOutController from "./fade_out_controller"
 
 application.register("documents", DocumentsController)
 application.register("lightbox", LightboxController)
 application.register("location", LocationController)
 application.register("map", MapController)
 application.register("pleasewait", PleaseWaitController)
+application.register("fadeout", FadeOutController)
