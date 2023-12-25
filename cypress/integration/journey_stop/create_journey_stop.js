@@ -21,7 +21,7 @@ Then(/^journey stop information should be/, (datatable) => {
   const table = datatable.hashes();
 
   cy.get('#journey-stop-title').contains(table[0].title);
-  cy.get('#journey-stop-description').contains(table[0].description);
+  cy.get('#journey-journey-stop-description').contains(table[0].description);
 });
 
 Then(/^journey stop card should contain/, (datatable) => {
