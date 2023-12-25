@@ -16,39 +16,12 @@
       </div>
     </div>
 
-    <br>
-
-    <div class="row">
-      <div class="col-12">
-        <%= render partial: 'shared/journey_journey_stop_card/creator', locals: { user: @journey.user }%>
-      </div>
-    </div>
-
-    <br>
-
-    <% if current_user && can?(:edit, @journey) %>
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-body">
-                Privacy: <%= @journey.access_type.split('_').first %>.
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-
+    <%= render partial: 'shared/journey_journey_stop/creator',      locals: { user: @journey.user }%>
+    <%= render partial: 'shared/journey_journey_stop/privacy',      locals: { journey: @journey }%>
     <%= render partial: 'shared/journey_journey_stop/description',  locals: { journey_or_journey_stop: @journey }%>
     <%= render partial: 'journeys/journey_journey_stops_cards',     locals: { journey: @journey }%>
     <%= render partial: 'shared/journey_journey_stop/map',          locals: { pins: @journey.pins }%>
-
-    <% if current_user && can?(:destroy, @journey) %>
-      <div class="row">
-        <div class="col-12">
-          <%= link_to 'Delete Journey', journey_path(@journey), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger float-end mt-n1' %>
-        </div>
-      </div>
-    <% end %>
+    <%= render partial: 'shared/journey_journey_stop/destroy',      locals: { journey_or_journey_stop: @journey, path: journey_path(@journey) }%>
   </div>
 </div>
 

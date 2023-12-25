@@ -12,37 +12,14 @@
       </div>
 
       <div class="col-4">
-        <% unless @journey_stop.journey.protected_journey? %>
-          <%= render partial: 'map_pins/pin_unpin', locals: { current_user: current_user, journey_stop: @journey_stop } %>
-        <% end %>
+        <%= render partial: 'map_pins/pin_unpin', locals: { current_user: current_user, journey_stop: @journey_stop } %>
       </div>
     </div>
 
-    <br>
-
-    <div class="row">
-      <div class="col-12">
-        <%= render partial: 'shared/journey_journey_stop_card/creator', locals: { user: @journey_stop.journey.user }%>
-      </div>
-    </div>
-
-    <br>
-
+    <%= render partial: 'shared/journey_journey_stop/creator',     locals: { user: @journey_stop.journey.user }%>
     <%= render partial: 'shared/journey_journey_stop/description', locals: { journey_or_journey_stop: @journey_stop }%>
     <%= render partial: 'shared/journey_journey_stop/images',      locals: { journey_or_journey_stop: @journey_stop }%>
     <%= render partial: 'shared/journey_journey_stop/map',         locals: { pins: [@journey_stop.pin] }%>
-
-    <div class="row"> 
-      <div class="col-12">
-        <% if current_user && can?(:destroy, @journey_stop) %>
-          <%= link_to 'Delete Stop',
-            journey_journey_stop_path(@journey_stop.journey, @journey_stop),
-            method: :delete,
-            data: { confirm: 'Are you sure?' },
-            class: 'btn btn-danger float-end mt-n1'
-          %>
-        <% end %>
-      </div>
-    </div>
+    <%= render partial: 'shared/journey_journey_stop/destroy',     locals: { journey_or_journey_stop: @journey_stop, path: journey_journey_stop_path(@journey_stop.journey, @journey_stop) }%>
   </div>
 </div>

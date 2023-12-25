@@ -1,0 +1,7 @@
+<% if current_user && can?(:destroy, journey_or_journey_stop) %>
+  <div class="row">
+    <div class="col-12">
+      <%= link_to 'Delete', path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger float-end mt-n1' %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,11 @@
+<% if current_user && can?(:edit, journey) %>
+  <div class="row">
+    <div class="col-12">
+        <div class="card">
+        <div class="card-body">
+            Privacy: <%= journey.access_type.split('_').first %>.
+        </div>
+        </div>
+    </div>
+  </div>
+<% end %>
