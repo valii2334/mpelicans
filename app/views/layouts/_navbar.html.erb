@@ -4,6 +4,15 @@
       <i class="hamburger align-self-center"></i>
     </a>
   
+    <ul class="navbar-nav">
+      <li class="nav-item px-2">
+        <%= link_to root_path, class: 'nav-icon' do %>
+          <i class="align-middle" data-feather="map"></i>
+          <span class="align-middle"></span>
+        <% end %>
+      </li>
+    </ul>
+
     <% unread_notifications = current_user.received_notifications.not_read.includes(:sender, :receiver, :journey, :journey_stop) %>
     <% notifications_count  = unread_notifications.count %>
     <ul class="navbar-nav navbar-align">
