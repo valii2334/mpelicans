@@ -102,7 +102,7 @@
 
   .show > .nav-link,
   .nav-link.active {
-    color: var(--#{$prefix}navbar-active-color);
+    color: $primary;
   }
 
   .dropdown-menu {

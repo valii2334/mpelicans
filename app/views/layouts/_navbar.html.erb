@@ -4,11 +4,22 @@
       <i class="hamburger align-self-center"></i>
     </a>
   
-    <ul class="navbar-nav">
+    <ul class="navbar-nav navbar-align">
       <li class="nav-item px-2">
-        <%= link_to root_path, class: 'nav-icon' do %>
+        <%= link_to root_path, class: "nav-link #{active_controller?(controller: 'journeys')}" do %>
           <i class="align-middle" data-feather="map"></i>
-          <span class="align-middle"></span>
+          <span class="align-middle">
+            Latest Journeys
+          </span>
+        <% end %>
+      </li>
+
+      <li class="nav-item">
+        <%= link_to map_pins_path, class: "nav-link #{active_controller?(controller: 'map_pins')}" do %>
+          <i class="align-middle" data-feather="map-pin"></i>
+          <span class="align-middle">
+            Pins
+          </span>
         <% end %>
       </li>
     </ul>
@@ -16,13 +27,6 @@
     <% unread_notifications = current_user.received_notifications.not_read.includes(:sender, :receiver, :journey, :journey_stop) %>
     <% notifications_count  = unread_notifications.count %>
     <ul class="navbar-nav navbar-align">
-      <li class="nav-item">
-        <%= link_to map_pins_path, class: 'nav-icon' do %>
-          <i class="align-middle" data-feather="map-pin"></i>
-          <span class="align-middle"></span>
-        <% end %>
-      </li>
-
       <li class="nav-item dropdown">
         <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
           <div class="position-relative">
@@ -93,38 +97,46 @@
       </li>
 
       <li class="nav-item px-2 d-none d-lg-block d-xl-block d-xxl-block">
-        <a class="nav-link" href="<%= root_path %>" role="button">
-          Latest Journeys
-        </a>
-      </li>
-
-      <li class="nav-item px-2 d-none d-lg-block d-xl-block d-xxl-block">
-        <a class="nav-link" href="<%= pelicans_path %>" role="button">
-          Pelicans
-        </a>
-      </li>
-
-      <li class="nav-item px-2 d-none d-lg-block d-xl-block d-xxl-block">
-        <a class="nav-link" href="<%= how_it_works_company_index_path %>" role="button">
+        <a class="nav-link <%= active_controller_action?(controller: 'company', action: 'how_it_works') %>" href="<%= how_it_works_company_index_path %>" role="button">
           How It Works
         </a>
       </li>
 
       <li class="nav-item px-2 d-none d-lg-block d-xl-block d-xxl-block">
-        <a class="nav-link" href="<%= about_us_company_index_path %>" role="button">
+        <a class="nav-link <%= active_controller_action?(controller: 'company', action: 'about_us') %>" href="<%= about_us_company_index_path %>" role="button">
           About Us
         </a>
       </li>
     </ul>
 
     <ul class="navbar-nav navbar-align d-lg-flex">
+      <li class="nav-item px-2 active">
+        <%= link_to root_path, class: "nav-link #{active_controller?(controller: 'journeys')}" do %>
+          <i class="align-middle" data-feather="map"></i>
+          <span class="align-middle">
+              Latest Journeys
+          </span>
+        <% end %>
+      </li>
+
       <li class="nav-item px-2">
+        <%= link_to pelicans_path, class: "nav-link #{active_controller?(controller: 'pelicans')}" do %>
+          <i class="align-middle" data-feather="users"></i>
+          <span class="align-middle">
+            Pelicans
+          </span>
+        <% end %>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav navbar-align d-lg-flex">
+      <li class="nav-item px-2 d-none d-lg-block d-xl-block d-xxl-block">
         <a class="nav-link" href="<%= new_registration_path('user') %>" role="button">
           Sign Up
         </a>
       </li>
 
-      <li class="nav-item px-2">
+      <li class="nav-item px-2 d-none d-lg-block d-xl-block d-xxl-block">
         <a class="nav-link" href="<%= new_session_path('user') %>" role="button">
           Log In
         </a>
@@ -137,8 +149,8 @@
           </div>
         </a>
         <div class="dropdown-menu dropdown-menu-end">
-          <%= link_to "Latest Journeys", root_path, class: "dropdown-item " %>
-          <%= link_to "Pelicans", pelicans_path, class: "dropdown-item" %>
+          <%= link_to "Sign Up", new_registration_path('user'), class: "dropdown-item" %>
+          <%= link_to "Log In", new_session_path('user'), class: "dropdown-item" %>
           <%= link_to "How It Works", how_it_works_company_index_path, class: "dropdown-item" %>
           <%= link_to "About Us", about_us_company_index_path, class: "dropdown-item" %>
         </div>
