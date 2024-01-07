@@ -16,8 +16,8 @@ Given(/^I visit last users show page/, () => {
 
 Then(/^I should see "([^"]*)" details/, (journeyTitle) => {
   cy.appScenario('journey_attributes', { journey_title: journeyTitle }).then(($journeyAttributes) => {
-    cy.get('#journey-title').contains($journeyAttributes.title);
-    cy.get('#journey-journey-stop-description').contains('.trix-content', $journeyAttributes.description);
+    cy.contains($journeyAttributes.title);
+    cy.contains('.trix-content', $journeyAttributes.description);
   });
 });
 

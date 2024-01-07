@@ -4,9 +4,9 @@ import '../shared_steps';
 import './create_journey_stop';
 
 Then(/^I should not have a journey stop card/, () => {
-  cy.get('.journey-stop-0').should('not.exist');
+  cy.get('.journey-stop-card').should('not.exist');
 });
 
 Then(/^I should have a journey stop card/, () => {
-  cy.get('.journey-stop-0').should('exist');
+  cy.get('.journey-stop-card').should('exist');
 });

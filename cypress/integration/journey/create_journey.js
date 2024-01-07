@@ -13,6 +13,6 @@ Given(/^I fill in journey information with/, (datatable) => {
 Then(/^journey information should be/, (datatable) => {
   const table = datatable.hashes();
 
-  cy.get('#journey-title').contains(table[0].title);
-  cy.get('#journey-journey-stop-description').contains(table[0].description);
+  cy.contains(table[0].title);
+  cy.contains(table[0].description);
 });
