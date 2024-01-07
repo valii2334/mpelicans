@@ -16,16 +16,3 @@ Given(/^I fill in journey stop information with/, (datatable) => {
 
   cy.get('#journey_stop_images').selectFile(imagesPathsArrays);
 });
-
-Then(/^journey stop information should be/, (datatable) => {
-  const table = datatable.hashes();
-
-  cy.get('#journey-stop-title').contains(table[0].title);
-  cy.get('#journey-journey-stop-description').contains(table[0].description);
-});
-
-Then(/^journey stop card should contain/, (datatable) => {
-  const table = datatable.hashes();
-
-  cy.get('.title.journey-stop-0').contains(table[0].title);
-});
