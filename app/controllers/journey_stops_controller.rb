@@ -4,8 +4,6 @@
 class JourneyStopsController < ApplicationController
   include PermittedParameters
 
-  before_action :authenticate_user!, except: [:show]
-
   PERMITTED_PARAMETERS = %i[
     description
     journey_id
