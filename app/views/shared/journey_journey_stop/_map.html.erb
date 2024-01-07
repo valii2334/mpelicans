@@ -1,3 +1,3 @@
-<% if !Rails.env.test? && pins.present? %>
-    <%= render partial: 'shared/map', locals: { pins: pins.to_json, journey_or_journey_stop: journey_or_journey_stop } %>
+<% if !Rails.env.test? && journey_or_journey_stop.pins.present? %>
+    <%= render partial: 'shared/map', locals: { journey_or_journey_stop: journey_or_journey_stop } %>
 <% end %>

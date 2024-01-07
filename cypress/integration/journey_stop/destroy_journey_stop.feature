@@ -19,15 +19,13 @@ Feature: Destroy Journey Stop
       | title               | description               | journey_stop_images |
       | My first stop title | My first stop description | madrid.jpg          |
     When I click on button "Create"
-    Then journey stop information should be
-      | title               | description               | journey_stop_image |
-      | My first stop title | My first stop description | .webp              |
+    Then I should see "My first stop title" in the page
+    And I should see "My first stop description" in the page
 
   Scenario: If a users enters correct journey stop information then we can create a journey stop
     Given I go to home page
     And I click on link "Mine"
     And I click on link "View"
     And I should have a journey stop card
-    Given I click on link "View Stop"
-    When I click on link "Delete Stop"
+    Given I click on link "Delete Stop"
     Then I should not have a journey stop card

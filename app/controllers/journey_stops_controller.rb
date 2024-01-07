@@ -29,7 +29,7 @@ class JourneyStopsController < ApplicationController
 
       success_message(message: 'Your journey stop was created.')
 
-      redirect_to journey_journey_stop_path(@journey_stop.journey, @journey_stop)
+      redirect_to journey_path(@journey_stop.journey)
     else
       render_alert_message
 
@@ -51,14 +51,6 @@ class JourneyStopsController < ApplicationController
     end
 
     redirect_to journey_path(journey)
-  end
-
-  def show
-    @journey_stop = JourneyStop.find(params[:id])
-
-    authorize_journey_stop(:show)
-
-    increase_views_count
   end
 
   private

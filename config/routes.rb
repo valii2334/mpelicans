@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     end
   end
   resources :journeys, only: %i[index new show create destroy] do
-    resources :journey_stops, only: %i[new show create destroy]
+    resources :journey_stops, only: %i[new create destroy]
   end
   resources :pelicans,             only: %i[index show edit update], param: :username
   resources :relationships,        only: %i[create destroy]

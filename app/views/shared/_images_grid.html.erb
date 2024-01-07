@@ -1,7 +1,7 @@
 <% locals = { thumbnail_image_urls: thumbnail_image_urls, image_urls: image_urls, object_id: object_id } %>
 
 <% unless image_urls.empty? %>
-  <div class="row align-items-center justify-content-center m-0">
+  <div class="row align-items-center justify-content-center">
     <% if image_urls.count < 5 %>
       <%= render partial: "shared/images_grid_#{image_urls.count}_image", locals: locals %>
     <% else %>

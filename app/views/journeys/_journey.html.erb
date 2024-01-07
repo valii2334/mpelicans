@@ -12,18 +12,19 @@
 
     <div class="row">
       <div class="col-12">
-        <h1 id="journey-title"><%= @journey.title %></h1>
+        <div class="mb-3">
+          <h1 class="d-inline-block" id="journey-title"><%= @journey.title %></h1>
+
+          <%= render partial: 'shared/journey_journey_stop/map', locals: { journey_or_journey_stop: @journey } %>
+        </div>
+
+        <%= render partial: 'shared/journey_journey_stop/privacy',      locals: { journey: @journey }%>
       </div>
     </div>
 
-    <% if @journey.journey_stops.present? %>
-      <%= render partial: 'shared/journey_journey_stop/map_button',   locals: { modal_id: @journey.modal_id } %>
-    <% end %>
-    <%= render partial: 'shared/journey_journey_stop/creator',      locals: { user: @journey.user }%>
-    <%= render partial: 'shared/journey_journey_stop/privacy',      locals: { journey: @journey }%>
+    <%= render partial: 'shared/journey_journey_stop/creator',      locals: { user: @journey.user, journey: @journey }%>
     <%= render partial: 'shared/journey_journey_stop/description',  locals: { journey_or_journey_stop: @journey }%>
     <%= render partial: 'journeys/journey_journey_stops_cards',     locals: { journey: @journey }%>
-    <%= render partial: 'shared/journey_journey_stop/map',          locals: { pins: @journey.pins, journey_or_journey_stop: @journey }%>
     <%= render partial: 'shared/journey_journey_stop/destroy',      locals: { journey_or_journey_stop: @journey, path: journey_path(@journey) }%>
   </div>
 </div>

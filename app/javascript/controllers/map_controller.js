@@ -2,7 +2,8 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static values = {
-    pins: Array
+    pins: Array,
+    mapid: String
   }
 
   connect() {
@@ -14,7 +15,7 @@ export default class extends Controller {
     const { Map, InfoWindow } = await google.maps.importLibrary("maps");
     const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
     const { LatLng } = await google.maps.importLibrary("core");
-    const map = new Map(document.getElementById("map"), {
+    const map = new Map(document.getElementById(this.mapidValue), {
       mapId: "4504f8b37365c3d0"
     });
 

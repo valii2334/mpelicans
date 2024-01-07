@@ -1,5 +1,17 @@
-<div class="col-lg-6 col-md-6 col-12">
-  <div class="card">
+<div class="card">
+  <div class="card-header">
+    <div class="mb-3">
+      <h1 class="d-inline-block">
+        First journey pictures
+      </h1>
+
+      <h6 class="card-subtitle text-muted">
+        Created <%= time_ago_in_words(journey_or_journey_stop.created_at) %> ago.
+      </h6>
+    </div>
+  </div>
+
+  <div class="card-body mb-3">
     <% if journey_or_journey_stop.waiting? %>
       <%= render partial: 'shared/processing_images', locals: { message: 'Please wait. Images have been scheduled for processing.' } %>
     <% elsif journey_or_journey_stop.processing? %>
@@ -7,17 +19,5 @@
     <% else %>
       <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey_or_journey_stop.all_thumbnails, image_urls: journey_or_journey_stop.all_maxs, object_id: journey_or_journey_stop.id }%>
     <% end %>
-    <div class="card-header">
-      <h5 class="card-title title">
-        First journey pictures
-      </h5>
-      <h6 class="card-subtitle text-muted">
-        Created <%= time_ago_in_words(journey_or_journey_stop.created_at) %> ago.
-      </h6>
-    </div>
-
-    <div class="card-body">
-      <%= render partial: 'shared/journey_journey_stop_card/creator', locals: { user: journey_or_journey_stop.user }%>
-    </div>
   </div>
 </div>

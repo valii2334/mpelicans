@@ -1,6 +1,23 @@
-<p>
-  <%= link_to pelican_path(user.username), class: 'card-link' do %>
-    <%= render partial: 'pelicans/profile_image', locals: { user: user } %>
-    <b><%= user.username %></b>
-  <% end %>
-</p>
+<div>
+  <div class="d-flex justify-content-center">
+    <div class="flex-shrink-0">
+      <%= render partial: 'pelicans/profile_image', locals: { user: user } %>
+    </div>
+    <div class="flex-grow-1 ps-2">
+      <%= link_to user.username, pelican_path(user.username), class: 'card-link' %>
+
+      <% if journey %>
+        <div class="sidebar-user-subtitle">
+          <p class="mb-0 d-inline-block">
+            <% if journey.journey_stops.present? %>
+              updated <%= time_ago_in_words(journey.latest_journey_stop_added_at) %> ago ●
+            <% else %>
+              created <%= time_ago_in_words(journey.created_at) %> ago ●
+            <% end %>
+          </p>
+          <%= render partial: 'shared/journey_journey_stop_card/views', locals: { journey_or_journey_stop: journey }%>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

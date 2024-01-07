@@ -1,24 +1,22 @@
 <div class="card">
-  <%= render partial: 'shared/journey_journey_stop_card/images_grid', locals: { journey_or_journey_stop: journey }%>
+  <div class="card-header">
+    <div class="mb-3">
+      <h1 class="d-inline-block">
+        <%= journey.title %> 
+      </h1>
+
+      <%= render partial: 'shared/journey_journey_stop/map', locals: { journey_or_journey_stop: journey } %>
+    </div>
+
+    <%= render partial: 'shared/journey_journey_stop_card/creator', locals: { user: journey.user, journey: journey }%>
+  </div>
+
+  <div class="card-body mb-3">
+    <%= render partial: 'shared/journey_journey_stop_card/images_grid', locals: { journey_or_journey_stop: journey } %>
+  </div>
 
   <div class="card-header">
-    <h5 class="card-title title">
-      <%= journey.title %> 
-    </h5>
-    <h6 class="card-subtitle text-muted">
-      <% if journey.journey_stops.present? %>
-        New stop was added <%= time_ago_in_words(journey.latest_journey_stop_added_at) %> ago.
-      <% else %>
-        Journey was created <%= time_ago_in_words(journey.created_at) %> ago.
-      <% end %>
-    </h6>
-  </div>
-  <div class="card-body">
-    <%= render partial: 'shared/journey_journey_stop_card/creator', locals: { user: journey.user }%>
-    <p>
-      <%= render partial: 'journeys/view_buttons', locals: { journey: journey }%>
-      <%= render partial: 'journeys/buy_button',   locals: { journey: journey }%>
-    </p>
-    <%= render partial: 'shared/journey_journey_stop_card/views', locals: { journey_or_journey_stop: journey }%>
+    <%= render partial: 'journeys/view_buttons', locals: { journey: journey } %>
+    <%= render partial: 'journeys/buy_button',   locals: { journey: journey } %>
   </div>
 </div>

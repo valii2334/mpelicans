@@ -31,6 +31,10 @@ class JourneyStop < ApplicationRecord
     Pin.new(pinnable: self).to_pin
   end
 
+  def pins
+    [pin]
+  end
+
   def link_to_self
     journey_journey_stop_url(journey, self, host: 'https://www.mpelicans.com')
   end
@@ -48,7 +52,7 @@ class JourneyStop < ApplicationRecord
   end
 
   def modal_id
-    "journey-#{id}"
+    "journey-stop-#{id}"
   end
 
   private

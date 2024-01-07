@@ -1,6 +1,7 @@
 <% if can?(:show, journey) %>
-  <%= link_to 'View Journey', journey_path(journey), class: 'btn btn-sm btn-primary' %>
-  <% if journey.journey_stops.present? %>
-      <%= link_to 'View Latest Stop', journey_journey_stop_path(journey, journey.journey_stops.first), class: 'btn btn-sm btn-primary' %>
-  <% end %>
+  <div class="row mb-3">
+    <div class="col-12">
+      <%= link_to 'View Journey', journey_path(journey), class: 'btn btn-primary float-end mt-n1' %>
+    </div>
+  </div>
 <% end %>

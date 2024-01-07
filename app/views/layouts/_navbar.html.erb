@@ -8,8 +8,8 @@
       <li class="nav-item px-2">
         <%= link_to root_path, class: "nav-link #{active_controller?(controller: 'journeys')}" do %>
           <i class="align-middle" data-feather="map"></i>
-          <span class="align-middle">
-            Latest Journeys
+          <span class="align-middle d-none d-lg-inline-block d-xl-inline-block d-xxl-inline-block">
+            Journeys
           </span>
         <% end %>
       </li>
@@ -17,7 +17,7 @@
       <li class="nav-item">
         <%= link_to map_pins_path, class: "nav-link #{active_controller?(controller: 'map_pins')}" do %>
           <i class="align-middle" data-feather="map-pin"></i>
-          <span class="align-middle">
+          <span class="align-middle d-none d-lg-inline-block d-xl-inline-block d-xxl-inline-block">
             Pins
           </span>
         <% end %>
@@ -113,8 +113,8 @@
       <li class="nav-item px-2 active">
         <%= link_to root_path, class: "nav-link #{active_controller?(controller: 'journeys')}" do %>
           <i class="align-middle" data-feather="map"></i>
-          <span class="align-middle">
-              Latest Journeys
+          <span class="align-middle d-none d-lg-inline-block d-xl-inline-block d-xxl-inline-block">
+              Journeys
           </span>
         <% end %>
       </li>
@@ -122,7 +122,7 @@
       <li class="nav-item px-2">
         <%= link_to pelicans_path, class: "nav-link #{active_controller?(controller: 'pelicans')}" do %>
           <i class="align-middle" data-feather="users"></i>
-          <span class="align-middle">
+          <span class="align-middle d-none d-lg-inline-block d-xl-inline-block d-xxl-inline-block">
             Pelicans
           </span>
         <% end %>

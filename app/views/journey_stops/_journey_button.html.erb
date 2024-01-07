@@ -1,9 +1,0 @@
-<% if journey_stop.journey.protected_journey? %>
-  <% if current_user && can?(:edit, journey_stop.journey) %>
-    <%= link_to journey_stop.journey.title, journey_path(journey_stop.journey), class: 'cart-link' %>
-  <% else %>
-    <%= link_to journey_stop.journey.title, watch_journey_url(access_code: journey_stop.journey.access_code), class: 'card-link' %>
-  <% end %>
-<% else %>
-  <%= link_to journey_stop.journey.title, journey_path(journey_stop.journey), class: 'card-link' %>
-<% end %>

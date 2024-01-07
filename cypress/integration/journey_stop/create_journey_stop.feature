@@ -21,13 +21,8 @@ Feature: Create Journey Stop
       | title               | description               | journey_stop_images |
       | My first stop title | My first stop description | madrid.jpg          |
     When I click on button "Create"
-    Then journey stop information should be
-      | title               | description               | journey_stop_image |
-      | My first stop title | My first stop description | .webp              |
-    When I click on link "Going to Munchen"
-    Then journey stop card should contain
-      | title               |
-      | My first stop title |
+    Then I should see "My first stop title" in the page
+    And I should see "My first stop description" in the page
 
   Scenario: A user can not submit a journey stop with more than 5 images
     Given I fill in journey stop information with
