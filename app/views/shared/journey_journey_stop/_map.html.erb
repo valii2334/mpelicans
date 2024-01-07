@@ -1,3 +1,43 @@
 <% if !Rails.env.test? && journey_or_journey_stop.pins.present? %>
-    <%= render partial: 'shared/map', locals: { journey_or_journey_stop: journey_or_journey_stop } %>
+  <% modal_id = journey_or_journey_stop.modal_id %>
+  <% map_id   = "map-#{modal_id}"%>
+
+  <h1 class="d-inline-block">
+    <a class="card-link" data-bs-toggle="modal" data-bs-target="#<%= modal_id %>">
+      <i class="align-middle" data-feather="map-pin"></i> <span class="align-middle"></span>
+    </a>
+  </h1>
+
+  <div class="modal fade" id="<%= modal_id %>" tabindex="-1" aria-labelledby="<%= modal_id %>-title" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="<%= modal_id %>-title">
+            <%= journey_or_journey_stop.title %>
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div 
+            class="row" 
+            data-controller="map"
+            data-map-pins-value="<%= journey_or_journey_stop.pins.to_json %>"
+            data-map-mapid-value="<%= map_id %>"
+          >
+            <div class="col-12">
+              <div class="card" style="height: 90vh">
+                <div style="height: 100%" id="<%= map_id %>">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <% if journey_or_journey_stop.is_a?(JourneyStop) %>
+            <%= render partial: 'map_pins/pin_unpin', locals: { current_user: current_user, journey_stop: journey_or_journey_stop, id: dom_id(journey_or_journey_stop, :save_pin_map) } %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>

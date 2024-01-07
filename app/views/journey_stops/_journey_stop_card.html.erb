@@ -25,6 +25,6 @@
 
   <div class="card-header">
     <%= render partial: 'shared/journey_journey_stop/destroy', locals: { journey_or_journey_stop: journey_stop, path: journey_journey_stop_path(journey_stop.journey, journey_stop) } %>
-    <%= render partial: 'map_pins/pin_unpin', locals: { current_user: current_user, journey_stop: journey_stop } %>
+    <%= render partial: 'map_pins/pin_unpin', locals: { current_user: current_user, journey_stop: journey_stop, id: dom_id(journey_stop, :save_pin) } %>
   </div>
 </div>

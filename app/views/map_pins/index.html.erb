@@ -9,7 +9,11 @@
 <div class="row">
   <div class="col-12">
     <div class="card" style="height: 80vh;">
-      <div class="card-body" data-controller="map" data-map-pins-value="<%= @map_pins.to_json %>">
+      <div class="card-body" 
+        data-controller="map" 
+        data-map-pins-value="<%= @map_pins.to_json %>"
+        data-map-mapid-value="map"
+      >
         <% unless Rails.env.test? %>
           <div style="height: 100%; width: 100%;" id="map">
           </div>

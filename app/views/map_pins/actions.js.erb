@@ -1,1 +1,2 @@
-$("#<%=j dom_id(@journey_stop, :save_pin) %>").html("<%=j render partial: 'map_pins/pin_unpin', locals: { current_user: current_user, journey_stop: @journey_stop } %>");
+$("#<%=j dom_id(@journey_stop, :save_pin) %>").html("<%=j render partial: 'map_pins/pin_unpin', locals: { current_user: current_user, journey_stop: @journey_stop, id: dom_id(@journey_stop, :save_pin) } %>");
+$("#<%=j dom_id(@journey_stop, :save_pin_map) %>").html("<%=j render partial: 'map_pins/pin_unpin', locals: { current_user: current_user, journey_stop: @journey_stop, id: dom_id(@journey_stop, :save_pin_map) } %>");
