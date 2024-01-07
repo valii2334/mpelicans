@@ -190,9 +190,10 @@ RSpec.describe JourneyStopsController, type: :controller do
     let(:journey_stop) { create(:journey_stop, journey:) }
     let(:second_journey_stop) { create(:journey_stop, journey: second_journey) }
 
-    it 'redirected if not signed in' do
-      delete :destroy, params: { journey_id: journey.id, id: journey_stop.id }
-      expect(response.status).to eq(302)
+    it 'raises an error if not signed in' do
+      expect do
+        delete :destroy, params: { journey_id: journey.id, id: second_journey_stop.id }
+      end.to raise_error(CanCan::AccessDenied)
     end
 
     it 'raises an error if other users journey' do
