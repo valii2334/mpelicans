@@ -70,7 +70,7 @@ export default class extends Controller {
       <div class="details">
         <div class="title"><b>${property.title}</b></div>
         <br>
-        <a href=${property.link_to_self}>View Journey Stop</a>
+        <a target="_blank" href=${property.link_to_self}>View Journey Stop</a>
         <br>
         <a target="_blank" href=${property.link_to_google_maps}>View location in Google Maps</a>
       </div>

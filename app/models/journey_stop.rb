@@ -36,7 +36,7 @@ class JourneyStop < ApplicationRecord
   end
 
   def link_to_self
-    journey_journey_stop_url(journey, self, host: 'https://www.mpelicans.com')
+    journey_url(journey, scroll_to: anchor_id, host: 'https://www.mpelicans.com')
   end
 
   def all_thumbnails
@@ -53,6 +53,10 @@ class JourneyStop < ApplicationRecord
 
   def modal_id
     "journey-stop-#{id}"
+  end
+
+  def anchor_id
+    "journey-stop-id-#{id}"
   end
 
   private
