@@ -1,22 +1,20 @@
+# frozen_string_literal: true
+
 desc 'Process all images'
-task :process_all_images => :environment do
-  JourneyStop.all.in_groups_of(10, false) do |journey_stop_group|
-    puts "Processing a group of #{journey_stop_group.count} JourneyStops"
+task process_all_images: :environment do
+  JourneyStop.all.each do |journey_stop|
+    puts "Processing JourneyStop with id: #{journey_stop.id}"
 
-    journey_stop_group.each do |journey_stop|
-      JourneyJobs::ProcessImages.perform_async(journey_stop.id, 'JourneyStop')
-    end
+    JourneyJobs::ProcessImages.perform_async(journey_stop.id, 'JourneyStop')
 
-    sleep 60
+    sleep 10
   end
 
-  Journey.all.in_groups_of(10, false) do |journeys_group|
-    puts "Processing a group of #{journeys_group.count} Journeys"
+  Journey.all.each do |journey|
+    puts "Processing Journey with id: #{journey.id}"
 
-    journeys_group.each do |journey|
-      JourneyJobs::ProcessImages.perform_async(journey.id, 'Journey')
-    end
+    JourneyJobs::ProcessImages.perform_async(journey.id, 'Journey')
 
-    sleep 60
+    sleep 10
   end
 end
