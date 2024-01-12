@@ -52,14 +52,18 @@ class Journey < ApplicationRecord
     [
       images_urls(variant: :thumbnail),
       journey_stops.map(&:all_thumbnails)
-    ].flatten
+    ]
+      .flatten
+      .reverse
   end
 
   def all_maxs
     [
       images_urls(variant: :max),
       journey_stops.map(&:all_maxs)
-    ].flatten
+    ]
+      .flatten
+      .reverse
   end
 
   def lastest_journey_stop_id
