@@ -39,6 +39,10 @@ class JourneyStop < ApplicationRecord
     journey_url(journey, scroll_to: anchor_id, host: 'https://www.mpelicans.com')
   end
 
+  def all_mini_thumbnails
+    images_urls(variant: :mini_thumbnail)
+  end
+
   def all_thumbnails
     images_urls(variant: :thumbnail)
   end

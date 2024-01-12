@@ -17,7 +17,11 @@
     <% elsif journey.processing? %>
       <%= render partial: 'shared/processing_images', locals: { message: 'Please wait. Images are being processed.' } %>
     <% else %>
-      <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey.journey_thumbnails, image_urls: journey.journey_maxs, object_id: journey.id }%>
+      <% if mobile_browser? %>
+        <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey.journey_mini_thumbnails, image_urls: journey.journey_maxs, object_id: journey.id } %>
+      <% else %>
+        <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey.journey_thumbnails, image_urls: journey.journey_maxs, object_id: journey.id } %>
+      <% end %>
     <% end %>
   </div>
 </div>

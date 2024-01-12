@@ -28,6 +28,10 @@ module ApplicationHelper
     'secondary'
   end
 
+  def mobile_browser?
+    Browser.new(request.user_agent).device.mobile?
+  end
+
   private
 
   def select_journeys_tab

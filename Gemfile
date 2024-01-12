@@ -11,6 +11,7 @@ gem 'async'
 gem 'aws-sdk-s3'
 gem 'bootsnap', require: false
 gem 'bootstrap5-kaminari-views'
+gem 'browser', require: 'browser/browser'
 gem 'cancancan'
 gem 'cssbundling-rails'
 gem 'devise'

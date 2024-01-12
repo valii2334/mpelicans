@@ -7,5 +7,9 @@
     Please wait. Images are being processed.
   </h5>
 <% else %>
-  <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey_or_journey_stop.all_thumbnails, image_urls: journey_or_journey_stop.all_maxs, object_id: journey_or_journey_stop.id }%>
+  <% if mobile_browser? %>
+    <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey_or_journey_stop.all_mini_thumbnails, image_urls: journey_or_journey_stop.all_maxs, object_id: journey_or_journey_stop.id } %>
+  <% else %>
+    <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey_or_journey_stop.all_thumbnails, image_urls: journey_or_journey_stop.all_maxs, object_id: journey_or_journey_stop.id } %>
+  <% end %>
 <% end %>

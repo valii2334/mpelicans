@@ -6,11 +6,13 @@ require 'async/barrier'
 module Imageable
   extend ActiveSupport::Concern
 
-  NUMBER_OF_DISPLAYED_IMAGES = 4
-  NUMBER_OF_IMAGES_PER_ROW   = 2
-
   included do
     has_many_attached :images do |attachable|
+      attachable.variant :mini_thumbnail,
+                         resize_to_fill: [300, 300],
+                         format: :webp,
+                         quality: 80
+
       attachable.variant :thumbnail,
                          resize_to_fill: [1024, 1024],
                          format: :webp,
@@ -34,8 +36,7 @@ module Imageable
     Async do
       images.each do |image|
         barrier.async do
-          image.variant(:thumbnail).processed
-          image.variant(:max).processed
+          process_image(image:)
         end
       end
       barrier.wait
@@ -47,6 +48,12 @@ module Imageable
   end
 
   private
+
+  def process_image(image:)
+    image.variant(:mini_thumbnail).processed
+    image.variant(:thumbnail).processed
+    image.variant(:max).processed
+  end
 
   def image_urls(variant:)
     return [] unless processed?
