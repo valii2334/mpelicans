@@ -7,7 +7,7 @@ task process_all_images: :environment do
 
     JourneyJobs::ProcessImages.perform_async(journey_stop.id, 'JourneyStop')
 
-    sleep 10
+    sleep 60
   end
 
   Journey.all.each do |journey|
@@ -15,6 +15,6 @@ task process_all_images: :environment do
 
     JourneyJobs::ProcessImages.perform_async(journey.id, 'Journey')
 
-    sleep 10
+    sleep 60
   end
 end
