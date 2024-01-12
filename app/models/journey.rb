@@ -48,18 +48,26 @@ class Journey < ApplicationRecord
     journey_stops.map { |pinnable| Pin.new(pinnable:).to_pin }
   end
 
+  def journey_thumbnails
+    images_urls(variant: :thumbnail)
+  end
+
   def all_thumbnails
     [
-      images_urls(variant: :thumbnail),
+      journey_thumbnails,
       journey_stops.map(&:all_thumbnails)
     ]
       .flatten
       .reverse
   end
 
+  def journey_maxs
+    images_urls(variant: :max)
+  end
+
   def all_maxs
     [
-      images_urls(variant: :max),
+      journey_maxs,
       journey_stops.map(&:all_maxs)
     ]
       .flatten

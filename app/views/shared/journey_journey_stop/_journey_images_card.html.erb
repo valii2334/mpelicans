@@ -6,18 +6,18 @@
       </h1>
 
       <h6 class="card-subtitle text-muted">
-        Created <%= time_ago_in_words(journey_or_journey_stop.created_at) %> ago.
+        Created <%= time_ago_in_words(journey.created_at) %> ago.
       </h6>
     </div>
   </div>
 
   <div class="card-body mb-3">
-    <% if journey_or_journey_stop.waiting? %>
+    <% if journey.waiting? %>
       <%= render partial: 'shared/processing_images', locals: { message: 'Please wait. Images have been scheduled for processing.' } %>
-    <% elsif journey_or_journey_stop.processing? %>
+    <% elsif journey.processing? %>
       <%= render partial: 'shared/processing_images', locals: { message: 'Please wait. Images are being processed.' } %>
     <% else %>
-      <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey_or_journey_stop.all_thumbnails, image_urls: journey_or_journey_stop.all_maxs, object_id: journey_or_journey_stop.id }%>
+      <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey.journey_thumbnails, image_urls: journey.journey_maxs, object_id: journey.id }%>
     <% end %>
   </div>
 </div>
