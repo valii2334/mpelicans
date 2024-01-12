@@ -9,7 +9,7 @@ module Imageable
   included do
     has_many_attached :images do |attachable|
       attachable.variant :mini_thumbnail,
-                         resize_to_fill: [300, 300],
+                         resize_to_fill: [400, 400],
                          format: :webp,
                          quality: 80
 
