@@ -13,12 +13,16 @@
 
   <div class="card-body mb-3">
     <% if journey.waiting? %>
-      <%= render partial: 'shared/processing_images', locals: { message: 'Please wait. Images have been scheduled for processing.' } %>
+      <h5 class="card-title">
+        Please wait. Images have been scheduled for processing.
+      </h5>
     <% elsif journey.processing? %>
-      <%= render partial: 'shared/processing_images', locals: { message: 'Please wait. Images are being processed.' } %>
+      <h5 class="card-title">
+        Please wait. Images are being processed.
+      </h5>
     <% else %>
       <% if mobile_browser? %>
-        <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey.journey_mini_thumbnails, image_urls: journey.journey_maxs, object_id: journey.id } %>
+        <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey.journey_mini_thumbnails, image_urls: journey.journey_mobiles, object_id: journey.id } %>
       <% else %>
         <%= render partial: 'shared/images_grid', locals: { thumbnail_image_urls: journey.journey_thumbnails, image_urls: journey.journey_maxs, object_id: journey.id } %>
       <% end %>

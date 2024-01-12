@@ -47,6 +47,10 @@ class JourneyStop < ApplicationRecord
     images_urls(variant: :thumbnail)
   end
 
+  def all_mobiles
+    images_urls(variant: :mobile)
+  end
+
   def all_maxs
     images_urls(variant: :max)
   end

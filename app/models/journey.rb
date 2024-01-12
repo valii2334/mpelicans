@@ -72,6 +72,10 @@ class Journey < ApplicationRecord
     images_urls(variant: :thumbnail)
   end
 
+  def journey_mobiles
+    images_urls(variant: :mobile)
+  end
+
   def journey_maxs
     images_urls(variant: :max)
   end
@@ -87,6 +91,13 @@ class Journey < ApplicationRecord
     [
       journey_stops.map(&:all_thumbnails),
       journey_thumbnails
+    ].flatten
+  end
+
+  def all_mobiles
+    [
+      journey_stops.map(&:all_mobiles),
+      journey_mobiles
     ].flatten
   end
 

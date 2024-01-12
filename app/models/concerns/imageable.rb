@@ -18,6 +18,10 @@ module Imageable
                          format: :webp,
                          quality: 80
 
+      attachable.variant :mobile,
+                         resize_to_limit: [1024, 1024],
+                         format: :webp
+
       attachable.variant :max,
                          resize_to_limit: [2048, 2048],
                          format: :webp
@@ -52,6 +56,7 @@ module Imageable
   def process_image(image:)
     image.variant(:mini_thumbnail).processed
     image.variant(:thumbnail).processed
+    image.variant(:mobile).processed
     image.variant(:max).processed
   end
 
