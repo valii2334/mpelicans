@@ -54,11 +54,9 @@ class Journey < ApplicationRecord
 
   def all_thumbnails
     [
-      journey_thumbnails,
-      journey_stops.map(&:all_thumbnails)
-    ]
-      .flatten
-      .reverse
+      journey_stops.map(&:all_thumbnails),
+      journey_thumbnails
+    ].flatten
   end
 
   def journey_maxs
@@ -67,11 +65,9 @@ class Journey < ApplicationRecord
 
   def all_maxs
     [
-      journey_maxs,
-      journey_stops.map(&:all_maxs)
-    ]
-      .flatten
-      .reverse
+      journey_stops.map(&:all_maxs),
+      journey_maxs
+    ].flatten
   end
 
   def lastest_journey_stop_id
