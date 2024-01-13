@@ -1,17 +1,13 @@
 <div class="row">
   <% unless journey.journey_stops.empty? %>
     <% journey.journey_stops.each_with_index do |journey_stop, index| %>
-      <% cache journey_stop do %>
-        <div class="col-12">
-          <%= render partial: 'journey_stops/journey_stop_card', locals: { journey_stop: journey_stop, index: index } %>
-        </div>
-      <% end %>
+      <div class="col-12">
+        <%= render partial: 'journey_stops/journey_stop_card', locals: { journey_stop: journey_stop, index: index } %>
+      </div>
     <% end %>
   <% end %>
 
   <div class="col-12">
-    <% cache journey do %>
-      <%= render partial: 'shared/journey_journey_stop/journey_images_card', locals: { journey: @journey } %>
-    <% end %>
+    <%= render partial: 'shared/journey_journey_stop/journey_images_card', locals: { journey: @journey } %>
   </div>
 </div>
