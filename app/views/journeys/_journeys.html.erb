@@ -2,8 +2,10 @@
 	<% if journeys.empty? %>
     <h1 class="h4 d-inline align-middle">There are no journeys yet.</h1>
 	<% else %>
-		<% journeys.each_with_index do |journey, index| %>
-      <%= render partial: 'journeys/journey_card', locals: { journey: journey, index: index } %>
+		<% journeys.each do |journey| %>
+      <% cache journey do %>
+        <%= render partial: 'journeys/journey_card', locals: { journey: journey } %>
+      <% end %>
 		<% end %>
 	<% end %>
 </div>

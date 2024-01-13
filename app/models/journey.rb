@@ -2,6 +2,7 @@
 
 # Journey Model
 class Journey < ApplicationRecord
+  include Rails.application.routes.url_helpers
   include Imageable
 
   MAXIMUM_NUMBER_OF_IMAGES = 5
