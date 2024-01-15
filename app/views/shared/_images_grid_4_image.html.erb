@@ -1,5 +1,5 @@
 <% image_urls.each_with_index do |image_url, index| %>
-  <div class="col-6 p-1">
+  <div class="col-6 p-1" style="<%= loading_spinner %>">
     <img 
       class="lazy w-100 lightbox-image" 
       data-src="<%= thumbnail_image_urls[index] %>"

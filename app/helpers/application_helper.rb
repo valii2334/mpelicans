@@ -32,6 +32,10 @@ module ApplicationHelper
     Browser.new(request.user_agent).device.mobile?
   end
 
+  def loading_spinner
+    "background-image: url(#{asset_url 'gifs/spinner.gif'}); background-repeat: no-repeat; background-position: center;"
+  end
+
   private
 
   def select_journeys_tab
