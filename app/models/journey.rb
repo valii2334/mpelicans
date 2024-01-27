@@ -8,7 +8,7 @@ class Journey < ApplicationRecord
   MAXIMUM_NUMBER_OF_IMAGES = 5
   AVAILABLE_FILTER_BUTTONS = %w[latest mine bought].freeze
 
-  paginates_per 50
+  paginates_per 10
 
   belongs_to :user
   has_many :journey_stops, dependent: :destroy

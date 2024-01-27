@@ -54,7 +54,8 @@ module Retrievers
     def associated_records
       {
         user: { image_attachment: { blob: { variant_records: { image_attachment: :blob } } } },
-        images_attachments: { blob: { variant_records: { image_attachment: :blob } } }
+        images_attachments: { blob: { variant_records: { image_attachment: :blob } } },
+        journey_stops: { images_attachments: { blob: { variant_records: { image_attachment: :blob } } } }
       }
     end
 
