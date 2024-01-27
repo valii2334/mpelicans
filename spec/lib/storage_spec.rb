@@ -7,7 +7,7 @@ RSpec.describe Storage do
   let(:s3_bucket_name) { 'bucket' }
 
   let(:key) { double('key') }
-  let(:body) { double('body') }
+  let(:file) { double('file') }
 
   before do
     allow(Storage).to receive(:client).and_return(aws_client)
@@ -19,12 +19,12 @@ RSpec.describe Storage do
       {
         bucket: s3_bucket_name,
         acl: 'private',
-        body:,
+        body: file,
         key:
       }
     end
 
-    subject { described_class.upload(key:, body:) }
+    subject { described_class.upload(key:, file:) }
 
     before do
       allow(aws_client).to receive(:put_object).with(put_parameters)

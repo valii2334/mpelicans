@@ -93,6 +93,7 @@ class JourneysController < ApplicationController
 
   def post_create_actions
     enqueue_process_images_job
+    unlink_tempfiles
     notify_users
   end
 
@@ -102,6 +103,12 @@ class JourneysController < ApplicationController
       imageable_type: @journey.class.name,
       http_uploaded_files: params[:journey][:images]
     ).run
+  end
+
+  def unlink_tempfiles
+    params[:journey][:images].each do |http_file|
+      http_file.tempfile.unlink
+    end
   end
 
   def notify_users

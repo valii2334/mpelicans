@@ -13,7 +13,7 @@ RSpec.describe ImagesProcessors::Processor do
   end
 
   before do
-    Storage.upload(key: uploaded_image.s3_key, body: File.open(image_path))
+    Storage.upload(key: uploaded_image.s3_key, file: File.open(image_path))
   end
 
   after do

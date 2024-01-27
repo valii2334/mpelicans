@@ -10,7 +10,6 @@ RSpec.describe ImagesProcessors::Uploader do
   let(:http_uploaded_files) { [http_uploaded_file] }
   let(:secure_random_uuid)  { SecureRandom.uuid }
   let(:file_path)           { "#{secure_random_uuid}.jpg" }
-  let(:file_data)           { http_uploaded_file.tempfile.open.read }
 
   subject { described_class.new(imageable_id:, imageable_type:, http_uploaded_files:) }
 
@@ -18,13 +17,13 @@ RSpec.describe ImagesProcessors::Uploader do
     allow(SecureRandom).to receive(:uuid).and_return(secure_random_uuid)
     allow(JourneyJobs::ProcessImages).to receive(:perform_async).with(imageable_id, imageable_type)
 
-    allow(subject).to receive(:upload_image).with(key: file_path, body: file_data)
+    allow(subject).to receive(:upload_image).with(key: file_path, file: http_uploaded_file.tempfile)
   end
 
   context '#run_processor' do
     it 'uploads the image' do
       expect(subject).to receive(:upload_image).with(key: file_path,
-                                                     body: file_data)
+                                                     file: http_uploaded_file.tempfile)
 
       subject.run_processor
     end

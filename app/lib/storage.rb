@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class Storage
-  def self.upload(key:, body:)
+  def self.upload(key:, file:)
     Storage.client.put_object(
       {
         bucket: ENV.fetch('S3_BUCKET', nil),
         acl: 'private',
-        body:,
+        body: file,
         key:
       }
     )

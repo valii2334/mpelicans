@@ -40,13 +40,8 @@ module ImagesProcessors
 
     def upload_http_uploaded_file(http_uploaded_file:, index:)
       Rails.logger.info("Started uploading image #{index} for #{imageable_id} #{imageable_type}")
-      tempfile  = http_uploaded_file.tempfile.open
-      file_path = @file_paths[index]
 
-      upload_image(key: file_path, body: tempfile.read)
-
-      tempfile.close
-      tempfile.unlink
+      upload_image(key: @file_paths[index], file: http_uploaded_file.tempfile)
 
       Rails.logger.info("Finished uploading image #{index} for #{imageable_id} #{imageable_type}")
     end
@@ -67,8 +62,8 @@ module ImagesProcessors
       JourneyJobs::ProcessImages.perform_async(imageable_id, imageable_type)
     end
 
-    def upload_image(key:, body:)
-      Storage.upload(key:, body:)
+    def upload_image(key:, file:)
+      Storage.upload(key:, file:)
     end
 
     def create_uploaded_image(s3_key:)
