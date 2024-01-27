@@ -21,7 +21,12 @@ module ImagesProcessors
 
     private
 
-    def enque_next_steps; end
+    def enque_next_steps
+      ImagesProcessors::Links.new(
+        imageable_id:,
+        imageable_type:
+      ).run
+    end
 
     def download_image(image_path:)
       Storage.download(key: image_path).body

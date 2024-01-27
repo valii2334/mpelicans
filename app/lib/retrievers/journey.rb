@@ -25,7 +25,7 @@ module Retrievers
 
     def all_latest_journeys
       ::Journey
-        .includes(associated_records)
+        .includes(:user, :journey_stops)
         .where(access_type: VIEWABLE_ACCESS_TYPES)
         .where(image_processing_status: :processed)
     end
@@ -33,7 +33,7 @@ module Retrievers
     def users_latest_journeys
       user
         .journeys
-        .includes(associated_records)
+        .includes(:user, :journey_stops)
         .where(access_type: VIEWABLE_ACCESS_TYPES)
         .where(image_processing_status: :processed)
     end
@@ -41,22 +41,14 @@ module Retrievers
     def bought_journeys
       user
         .bought_journeys
-        .includes(associated_records)
+        .includes(:user, :journey_stops)
         .where(access_type: VIEWABLE_ACCESS_TYPES)
     end
 
     def mine_journeys
       user
         .journeys
-        .includes(associated_records)
-    end
-
-    def associated_records
-      {
-        user: { image_attachment: { blob: { variant_records: { image_attachment: :blob } } } },
-        images_attachments: { blob: { variant_records: { image_attachment: :blob } } },
-        journey_stops: { images_attachments: { blob: { variant_records: { image_attachment: :blob } } } }
-      }
+        .includes(:user, :journey_stops)
     end
 
     def mine_journeys?

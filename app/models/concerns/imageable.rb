@@ -54,16 +54,13 @@ module Imageable
   private
 
   def process_image(image:)
-    image.variant(:mini_thumbnail).processed
-    image.variant(:thumbnail).processed
-    image.variant(:mobile).processed
-    image.variant(:max).processed
+    VARIANTS.each { |variant| image.variant(variant).processed }
   end
 
   def image_urls(variant:)
     return [] unless processed?
 
-    images.map { |image| image.variant(variant).url }
+    ActiveSupport::HashWithIndifferentAccess.new(image_links)[variant] || []
   end
 
   def images_are_present

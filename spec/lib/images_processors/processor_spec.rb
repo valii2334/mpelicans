@@ -20,6 +20,15 @@ RSpec.describe ImagesProcessors::Processor do
     Storage.delete(key: uploaded_image.s3_key)
   end
 
+  let(:images_links) { double('ImagesProcessor::Links') }
+
+  before do
+    allow(ImagesProcessors::Links).to receive(:new).with(
+      imageable_id: imageable.id, imageable_type: imageable.class.name
+    ).and_return(images_links)
+    allow(images_links).to receive(:run)
+  end
+
   it 'resizes and attaches image', :aggregate_failures do
     subject
 
