@@ -46,6 +46,8 @@ module ImagesProcessors
       upload_image(key: file_path, body: tempfile.read)
 
       tempfile.close
+      tempfile.unlink
+
       Rails.logger.info("Finished uploading image #{index} for #{imageable_id} #{imageable_type}")
     end
 
