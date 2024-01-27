@@ -11,6 +11,7 @@ module ImagesProcessors
     end
     # rubocop:enable Lint/MissingSuper
 
+    # rubocop:disable Rails/SkipsModelValidations
     def run_processor
       image_links = {}
 
@@ -18,8 +19,9 @@ module ImagesProcessors
         image_links[variant] = imageable.images.map { |image| image.variant(variant).url }
       end
 
-      imageable.update(image_links:)
+      imageable.update_attribute(:image_links, image_links)
     end
+    # rubocop:enable Rails/SkipsModelValidations
 
     private
 
