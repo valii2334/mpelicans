@@ -18,6 +18,5 @@ port        ENV['PORT']     || 3000
 environment ENV['RACK_ENV'] || 'development'
 
 before_fork do
-  # worker configuration
   Barnes.start
 end
