@@ -4,6 +4,8 @@
 # the maximum value specified for Puma. Default is set to 5 threads for minimum
 # and maximum; this matches the default thread size of Active Record.
 #
+require 'barnes'
+
 workers Integer(ENV['WEB_CONCURRENCY'] || 2)
 max_threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
 min_threads_count = ENV.fetch("RAILS_MIN_THREADS") { max_threads_count }
@@ -14,3 +16,8 @@ preload_app!
 rackup      DefaultRackup if defined?(DefaultRackup)
 port        ENV['PORT']     || 3000
 environment ENV['RACK_ENV'] || 'development'
+
+before_fork do
+  # worker configuration
+  Barnes.start
+end

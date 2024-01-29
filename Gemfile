@@ -9,6 +9,7 @@ gem 'rails', '~> 7.0.7.1'
 
 gem 'async'
 gem 'aws-sdk-s3'
+gem 'barnes'
 gem 'bootsnap', require: false
 gem 'bootstrap5-kaminari-views'
 gem 'browser', require: 'browser/browser'
