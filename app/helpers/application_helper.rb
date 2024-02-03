@@ -2,10 +2,16 @@
 
 # Methods used by views, global
 module ApplicationHelper
+  AVAILABLE_CONTROLLERS = %w[company journey_stops journeys pelicans].freeze
+
   def page_title
     specific_page_title_method = "#{params[:controller]}_title"
 
-    respond_to?(specific_page_title_method) ? send(specific_page_title_method) : title
+    if AVAILABLE_CONTROLLERS.include?(params[:controller]) && respond_to?(specific_page_title_method)
+      send(specific_page_title_method)
+    else
+      title
+    end
   end
 
   def title
