@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
-# Methods used by views in journeys
-module JourneysHelper
+# Methods used by views in pelicans
+module PelicansHelper
   # rubocop:disable Rails/HelperInstanceVariable
-  def journeys_title
-    return "MPelicans - #{@journey.title}"    if params[:action] == 'show'
-    return 'MPelicans - Create a new journey' if params[:action] == 'new'
+  def pelicans_title
+    return "MPelicans - #{@user.username}" if @user
 
     'MPelicans - View Pictures From Amazing Places'
   end

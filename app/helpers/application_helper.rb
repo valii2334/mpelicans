@@ -2,6 +2,14 @@
 
 # Methods used by views, global
 module ApplicationHelper
+  def page_title
+    respond_to?("#{params[:controller]}_title") ? send("#{params[:controller]}_title") : title
+  end
+
+  def title
+    'MPelicans - View Pictures From Amazing Places'
+  end
+
   def active_controller_action?(controller:, action:)
     return 'active' if controller_action?(controller:, action:)
   end
