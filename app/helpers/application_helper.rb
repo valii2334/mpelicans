@@ -3,7 +3,9 @@
 # Methods used by views, global
 module ApplicationHelper
   def page_title
-    respond_to?("#{params[:controller]}_title") ? send("#{params[:controller]}_title") : title
+    specific_page_title_method = "#{params[:controller]}_title"
+
+    respond_to?(specific_page_title_method) ? send(specific_page_title_method) : title
   end
 
   def title
