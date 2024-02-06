@@ -42,7 +42,13 @@ class Journey < ApplicationRecord
   before_validation :set_latest_journey_stop_added_at
 
   def meta_description_content
-    [title, description.to_plain_text].join('.')
+    [
+      title,
+      description.to_plain_text,
+      journey_stops.map(&:meta_description_content)
+    ]
+      .flatten
+      .join('.')
   end
 
   def pins

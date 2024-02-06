@@ -24,7 +24,7 @@ class JourneyStop < ApplicationRecord
   before_create :set_latest_journey_stop_added_at
 
   def meta_description_content
-    [journey.meta_description_content, title, description.to_plain_text].join('.')
+    [title, description.to_plain_text].join('.')
   end
 
   def pin
