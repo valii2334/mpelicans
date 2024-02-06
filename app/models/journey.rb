@@ -48,7 +48,7 @@ class Journey < ApplicationRecord
       journey_stops.map(&:meta_description_content)
     ]
       .flatten
-      .join('.')
+      .join(' ')
   end
 
   def pins
