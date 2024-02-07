@@ -14,7 +14,7 @@ class JourneysController < ApplicationController
   ].freeze
 
   def index
-    redirect_to journeys_path(which_journeys: 'latest') and return unless valid_filter?
+    redirect_to journeys_path and return unless params[:which_journeys].blank? || valid_filter?
 
     @journeys = Retrievers::Journey.new(user: current_user, which_journeys: params[:which_journeys]).fetch
     @journeys = @journeys.page params[:page]

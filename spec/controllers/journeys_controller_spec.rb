@@ -259,7 +259,7 @@ RSpec.describe JourneysController, type: :controller do
         subject
 
         expect(response).to be_redirect
-        expect(response.redirect_url).to include('/journeys?which_journeys=latest')
+        expect(response.redirect_url).to include('/journeys')
       end
     end
   end
