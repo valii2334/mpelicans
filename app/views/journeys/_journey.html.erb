@@ -16,7 +16,7 @@
           <h1 class="d-inline-block" id="journey-title"><%= @journey.title %></h1>
 
           <%= render partial: 'shared/journey_journey_stop/map', locals: { journey_or_journey_stop: @journey } %>
-          <%= render partial: 'shared/journey_journey_stop/share', locals: { journey_or_journey_stop: @journey } %>
+          <%= render partial: 'shared/journey_journey_stop/share', locals: { journey: @journey } %>
         </div>
 
         <%= render partial: 'shared/journey_journey_stop/privacy',      locals: { journey: @journey }%>

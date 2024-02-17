@@ -1,8 +1,12 @@
+<meta property="og:url"                content="<%= journey.link_to_self %>" />
+<meta property="og:title"              content="<%= journey.title %>" />
+<meta property="og:description"        content="<%= journey.description.to_plain_text %>" />
+<meta property="og:image"              content="<%= journey.all_maxs.first %>" />
+
 <h1 
   class="d-inline-block"
   data-controller="facebook"
-  data-facebook-link-value="<%= journey_or_journey_stop.link_to_self %>"
-  data-facebook-description-value="<%= journey_or_journey_stop.description.to_plain_text %>"
+  data-facebook-link-value="<%= journey.link_to_self %>"
 >
   <a class="card-link" data-action="click->facebook#share">
     <i class="align-middle" data-feather="facebook"></i> <span class="align-middle"></span>

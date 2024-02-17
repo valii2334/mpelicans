@@ -2,8 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static values = {
-    link: String,
-    description: String
+    link: String
   }
 
   connect() {
@@ -13,10 +12,8 @@ export default class extends Controller {
   share() {
     FB.ui(
       {
-        method: 'feed',
-        display: 'iframe',
-        link: this.linkValue,
-        description: this.descriptionValue
+        method: 'share',
+        href: this.linkValue
       },
       // callback
       function(response) {
