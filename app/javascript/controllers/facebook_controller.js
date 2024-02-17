@@ -2,7 +2,8 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static values = {
-    link: String
+    link: String,
+    description: String
   }
 
   connect() {
@@ -13,7 +14,8 @@ export default class extends Controller {
     FB.ui(
       {
         method: 'feed',
-        link: this.linkValue
+        link: this.linkValue,
+        description: this.descriptionValue
       },
       // callback
       function(response) {
