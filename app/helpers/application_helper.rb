@@ -3,9 +3,10 @@
 # Methods used by views, global
 module ApplicationHelper
   AVAILABLE_CONTROLLERS = %w[company journey_stops journeys pelicans].freeze
+  AVAILABLE_METHODS     = %w[company_title journey_stops_title journeys_title pelicans_title].freeze
 
   def page_title
-    specific_page_title_method = "#{params[:controller]}_title"
+    specific_page_title_method = AVAILABLE_METHODS.find { |method| method == "#{params[:controller]}_title" }
 
     if AVAILABLE_CONTROLLERS.include?(params[:controller]) && respond_to?(specific_page_title_method)
       send(specific_page_title_method)
