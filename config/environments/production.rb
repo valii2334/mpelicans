@@ -1,6 +1,6 @@
 require "active_support/core_ext/integer/time"
 
-Rails.application.routes.default_url_options[:host] = 'www.mpelicans.com'
+Rails.application.routes.default_url_options[:host] = 'www.migrating-pelicans.com'
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
