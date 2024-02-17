@@ -36,7 +36,7 @@ class JourneyStop < ApplicationRecord
   end
 
   def link_to_self
-    journey_url(journey, scroll_to: anchor_id, host: 'https://www.migrating-pelicans.com')
+    journey_url(journey, scroll_to: anchor_id, host: DEFAULT_HOST)
   end
 
   def all_mini_thumbnails
