@@ -2,7 +2,7 @@
 
 require 'active_support/core_ext/integer/time'
 
-Rails.application.routes.default_url_options[:host] = DEFAULT_HOST
+Rails.application.routes.default_url_options[:host] = ENV.fetch('DEFAULT_HOST')
 Rails.application.routes.default_url_options[:protocol] = 'https'
 
 # rubocop:disable Metrics/BlockLength
@@ -72,12 +72,12 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "mpelicans_production"
 
   config.action_mailer.perform_caching = false
-  config.action_mailer.default_url_options = { host: DEFAULT_HOST }
+  config.action_mailer.default_url_options = { host: ENV.fetch('DEFAULT_HOST') }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address: 'in-v3.mailjet.com',
     port: 587,
-    domain: DEFAULT_HOST,
+    domain: ENV.fetch('DEFAULT_HOST'),
     user_name: ENV.fetch('MAILJET_API_KEY', nil),
     password: ENV.fetch('MAILJET_SECRET_KEY', nil),
     authentication: 'plain',
