@@ -14,7 +14,7 @@ export default class extends Controller {
     FB.ui(
       {
         method: 'feed',
-        display: 'page',
+        display: 'iframe',
         link: this.linkValue,
         description: this.descriptionValue
       },
