@@ -5,9 +5,11 @@ export default class extends Controller {
     window.addEventListener('load', function () {
       const params = new URLSearchParams(window.location.search);
 
-      setTimeout(() => {
-        document.getElementById(params.get('scroll_to')).scrollIntoView(true);
-      }, "500");
+      if(params.get('scroll_to') != null) {
+        setTimeout(() => {
+          document.getElementById(params.get('scroll_to')).scrollIntoView(true);
+        }, "500");
+      }
     });
   }
 }

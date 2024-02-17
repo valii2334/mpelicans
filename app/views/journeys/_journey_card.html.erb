@@ -6,6 +6,7 @@
       </h1>
 
       <%= render partial: 'shared/journey_journey_stop/map', locals: { journey_or_journey_stop: journey } %>
+      <%= render partial: 'shared/journey_journey_stop/share', locals: { journey_or_journey_stop: journey } %>
     </div>
 
     <%= render partial: 'shared/journey_journey_stop_card/creator', locals: { user: journey.user, journey: journey }%>
