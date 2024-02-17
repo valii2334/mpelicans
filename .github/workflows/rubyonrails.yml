@@ -30,6 +30,8 @@ jobs:
       S3_REGION: ${{ secrets.S3_REGION }}
       S3_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
       CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+      SUPPORT_EMAIL: "support@migrating-pelicans.com"
+      DEFAULT_HOST: "localhost:3000"
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
