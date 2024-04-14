@@ -131,13 +131,13 @@
 
     <ul class="navbar-nav navbar-align d-lg-flex">
       <li class="nav-item px-2 d-none d-lg-block d-xl-block d-xxl-block">
-        <a class="nav-link" href="<%= new_registration_path('user') %>" role="button">
+        <a class="nav-link <%= active_controller_action?(controller: 'users/registrations', action: 'new') %>" href="<%= new_registration_path('user') %>" role="button">
           Sign Up
         </a>
       </li>
 
       <li class="nav-item px-2 d-none d-lg-block d-xl-block d-xxl-block">
-        <a class="nav-link" href="<%= new_session_path('user') %>" role="button">
+        <a class="nav-link <%= active_controller_action?(controller: 'devise/sessions', action: 'new') %>" href="<%= new_session_path('user') %>" role="button">
           Log In
         </a>
       </li>
