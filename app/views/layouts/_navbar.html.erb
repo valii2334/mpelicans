@@ -91,20 +91,11 @@
 
     <ul class="navbar-nav d-lg-flex">
       <li class="nav-item px-2">
-        <a class="nav-icon pe-md-0 main_pelican" href="<%= root_path %>">
+        <a class="nav-icon pe-md-0 nav-link main_pelican" href="<%= root_path %>">
           <%= image_tag "avatars/avatar.png", class: "avatar img-fluid rounded-circle", alt: "Migrating Pelican" %>
-        </a>
-      </li>
-
-      <li class="nav-item px-2 d-none d-lg-block d-xl-block d-xxl-block">
-        <a class="nav-link <%= active_controller_action?(controller: 'company', action: 'how_it_works') %>" href="<%= how_it_works_company_index_path %>" role="button">
-          How It Works
-        </a>
-      </li>
-
-      <li class="nav-item px-2 d-none d-lg-block d-xl-block d-xxl-block">
-        <a class="nav-link <%= active_controller_action?(controller: 'company', action: 'about_us') %>" href="<%= about_us_company_index_path %>" role="button">
-          About Us
+          <h4 class="d-inline-block">
+            Plan your next journey
+          </h4>
         </a>
       </li>
     </ul>
@@ -130,6 +121,12 @@
     </ul>
 
     <ul class="navbar-nav navbar-align d-lg-flex">
+      <li class="nav-item px-2 d-none d-lg-block d-xl-block d-xxl-block">
+        <a class="nav-link <%= active_controller_action?(controller: 'company', action: 'how_it_works') %>" href="<%= how_it_works_company_index_path %>" role="button">
+          How It Works
+        </a>
+      </li>
+
       <li class="nav-item px-2 d-none d-lg-block d-xl-block d-xxl-block">
         <a class="nav-link <%= active_controller_action?(controller: 'users/registrations', action: 'new') %>" href="<%= new_registration_path('user') %>" role="button">
           Sign Up

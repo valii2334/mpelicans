@@ -9,7 +9,13 @@
       <div class="col-6 text-end">
       <ul class="list-inline">
         <li class="list-inline-item">
-            <a class="text-muted" href="mailto:<%= ENV.fetch('SUPPORT_EMAIL') %>">Support</a>
+          <a class="text-muted <%= active_controller_action?(controller: 'company', action: 'about_us') %>" href="<%= about_us_company_index_path %>">
+            About Us
+          </a>
+        </li>
+
+        <li class="list-inline-item">
+          <a class="text-muted" href="mailto:<%= ENV.fetch('SUPPORT_EMAIL') %>">Support</a>
         </li>
       </ul>
       </div>
