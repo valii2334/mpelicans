@@ -72,6 +72,10 @@ class Journey < ApplicationRecord
     "journey-#{id}"
   end
 
+  def map_id
+    "map-#{modal_id}"
+  end
+
   def link_to_self
     journey_url(self, host: ENV.fetch('DEFAULT_HOST'))
   end

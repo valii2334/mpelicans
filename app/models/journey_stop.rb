@@ -59,10 +59,6 @@ class JourneyStop < ApplicationRecord
     'Stop'
   end
 
-  def modal_id
-    "journey-stop-#{id}"
-  end
-
   def anchor_id
     "journey-stop-id-#{id}"
   end

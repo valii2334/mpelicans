@@ -1,7 +1,16 @@
 <% if can?(:show, journey) %>
   <div class="row">
     <div class="col-12 p-1">
-      <%= link_to 'View Journey', journey_path(journey), class: 'btn btn-primary float-end mt-n1' %>
+      <% if !Rails.env.test? && journey.pins.present? %>
+        <a class="btn btn-secondary float-end mt-n1" data-bs-toggle="modal" data-bs-target="#<%= journey.modal_id %>">
+          <i class="align-middle" data-feather="map-pin"></i> <span class="align-middle"></span>
+          Open Map
+        </a>
+
+        <%= link_to 'View Journey', journey_path(journey), class: 'btn btn-primary float-end me-1 mt-n1' %>
+      <% else %>
+        <%= link_to 'View Journey', journey_path(journey), class: 'btn btn-primary float-end mt-n1' %>
+      <% end %>
     </div>
   </div>
 <% end %>
