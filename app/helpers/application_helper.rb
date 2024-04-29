@@ -16,7 +16,7 @@ module ApplicationHelper
   end
 
   def title
-    'MPelicans - View Pictures From Amazing Places'
+    'MPelicans - Plan your next journey'
   end
 
   def active_controller_action?(controller:, action:)

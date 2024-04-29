@@ -7,7 +7,7 @@ module JourneysHelper
     return "MPelicans - #{@journey.title}"    if params[:action] == 'show'
     return 'MPelicans - Create a new journey' if params[:action] == 'new'
 
-    'MPelicans - View Pictures From Amazing Places'
+    'MPelicans - Plan your next journey'
   end
   # rubocop:enable Rails/HelperInstanceVariable
 

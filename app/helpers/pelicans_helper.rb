@@ -6,7 +6,7 @@ module PelicansHelper
   def pelicans_title
     return "MPelicans - #{@user.username}" if @user
 
-    'MPelicans - View Pictures From Amazing Places'
+    'MPelicans - Plan your next journey'
   end
   # rubocop:enable Rails/HelperInstanceVariable
 
