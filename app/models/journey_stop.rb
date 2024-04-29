@@ -67,6 +67,24 @@ class JourneyStop < ApplicationRecord
     "journey-stop-id-#{id}"
   end
 
+  def link_to_google_maps
+    return journey_stop_place_url if place_id.present?
+
+    journey_stop_coordinates_url
+  end
+
+  def belongs_to_a_place?
+    place_id.present?
+  end
+
+  def journey_stop_place_url
+    "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=#{place_id}"
+  end
+
+  def journey_stop_coordinates_url
+    "https://www.google.com/maps/search/?api=1&query=#{lat},#{long}"
+  end
+
   private
 
   # rubocop:disable Rails/SkipsModelValidations

@@ -105,6 +105,28 @@ RSpec.describe JourneyStop, type: :model do
     end
   end
 
+  context '#link_to_google_maps' do
+    context 'without place_id' do
+      let(:link_to_google_maps) { "https://www.google.com/maps/search/?api=1&query=#{subject.lat},#{subject.long}" }
+
+      it 'returns a link to place id' do
+        expect(subject.link_to_google_maps).to eq(link_to_google_maps)
+      end
+    end
+
+    context 'with place_id' do
+      before do
+        subject.update(place_id: 'place_id')
+      end
+
+      let(:link_to_google_maps) { 'https://www.google.com/maps/search/?api=1&query=Google&query_place_id=place_id' }
+
+      it 'returns a pin' do
+        expect(subject.link_to_google_maps).to eq(link_to_google_maps)
+      end
+    end
+  end
+
   context '#pin' do
     before do
       subject.save

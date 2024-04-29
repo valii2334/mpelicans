@@ -5,8 +5,6 @@
         <%= journey_stop.title %>
       </h1>
 
-      <%= render partial: 'shared/journey_journey_stop/map', locals: { journey_or_journey_stop: journey_stop } %>
-
       <h6 class="card-subtitle text-muted">
         created <%= time_ago_in_words(journey_stop.created_at) %> ago
       </h6>

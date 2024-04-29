@@ -3,7 +3,8 @@
     <% if can?(:create, MapPin.new, current_user, journey_stop) %>
       <div class="row">
         <div class="col-12 p-1">
-          <%= button_to 'Save Location', map_pins_path(journey_stop_id: journey_stop.id), method: :post, remote: true, class: 'btn btn-primary float-end mt-n1' %>
+          <a target="_blank" href="<%= journey_stop.link_to_google_maps %>" class="btn btn-secondary float-end mt-n1">View location in Google Maps</a>
+          <%= button_to 'Save Location', map_pins_path(journey_stop_id: journey_stop.id), method: :post, remote: true, class: 'btn btn-primary float-end me-1 mt-n1' %>
         </div>
       </div>
     <% else %>
@@ -11,7 +12,8 @@
       <% if can?(:destroy, map_pin, current_user, journey_stop) %>
         <div class="row">
           <div class="col-12 p-1">
-            <%= button_to 'Remove Pin', map_pin_path(id: map_pin.id), method: :delete, remote: true, class: 'btn btn-danger float-end mt-n1' %>
+            <a target="_blank" href="<%= journey_stop.link_to_google_maps %>" class="btn btn-secondary float-end mt-n1">View location in Google Maps</a>
+            <%= button_to 'Remove Pin', map_pin_path(id: map_pin.id), method: :delete, remote: true, class: 'btn btn-danger float-end me-1 mt-n1' %>
           </div>
         </div>
       <% end %>
@@ -20,7 +22,8 @@
 <% else %>
   <div class="row">
     <div class="col-12 p-1">
-      <%= link_to 'Save Location', new_user_session_path, class: 'btn btn-primary float-end mt-n1' %>
+      <a target="_blank" href="<%= journey_stop.link_to_google_maps %>" class="btn btn-secondary float-end mt-n1">View location in Google Maps</a>
+      <%= link_to 'Save Location', new_user_session_path, class: 'btn btn-primary float-end me-1 mt-n1' %>
     </div>
   </div>
 <% end %>
