@@ -72,7 +72,7 @@ export default class extends Controller {
         <br>
         <a target="_blank" href=${property.link_to_self}>View Journey Stop</a>
         <br>
-        <a target="_blank" href=${property.link_to_google_maps}>View location in Google Maps</a>
+        <a target="_blank" href=${property.link_to_google_maps}>Get Directions</a>
       </div>
       `;
     } else {
@@ -80,7 +80,7 @@ export default class extends Controller {
       <div class="details">
         <div class="title"><b>${property.title}</b></div>
         <br>
-        <a target="_blank" href=${property.link_to_google_maps}>View location in Google Maps</a>
+        <a target="_blank" href=${property.link_to_google_maps}>Get Directions</a>
       </div>
       `;
     }
