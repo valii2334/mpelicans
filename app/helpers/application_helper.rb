@@ -16,7 +16,7 @@ module ApplicationHelper
   end
 
   def title
-    'MPelicans - Plan your next journey'
+    'MPelicans - Ideas for your next journey'
   end
 
   def active_controller_action?(controller:, action:)
