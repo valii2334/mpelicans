@@ -25,6 +25,7 @@ gem 'jsbundling-rails'
 gem 'kaminari'
 gem 'pg', '~> 1.1'
 gem 'puma', '>= 6.4.2'
+gem 'rails-html-sanitizer', '>= 1.6.1'
 gem 'redis', '~> 4.0'
 gem 'rubocop-rails', require: false
 gem 'sassc-rails'
