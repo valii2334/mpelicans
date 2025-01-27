@@ -27,7 +27,7 @@ module Imageable
                          format: :webp
     end
 
-    enum image_processing_status: {
+    enum :image_processing_status, {
       waiting: 0,
       processing: 1,
       processed: 2

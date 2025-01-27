@@ -2,7 +2,7 @@
 
 desc 'Process all images'
 task process_all_images: :environment do
-  JourneyStop.all.each do |journey_stop|
+  JourneyStop.find_each do |journey_stop|
     puts "Processing JourneyStop with id: #{journey_stop.id}"
 
     JourneyJobs::ProcessImages.perform_async(journey_stop.id, 'JourneyStop')
@@ -10,7 +10,7 @@ task process_all_images: :environment do
     sleep 60
   end
 
-  Journey.all.each do |journey|
+  Journey.find_each do |journey|
     puts "Processing Journey with id: #{journey.id}"
 
     JourneyJobs::ProcessImages.perform_async(journey.id, 'Journey')

@@ -32,7 +32,7 @@ class Journey < ApplicationRecord
 
   alias_attribute :plus_code, :start_plus_code
 
-  enum access_type: {
+  enum :access_type, {
     public_journey: 0,
     protected_journey: 1,
     private_journey: 2,

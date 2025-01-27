@@ -20,16 +20,16 @@ class JourneysController < ApplicationController
     @journeys = @journeys.page params[:page]
   end
 
-  def new
-    @journey = Journey.new
-  end
-
   def show
     @journey = Journey.find(params[:id])
 
     authorize_journey(:show)
 
     increase_views_count
+  end
+
+  def new
+    @journey = Journey.new
   end
 
   def create

@@ -20,11 +20,11 @@ module ApplicationHelper
   end
 
   def active_controller_action?(controller:, action:)
-    return 'active' if controller_action?(controller:, action:)
+    'active' if controller_action?(controller:, action:)
   end
 
   def active_controller?(controller:)
-    return 'active' if controller?(controller:)
+    'active' if controller?(controller:)
   end
 
   def which_journeys_button_class(which_journeys:)
@@ -92,6 +92,6 @@ module ApplicationHelper
   end
 
   def content_style
-    return 'padding-top: 10px;' if params[:controller].include?('devise')
+    'padding-top: 10px;' if params[:controller].include?('devise')
   end
 end
